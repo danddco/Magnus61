@@ -46,50 +46,43 @@
   <script>
     // Conexión a Supabase
     const supabase = supabase.createClient(
-      'https://qxpgnrbavoovbhrrunkz.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGducmJhdm9vdmJocnJ1bmt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NDEyOTQsImV4cCI6MjA3MjUxNzI5NH0.6NZNGTYUzDU3MEYaO9WpiVK23rGQ8IRr29Y1HYOVExQ'
-    );
+  'https://qxpgnrbavoovbhrrunkz.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGducmJhdm9vdmJocnJ1bmt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NDEyOTQsImV4cCI6MjA3MjUxNzI5NH0.6NZNGTYUzDU3MEYaO9WpiVK23rGQ8IRr29Y1HYOVExQ'
+);
 
-    // Función para cargar productos
-    async function cargarProductos() {
-      const { data, error } = await supabase
-        .from('productos')
-        .select('id_p, producto, cantidad, precio_venta')
-        .order('producto', { ascending: true });
+async function cargarProductos() {
+  const { data, error } = await supabase
+    .from('productos')
+    .select('id_p, producto, cantidad, precio_venta')
+    .order('producto', { ascending: true });
 
-      if (error) {
-        console.error('Error al cargar productos:', error);
-        return;
-      }
+  if (error) {
+    console.error('Error al cargar productos:', error);
+    return;
+  }
 
-      const tbody = document.querySelector('#tabla-productos tbody');
-      tbody.innerHTML = '';
+  const tbody = document.querySelector('#tabla-productos tbody');
+  tbody.innerHTML = '';
 
-      data.forEach(p => {
-        const fila = document.createElement('tr');
-        fila.innerHTML = `
-          <td>${p.id_p}</td>
-          <td>${p.producto}</td>
-          <td>${p.cantidad}</td>
-          <td>${p.precio_venta}</td>
-        `;
-        tbody.appendChild(fila);
-      });
-    }
+  data.forEach(p => {
+    const fila = document.createElement('tr');
+    fila.innerHTML = `
+      <td>${p.id_p}</td>
+      <td>${p.producto}</td>
+      <td>${p.cantidad}</td>
+      <td>${p.precio_venta}</td>
+    `;
+    tbody.appendChild(fila);
+  });
+}
 
-    // Suscripción en tiempo real
-    supabase
-      .channel('productos-cambios')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'productos' }, () => {
-        cargarProductos();
-      })
-      .subscribe();
-
+supabase
+  .channel('productos-cambios')
+  .on('postgres_changes', { event: '*', schema: 'public', table: 'productos' }, () => {
     cargarProductos();
-  </script>
-</body>
-</html>
+  })
+  .subscribe();
 
+cargarProductos();
 
-
-
+   
