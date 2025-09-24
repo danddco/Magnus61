@@ -2,12 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Tabla de Productos</title>
-  <script defer src="script.js"></script>
+  <title>Lista de Productos</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
   <style>
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    th { background-color: #f2f2f2; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background-color: #fff;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #eee;
+    }
   </style>
 </head>
 <body>
@@ -23,5 +42,51 @@
     </thead>
     <tbody></tbody>
   </table>
+
+  <script>
+    // Conexión a Supabase
+    const supabase = supabase.createClient(
+      'https://qxpgnrbavoovbhrrunkz.supabase.co', // ← Reemplaza con tu URL
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGducmJhdm9vdm...'
+      // ← Reemplaza con tu anon key (clave pública)
+    );
+
+    // Función para cargar productos
+    async function cargarProductos() {
+      const { data, error } = await supabase
+        .from('productos')
+        .select('id_p, producto, cantidad, precio_venta')
+        .order('producto', { ascending: true });
+
+      if (error) {
+        console.error('Error al cargar productos:', error);
+        return;
+      }
+
+      const tbody = document.querySelector('#tabla-productos tbody');
+      tbody.innerHTML = '';
+
+      data.forEach(p => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>${p.id_p}</td>
+          <td>${p.producto}</td>
+          <td>${p.cantidad}</td>
+          <td>${p.precio_venta}</td>
+        `;
+        tbody.appendChild(fila);
+      });
+    }
+
+    // Suscripción en tiempo real
+    supabase
+      .channel('productos-cambios')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'productos' }, () => {
+        cargarProductos();
+      })
+      .subscribe();
+
+    cargarProductos();
+  </script>
 </body>
 </html>
