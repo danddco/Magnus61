@@ -1,26 +1,27 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Lista de Productos</title>
-    <style>
-        table { border-collapse: collapse; width: 80%; margin: auto; }
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-        th { background-color: #f2f2f2; }
-        body { font-family: Arial, sans-serif; padding: 20px; }
-    </style>
+  <meta charset="UTF-8">
+  <title>Tabla de Productos</title>
+  <script defer src="script.js"></script>
+  <style>
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+  </style>
 </head>
 <body>
-    <h2 style="text-align:center;">Inventario de Productos</h2>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Precio Venta</th>
-        </tr>
-<tr><td>28</td><td>Belleza. Cinto Fino</td><td>3</td><td>1</td></tr><tr><td>13</td><td>Belleza. Delineador de Ojos</td><td>0</td><td>180</td></tr><tr><td>12</td><td>Belleza. Lapiz Ceja Marron</td><td>10</td><td>150</td></tr><tr><td>5</td><td>Belleza. Peine Piojo</td><td>5</td><td>500</td></tr><tr><td>11</td><td>Belleza. Pintura de Labios</td><td>29</td><td>280</td></tr><tr><td>23</td><td>Cumpleaños. Globos</td><td>1235</td><td>20</td></tr><tr><td>22</td><td>Cumpleaños. Globos Numeros</td><td>17</td><td>600</td></tr><tr><td>20</td><td>Cumpleaños. Set 14 Piezas</td><td>8</td><td>750</td></tr><tr><td>19</td><td>Cumpleaños. Set 5 Piezas</td><td>8</td><td>650</td></tr><tr><td>9</td><td>Cumpleaños. Set de Corona y Banda</td><td>6</td><td>2000</td></tr><tr><td>4</td><td>Electronica. Calculadora</td><td>3</td><td>1900</td></tr><tr><td>8</td><td>Electronica. Cepillo de Pelo</td><td>0</td><td>3750</td></tr><tr><td>7</td><td>Electronica. Protector de Voltaje</td><td>3</td><td>3600</td></tr><tr><td>29</td><td>Electronica. Termometro</td><td>3</td><td>500</td></tr><tr><td>3</td><td>Electrónica. Cable B</td><td>8</td><td>420</td></tr><tr><td>6</td><td>Escolares. Goma de Borrar</td><td>36</td><td>85</td></tr><tr><td>10</td><td>Manicuri. Lima de Uñas</td><td>9</td><td>120</td></tr><tr><td>18</td><td>Manicuri. Maquina de Uña</td><td>4</td><td>3000</td></tr><tr><td>15</td><td>Manicuri. Pinceles Colores</td><td>4</td><td>1000</td></tr><tr><td>16</td><td>Manicuri. Pinceles Kolisky</td><td>7</td><td>1200</td></tr><tr><td>2</td><td>Reposteria. Capacillo.</td><td>1</td><td>1950</td></tr><tr><td>17</td><td>Reposteria. Set</td><td>6</td><td>2000</td></tr><tr><td>21</td><td>Rerposteria. Colorante Rojo</td><td>106</td><td>120</td></tr><tr><td>25</td><td>Salud. Bastoncillos de Algodón</td><td>4</td><td>250</td></tr><tr><td>27</td><td>Salud. Intima</td><td>31</td><td>1</td></tr><tr><td>26</td><td>Salud. Preservativo</td><td>80</td><td>1</td></tr><tr><td>24</td><td>Salud. Test de Embarazo</td><td>20</td><td>150</td></tr><tr><td>1</td><td>Transferencia</td><td>5380</td><td>-1</td></tr><tr><td>14</td><td>Varios. Unicornio</td><td>0</td><td>600</td></tr>
-    </table>
+  <h1>Lista de Productos</h1>
+  <table id="tabla-productos">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Producto</th>
+        <th>Cantidad</th>
+        <th>Precio Venta</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
 </body>
 </html>
