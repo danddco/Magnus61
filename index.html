@@ -90,3 +90,40 @@
   </script>
 </body>
 </html>
+
+        .select('id_p, producto, cantidad, precio_venta')
+        .order('producto', { ascending: true });
+
+      if (error) {
+        console.error('Error al cargar productos:', error);
+        return;
+      }
+
+      const tbody = document.querySelector('#tabla-productos tbody');
+      tbody.innerHTML = '';
+
+      data.forEach(p => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>${p.id_p}</td>
+          <td>${p.producto}</td>
+          <td>${p.cantidad}</td>
+          <td>${p.precio_venta}</td>
+        `;
+        tbody.appendChild(fila);
+      });
+    }
+
+    // Suscripción en tiempo real
+    supabase
+      .channel('productos-cambios')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'productos' }, () => {
+        cargarProductos();
+      })
+      .subscribe();
+
+    cargarProductos();
+  </script>
+</body>
+</html>
+
