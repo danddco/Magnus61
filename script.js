@@ -1,6 +1,6 @@
 const supabase = supabase.createClient(
-  'https://TU_PROYECTO.supabase.co',
-  'TU_CLAVE_PUBLICA'
+  'https://qxpgnrbavoovbhrrunkz.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGducmJhdm9vdmJocnJ1bmt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NDEyOTQsImV4cCI6MjA3MjUxNzI5NH0.6NZNGTYUzDU3MEYaO9WpiVK23rGQ8IRr29Y1HYOVExQ'
 );
 
 async function cargarProductos() {
