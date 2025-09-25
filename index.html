@@ -14,6 +14,20 @@
       text-align: center;
       color: #333;
     }
+    #busqueda {
+      margin-bottom: 20px;
+      padding: 8px;
+      width: 100%;
+      max-width: 300px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #mensaje-error {
+      color: red;
+      text-align: center;
+      margin-bottom: 10px;
+    }
     table {
       border-collapse: collapse;
       width: 100%;
@@ -27,10 +41,21 @@
     th {
       background-color: #eee;
     }
+    #paginacion {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .pagina {
+      margin: 0 5px;
+      cursor: pointer;
+      color: blue;
+    }
   </style>
 </head>
 <body>
   <h1>Lista de Productos</h1>
+  <input type="text" id="busqueda" placeholder="Buscar producto...">
+  <div id="mensaje-error"></div>
   <table id="tabla-productos">
     <thead>
       <tr>
@@ -42,49 +67,102 @@
     </thead>
     <tbody></tbody>
   </table>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script src="script.js"></script>
+  <div id="paginacion"></div>
+
   <script>
-    // Conexión a Supabase
     const supabase = supabase.createClient(
-  'https://qxpgnrbavoovbhrrunkz.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGducmJhdm9vdmJocnJ1bmt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NDEyOTQsImV4cCI6MjA3MjUxNzI5NH0.6NZNGTYUzDU3MEYaO9WpiVK23rGQ8IRr29Y1HYOVExQ'
-);
+      'https://qxpgnrbavoovbhrrunkz.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF4cGducmJhdm9vdmJocnJ1bmt6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY5NDEyOTQsImV4cCI6MjA3MjUxNzI5NH0.6NZNGTYUzDU3MEYaO9WpiVK23rGQ8IRr29Y1HYOVExQ'
+    );
 
-async function cargarProductos() {
-  const { data, error } = await supabase
-    .from('productos')
-    .select('id_p, producto, cantidad, precio_venta')
-    .order('producto', { ascending: true });
+    let productos = [];
+    let productosFiltrados = [];
+    const porPagina = 10;
+    let paginaActual = 1;
 
-  if (error) {
-    console.error('Error al cargar productos:', error);
-    return;
-  }
+    async function cargarProductos() {
+      const { data, error } = await supabase
+        .from('productos')
+        .select('id_p, producto, cantidad, precio_venta')
+        .order('producto', { ascending: true });
 
-  const tbody = document.querySelector('#tabla-productos tbody');
-  tbody.innerHTML = '';
+      const mensajeError = document.getElementById('mensaje-error');
+      mensajeError.textContent = '';
 
-  data.forEach(p => {
-    const fila = document.createElement('tr');
-    fila.innerHTML = `
-      <td>${p.id_p}</td>
-      <td>${p.producto}</td>
-      <td>${p.cantidad}</td>
-      <td>${p.precio_venta}</td>
-    `;
-    tbody.appendChild(fila);
-  });
-}
+      if (error) {
+        console.error('Error al cargar productos:', error);
+        mensajeError.textContent = 'No se pudieron cargar los productos.';
+        return;
+      }
 
-supabase
-  .channel('productos-cambios')
-  .on('postgres_changes', { event: '*', schema: 'public', table: 'productos' }, () => {
+      if (!data || data.length === 0) {
+        mensajeError.textContent = 'No hay productos disponibles.';
+        return;
+      }
+
+      productos = data;
+      filtrarProductos();
+    }
+
+    function filtrarProductos() {
+      const busqueda = document.getElementById('busqueda').value.toLowerCase();
+      productosFiltrados = productos.filter(p =>
+        p.producto.toLowerCase().includes(busqueda)
+      );
+      paginaActual = 1;
+      mostrarPagina();
+    }
+
+    function mostrarPagina() {
+      const tbody = document.querySelector('#tabla-productos tbody');
+      tbody.innerHTML = '';
+
+      const inicio = (paginaActual - 1) * porPagina;
+      const fin = inicio + porPagina;
+      const pagina = productosFiltrados.slice(inicio, fin);
+
+      pagina.forEach(p => {
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+          <td>${p.id_p}</td>
+          <td>${p.producto}</td>
+          <td>${p.cantidad}</td>
+          <td>${p.precio_venta}</td>
+        `;
+        tbody.appendChild(fila);
+      });
+
+      mostrarPaginacion();
+    }
+
+    function mostrarPaginacion() {
+      const totalPaginas = Math.ceil(productosFiltrados.length / porPagina);
+      const paginacion = document.getElementById('paginacion');
+      paginacion.innerHTML = '';
+
+      for (let i = 1; i <= totalPaginas; i++) {
+        const btn = document.createElement('span');
+        btn.textContent = i;
+        btn.className = 'pagina';
+        if (i === paginaActual) btn.style.fontWeight = 'bold';
+        btn.onclick = () => {
+          paginaActual = i;
+          mostrarPagina();
+        };
+        paginacion.appendChild(btn);
+      }
+    }
+
+    document.getElementById('busqueda').addEventListener('input', filtrarProductos);
+
+    supabase
+      .channel('productos-cambios')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'productos' }, () => {
+        cargarProductos();
+      })
+      .subscribe();
+
     cargarProductos();
-  })
-  .subscribe();
-
-cargarProductos();
-
-   
-
+  </script>
+</body>
+</html>
