@@ -104,6 +104,17 @@
       filtrarProductos();
     }
 
+    async function cargarProductos() {
+  const { data, error } = await supabase
+    .from('productos')
+    .select('id_p, producto, cantidad, precio_venta')
+    .order('producto', { ascending: true });
+
+  const mensajeError = document.getElementById('mensaje-error');
+  mensajeError.textContent = '';
+
+
+    
     function filtrarProductos() {
       const busqueda = document.getElementById('busqueda').value.toLowerCase();
       productosFiltrados = productos.filter(p =>
@@ -166,3 +177,4 @@
   </script>
 </body>
 </html>
+
