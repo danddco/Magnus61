@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Venta de Productos</title>
+    <style>
+        table { border-collapse: collapse; width: 80%; margin: auto; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+        th { background-color: #f2f2f2; }
+        body { font-family: Arial, sans-serif; padding: 20px; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Venta de Productos</h2>
+    <table>
+        <tr>
+            <th>Fecha</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>EfectivoMagda</th>
+        </tr>
+<tr><td>26/09/2025</td><td>Belleza. Lapiz de Ceja Negro</td><td>-2</td><td>280</td></tr><tr><td>26/09/2025</td><td>Electronica. Cable B</td><td>-1</td><td>400</td></tr><tr><td>26/09/2025</td><td>Electronica. Cable B</td><td>-2</td><td>800</td></tr><tr><td>26/09/2025</td><td>Electronica. Cable C</td><td>-1</td><td>400</td></tr><tr><td>26/09/2025</td><td>Mama. Pullover</td><td>-1</td><td>0</td></tr><tr><td>26/09/2025</td><td>Manicure. Alicate Uña </td><td>-1</td><td>600</td></tr><tr><td>26/09/2025</td><td>Manicure. Lima de Uña</td><td>-1</td><td>120</td></tr><tr><td>26/09/2025</td><td>Manicure. Lima de Uña</td><td>-1</td><td>120</td></tr><tr><td>26/09/2025</td><td>Manicure. Lima de Uña</td><td>-1</td><td>90</td></tr><tr><td>26/09/2025</td><td>Manicure. Pinceles Kolisky</td><td>-1</td><td>1000</td></tr><tr><td>26/09/2025</td><td>Manicure. Pinceles Kolisky</td><td>-1</td><td>1000</td></tr><tr><td>26/09/2025</td><td>TikTok</td><td>-1</td><td>95</td></tr>
+    </table>
+</body>
+</html>
