@@ -35,25 +35,25 @@
   <tbody>
     <tr>
       <th>0</th>
-      <td>1</td>
-      <td>PCB Ivan Fashident</td>
-      <td>200</td>
-      <td>0</td>
+      <td>2</td>
+      <td>Placa Ivan Fashident</td>
+      <td>100</td>
+      <td>30</td>
       <td>Placa</td>
     </tr>
     <tr>
       <th>1</th>
+      <td>5</td>
+      <td>Cable Ivan Fashident</td>
       <td>2</td>
-      <td>Placa Ivan Fashident</td>
       <td>0</td>
-      <td>30</td>
       <td>Placa</td>
     </tr>
     <tr>
       <th>2</th>
       <td>7</td>
       <td>Pantalla Ivan Fashident</td>
-      <td>15</td>
+      <td>0</td>
       <td>10</td>
       <td>Cables</td>
     </tr>
@@ -84,11 +84,10 @@
 <body>
     <p>........................................................ </p>
     <h3>Control de los subprocesos en las Placas</h3>
-    <p>          Total de Placas:  100</p>
-    <p> Pendiente por montaje SMD: 75</p>
-    <p> Pendiente por montaje TH:  79</p>
-    <p>Pendiente por Fabricacion:  99</p>
-    <p>       Placas Disponibles:  1</p>
+    <p>          Total de Placas:  200</p>
+    <p> Pendiente por montaje SMD: 200</p>
+    <p> Pendiente por montaje TH:  200</p>
+    
     
     
 </body>
@@ -96,20 +95,16 @@
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th>fr_subproceso</th>
-      <th>1.Entrada</th>
-      <th>2.SMD</th>
-      <th>3.TH</th>
-      <th>4.Disponible</th>
-      <th>1.Entrada</th>
-      <th>2.SMD</th>
-      <th>3.TH</th>
-      <th>4.Disponible</th>
+      <th>fr_proceso</th>
+      <th>1.Fabricacion.Entrada</th>
+      <th>2.Fabricacion.SMD</th>
+      <th>3.Fabricacion TH</th>
+      <th>1.Fabricacion.Entrada</th>
+      <th>2.Fabricacion.SMD</th>
+      <th>3.Fabricacion TH</th>
     </tr>
     <tr>
       <th>fr_proyecto</th>
-      <th></th>
-      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -121,14 +116,12 @@
   <tbody>
     <tr>
       <th>Fashident Placa</th>
-      <td>100</td>
-      <td>25</td>
-      <td>21</td>
-      <td>1</td>
-      <td>2026-01-09</td>
+      <td>200</td>
+      <td>0</td>
+      <td>0</td>
+      <td>2026-01-13</td>
+      <td>2026-01-13</td>
       <td>2026-01-04</td>
-      <td>2026-01-13</td>
-      <td>2026-01-13</td>
     </tr>
   </tbody>
 </table>
@@ -153,75 +146,104 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>Proceso</th>
-      <th>Proyecto</th>
-      <th>Fecha</th>
-      <th>Accion</th>
-      <th>Cantidad</th>
-      <th>Descripcion</th>
-      <th>Estado</th>
+      <th>gs_proyecto</th>
+      <th>gs_proceso</th>
+      <th>gs_fecha</th>
+      <th>gs_accion</th>
+      <th>gs_ctda</th>
+      <th>gs_desc</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
-      <td>Fabricacion-Entrada</td>
       <td>Fashident Placa</td>
-      <td>2026-01-12</td>
-      <td>Empacar</td>
-      <td>None</td>
-      <td>None</td>
+      <td>Fabricacion-Smd</td>
+      <td>2026-01-26</td>
+      <td>Montar SMD</td>
+      <td>100</td>
       <td></td>
     </tr>
     <tr>
       <th>1</th>
-      <td>Fabricacion-Smd</td>
       <td>Fashident Placa</td>
-      <td>2026-01-13</td>
-      <td>Ensamble Mecanico</td>
-      <td>None</td>
-      <td>None</td>
+      <td>Fabricacion-Smd</td>
+      <td>2026-01-27</td>
+      <td>Montar SMD</td>
+      <td>100</td>
       <td></td>
     </tr>
     <tr>
       <th>2</th>
-      <td>Fabricacion-Th</td>
       <td>Fashident Placa</td>
-      <td>2026-01-14</td>
-      <td>Ensamble Manual</td>
-      <td>None</td>
-      <td>None</td>
-      <td></td>
+      <td>Fabricacion-Th</td>
+      <td>2026-01-28</td>
+      <td>Montar TH</td>
+      <td>100</td>
+      <td>Cables para pantalla Ivan</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>Venta-Planificada</td>
       <td>Fashident Placa</td>
-      <td>2026-01-30</td>
-      <td>Venta</td>
-      <td>None</td>
-      <td>None</td>
+      <td>Fabricacion-Th</td>
+      <td>2026-01-29</td>
+      <td>Montar TH</td>
+      <td>100</td>
       <td></td>
     </tr>
     <tr>
       <th>4</th>
-      <td>Compra-Planificada</td>
       <td>Fashident Placa</td>
-      <td>2026-02-02</td>
-      <td>Comprar</td>
+      <td>Fabricacion.Otras</td>
+      <td>2026-01-30</td>
+      <td>Fabricar Cable</td>
+      <td>15</td>
       <td>None</td>
-      <td>None</td>
-      <td></td>
     </tr>
     <tr>
       <th>5</th>
-      <td>Venta-Planificada</td>
       <td>Fashident Placa</td>
-      <td>2026-02-27</td>
-      <td>Montar SMD</td>
-      <td>None</td>
-      <td>None</td>
-      <td></td>
+      <td>Venta-Estimada</td>
+      <td>2026-02-01</td>
+      <td>Vender</td>
+      <td>60</td>
+      <td>Placas</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Fashident Placa</td>
+      <td>Compra-Planificada</td>
+      <td>2026-02-15</td>
+      <td>Compra</td>
+      <td>12</td>
+      <td>Pantalla para Ivan Fashident</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Fashident Placa</td>
+      <td>Venta-Planificada</td>
+      <td>2026-03-01</td>
+      <td>Venta</td>
+      <td>60</td>
+      <td>Placas</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Fashident Placa</td>
+      <td>Compra-Planificada</td>
+      <td>2026-03-15</td>
+      <td>Compra</td>
+      <td>200</td>
+      <td>Placas con sus elementos</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Fashident Placa</td>
+      <td>Venta-Planificada</td>
+      <td>2026-04-01</td>
+      <td>Venta</td>
+      <td>60</td>
+      <td>Placas</td>
     </tr>
   </tbody>
 </table>
