@@ -6,7 +6,7 @@
             <title>Control fabricacion - Disponibilidad.</title>
             <style>
             table { border-collapse: collapse; width: 80%; margin: auto;font-size: 20px;font-weight: bold;}
-            th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+            th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
             th { background-color: #f2f2f2; }
             body { font-family: Arial, sans-serif; padding: 20px; }
             .entra { background-color: Green; color: White; }
@@ -18,16 +18,23 @@
         </head>
         
         <body>
-            <h2 style="text-align:center;">Secuencias de Trabajo</h2>
-
+            <h2 style="text-align:center;">Balance de Disponibilidad de Placas</h2>
             <table>
+             <thead>
                 <tr>
-                    <th>Proyecto</th>
-    
-                    <th>En Fabricacion</th>
-                    <th>Disponible</th>
+                    <th rowspan="2">Proyecto</th>
+                    <th colspan="2">En Fabricacion </th>
+                    <th colspan="2">Lista para Enviar</th>
                 </tr>
-        <tr ><td>Darmax Agua Purificada y Alcalina</td><td>10</td><td>0</td></tr><tr ><td>Fashident v1.0</td><td>200</td><td>77</td></tr><tr ><td>Purisystems v1.0</td><td>20</td><td>24</td></tr>
+                <tr>
+                    <th>cantidad</th>
+                    <th>fecha</th>
+                    <th>cantidad</th>
+                    <th>fecha</th>
+                </tr>
+                
+              </thead>  
+        <tr ><td>Darmax Agua Purificada y Alcalina</td><td>10</td><td>2026-03-14</td><td>0</td><td></td></tr><tr ><td>Fashident v1.0</td><td>200</td><td>2026-03-14</td><td>77</td><td>2026-03-14</td></tr><tr ><td>Purisystems v1.0</td><td>20</td><td>2026-03-11</td><td>24</td><td>2026-03-12</td></tr>
             </table>
         </body>
         </html>
