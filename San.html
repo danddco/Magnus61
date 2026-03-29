@@ -6,14 +6,14 @@
   <style>
     .container {
     display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-gap: 30px;
     text-align: center;
     font-size: 30px;
     font-weight: "bold";
   }
     .header {
-      grid-column: 3 / 7;
+      grid-column: 3 / 5;
       grid-row: 1;
       background-color: limegreen;
       color: blanchedalmond;
@@ -29,14 +29,22 @@
       background-color: red;
     }
     .sidebar-right {
-      grid-column: 6/8;
-      grid-row: 2;
+      grid-column: 2/4;
+      grid-row: 3;
       background-color: red;
     }
     .footer {
-      grid-column: 2/3;
+      grid-column: 4/6;
       grid-row: 3;
       background-color: rgb(24, 35, 37);
+      color: blanchedalmond;
+
+    }
+     .separ {
+      grid-column: 3 / 5;
+      grid-row: 4;
+      background-color: limegreen;
+      color: blanchedalmond;
 
     }
   </style>
@@ -46,9 +54,10 @@
     <div class="main">Cronograma de Fabricacion</div>
     <div class="sidebar-right">Existencias de Placas</div>
     <div class="footer">5</div>
+    <div class="separ">jkjkkk</div>
+
   </div>  
   <div class="container">
-    <div class="header">1</div>
     <div class="sidebar-left">2</div>
     <div class="main">3</div>
     <div class="sidebar-right">4</div>
