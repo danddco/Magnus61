@@ -16,11 +16,11 @@ def actualizar():
         with open(archivo_html, "r", encoding="utf-8") as f:
             contenido = f.read()
 
-        # ===== REEMPLAZOS =====
+        # ===== REEMPLAZOS SEGUROS =====
         contenido = re.sub(r'id="fabricacion">.*?<', f'id="fabricacion">{fab}<', contenido)
-contenido = re.sub(r'id="envio">.*?<', f'id="envio">{env}<', contenido)
-contenido = re.sub(r'id="fecha_fab">.*?<', f'id="fecha_fab">{hoy}<', contenido)
-contenido = re.sub(r'id="fecha_envio">.*?<', f'id="fecha_envio">{hoy}<', contenido)
+        contenido = re.sub(r'id="envio">.*?<', f'id="envio">{env}<', contenido)
+        contenido = re.sub(r'id="fecha_fab">.*?<', f'id="fecha_fab">{hoy}<', contenido)
+        contenido = re.sub(r'id="fecha_envio">.*?<', f'id="fecha_envio">{hoy}<', contenido)
 
         # ===== GUARDAR HTML =====
         with open(archivo_html, "w", encoding="utf-8") as f:
