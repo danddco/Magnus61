@@ -17,17 +17,10 @@ def actualizar():
             contenido = f.read()
 
         # ===== REEMPLAZOS =====
-        contenido = re.sub(r'(<div class="valor" id="fabricacion">)(.*?)(</div>)',
-                          rf'\1{fab}\3', contenido)
-
-        contenido = re.sub(r'(<div class="valor" id="envio">)(.*?)(</div>)',
-                          rf'\1{env}\3', contenido)
-
-        contenido = re.sub(r'(<div class="fecha" id="fecha_fab">)(.*?)(</div>)',
-                          rf'\1{hoy}\3', contenido)
-
-        contenido = re.sub(r'(<div class="fecha" id="fecha_envio">)(.*?)(</div>)',
-                          rf'\1{hoy}\3', contenido)
+        contenido = re.sub(r'id="fabricacion">.*?<', f'id="fabricacion">{fab}<', contenido)
+contenido = re.sub(r'id="envio">.*?<', f'id="envio">{env}<', contenido)
+contenido = re.sub(r'id="fecha_fab">.*?<', f'id="fecha_fab">{hoy}<', contenido)
+contenido = re.sub(r'id="fecha_envio">.*?<', f'id="fecha_envio">{hoy}<', contenido)
 
         # ===== GUARDAR HTML =====
         with open(archivo_html, "w", encoding="utf-8") as f:

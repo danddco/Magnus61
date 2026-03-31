@@ -17,14 +17,6 @@
     text-align: center;
 }
 
-.logo {
-    vertical-align: middle;
-}
-
-#titulo {
-    display: inline-block;
-}
-
 body {
     font-family: Arial, sans-serif;
     margin: 40px;
@@ -39,11 +31,6 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     width: 350px;
     text-align: center;
-}
-
-.card h2:first-child {
-    font-size: 22px;
-    margin-bottom: 10px;
 }
 
 .valor {
@@ -71,7 +58,7 @@ footer {
 <body>
 
 <header id="cabecera">
-    <h1 id="titulo">CircuitDesignMX</h1>
+    <h1>CircuitDesignMX</h1>
 </header>
 
 <h1 style="text-align:center; margin-top:20px;">
@@ -81,15 +68,15 @@ footer {
 <!-- CARD FABRICACIÓN -->
 <div class="card">
     <h2>En Fabricación</h2>
-    M0</div>
-    P26-03-30</div>
+    <div class="valor" id="fabricacion">200</div>
+    <div class="fecha" id="fecha_fab">2026-03-30</div>
 </div>
 
 <!-- CARD ENVÍO -->
 <div class="card">
     <h2>Listas para enviar</h2>
-    h</div>
-    P26-03-30</div>
+    <div class="valor" id="envio">0</div>
+    <div class="fecha" id="fecha_envio">2026-03-30</div>
 </div>
 
 <footer>
