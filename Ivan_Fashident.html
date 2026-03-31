@@ -1,104 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>CircuitDesignMx</title>
 
-        <!DOCTYPE html>
-        <html lang="es">
-        <style>
-         header
-         * {
-            margin: 0px;
-            padding: 0px;
-           } 
-
-         {
-         background-color: limegreen;
-         color: white;
-         style="text-align: center;
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
         }
+
         #cabecera {
-         background-color: limegreen;
-          padding: 10px;
+            background-color: limegreen;
+            padding: 10px;
+            color: white;
         }
 
-.logo{
-  
-  margin: none;
-  vertical-align: top;
-}
+        .logo {
+            vertical-align: middle;
+        }
 
-#titulo{
-  display: inline-block;
-  text-align: center;
-  width: calc(100% - 228px);
-}
-        </style>
-           <meta charset="UTF-8">
-           <title>CircuitDesignMx.</title>
+        #titulo {
+            display: inline-block;
+            text-align: center;
+            width: calc(100% - 228px);
+        }
 
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
 
-           <div id="agrupar">
-  <header id="cabecera">
-    <img class="logo" src="Logo-Circuit-MX.jpg">
+        h1 {
+            color: #333;
+        }
 
-    
-    <h1 id="titulo"> CircuitDesignMX</h1>
-  </header>
-</div>
-        
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Produccion CircuitDesignMx</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 40px;
-                background-color: #f4f4f4;
-            }
-            h1 {
-                color: #333;
-            }
-            .card {
-                background: white;
-                padding: 20px;
-                margin: 10px 0;
-                border-radius: 8px;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            }
-        </style>
-    </head>
-    <body>
-        <h1>Reporte de Producción - Fashident v1.0 </h1>
-        <div class="card">
-            <h2>En Fabricación</h2>
-            <h2>200</h2>
-            <h2>2026-03-13</h2>
-            
-        </div>
-        <div class="card">
-            <h2>Listas para enviar</h2>
-            <h2>0</h2>
-            <h2>2026-03-13</h2>
-        </div>
-    </body>
-    </html>
-    
-<style>
-footer {
-    background-color: red;
-    color: white;
-    padding: 5px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
 
+        footer {
+            background-color: red;
+            color: white;
+            padding: 5px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            margin-top: 20px;
+        }
+    </style>
+</head>
 
-</style>
-  <div style="height: 20px;"></div>
-<footer>
+<body>
 
-    <p style="margin-top:15px;">
-        &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
-    </p>
+    <!-- HEADER -->
+    <header id="cabecera">
+        <img class="logo" src="Logo-Circuit-MX.jpg" height="50">
+        <h1 id="titulo">CircuitDesignMX</h1>
+    </header>
 
-</footer>
-        
+    <!-- CONTENIDO -->
+    <h1>Reporte de Producción - Fashident v1.0</h1>
+
+    <div class="card">
+        <h2>En Fabricación</h2>
+        <h2 id="fabricacion">150</h2>
+        <h2 id="fecha_fab">2026-03-13</h2>
+    </div>
+
+    <div class="card">
+        <h2>Listas para enviar</h2>
+        <h2 id="envio">50</h2>
+        <h2 id="fecha_envio">2026-03-13</h2>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 CircuitDesignMx. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
