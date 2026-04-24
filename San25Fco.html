@@ -13,185 +13,92 @@ box-sizing:border-box;
 font-family:Segoe UI,Arial,sans-serif;
 }
 
+/* LAYOUT GENERAL */
 body{
 background:#eef1f5;
 display:flex;
+flex-direction:column;
 min-height:100vh;
 }
 
-/* SIDEBAR */
-.sidebar{
-width:260px;
-background:#16212f;
+/* HEADER */
+#cabecera{
+background-color: limegreen;
+padding:15px;
 color:white;
-padding:25px 20px;
-position:fixed;
-top:0;
-left:0;
-bottom:0;
-overflow:auto;
-}
-
-.logo{
-font-size:28px;
-font-weight:700;
-margin-bottom:35px;
 text-align:center;
-color:#ff7a00;
-}
-
-.sidebar h3{
-font-size:14px;
-color:#9aa8b6;
-margin:20px 0 10px;
-letter-spacing:1px;
-}
-
-.sidebar a{
-display:block;
-padding:14px;
-margin-bottom:8px;
-text-decoration:none;
-color:white;
-border-radius:10px;
-transition:.25s;
-font-size:16px;
-}
-
-.sidebar a:hover{
-background:#243447;
-transform:translateX(4px);
+font-size:20px;
+font-weight:600;
+box-shadow:0 3px 10px rgba(0,0,0,.1);
 }
 
 /* MAIN */
 .main{
-margin-left:260px;
 padding:30px;
-width:100%;
+max-width:1400px;
+margin:auto;
+flex:1;
 }
 
-/* TOP */
-.topbar{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:30px;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.topbar h1{
-font-size:30px;
-color:#1d2a39;
-}
-
-.search{
-padding:12px 16px;
-border:none;
-border-radius:10px;
-width:280px;
-font-size:15px;
-box-shadow:0 4px 10px rgba(0,0,0,.08);
-}
-
-/* KPI */
-.cards{
+/* GRID 4 COLUMNAS */
+.grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:20px;
-margin-bottom:35px;
+grid-template-columns:repeat(4, 1fr);
+gap:25px;
 }
 
-.card{
+/* SECCIONES */
+.section{
 background:white;
 padding:25px;
-border-radius:18px;
-box-shadow:0 8px 20px rgba(0,0,0,.06);
-transition:.25s;
+border-radius:15px;
+box-shadow:0 6px 15px rgba(0,0,0,.06);
 }
 
-.card:hover{
-transform:translateY(-5px);
-}
-
-.card h2{
-font-size:34px;
-color:#ff7a00;
-margin-bottom:10px;
-}
-
-.card p{
-color:#5f6c79;
-font-size:16px;
-}
-
-/* MODULES */
-.modules{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:20px;
-}
-
-.module{
-background:white;
-padding:25px;
-border-radius:18px;
-box-shadow:0 8px 20px rgba(0,0,0,.06);
-transition:.25s;
-}
-
-.module:hover{
-transform:translateY(-5px);
-}
-
-.module h3{
-font-size:22px;
-margin-bottom:12px;
-color:#16212f;
-}
-
-.module p{
-color:#66727d;
+.section h3{
+font-size:14px;
+color:#9aa8b6;
 margin-bottom:18px;
-line-height:1.5;
+letter-spacing:1px;
 }
 
-.module a{
-display:inline-block;
-padding:10px 16px;
-background:#ff7a00;
-color:white;
+/* LINKS */
+.section a{
+display:block;
+padding:12px;
+margin-bottom:10px;
 text-decoration:none;
+color:#16212f;
 border-radius:8px;
-font-weight:600;
+transition:.2s;
+font-size:15px;
+background:#f5f7fa;
 }
 
-.module a:hover{
-background:#e86f00;
+.section a:hover{
+background:#e1e7ef;
+transform:translateX(4px);
 }
 
 /* FOOTER */
 footer{
-margin-top:40px;
 text-align:center;
-color:#666;
+color:white;
 font-size:14px;
+padding:20px;
+background:red;
 }
 
-/* MOBILE */
-@media(max-width:900px){
-.sidebar{
-position:relative;
-width:100%;
-height:auto;
+/* RESPONSIVE */
+@media(max-width:1000px){
+.grid{
+grid-template-columns:repeat(2,1fr);
+}
 }
 
-.main{
-margin-left:0;
-}
-
-body{
-display:block;
+@media(max-width:600px){
+.grid{
+grid-template-columns:1fr;
 }
 }
 </style>
@@ -199,15 +106,25 @@ display:block;
 
 <body>
 
-<div class="sidebar">
-<div class="logo">CircuitDesignMX</div>
+<header id="cabecera">
+<h1>CircuitDesignMX</h1>
+</header>
 
+<div class="main">
+
+<div class="grid">
+
+<!-- OPERACIÓN -->
+<div class="section">
 <h3>OPERACIÓN</h3>
 <a href="https://danddco.github.io/Magnus61/secuencias.html" target="_blank">🏭 Producción</a>
 <a href="https://danddco.github.io/Magnus61/fabricacion_disponibilidad.html" target="_blank">📦 Existencias Placas</a>
 <a href="https://danddco.github.io/Magnus61/Stock_Criticos.html" target="_blank">⚠ Componentes Críticos</a>
 <a href="https://danddco.github.io/Magnus61/Stock_All" target="_blank">📋 Stock Total</a>
+</div>
 
+<!-- CLIENTES -->
+<div class="section">
 <h3>CLIENTES</h3>
 <a href="https://danddco.github.io/Magnus61/Ivan_Fashident.html" target="_blank">👤 Fashident</a>
 <a href="https://danddco.github.io/Magnus61/PurSys.html" target="_blank">👤 Purisystems</a>
@@ -215,9 +132,21 @@ display:block;
 <a href="https://danddco.github.io/Magnus61/cliente_Purimatic.html" target="_blank">👤 Purimatic</a>
 <a href="https://danddco.github.io/Magnus61/Kit_Yasaki.html" target="_blank">👤 Kit Yasaky</a>
 <a href="https://danddco.github.io/Magnus61/Kit_Led_Conector.html" target="_blank">👤 Kit Led / Conector</a>
+</div>
 
+<!-- SECUENCIAS -->
+<div class="section">
+<h3>SECUENCIAS DE TRABAJO</h3>
+<a href="https://danddco.github.io/Magnus61/Ivan_Fashident.html" target="_blank">👤 Fashident</a>
+<a href="https://danddco.github.io/Magnus61/PurSys.html" target="_blank">👤 Purisystems</a>
+<a href="https://danddco.github.io/Magnus61/cliente_Darmax.html" target="_blank">👤 Darmax</a>
+<a href="https://danddco.github.io/Magnus61/cliente_Purimatic.html" target="_blank">👤 Purimatic</a>
+<a href="https://danddco.github.io/Magnus61/Kit_Yasaki.html" target="_blank">👤 Kit Yasaky</a>
+<a href="https://danddco.github.io/Magnus61/Kit_Led_Conector.html" target="_blank">👤 Kit Led / Conector</a>
+</div>
 
-
+<!-- PROYECTOS -->
+<div class="section">
 <h3>PROYECTOS</h3>
 <a href="https://danddco.github.io/Magnus61/Proyecto_Fashident.html" target="_blank">🚀 Fashident</a>
 <a href="https://danddco.github.io/Magnus61/Proyecto_Purisystems.html" target="_blank">🚀 Purisystems</a>
@@ -225,59 +154,6 @@ display:block;
 <a href="https://danddco.github.io/Magnus61/Proyecto_Purimatic.html" target="_blank">🚀 Purimatic</a>
 </div>
 
-<div class="main">
-
-<div class="topbar">
-<h1>Panel Empresarial</h1>
-<input class="search" type="text" placeholder="Buscar cliente, proyecto, stock...">
-</div>
-
-<div class="cards">
-<div class="card">
-<h2>18</h2>
-<p>Producción Hoy</p>
-</div>
-
-<div class="card">
-<h2>7</h2>
-<p>Órdenes Pendientes</p>
-</div>
-
-<div class="card">
-<h2>12</h2>
-<p>Stock Bajo</p>
-</div>
-
-<div class="card">
-<h2>5</h2>
-<p>Clientes Activos</p>
-</div>
-</div>
-
-<div class="modules">
-
-<div class="module">
-<h3>🏭 Producción</h3>
-<p>Control de secuencias, avances diarios y prioridades.</p>
-<a href="https://danddco.github.io/Magnus61/secuencias.html" target="_blank">Entrar</a>
-</div>
-
-<div class="module">
-<h3>📦 Inventario</h3>
-<p>Existencias actuales, componentes críticos y alertas.</p>
-<a href="https://danddco.github.io/Magnus61/Stock_All" target="_blank">Entrar</a>
-</div>
-
-<div class="module">
-<h3>👥 Clientes</h3>
-<p>Seguimiento comercial, pedidos y proyectos activos.</p>
-<a href="https://danddco.github.io/Magnus61/cliente_Purimatic.html" target="_blank">Entrar</a>
-</div>
-
-<div class="module">
-<h3>🚀 Proyectos</h3>
-<p>Diseño electrónico, firmware y desarrollo industrial.</p>
-<a href="https://danddco.github.io/Magnus61/Proyecto_Purimatic.html" target="_blank">Entrar</a>
 </div>
 
 </div>
@@ -285,8 +161,6 @@ display:block;
 <footer>
 © 2026 CircuitDesignMX | Automatización • Electrónica • Desarrollo Industrial
 </footer>
-
-</div>
 
 </body>
 </html>
