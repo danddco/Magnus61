@@ -6,164 +6,168 @@
 <title>CircuitDesignMX | Panel Empresarial</title>
 
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Segoe UI,Arial,sans-serif;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Segoe UI, Arial, sans-serif;
 }
 
 /* LAYOUT GENERAL */
-body{
-background:#eef1f5;
-display:flex;
-flex-direction:column;
-min-height:100vh;
+body {
+    background: #eef1f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* HEADER */
-#cabecera{
-background-color: limegreen;
-padding:15px;
-color:white;
-text-align:center;
-font-size:20px;
-font-weight:600;
-box-shadow:0 3px 10px rgba(0,0,0,.1);
+header {
+    background-color: limegreen;
+    color: white;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 60px;
+    margin-right: 20px;
+}
+
+#titulo {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 2em;
 }
 
 /* MAIN */
-.main{
-padding:30px;
-max-width:1400px;
-margin:auto;
-flex:1;
+.main {
+    padding: 30px;
+    max-width: 1400px;
+    margin: auto;
+    flex: 1;
 }
 
 /* GRID 4 COLUMNAS */
-.grid{
-display:grid;
-grid-template-columns:repeat(4, 1fr);
-gap:25px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
 }
 
 /* SECCIONES */
-.section{
-background:white;
-padding:25px;
-border-radius:15px;
-box-shadow:0 6px 15px rgba(0,0,0,.06);
+.section {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,.06);
 }
 
-.section h3{
-font-size:14px;
-color:#9aa8b6;
-margin-bottom:18px;
-letter-spacing:1px;
+.section h3 {
+    font-size: 14px;
+    color: #9aa8b6;
+    margin-bottom: 18px;
+    letter-spacing: 1px;
 }
 
 /* LINKS */
-.section a{
-display:block;
-padding:12px;
-margin-bottom:10px;
-text-decoration:none;
-color:#16212f;
-border-radius:8px;
-transition:.2s;
-font-size:15px;
-background:#f5f7fa;
+.section a {
+    display: block;
+    padding: 12px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #16212f;
+    border-radius: 8px;
+    transition: .2s;
+    font-size: 15px;
+    background: #f5f7fa;
 }
 
-.section a:hover{
-background:#e1e7ef;
-transform:translateX(4px);
+.section a:hover {
+    background: #e1e7ef;
+    transform: translateX(4px);
 }
 
 /* FOOTER */
-footer{
-text-align:center;
-color:white;
-font-size:14px;
-padding:20px;
-background:red;
+footer {
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    padding: 20px;
+    background: red;
 }
 
 /* RESPONSIVE */
-@media(max-width:1000px){
-.grid{
-grid-template-columns:repeat(2,1fr);
-}
+@media(max-width:1000px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-@media(max-width:600px){
-.grid{
-grid-template-columns:1fr;
-}
+@media(max-width:600px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 </head>
 
 <body>
-    
+    <header>
+        <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+        <h1 id="titulo">CircuitDesignMX</h1>
+    </header>
 
-<header id="cabecera">
-<h1>CircuitDesignMX</h1>
-</header>
+    <div class="main">
+        <div class="grid">
 
-<div class="main">
+            <!-- OPERACIÓN -->
+            <div class="section">
+                <h3>OPERACIÓN</h3>
+                <a href="https://danddco.github.io/Magnus61/secuencias.html" target="_blank">🏭 Producción</a>
+                <a href="https://danddco.github.io/Magnus61/fabricacion_disponibilidad.html" target="_blank">📦 Existencias Placas</a>
+                <a href="https://danddco.github.io/Magnus61/Stock_All" target="_blank">📋 Stock Total</a>
+                <a href="https://danddco.github.io/Magnus61/ComponentesReservados" target="_blank">⚠ Stock Reservados</a>
+            </div>
 
-<div class="grid">
+            <!-- EXPEDIENTE DE TRABAJO -->
+            <div class="section">
+                <h3>EXPEDIENTE DE TRABAJO</h3>
+                <a href="https://danddco.github.io/Magnus61/Exp_Ivan.html" target="_blank">👤 Fashident</a>
+                <a href="https://danddco.github.io/Magnus61/Exp_Purisystems.html" target="_blank">👤 Purisystems</a>
+                <a href="https://danddco.github.io/Magnus61/Exp_Darmax.html" target="_blank">👤 Darmax</a>
+                <a href="https://danddco.github.io/Magnus61/Exp_PuriMatic.html" target="_blank">👤 Purimatic</a>
+                <a href="https://danddco.github.io/Magnus61/Kit_Yasaki.html" target="_blank">👤 Kit Yasaky</a>
+                <a href="https://danddco.github.io/Magnus61/Exp_Kit_Led_Conector.html" target="_blank">👤 Kit Led / Conector</a>
+            </div>
 
-<!-- OPERACIÓN -->
-<div class="section">
-<h3>OPERACIÓN</h3>
-<a href="https://danddco.github.io/Magnus61/secuencias.html" target="_blank">🏭 Producción</a>
-<a href="https://danddco.github.io/Magnus61/fabricacion_disponibilidad.html" target="_blank">📦 Existencias Placas</a>
-<a href="https://danddco.github.io/Magnus61/Stock_Criticos.html" target="_blank">⚠ Componentes Críticos</a>
-<a href="https://danddco.github.io/Magnus61/Stock_All" target="_blank">📋 Stock Total</a>
-<a href="https://danddco.github.io/Magnus61/ComponentesReservados" target="_blank">📋 Stock Reservados</a>
-</div>
+            <!-- PROYECTOS -->
+            <div class="section">
+                <h3>PROYECTOS</h3>
+                <a href="https://danddco.github.io/Magnus61/Proyecto_Fashident.html" target="_blank">🚀 Fashident</a>
+                <a href="https://danddco.github.io/Magnus61/Proyecto_Purisystems.html" target="_blank">🚀 Purisystems</a>
+                <a href="https://danddco.github.io/Magnus61/Proyecto_Darmax.html" target="_blank">🚀 Darmax</a>
+                <a href="https://danddco.github.io/Magnus61/Proyecto_Purimatic.html" target="_blank">🚀 Purimatic</a>
+            </div>
 
-<!-- CLIENTES -->
-<div class="section">
-<h3>CLIENTES</h3>
-<a href="https://danddco.github.io/Magnus61/Ivan_Fashident.html" target="_blank">👤 Fashident</a>
-<a href="https://danddco.github.io/Magnus61/PurSys.html" target="_blank">👤 Purisystems</a>
-<a href="https://danddco.github.io/Magnus61/cliente_Darmax.html" target="_blank">👤 Darmax</a>
-<a href="https://danddco.github.io/Magnus61/cliente_Purimatic.html" target="_blank">👤 Purimatic</a>
-<a href="https://danddco.github.io/Magnus61/Kit_Yasaki.html" target="_blank">👤 Kit Yasaky</a>
-<a href="https://danddco.github.io/Magnus61/Kit_Led_Conector.html" target="_blank">👤 Kit Led / Conector</a>
-<a href="https://danddco.github.io/Magnus61/David_Hdez.html" target="_blank">👤 David Hernandez</a>
-</div>
+            <!-- CLIENTES -->
+            <div class="section">
+                <h3>CLIENTES</h3>
+                <a href="https://danddco.github.io/Magnus61/Ivan_Fashident.html" target="_blank">👤 Fashident</a>
+                <a href="https://danddco.github.io/Magnus61/PurSys.html" target="_blank">👤 Purisystems</a>
+                <a href="https://danddco.github.io/Magnus61/cliente_Darmax.html" target="_blank">👤 Darmax</a>
+                <a href="https://danddco.github.io/Magnus61/cliente_Purimatic.html" target="_blank">👤 Purimatic</a>
+                <a href="https://danddco.github.io/Magnus61/Kit_Yasaki.html" target="_blank">👤 Kit Yasaky</a>
+                <a href="https://danddco.github.io/Magnus61/Kit_Led_Conector.html" target="_blank">👤 Kit Led / Conector</a>
+                <a href="https://danddco.github.io/Magnus61/David_Hdez.html" target="_blank">👤 David Hernandez</a>
+            </div>
 
-<!-- EXPEDIENTE DE TRABAJO -->
-<div class="section">
-<h3>EXPEDIENTE DE TRABAJO</h3>
-<a href="https://danddco.github.io/Magnus61/Exp_Ivan.html" target="_blank">👤 Fashident</a>
-<a href="https://danddco.github.io/Magnus61/Exp_Purisystems.html" target="_blank">👤 Purisystems</a>
-<a href="https://danddco.github.io/Magnus61/Exp_Darmax.html" target="_blank">👤 Darmax</a>
-<a href="https://danddco.github.io/Magnus61/Exp_PuriMatic.html" target="_blank">👤 Purimatic</a>
-<a href="https://danddco.github.io/Magnus61/Kit_Yasaki.html" target="_blank">👤 Kit Yasaky</a>
-<a href="https://danddco.github.io/Magnus61/Exp_Kit_Led_Conector.html" target="_blank">👤 Kit Led / Conector</a>
-</div>
+        </div>
+    </div>
 
-<!-- PROYECTOS -->
-<div class="section">
-<h3>PROYECTOS</h3>
-<a href="https://danddco.github.io/Magnus61/Proyecto_Fashident.html" target="_blank">🚀 Fashident</a>
-<a href="https://danddco.github.io/Magnus61/Proyecto_Purisystems.html" target="_blank">🚀 Purisystems</a>
-<a href="https://danddco.github.io/Magnus61/Proyecto_Darmax.html" target="_blank">🚀 Darmax</a>
-<a href="https://danddco.github.io/Magnus61/Proyecto_Purimatic.html" target="_blank">🚀 Purimatic</a>
-</div>
-
-</div>
-
-</div>
-
-<footer>
-© 2026 CircuitDesignMX | Automatización • Electrónica • Desarrollo Industrial
-</footer>
-
+    <footer>
+        © 2026 CircuitDesignMX | Desarrollo, diseño, fabricación y ensamble de placas electrónicas.
+    </footer>
 </body>
 </html>
