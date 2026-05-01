@@ -1,48 +1,40 @@
 
-        <!DOCTYPE html>
-        <html lang="es">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>CircuitDesignMx</title>
         <style>
-         header
-         * {
-            margin: 0px;
-            padding: 0px;
-           } 
-
-         {
-         background-color: limegreen;
-         color: white;
-         style="text-align: center;
-        }
-        #cabecera {
-         background-color: limegreen;
-          padding: 10px;
-        }
-
-.logo{
-  
-  margin: none;
-  vertical-align: top;
-}
-
-#titulo{
-  display: inline-block;
-  text-align: center;
-  width: calc(100% - 228px);
-}
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            header {
+                background-color: limegreen;
+                color: white;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+            }
+            .logo {
+                height: 60px;
+                margin-right: 20px;
+            }
+            #titulo {
+                flex-grow: 1;
+                text-align: center;
+                font-size: 2em;
+            }
         </style>
-           <meta charset="UTF-8">
-           <title>CircuitDesignMx.</title>
-
-
-           <div id="agrupar">
-  <header id="cabecera">
-    <img class="logo" src="Logo-Circuit-MX.jpg">
-
+    </head>
+    <body>
+        <header id="cabecera">
+            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+            <h1 id="titulo">CircuitDesignMX</h1>
+        </header>
+    </body>
+    </html>
     
-    <h1 id="titulo"> CircuitDesignMX</h1>
-  </header>
-</div>
-        
     <style>
         table { border-collapse: collapse; width: 80%; margin: auto; font-size: 20px; font-weight: bold; text-align:left;}
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
@@ -74,28 +66,28 @@
     
         <tr >
             <td>Fashident v1.0</td>
-            <td>Cables</td>
+            <td style="text-align:right;font-size: 24px;font-weight: bold;">Cables</td>
             <td>0</td>
             <td>2026-04-27</td>
-            <td>20</td>
+            <td style="text-align:right;font-size: 28px;font-weight: bold;">20</td>
             <td>2026-04-27</td>
         </tr>
         
         <tr >
             <td>Fashident v1.0</td>
-            <td>Pantalla</td>
+            <td style="text-align:right;font-size: 24px;font-weight: bold;">Pantalla</td>
             <td>0</td>
             <td>2026-03-13</td>
-            <td>0</td>
+            <td style="text-align:right;font-size: 28px;font-weight: bold;">0</td>
             <td>2026-03-13</td>
         </tr>
         
         <tr >
             <td>Fashident v1.0</td>
-            <td>Placas</td>
+            <td style="text-align:right;font-size: 24px;font-weight: bold;">Placas</td>
             <td>49</td>
             <td>2026-04-29</td>
-            <td>87</td>
+            <td style="text-align:right;font-size: 28px;font-weight: bold;">87</td>
             <td>2026-04-29</td>
         </tr>
         
@@ -137,7 +129,7 @@
                 <th>Balance</th>
                 <th>Observaciones</th>
             </tr>
-        <tr class=""><td>36</td><td>Resistencia 3.4K</td><td>2</td><td>0</td><td>200</td><td>-200</td><td>Solicitado 1 reel</td></tr><tr class=""><td>7</td><td>Regulador de Voltaje Linear 7805-C21706</td><td>1</td><td>0</td><td>100</td><td>-100</td><td></td></tr><tr class=""><td>13</td><td>Resistencia 3.4</td><td>7</td><td>0</td><td>700</td><td>-700</td><td>Solicitado 1 reel</td></tr><tr class=""><td>133</td><td>Resistencia 383</td><td>1</td><td>0</td><td>100</td><td>-100</td><td></td></tr><tr class=""><td>22</td><td>Mosfet AOD4184A-VB</td><td>7</td><td>0</td><td>700</td><td>-700</td><td>Solicitado 1 reel</td></tr><tr class=""><td>56</td><td>Relay 12V - 2US</td><td>3</td><td>4</td><td>300</td><td>-296</td><td>En Camino</td></tr><tr class=""><td>57</td><td>Terminal 6P</td><td>1</td><td>0</td><td>100</td><td>-100</td><td></td></tr>
+        <tr class=""><td>36</td><td>Resistencia 3.4K</td><td>2</td><td>0</td><td>200</td><td>-200</td><td>Solicitado 1 reel</td></tr><tr class=""><td>13</td><td>Resistencia 3.4</td><td>7</td><td>0</td><td>700</td><td>-700</td><td>Solicitado 1 reel</td></tr><tr class=""><td>133</td><td>Resistencia 383</td><td>1</td><td>0</td><td>100</td><td>-100</td><td></td></tr><tr class=""><td>22</td><td>Mosfet AOD4184A-VB</td><td>7</td><td>0</td><td>700</td><td>-700</td><td>Solicitado 1 reel</td></tr><tr class=""><td>56</td><td>Relay 12V - 2US</td><td>3</td><td>4</td><td>300</td><td>-296</td><td>En Camino</td></tr><tr class=""><td>57</td><td>Terminal 6P</td><td>1</td><td>0</td><td>100</td><td>-100</td><td></td></tr>
             </table>
         </body>
         </html>
@@ -150,15 +142,14 @@ footer {
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
-
-
 </style>
-  <div style="height: 20px;"></div>
+  <div style="height: 14px;"></div>
 <footer>
-
-    <p style="margin-top:15px;">
+    <p style="margin-top:5px;">
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
-
+    <p style="margin-top:5px;">
+        Fecha y hora: 01/05/2026 10:33:28
+    </p>
 </footer>
         
