@@ -1,48 +1,40 @@
 
-        <!DOCTYPE html>
-        <html lang="es">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>CircuitDesignMx</title>
         <style>
-         header
-         * {
-            margin: 0px;
-            padding: 0px;
-           } 
-
-         {
-         background-color: limegreen;
-         color: white;
-         style="text-align: center;
-        }
-        #cabecera {
-         background-color: limegreen;
-          padding: 10px;
-        }
-
-.logo{
-  
-  margin: none;
-  vertical-align: top;
-}
-
-#titulo{
-  display: inline-block;
-  text-align: center;
-  width: calc(100% - 228px);
-}
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            header {
+                background-color: limegreen;
+                color: white;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+            }
+            .logo {
+                height: 60px;
+                margin-right: 20px;
+            }
+            #titulo {
+                flex-grow: 1;
+                text-align: center;
+                font-size: 2em;
+            }
         </style>
-           <meta charset="UTF-8">
-           <title>CircuitDesignMx.</title>
-
-
-           <div id="agrupar">
-  <header id="cabecera">
-    <img class="logo" src="Logo-Circuit-MX.jpg">
-
+    </head>
+    <body>
+        <header id="cabecera">
+            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+            <h1 id="titulo">CircuitDesignMX</h1>
+        </header>
+    </body>
+    </html>
     
-    <h1 id="titulo"> CircuitDesignMX</h1>
-  </header>
-</div>
-        
     <style>
         table { border-collapse: collapse; width: 80%; margin: auto; font-size: 20px; font-weight: bold; text-align:left;}
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
@@ -52,7 +44,7 @@
     </style>
     <body>
         <h1 style="text-align:center;">Expediente Purisystems v1.0</h1> 
-        
+        <p style="text-align:center;">Cantidad: 50 + 5 </p> 
     
         <h2 style="text-align:center;">Balance de Disponibilidad de Placas</h2>
     
@@ -73,47 +65,52 @@
           </thead>  
     
         <tr >
+
             <td>Purisystems v1.0</td>
-            <td>Acrilico</td>
-            <td>52</td>
+            <td style="text-align:right;font-size: 30px;font-weight: bold;">Acrilico</td>
+            <td>49</td>
             <td>2026-04-24</td>
-            <td>24</td>
+            <td style="text-align:right;font-size: 32px;font-weight: bold;">27</td>
             <td>2026-04-24</td>
         </tr>
         
         <tr >
+
             <td>Purisystems v1.0</td>
-            <td>Cables</td>
+            <td style="text-align:right;font-size: 30px;font-weight: bold;">Cables</td>
             <td>69</td>
             <td>2026-04-29</td>
-            <td>7</td>
+            <td style="text-align:right;font-size: 32px;font-weight: bold;">7</td>
             <td>2026-04-29</td>
         </tr>
         
         <tr >
+
             <td>Purisystems v1.0</td>
-            <td>Eliminador</td>
+            <td style="text-align:right;font-size: 30px;font-weight: bold;">Eliminador</td>
             <td>34</td>
             <td>2026-04-29</td>
-            <td>42</td>
+            <td style="text-align:right;font-size: 32px;font-weight: bold;">42</td>
             <td>2026-04-29</td>
         </tr>
         
         <tr >
+
             <td>Purisystems v1.0</td>
-            <td>Pantalla</td>
+            <td style="text-align:right;font-size: 30px;font-weight: bold;">Pantalla con Adaptador</td>
             <td>23</td>
             <td>2026-04-24</td>
-            <td>53</td>
+            <td style="text-align:right;font-size: 32px;font-weight: bold;">53</td>
             <td>2026-04-24</td>
         </tr>
         
         <tr >
+
             <td>Purisystems v1.0</td>
-            <td>Placas</td>
+            <td style="text-align:right;font-size: 30px;font-weight: bold;">Placas</td>
             <td>55</td>
             <td>2026-04-22</td>
-            <td>21</td>
+            <td style="text-align:right;font-size: 32px;font-weight: bold;">21</td>
             <td>2026-04-22</td>
         </tr>
         
@@ -122,6 +119,9 @@
     </html>
     
     <body>
+        <h2 style="text-align:center; font-size:20px; color:#666;">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</h2>
+
+
         <h2 style="text-align:center;">Secuencias de Trabajo</h2>
 
         <table>
@@ -132,7 +132,7 @@
                 <th>Descripcion</th>
                 <th>Cantidad</th>
             </tr>
-        <tr ><td>Fabricacion-Proceso</td><td>Acrilico</td><td>2026-04-29</td><td>Hacer 52 Acrilicos</td><td>52</td></tr><tr ><td>Fabricacion-Proceso</td><td>Cables</td><td>2026-04-29</td><td>25 Cables por probar</td><td>76</td></tr><tr ><td>Fabricacion-Proceso</td><td>Cables</td><td>2026-04-29</td><td>44 Cables por Montar</td><td>44</td></tr><tr ><td>Fabricacion-Proceso</td><td>Pantalla</td><td>2026-03-11</td><td>Unir 23 LCD con Soporte, solo tenemos 9 LCD y no tenemos soporte</td><td>23</td></tr><tr ><td>Fabricacion-Proceso</td><td>Placas</td><td>2026-04-24</td><td>Reparacion Cesar</td><td>5</td></tr>
+        <tr ><td>Fabricacion-Proceso</td><td>Cables</td><td>2026-04-29</td><td style='text-align:left;font-size:24px;font-weight:bold;'>25 Cables por probar</td><td>76</td></tr><tr ><td>Fabricacion-Proceso</td><td>Cables</td><td>2026-04-29</td><td style='text-align:left;font-size:24px;font-weight:bold;'>44 Cables por Montar</td><td>44</td></tr><tr ><td>Fabricacion-Proceso</td><td>Pantalla con Adaptador</td><td>2026-03-11</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Unir 23 LCD con Soporte</td><td>23</td></tr><tr ><td>Fabricacion-Proceso</td><td>Pantalla con Adaptador</td><td>2026-05-01</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Deficit de 14 Pantallas</td><td>23</td></tr><tr ><td>Fabricacion-Proceso</td><td>Placas</td><td>2026-04-24</td><td style='text-align:left;font-size:24px;font-weight:bold;'>5 Placas por Reparacion - Cesar</td><td>5</td></tr><tr ><td>Compra-Planificada</td><td>Placas</td><td>2026-04-29</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Compradas 50 Placas</td><td>50</td></tr><tr ><td>Fabricacion-Proceso</td><td>Placas</td><td>2026-04-29</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Hacer 52 Acrilicos</td><td>52</td></tr>
             </table>
         </body>
         </html>
@@ -142,6 +142,7 @@
     </html>
     
     <body>
+        <h2 style="text-align:center; font-size:20px; color:#666;">✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦ ✦</h2>
         <h2 style="text-align:center;">Componentes Criticos para 50 Placas</h2>
 
         <table>
@@ -155,7 +156,7 @@
                 <th>Balance</th>
                 <th>Observaciones</th>
             </tr>
-        <tr class=""><td>56</td><td>Relay 12V - 2US</td><td>2</td><td>4</td><td>100</td><td>-96</td><td>En Camino</td></tr><tr class=""><td>40</td><td>BT138-800CW</td><td>1</td><td>0</td><td>50</td><td>-50</td><td></td></tr><tr class=""><td>41</td><td>Capacitor 630 - AJC MPP 104J630V</td><td>1</td><td>15</td><td>50</td><td>-35</td><td></td></tr><tr class=""><td>46</td><td>FR2512J101 TS</td><td>1</td><td>0</td><td>50</td><td>-50</td><td></td></tr><tr class=""><td>43</td><td>Pin Header pantalla 2x6</td><td>1</td><td>0</td><td>50</td><td>-50</td><td>Maleta PIN HEADER</td></tr><tr class=""><td>12</td><td>Pin Header 1P Single Macho</td><td>2</td><td>0</td><td>100</td><td>-100</td><td></td></tr><tr class=""><td>20</td><td>Resistencia 240</td><td>2</td><td>0</td><td>100</td><td>-100</td><td></td></tr><tr class=""><td>63</td><td>Transformador Eliminador HUAWEI 12 v 2 A </td><td>1</td><td>47</td><td>50</td><td>-3</td><td></td></tr><tr class=""><td>66</td><td>Acrilico LCD</td><td>1</td><td>12</td><td>50</td><td>-38</td><td></td></tr>
+        <tr class=""><td>56</td><td>Relay 12V - 2US</td><td>2</td><td>4</td><td>100</td><td>-96</td><td>En Camino</td></tr><tr class=""><td>40</td><td>BT138-800CW</td><td>1</td><td>0</td><td>50</td><td>-50</td><td></td></tr><tr class=""><td>41</td><td>Capacitor 630 - AJC MPP 104J630V</td><td>1</td><td>15</td><td>50</td><td>-35</td><td></td></tr><tr class=""><td>46</td><td>FR2512J101 TS</td><td>1</td><td>0</td><td>50</td><td>-50</td><td></td></tr><tr class=""><td>114</td><td>Pin Header 1x6 Single Macho</td><td>2</td><td>58</td><td>100</td><td>-42</td><td>Maleta PIN HEADER</td></tr><tr class=""><td>20</td><td>Resistencia 240</td><td>2</td><td>0</td><td>100</td><td>-100</td><td></td></tr><tr class=""><td>63</td><td>Transformador Eliminador HUAWEI 12 v 2 A </td><td>1</td><td>47</td><td>50</td><td>-3</td><td></td></tr><tr class=""><td>66</td><td>Acrilico LCD</td><td>1</td><td>12</td><td>50</td><td>-38</td><td></td></tr>
             </table>
         </body>
         </html>
@@ -168,15 +169,14 @@ footer {
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
-
-
 </style>
-  <div style="height: 20px;"></div>
+  <div style="height: 14px;"></div>
 <footer>
-
-    <p style="margin-top:15px;">
+    <p style="margin-top:5px;">
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
-
+    <p style="margin-top:5px;">
+        Fecha y hora: 01/05/2026 21:26:30
+    </p>
 </footer>
         
