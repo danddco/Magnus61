@@ -1,48 +1,40 @@
 
-        <!DOCTYPE html>
-        <html lang="es">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>CircuitDesignMx</title>
         <style>
-         header
-         * {
-            margin: 0px;
-            padding: 0px;
-           } 
-
-         {
-         background-color: limegreen;
-         color: white;
-         style="text-align: center;
-        }
-        #cabecera {
-         background-color: limegreen;
-          padding: 10px;
-        }
-
-.logo{
-  
-  margin: none;
-  vertical-align: top;
-}
-
-#titulo{
-  display: inline-block;
-  text-align: center;
-  width: calc(100% - 228px);
-}
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            header {
+                background-color: limegreen;
+                color: white;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+            }
+            .logo {
+                height: 60px;
+                margin-right: 20px;
+            }
+            #titulo {
+                flex-grow: 1;
+                text-align: center;
+                font-size: 2em;
+            }
         </style>
-           <meta charset="UTF-8">
-           <title>CircuitDesignMx.</title>
-
-
-           <div id="agrupar">
-  <header id="cabecera">
-    <img class="logo" src="Logo-Circuit-MX.jpg">
-
+    </head>
+    <body>
+        <header id="cabecera">
+            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+            <h1 id="titulo">CircuitDesignMX</h1>
+        </header>
+    </body>
+    </html>
     
-    <h1 id="titulo"> CircuitDesignMX</h1>
-  </header>
-</div>
-        
     <style>
         table {
             border-collapse: collapse;
@@ -74,17 +66,14 @@
     </style>
 
     <h2 style="text-align:center;">Componentes Criticos</h2>
-    <h3 style="text-align:center;">2026-04-29</h3>
-
     <table>
         <thead>
             <tr>
                 <th>ID</th>
+                <th>LCSC</th>
                 <th>Descripción</th>
-                <th>Cantidad</th>
-                <th>Ctdad Critica</th>
+                <th>Existencia</th>
                 <th>Tipo</th>
-                <th>Precio</th>
                 <th>Fecha</th>
                 <th>Observaciones</th>
                 
@@ -94,145 +83,144 @@
     
         <tr class="alerta">
             <td>40</td>
-            <td style="text-align:left;">BT138-800CW</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+            <td style="text-align:left;font-size: 20px;">BT138-800CW</td>
             <td style="text-align:right;">0</td>
-            <td style="text-align:right;">100</td>
             <td style="text-align:right;"></td>
-            <td style="text-align:right;">$1.71</td>
             <td>2036-01-04</td>
-            <td style="text-align:left;"></td>
+            <td style="text-align:left;font-size: 18px;"></td>
            
         </tr>
         
         <tr class="alerta">
             <td>80</td>
-            <td style="text-align:left;">Cable Pantalla Yasaki</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+            <td style="text-align:left;font-size: 20px;">Cable Pantalla Yasaki</td>
             <td style="text-align:right;">8</td>
-            <td style="text-align:right;">20</td>
             <td style="text-align:right;"></td>
-            <td style="text-align:right;">$10</td>
             <td>2026-04-15</td>
-            <td style="text-align:left;"></td>
+            <td style="text-align:left;font-size: 18px;"></td>
+           
+        </tr>
+        
+        <tr class="alerta">
+            <td>41</td>
+            <td style="text-align:left;font-size: 18px;">C303496</td>
+            <td style="text-align:left;font-size: 20px;">Capacitor 630 - AJC MPP 104J630V</td>
+            <td style="text-align:right;">15</td>
+            <td style="text-align:right;">th</td>
+            <td>2026-04-15</td>
+            <td style="text-align:left;font-size: 18px;"></td>
            
         </tr>
         
         <tr class="alerta">
             <td>121</td>
-            <td style="text-align:left;">Conector Presion 2P</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+            <td style="text-align:left;font-size: 20px;">Conector Presion 2P</td>
             <td style="text-align:right;">0</td>
-            <td style="text-align:right;">2000</td>
             <td style="text-align:right;"></td>
-            <td style="text-align:right;">$</td>
             <td>2026-04-20</td>
-            <td style="text-align:left;">Reservado a Kit</td>
+            <td style="text-align:left;font-size: 18px;">Reservado a Kit</td>
            
         </tr>
         
         <tr class="alerta">
             <td>122</td>
-            <td style="text-align:left;">Conector Presion 4P</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+            <td style="text-align:left;font-size: 20px;">Conector Presion 4P</td>
             <td style="text-align:right;">0</td>
-            <td style="text-align:right;">2000</td>
             <td style="text-align:right;"></td>
-            <td style="text-align:right;">$</td>
             <td>2026-04-20</td>
-            <td style="text-align:left;">Reservado a Kit</td>
+            <td style="text-align:left;font-size: 18px;">Reservado a Kit</td>
            
         </tr>
         
         <tr class="alerta">
             <td>46</td>
-            <td style="text-align:left;">FR2512J101 TS</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+            <td style="text-align:left;font-size: 20px;">FR2512J101 TS</td>
             <td style="text-align:right;">0</td>
-            <td style="text-align:right;">100</td>
             <td style="text-align:right;"></td>
-            <td style="text-align:right;">$1.13</td>
             <td>2036-01-04</td>
-            <td style="text-align:left;"></td>
+            <td style="text-align:left;font-size: 18px;"></td>
            
         </tr>
         
         <tr class="alerta">
             <td>22</td>
-            <td style="text-align:left;">Mosfet AOD4184A-VB</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+            <td style="text-align:left;font-size: 20px;">Mosfet AOD4184A-VB</td>
             <td style="text-align:right;">0</td>
-            <td style="text-align:right;">100</td>
             <td style="text-align:right;">reel</td>
-            <td style="text-align:right;">$4.06</td>
             <td>2026-04-15</td>
-            <td style="text-align:left;">Solicitado 1 reel</td>
+            <td style="text-align:left;font-size: 18px;">Solicitado 1 reel</td>
            
         </tr>
         
         <tr class="alerta">
             <td>132</td>
-            <td style="text-align:left;">Mosfet IRLR3110Z</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+            <td style="text-align:left;font-size: 20px;">Mosfet IRLR3110Z</td>
             <td style="text-align:right;">77</td>
-            <td style="text-align:right;">100</td>
             <td style="text-align:right;">reel</td>
-            <td style="text-align:right;">$4.06</td>
             <td>2026-04-24</td>
-            <td style="text-align:left;"></td>
+            <td style="text-align:left;font-size: 18px;"></td>
            
         </tr>
         
         <tr class="alerta">
             <td>67</td>
-            <td style="text-align:left;">Pantalla LCD - Modulo de Cristal Liquido 20x04</td>
+            <td style="text-align:left;font-size: 18px;">2004A</td>
+            <td style="text-align:left;font-size: 20px;">Pantalla LCD - Modulo de Cristal Liquido 20x04</td>
             <td style="text-align:right;">9</td>
-            <td style="text-align:right;">10</td>
             <td style="text-align:right;"></td>
-            <td style="text-align:right;">$777</td>
             <td>2026-04-14</td>
-            <td style="text-align:left;"></td>
-           
-        </tr>
-        
-        <tr class="alerta">
-            <td>56</td>
-            <td style="text-align:left;">Relay 12V - 2US</td>
-            <td style="text-align:right;">4</td>
-            <td style="text-align:right;">220</td>
-            <td style="text-align:right;">Through Hole</td>
-            <td style="text-align:right;">$4.5</td>
-            <td>2026-04-22</td>
-            <td style="text-align:left;">En Camino</td>
-           
-        </tr>
-        
-        <tr class="alerta">
-            <td>20</td>
-            <td style="text-align:left;">Resistencia 240</td>
-            <td style="text-align:right;">0</td>
-            <td style="text-align:right;">100</td>
-            <td style="text-align:right;"></td>
-            <td style="text-align:right;">$0.23</td>
-            <td>2036-01-04</td>
-            <td style="text-align:left;"></td>
-           
-        </tr>
-        
-        <tr class="alerta">
-            <td>60</td>
-            <td style="text-align:left;">Terminal Conector</td>
-            <td style="text-align:right;">0</td>
-            <td style="text-align:right;">770</td>
-            <td style="text-align:right;"></td>
-            <td style="text-align:right;">$0.5</td>
-            <td>2036-01-04</td>
-            <td style="text-align:left;"></td>
+            <td style="text-align:left;font-size: 18px;"></td>
            
         </tr>
         
         <tr class="alerta">
             <td>126</td>
-            <td style="text-align:left;">Terminal Metalico</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+            <td style="text-align:left;font-size: 20px;">Pantalla, Adaptador 20x04</td>
+            <td style="text-align:right;">71</td>
+            <td style="text-align:right;">Placa</td>
+            <td>2026-05-01</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+           
+        </tr>
+        
+        <tr class="alerta">
+            <td>56</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+            <td style="text-align:left;font-size: 20px;">Relay 12V - 2US</td>
             <td style="text-align:right;">0</td>
-            <td style="text-align:right;">100</td>
-            <td style="text-align:right;">reel</td>
-            <td style="text-align:right;">$0.5</td>
+            <td style="text-align:right;">Through Hole</td>
+            <td>2026-04-22</td>
+            <td style="text-align:left;font-size: 18px;">En Camino</td>
+           
+        </tr>
+        
+        <tr class="alerta">
+            <td>20</td>
+            <td style="text-align:left;font-size: 18px;"></td>
+            <td style="text-align:left;font-size: 20px;">Resistencia 240</td>
+            <td style="text-align:right;">0</td>
+            <td style="text-align:right;"></td>
             <td>2036-01-04</td>
-            <td style="text-align:left;"></td>
+            <td style="text-align:left;font-size: 18px;"></td>
+           
+        </tr>
+        
+        <tr class="alerta">
+            <td>60</td>
+            <td style="text-align:left;font-size: 18px;">C246755</td>
+            <td style="text-align:left;font-size: 20px;">Terminal Conector para cables</td>
+            <td style="text-align:right;">0</td>
+            <td style="text-align:right;"></td>
+            <td>2036-01-04</td>
+            <td style="text-align:left;font-size: 18px;"></td>
            
         </tr>
         
@@ -247,15 +235,14 @@ footer {
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
-
-
 </style>
-  <div style="height: 20px;"></div>
+  <div style="height: 14px;"></div>
 <footer>
-
-    <p style="margin-top:15px;">
+    <p style="margin-top:5px;">
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
-
+    <p style="margin-top:5px;">
+        Fecha y hora: 05/05/2026 06:09:37
+    </p>
 </footer>
         
