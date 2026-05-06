@@ -1,48 +1,40 @@
 
-        <!DOCTYPE html>
-        <html lang="es">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>CircuitDesignMx</title>
         <style>
-         header
-         * {
-            margin: 0px;
-            padding: 0px;
-           } 
-
-         {
-         background-color: limegreen;
-         color: white;
-         style="text-align: center;
-        }
-        #cabecera {
-         background-color: limegreen;
-          padding: 10px;
-        }
-
-.logo{
-  
-  margin: none;
-  vertical-align: top;
-}
-
-#titulo{
-  display: inline-block;
-  text-align: center;
-  width: calc(100% - 228px);
-}
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            header {
+                background-color: limegreen;
+                color: white;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+            }
+            .logo {
+                height: 60px;
+                margin-right: 20px;
+            }
+            #titulo {
+                flex-grow: 1;
+                text-align: center;
+                font-size: 2em;
+            }
         </style>
-           <meta charset="UTF-8">
-           <title>CircuitDesignMx.</title>
-
-
-           <div id="agrupar">
-  <header id="cabecera">
-    <img class="logo" src="Logo-Circuit-MX.jpg">
-
+    </head>
+    <body>
+        <header id="cabecera">
+            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+            <h1 id="titulo">CircuitDesignMX</h1>
+        </header>
+    </body>
+    </html>
     
-    <h1 id="titulo"> CircuitDesignMX</h1>
-  </header>
-</div>
-        
     <style>
         table { border-collapse: collapse; width: 80%; margin: auto; font-size: 20px; font-weight: bold; text-align:left;}
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
@@ -52,11 +44,8 @@
     </style>
     <body>
         <h1 style="text-align:center;">Expediente Kit Led / Conector</h1> 
-        <p style="text-align:center;">Cantidad: 600</p> 
-        
-    
-        <h2 style="text-align:center;">Balance de Disponibilidad de Placas</h2>
-    
+        <p style="text-align:center;">-------------------------</p>
+        <h2 style="text-align:center;">Balance de Disponibilidad</h2>
         <table>
          <thead>
             <tr>
@@ -75,18 +64,9 @@
     
         <tr >
             <td>Kit Led / Conector</td>
-            <td>Cables</td>
-            <td>0</td>
-            <td>2026-04-22</td>
-            <td>1220</td>
-            <td>2026-04-22</td>
-        </tr>
-        
-        <tr >
-            <td>Kit Led / Conector</td>
             <td>Placas</td>
-            <td>1500</td>
-            <td>2026-04-20</td>
+            <td>600</td>
+            <td>2026-04-30</td>
             <td>0</td>
             <td></td>
         </tr>
@@ -96,8 +76,8 @@
     </html>
     
     <body>
+        <p style="text-align:center;">-------------------------</p>
         <h2 style="text-align:center;">Secuencias de Trabajo</h2>
-
         <table>
             <tr>
                 <th>Proyecto</th>
@@ -106,7 +86,7 @@
                 <th>Descripcion</th>
                 <th>Cantidad</th>
             </tr>
-        
+        <tr ><td>Fabricacion-Entrada</td><td>Placas</td><td>2026-04-20</td><td></td><td>600</td></tr>
             </table>
         </body>
         </html>
@@ -129,7 +109,7 @@
                 <th>Balance</th>
                 <th>Observaciones</th>
             </tr>
-        <tr class=""><td>120</td><td>LED RGB</td><td>2</td><td>0</td><td>1200</td><td>-1200</td><td></td></tr><tr class=""><td>119</td><td>Cable LED Kit Led / Conector</td><td>1</td><td>10</td><td>600</td><td>-590</td><td></td></tr><tr class=""><td>122</td><td>Conector Presion 4P</td><td>1</td><td>0</td><td>600</td><td>-600</td><td>Reservado a Kit</td></tr><tr class=""><td>121</td><td>Conector Presion 2P</td><td>1</td><td>0</td><td>600</td><td>-600</td><td>Reservado a Kit</td></tr>
+        <tr class=""><td>120</td><td>LED RGB</td><td>2</td><td>220</td><td>1200</td><td>-980</td><td></td></tr><tr class=""><td>119</td><td>Cable LED Kit Led / Conector</td><td>1</td><td>10</td><td>600</td><td>-590</td><td></td></tr><tr class=""><td>122</td><td>Conector Presion 4P</td><td>1</td><td>400</td><td>600</td><td>-200</td><td>Reservado a Kit / Caja Abajo</td></tr><tr class=""><td>121</td><td>Conector Presion 2P</td><td>1</td><td>0</td><td>600</td><td>-600</td><td>Reservado a Kit</td></tr>
             </table>
         </body>
         </html>
@@ -143,13 +123,13 @@ footer {
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 </style>
-  <div style="height: 20px;"></div>
+  <div style="height: 14px;"></div>
 <footer>
-    <p style="margin-top:15px;">
+    <p style="margin-top:5px;">
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 30/04/2026 08:43:41
+        Fecha y hora: 06/05/2026 15:58:45
     </p>
 </footer>
         
