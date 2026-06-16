@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Conectores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: auto;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #007acc;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        img {
+            max-width: 100px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        img:hover {
+            transform: scale(1.1);
+        }
+        /* Estilos del modal */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1000; 
+            padding-top: 60px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.8);
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+        }
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+    <style>
+    td img {
+        width: 90px;
+        height: 90px;
+        object-fit: cover;
+    }
+    td img:hover {
+    transform: scale(1.5); /* aumenta el tamaño al pasar el mouse */
+}
+    </style>
+
+</head>
+<body>
+    <h1>Tabla con Imágenes de Conectores</h1>
+    <table>
+        <tr>
+            <th>idE</th>
+            <th>Descripcion</th>
+            <th>Imagen</th>
+            <th>Observaciones</th>
+        </tr>
+
+        <tr>
+            <td>27</td>
+            <td>2 Position Wire to Board Terminal Block Through Hole 5mm</td>
+            <td><img src="/imagenes/PuSy.jpeg" alt="C474950">
+            <td></td>
+        </tr>
+
+        
+        <tr>
+            <td>104</td>
+            <td>Connector Header 6 position 2mm Pitch 2A Surface Mount, Right Angle</td>
+            <td><img src="C7429573.png" alt="C7429573">
+            <td></td>
+        </tr>
+        <tr>
+            <td>149</td>
+            <td>Connector Header 3 position 2.54mm Pitch</td>
+            <td><img src="149.png" alt="PuriSystems">
+            <td></td>
+        </tr>
+        <tr>
+            <td>150</td>
+            <td>Connector Housing 3 Position 2.54mm Pitch Single Row</td>
+            <td><img src="150.png" alt="c169018">
+            <td></td>
+        </tr>
+
+
+
+       
+
+        
+        
+    </table>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="imgGrande">
+    </div>
+
+    <script>
+        // Obtener elementos
+        const modal = document.getElementById("myModal");
+        const modalImg = document.getElementById("imgGrande");
+        const span = document.getElementsByClassName("close")[0];
+
+        // Asignar evento a todas las imágenes
+        document.querySelectorAll("td img").forEach(img => {
+            img.onclick = function(){
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            }
+        });
+
+        // Cerrar modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Cerrar al hacer clic fuera de la imagen
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
