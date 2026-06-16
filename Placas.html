@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Conectores</title>
     <style>
+        /* Estilos Generales */
         body {
             font-family: Arial, sans-serif;
             margin: 40px;
@@ -13,6 +14,8 @@
             text-align: center;
             color: #333;
         }
+        
+        /* Estilos de la Tabla */
         table {
             width: auto;
             margin: 20px auto;
@@ -31,15 +34,23 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        img {
-            max-width: 100px;
+
+        /* CORRECCIÓN: Estilos unificados e imagen estrictamente cuadrada */
+        td img {
+            width: 180px !important;
+            height: 180px !important;
+            max-width: none !important; /* Elimina la restricción de 100px que la deformaba */
+            object-fit: cover;
+            object-position: center;
             cursor: pointer;
             transition: transform 0.2s;
+            border-radius: 4px;
         }
-        img:hover {
+        td img:hover {
             transform: scale(1.1);
         }
-        /* Estilos del modal */
+
+        /* Estilos del Modal */
         .modal {
             display: none; 
             position: fixed; 
@@ -67,76 +78,43 @@
             cursor: pointer;
         }
     </style>
-    <style>
-    td img {
-        width: 90px;
-        height: 90px;
-        object-fit: cover;
-    }
-    td img:hover {
-    transform: scale(1.5); /* aumenta el tamaño al pasar el mouse */
-}
-    </style>
-
 </head>
 <body>
-    <h1>Tabla con Imágenes de Conectores</h1>
+    <h1>Control de Placas</h1>
     <table>
         <tr>
-            <th>idE</th>
             <th>Descripcion</th>
             <th>Imagen</th>
             <th>Observaciones</th>
         </tr>
 
         <tr>
-            <td>27</td>
-            <td>2 Position Wire to Board Terminal Block Through Hole 5mm</td>
-            <td><img src="/imagenes/PuSy.jpeg" alt="C474950">
+            <td>PuriSystems</td>
+            <td><img src="imagenes/PuSy.jpeg" alt="PuriSystems" loading="lazy" decoding="async"></td>
             <td></td>
         </tr>
 
-        
-        <tr>
-            <td>104</td>
-            <td>Connector Header 6 position 2mm Pitch 2A Surface Mount, Right Angle</td>
-            <td><img src="C7429573.png" alt="C7429573">
-            <td></td>
-        </tr>
-        <tr>
-            <td>149</td>
-            <td>Connector Header 3 position 2.54mm Pitch</td>
-            <td><img src="149.png" alt="PuriSystems">
-            <td></td>
-        </tr>
-        <tr>
-            <td>150</td>
-            <td>Connector Housing 3 Position 2.54mm Pitch Single Row</td>
-            <td><img src="150.png" alt="c169018">
+         <tr>
+            <td>ADW Mini</td>
+            <td><img src="imagenes/Mini.jpeg" alt="ADW Mini" loading="lazy" decoding="async"></td>
             <td></td>
         </tr>
 
 
-
-       
-
-        
-        
     </table>
 
     <!-- Modal -->
     <div id="myModal" class="modal">
         <span class="close">&times;</span>
-        <img class="modal-content" id="imgGrande">
+        <img class="modal-content" id="imgGrande" alt="Vista ampliada">
     </div>
 
     <script>
-        // Obtener elementos
         const modal = document.getElementById("myModal");
         const modalImg = document.getElementById("imgGrande");
         const span = document.getElementsByClassName("close")[0];
 
-        // Asignar evento a todas las imágenes
+        // Evento para abrir modal
         document.querySelectorAll("td img").forEach(img => {
             img.onclick = function(){
                 modal.style.display = "block";
@@ -144,12 +122,12 @@
             }
         });
 
-        // Cerrar modal
+        // Cerrar modal con la X
         span.onclick = function() {
             modal.style.display = "none";
         }
 
-        // Cerrar al hacer clic fuera de la imagen
+        // Cerrar modal al hacer clic fuera
         window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
