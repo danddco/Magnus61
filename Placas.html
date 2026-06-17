@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Conectores</title>
+    <title>Control de Placas</title>
     <style>
         /* Estilos Generales */
         body {
@@ -17,15 +17,16 @@
         
         /* Estilos de la Tabla */
         table {
-            width: auto;
+            width: 80%;
             margin: 20px auto;
             border-collapse: collapse;
             background-color: #fff;
         }
         th, td {
             border: 1px solid #ccc;
-            padding: 12px;
+            padding: 10px;
             text-align: center;
+            width: 25%; /* 4 columnas = 100/4 */
         }
         th {
             background-color: #007acc;
@@ -35,11 +36,10 @@
             background-color: #f9f9f9;
         }
 
-        /* CORRECCIÓN: Estilos unificados e imagen estrictamente cuadrada */
+        /* Imagen cuadrada aumentada 1.25x */
         td img {
-            width: 180px !important;
-            height: 180px !important;
-            max-width: none !important; /* Elimina la restricción de 100px que la deformaba */
+            width: 188px;
+            height: 188px;
             object-fit: cover;
             object-position: center;
             cursor: pointer;
@@ -77,6 +77,32 @@
             font-weight: bold;
             cursor: pointer;
         }
+
+        /* Responsivo: en pantallas pequeñas mostrar un registro por fila */
+        @media (max-width: 768px) {
+            table, tr, th, td {
+                display: block;
+                width: 100%;
+            }
+            tr {
+                margin-bottom: 20px;
+            }
+            th {
+                display: none; /* ocultamos encabezados en móvil */
+            }
+            td {
+                border: none;
+                text-align: left;
+                padding: 8px;
+            }
+            td img {
+                width: 100%;
+                height: auto;
+                max-width: 350px;
+                display: block;
+                margin: 0 auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -85,28 +111,25 @@
         <tr>
             <th>Descripcion</th>
             <th>Imagen</th>
-            <th>Observaciones</th>
+            <th>Descripcion</th>
+            <th>Imagen</th>
         </tr>
 
         <tr>
             <td>PuriSystems</td>
             <td><img src="imagenes/PuSy.jpeg" alt="PuriSystems" loading="lazy" decoding="async"></td>
-            <td></td>
-        </tr>
 
-         <tr>
             <td>ADW Mini</td>
             <td><img src="imagenes/Mini.jpeg" alt="ADW Mini" loading="lazy" decoding="async"></td>
-            <td></td>
         </tr>
 
         <tr>
             <td>ADW Pro</td>
-            <td><img src="imagenes/ADWPro.jpeg" alt="ADW Mini" loading="lazy" decoding="async"></td>
-            <td></td>
+            <td><img src="imagenes/ADWPro.jpeg" alt="ADW Pro" loading="lazy" decoding="async"></td>
+
+            <td>David</td>
+            <td><img src="imagenes/david.jpeg" alt="ADW Pro" loading="lazy" decoding="async"></td>
         </tr>
-
-
     </table>
 
     <!-- Modal -->
