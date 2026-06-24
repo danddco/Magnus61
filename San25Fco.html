@@ -16,7 +16,6 @@
     font-family: Segoe UI, Arial, sans-serif;
 }
 
-/* LAYOUT GENERAL */
 body {
     background: #eef1f5;
     display: flex;
@@ -24,7 +23,6 @@ body {
     min-height: 100vh;
 }
 
-/* HEADER */
 header {
     background-color: limegreen;
     color: white;
@@ -44,7 +42,6 @@ header {
     font-size: 2em;
 }
 
-/* MAIN */
 .main {
     padding: 30px;
     max-width: 1400px;
@@ -52,14 +49,12 @@ header {
     flex: 1;
 }
 
-/* GRID 4 COLUMNAS */
 .grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
 }
 
-/* SECCIONES */
 .section {
     background: white;
     padding: 25px;
@@ -74,7 +69,6 @@ header {
     letter-spacing: 1px;
 }
 
-/* LINKS */
 .section a {
     display: block;
     padding: 12px;
@@ -97,7 +91,6 @@ header {
     color: limegreen;
 }
 
-/* FOOTER */
 footer {
     text-align: center;
     color: white;
@@ -106,7 +99,6 @@ footer {
     background: red;
 }
 
-/* RESPONSIVE */
 @media(max-width:1000px) {
     .grid {
         grid-template-columns: repeat(2, 1fr);
@@ -133,57 +125,57 @@ footer {
             <!-- OPERACIÓN -->
             <div class="section">
                 <h3>OPERACIÓN</h3>
-                <a href="control_trabajo.html" target="_blank"><i class="fa-solid fa-industry"></i> Control de Fabricación</a>
-                <a href="secuencias.html" target="_blank"><i class="fa-solid fa-diagram-project"></i> Secuencia de Producción</a>
-                <a href="secuencias_ventas.html" target="_blank"><i class="fa-solid fa-chart-line"></i> Secuencia de Ventas</a>
-                <a href="secuencias_last.html" target="_blank"><i class="fa-solid fa-clock-rotate-left"></i> Últimas Secuencias</a>
-                <a href="fabricacion_disponibilidad.html" target="_blank"><i class="fa-solid fa-boxes-stacked"></i> Existencias de Placas</a>
-                <a href="Stock_All" target="_blank"><i class="fa-solid fa-list"></i> Stock de Componentes</a>
-                <a href="Stock_Criticos" target="_blank"><i class="fa-solid fa-triangle-exclamation"></i> Componentes Críticos</a>
-                <a href="comp_facturados" target="_blank"><i class="fa-solid fa-file-invoice-dollar"></i> Componentes Facturados</a>
-                <a href="Stock_Last" target="_blank"><i class="fa-solid fa-hourglass-end"></i> Últimos Componentes</a>
+                <a href="control_trabajo.html" target="_blank" title="Supervisión de procesos de fabricación"><i class="fa-solid fa-industry"></i> Control de Fabricación</a>
+                <a href="secuencias.html" target="_blank" title="Organización de pasos de producción"><i class="fa-solid fa-diagram-project"></i> Secuencia de Producción</a>
+                <a href="secuencias_ventas.html" target="_blank" title="Flujo de ventas"><i class="fa-solid fa-chart-line"></i> Secuencia de Ventas</a>
+                <a href="secuencias_last.html" target="_blank" title="Últimos procesos registrados"><i class="fa-solid fa-clock-rotate-left"></i> Últimas Secuencias</a>
+                <a href="fabricacion_disponibilidad.html" target="_blank" title="Inventario de placas disponibles"><i class="fa-solid fa-boxes-stacked"></i> Existencias de Placas</a>
+                <a href="Stock_All" target="_blank" title="Listado completo de componentes"><i class="fa-solid fa-list"></i> Stock de Componentes</a>
+                <a href="Stock_Criticos" target="_blank" title="Componentes con disponibilidad crítica"><i class="fa-solid fa-triangle-exclamation"></i> Componentes Críticos</a>
+                <a href="comp_facturados" target="_blank" title="Componentes ya facturados"><i class="fa-solid fa-file-invoice-dollar"></i> Componentes Facturados</a>
+                <a href="Stock_Last" target="_blank" title="Últimos componentes ingresados"><i class="fa-solid fa-hourglass-end"></i> Últimos Componentes</a>
             </div>
 
             <!-- EXPEDIENTE DE TRABAJO -->
             <div class="section">
                 <h3>EXPEDIENTE DE TRABAJO</h3>
-                <a href="Exp_Duo.html" target="_blank"><i class="fa-solid fa-folder-open"></i> Duo</a>
-                <a href="Exp_Monterrey.html" target="_blank"><i class="fa-solid fa-city"></i> Monterrey</a>
-                <a href="Exp_David.html" target="_blank"><i class="fa-solid fa-user"></i> David</a>
-                <a href="Vitesco_Expediente.html" target="_blank"><i class="fa-solid fa-gears"></i> Vitesco</a>
-                <a href="Zenteno_Expediente.html" target="_blank"><i class="fa-solid fa-satellite-dish"></i> Zenteno</a>
-                <a href="VenMini_Expediente.html" target="_blank"><i class="fa-solid fa-mug-hot"></i> Vending Mini</a>
-                <a href="KitLed_Expediente.html" target="_blank"><i class="fa-solid fa-lightbulb"></i> Kit Led / Conector</a>
-                <a href="Exp_Ivan.html" target="_blank"><i class="fa-solid fa-tooth"></i> Fashident</a>
-                <a href="Exp_Purisystems.html" target="_blank"><i class="fa-solid fa-wind"></i> Purisystems</a>
-                <a href="Exp_Darmax.html" target="_blank"><i class="fa-solid fa-cogs"></i> Darmax</a>
-                <a href="Exp_PuriMatic.html" target="_blank"><i class="fa-solid fa-sync"></i> Purimatic</a>
-                <a href="Exp_Kit_Yasaky.html" target="_blank"><i class="fa-solid fa-plug"></i> Kit Yasaky</a>
+                <a href="Exp_Duo.html" target="_blank" title="Expediente del cliente Duo"><i class="fa-solid fa-folder-open"></i> Duo</a>
+                <a href="Exp_Monterrey.html" target="_blank" title="Expediente del cliente Monterrey"><i class="fa-solid fa-city"></i> Monterrey</a>
+                <a href="Exp_David.html" target="_blank" title="Expediente del cliente David"><i class="fa-solid fa-user"></i> David</a>
+                <a href="Vitesco_Expediente.html" target="_blank" title="Expediente de Vitesco"><i class="fa-solid fa-gears"></i> Vitesco</a>
+                <a href="Zenteno_Expediente.html" target="_blank" title="Expediente de Zenteno"><i class="fa-solid fa-satellite-dish"></i> Zenteno</a>
+                <a href="VenMini_Expediente.html" target="_blank" title="Expediente de Vending Mini"><i class="fa-solid fa-mug-hot"></i> Vending Mini</a>
+                <a href="KitLed_Expediente.html" target="_blank" title="Expediente de Kit Led"><i class="fa-solid fa-lightbulb"></i> Kit Led / Conector</a>
+                <a href="Exp_Ivan.html" target="_blank" title="Expediente de Fashident"><i class="fa-solid fa-tooth"></i> Fashident</a>
+                <a href="Exp_Purisystems.html" target="_blank" title="Expediente de Purisystems"><i class="fa-solid fa-wind"></i> Purisystems</a>
+                <a href="Exp_Darmax.html" target="_blank" title="Expediente de Darmax"><i class="fa-solid fa-cogs"></i> Darmax</a>
+                <a href="Exp_PuriMatic.html" target="_blank" title="Expediente de Purimatic"><i class="fa-solid fa-sync"></i> Purimatic</a>
+                <a href="Exp_Kit_Yasaky.html" target="_blank" title="Expediente de Kit Yasaky"><i class="fa-solid fa-plug"></i> Kit Yasaky</a>
             </div>
 
-            <!-- CLIENTES -->
+                        <!-- CLIENTES -->
             <div class="section">
                 <h3>CLIENTES</h3>
-                <a href="Resumen_Duo.html" target="_blank"><i class="fa-solid fa-building"></i> Duo</a>
-                <a href="monterrey_resumen.html" target="_blank"><i class="fa-solid fa-city"></i> Monterrey</a>
-                <a href="David_Hdez.html" target="_blank"><i class="fa-solid fa-user"></i> David</a>
-                <a href="Vitesco_Resumen.html" target="_blank"><i class="fa-solid fa-gears"></i> Vitesco</a>
-                <a href="Zenteno_Resumen.html" target="_blank"><i class="fa-solid fa-satellite-dish"></i> Zenteno</a>
-                <a href="VenMini_Resumen.html" target="_blank"><i class="fa-solid fa-mug-hot"></i> Vending Mini</a>
-                <a href="KitLed_Resumen.html" target="_blank"><i class="fa-solid fa-lightbulb"></i> Kit Led / Conector</a>
-                <a href="Ivan_Fashident.html" target="_blank"><i class="fa-solid fa-tooth"></i> Fashident</a>
-                <a href="PurSys.html" target="_blank"><i class="fa-solid fa-wind"></i> Purisystems</a>
-                <a href="Darmax.html" target="_blank"><i class="fa-solid fa-cogs"></i> Darmax</a>
-                <a href="Purimatic.html" target="_blank"><i class="fa-solid fa-sync"></i> Purimatic</a>
-                <a href="Kit_Yasaki.html" target="_blank"><i class="fa-solid fa-plug"></i> Kit Yasaky</a>
-                <a href="Autoclave.html" target="_blank"><i class="fa-solid fa-vials"></i> Autoclave</a>
+                <a href="Resumen_Duo.html" target="_blank" title="Resumen del cliente Duo"><i class="fa-solid fa-building"></i> Duo</a>
+                <a href="monterrey_resumen.html" target="_blank" title="Resumen del cliente Monterrey"><i class="fa-solid fa-city"></i> Monterrey</a>
+                <a href="David_Hdez.html" target="_blank" title="Resumen del cliente David"><i class="fa-solid fa-user"></i> David</a>
+                <a href="Vitesco_Resumen.html" target="_blank" title="Resumen del cliente Vitesco"><i class="fa-solid fa-gears"></i> Vitesco</a>
+                <a href="Zenteno_Resumen.html" target="_blank" title="Resumen del cliente Zenteno"><i class="fa-solid fa-satellite-dish"></i> Zenteno</a>
+                <a href="VenMini_Resumen.html" target="_blank" title="Resumen del cliente Vending Mini"><i class="fa-solid fa-mug-hot"></i> Vending Mini</a>
+                <a href="KitLed_Resumen.html" target="_blank" title="Resumen del cliente Kit Led"><i class="fa-solid fa-lightbulb"></i> Kit Led / Conector</a>
+                <a href="Ivan_Fashident.html" target="_blank" title="Resumen del cliente Fashident"><i class="fa-solid fa-tooth"></i> Fashident</a>
+                <a href="PurSys.html" target="_blank" title="Resumen del cliente Purisystems"><i class="fa-solid fa-wind"></i> Purisystems</a>
+                <a href="Darmax.html" target="_blank" title="Resumen del cliente Darmax"><i class="fa-solid fa-cogs"></i> Darmax</a>
+                <a href="Purimatic.html" target="_blank" title="Resumen del cliente Purimatic"><i class="fa-solid fa-sync"></i> Purimatic</a>
+                <a href="Kit_Yasaki.html" target="_blank" title="Resumen del cliente Kit Yasaky"><i class="fa-solid fa-plug"></i> Kit Yasaky</a>
+                <a href="Autoclave.html" target="_blank" title="Resumen del cliente Autoclave"><i class="fa-solid fa-vials"></i> Autoclave</a>
             </div>
 
             <!-- AYUDAS -->
             <div class="section">
                 <h3>AYUDAS</h3>
-                <a href="Conectores.html" target="_blank"><i class="fa-solid fa-network-wired"></i> Conectores</a>
-                <a href="Placas.html" target="_blank"><i class="fa-solid fa-microchip"></i> Placas</a>
+                <a href="Conectores.html" target="_blank" title="Información sobre conectores"><i class="fa-solid fa-network-wired"></i> Conectores</a>
+                <a href="Placas.html" target="_blank" title="Información sobre placas electrónicas"><i class="fa-solid fa-microchip"></i> Placas</a>
             </div>
 
         </div>
@@ -193,3 +185,4 @@ footer {
         © 2026 CircuitDesignMX | Desarrollo, diseño, fabricación y ensamble de placas electrónicas.
     </footer>
 </body>
+</html>
