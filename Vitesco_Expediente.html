@@ -1,136 +1,44 @@
-
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="es">
     <head>
-        <meta charset="UTF-8">
-        <title>CircuitDesignMx</title>
-        <style>
-            * {
-                margin: 0;
-                padding: 0;
-            }
-            header {
-                background-color: limegreen;
-                color: white;
-                padding: 10px;
-                display: flex;
-                align-items: center;
-            }
-            .logo {
-                height: 60px;
-                margin-right: 20px;
-            }
-            #titulo {
-                flex-grow: 1;
-                text-align: center;
-                font-size: 2em;
-            }
-        </style>
+    <meta charset="UTF-8">
+    <title>CircuitDesignMx</title>
+    <style>
+    * { margin: 0; padding: 0; }
+    #cabecera { background-color: limegreen; padding: 10px; color: white; text-align: center; }
+    body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+    .card { background: white; padding: 25px; margin: 20px auto; border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); width: 350px; text-align: center; }
+    .valor { font-size: 40px; font-weight: bold; color: #333; }
+    .fecha { font-size: 16px; color: #666; margin-top: 5px; }
+    footer { background-color: red; color: white; padding: 8px; text-align: center; margin-top: 40px; }
+    </style>
     </head>
     <body>
-        <header id="cabecera">
-            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
-            <h1 id="titulo">CircuitDesignMX</h1>
-        </header>
+
+    <header id="cabecera">
+        <h1>CircuitDesignMx</h1>
+    </header>
+
+    <h1 style="text-align:center; margin-top:20px;">
+        Reporte de Producción - Vitesco
+    </h1>
+
+    <div class="card">
+        <h2>En Fabricación</h2>
+        <div class="valor">0</div>
+        <div class="fecha">2026-05-28</div>
+    </div>
+
+    <div class="card">
+        <h2>Listas para enviar</h2>
+        <div class="valor">0</div>
+        <div class="fecha">2026-06-01</div>
+    </div>
+
     </body>
     </html>
     
-    <style>
-        table { border-collapse: collapse; width: 80%; margin: auto; font-size: 20px; font-weight: bold; text-align:left;}
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .alerta { background-color: #f8d7da; color: #721c24; }
-    </style>
-    <body>
-        <h1 style="text-align:center;">Expediente Vitesco v1.0</h1> 
-        <h1 style="text-align:center;">-------------------------</h1>
-        
-    
-        <h2 style="text-align:center;">Balance de Disponibilidad de Placas</h2>
-    
-        <table>
-         <thead>
-            <tr>
-                <th rowspan="2">Proyecto</th>
-                <th rowspan="2">Componente</th>
-                <th colspan="2">En Fabricacion </th>
-                <th colspan="2">Lista para Enviar</th>
-            </tr>
-            <tr>
-                <th>cantidad</th>
-                <th>fecha</th>
-                <th>cantidad</th>
-                <th>fecha</th>
-            </tr>
-          </thead>  
-    
-        <tr >
-            <td>Vitesco</td>
-            <td style="text-align:right;font-size: 30px;font-weight: bold;">Placas</td>
-            <td>0</td>
-            <td>2026-05-28</td>
-            <td style="text-align:right;font-size: 32px;font-weight: bold;">0</td>
-            <td>2026-05-28</td>
-        </tr>
-        
-        </table>
-    </body>
-    </html>
-    
-    <body>
-         <h1 style="text-align:center;">-------------------------</h1>
-        <h2 style="text-align:center;">Secuencias de Trabajo</h2>
-
-        <table>
-            <tr>
-                <th>Proyecto</th>
-                <th>Lote</th>
-                <th>Fecha</th>
-                <th>Descripcion</th>
-                <th>Cantidad</th>
-            </tr>
-        <tr ><td>Venta-Planificada</td><td>Placas</td><td>2026-07-01</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Sin Reserva</td><td>0</td></tr><tr ><td>Venta-Concretada</td><td>Placas</td><td>2026-06-01</td><td style='text-align:left;font-size:24px;font-weight:bold;'></td><td>5</td></tr>
-            </table>
-        </body>
-        </html>
-        
-        </table>
-    </body>
-    </html>
-    
-    <body>
-        <h1 style="text-align:center;">-------------------------</h1>
-        <h2 style="text-align:center;">Componentes Especificos</h2>
-        <table>
-            <tr>
-                <th>idE</th>
-                <th>Descripcion</th>
-                <th>Existencia</th>
-            </tr>
-        
-            </table>
-        </body>
-        </html>
-        
-    <body>
-        <h1 style="text-align:center;">------------------------</h1>
-        <h2 style="text-align:center;">Componentes Reservados vs Criticos</h2>
-
-        <table>
-            <tr>
-
-                <th>idE</th>
-                <th>Descripcion</th>
-                <th>Ctdad Proy</th>
-                <th>Ctdad Stock</th>
-                <th>Observaciones</th>
-            </tr>
-        
-            </table>
-        </body>
-        </html>
-        
 <style>
 footer {
     background-color: red;
@@ -146,7 +54,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 02/06/2026 11:56:55
+        Fecha y hora: 26/06/2026 12:29:51
     </p>
 </footer>
         
