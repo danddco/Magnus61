@@ -1,60 +1,54 @@
 
-        <!DOCTYPE html>
-        <html lang="es">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>CircuitDesignMx</title>
         <style>
-         header
-         * {
-            margin: 0px;
-            padding: 0px;
-           } 
-
-         {
-         background-color: limegreen;
-         color: white;
-         style="text-align: center;
-        }
-        #cabecera {
-         background-color: limegreen;
-          padding: 10px;
-        }
-
-.logo{
-  
-  margin: none;
-  vertical-align: top;
-}
-
-#titulo{
-  display: inline-block;
-  text-align: center;
-  width: calc(100% - 228px);
-}
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            header {
+                background-color: limegreen;
+                color: white;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+            .logo {
+                height: 60px;
+                margin-right: 20px;
+            }
+            #titulo {
+                flex-grow: 1;
+                text-align: center;
+                font-size: 2em;
+                font-family: Arial, sans-serif;
+            }
         </style>
-           <meta charset="UTF-8">
-           <title>CircuitDesignMx.</title>
-
-
-           <div id="agrupar">
-  <header id="cabecera">
-    <img class="logo" src="Logo-Circuit-MX.jpg">
-
+    </head>
+    <body>
+        <header id="cabecera">
+            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+            <h1 id="titulo">CircuitDesignMX</h1>
+            <a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html">Home</a>
+        </header>
+    </body>
+    </html>
     
-    <h1 id="titulo"> CircuitDesignMX</h1>
-  </header>
-</div>
-        
     <style>
-        table { border-collapse: collapse; width: 80%; margin: auto; font-size: 20px; font-weight: bold; text-align:left;}
+        table { border-collapse: collapse; width: 95%; margin: auto; font-size: 20px; font-weight: bold; text-align:left;}
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
         body { font-family: Arial, sans-serif; padding: 20px; }
         .alerta { background-color: #f8d7da; color: #721c24; }
     </style>
     <body>
-        <h1 style="text-align:center;">Expediente Purimatic v2.2</h1> 
-        <p style="text-align:center;">Cantidad: 0</p> 
-    
-        <h2 style="text-align:center;">Balance de Disponibilidad de Placas</h2>
+        <h1 style="text-align:center;">Purimatic v2.2</h1> 
+        <h1 style="text-align:center;">-------------------------</h1>
+        <h2 style="text-align:center;">Disponibilidad de Placas</h2>
     
         <table>
          <thead>
@@ -74,20 +68,12 @@
     
         <tr >
             <td>Purimatic v2.2</td>
-            <td>LCD con Adaptador</td>
-            <td>0</td>
-            <td>2026-04-30</td>
-            <td>16</td>
-            <td>2026-04-30</td>
-        </tr>
-        
-        <tr >
-            <td>Purimatic v2.2</td>
-            <td>Placas</td>
+            <td style="text-align:right;font-size: 30px;font-weight: bold;">Placas</td>
             <td>0</td>
             <td>2026-03-18</td>
-            <td>16</td>
+            <td style="text-align:right;font-size: 32px;font-weight: bold;">12</td>
             <td>2026-03-18</td>
+            
         </tr>
         
         </table>
@@ -95,6 +81,7 @@
     </html>
     
     <body>
+         <h1 style="text-align:center;">-------------------------</h1>
         <h2 style="text-align:center;">Secuencias de Trabajo</h2>
 
         <table>
@@ -105,7 +92,7 @@
                 <th>Descripcion</th>
                 <th>Cantidad</th>
             </tr>
-        
+        <tr class='.alerta'><td>Venta-Estimada</td><td>Placas</td><td>2026-10-10</td><td style='text-align:left;font-size:24px;font-weight:bold;'></td><td></td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-06-29</td><td style='text-align:left;font-size:24px;font-weight:bold;'></td><td>4</td></tr>
             </table>
         </body>
         </html>
@@ -115,7 +102,23 @@
     </html>
     
     <body>
-        <h2 style="text-align:center;">Componentes Criticos para 50 Placas</h2>
+        <h1 style="text-align:center;">-------------------------</h1>
+        <h2 style="text-align:center;">Componentes Especificos</h2>
+        <table>
+            <tr>
+                <th>idE</th>
+                <th>Descripcion</th>
+                <th>Existencia</th>
+            </tr>
+        
+            </table>
+        </body>
+        </html>
+        
+    <body>
+        <h1 style="text-align:center;">------------------------</h1>
+        <h2 style="text-align:center;">Componentes Criticos para 30 Placas.</h2>
+        <h5 style="text-align:center;">Ver fecha de la pagina.</h5>
 
         <table>
             <tr>
@@ -124,13 +127,16 @@
                 <th>Descripcion</th>
                 <th>Ctdad Proy</th>
                 <th>Ctdad Stock</th>
-                <th>Ctdad Total</th>
-                <th>Balance</th>
                 <th>Observaciones</th>
             </tr>
-        <tr class=""><td>6</td><td>Transistor ULN2003AD</td><td>2</td><td>0</td><td>0</td><td>0</td><td></td></tr><tr class=""><td>12</td><td>Pin Header 1P Single Macho</td><td>18</td><td>0</td><td>0</td><td>0</td><td></td></tr><tr class=""><td>13</td><td>Resistencia 3.4</td><td>1</td><td>0</td><td>0</td><td>0</td><td>Solicitado 1 reel</td></tr><tr class=""><td>20</td><td>Resistencia 240</td><td>1</td><td>0</td><td>0</td><td>0</td><td></td></tr><tr class=""><td>22</td><td>Mosfet AOD4184A-VB</td><td>1</td><td>0</td><td>0</td><td>0</td><td>Solicitado 1 reel</td></tr><tr class=""><td>24</td><td>Terminal 3P</td><td>4</td><td>0</td><td>0</td><td>0</td><td></td></tr><tr class=""><td>25</td><td>Terminal 4P</td><td>2</td><td>0</td><td>0</td><td>0</td><td></td></tr><tr class=""><td>26</td><td>Terminal 5P</td><td>4</td><td>0</td><td>0</td><td>0</td><td></td></tr>
+        <tr class=""><td>107</td><td>C310848</td><td>CAPACITOR - 220 uF Electrolytic 35V</td><td>2</td><td>577</td><td>None</td></tr><tr class=""><td>2</td><td></td><td>MICRO - ATMEGA 2560</td><td>1</td><td>70</td><td>None</td></tr><tr class=""><td>105</td><td>C12676</td><td>CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td><td>1</td><td>1872</td><td>None</td></tr><tr class=""><td>7</td><td></td><td>Regulador de Voltaje Linear 7805-C21706</td><td>1</td><td>470</td><td>None</td></tr><tr class=""><td>5</td><td></td><td>DIODO - SS34 - MS</td><td>1</td><td>1910</td><td>None</td></tr><tr class=""><td>6</td><td></td><td>Transistor ULN2003AD</td><td>2</td><td>0</td><td></td></tr><tr class=""><td>8</td><td>C410366</td><td>SWITCH - Tactil Push Bottom </td><td>5</td><td>1940</td><td>Compra 02/06/2026</td></tr><tr class=""><td>9</td><td>C360619</td><td>Capacitor 100 nf Ceramico 16V 0805</td><td>25</td><td>19610</td><td>None</td></tr><tr class=""><td>10</td><td>C129480</td><td>CAPACITOR - 470 uf Electrolitico 10V SMD</td><td>2</td><td>1956</td><td>None</td></tr><tr class=""><td>11</td><td></td><td>CAPACITOR - 22 pF 0805</td><td>2</td><td>3940</td><td>None</td></tr><tr class=""><td>12</td><td>C52016390</td><td>Pin Header 1x2 Single Macho</td><td>18</td><td>144</td><td></td></tr><tr class=""><td>13</td><td></td><td>RESISTENCIAa - 3.4</td><td>1</td><td>10000</td><td>Compra 02/06/2026 2 reels</td></tr><tr class=""><td>15</td><td>C162731</td><td>Switching Diode SMD 1N4004</td><td>1</td><td>2790</td><td>None</td></tr><tr class=""><td>16</td><td></td><td>Resistencia Potenciometro POT 10kΩ </td><td>1</td><td>515</td><td>None</td></tr><tr class=""><td>17</td><td>C965815</td><td>LED GREEN 0805</td><td>1</td><td>6770</td><td>Agotado en la P6P</td></tr><tr class=""><td>18</td><td>C965812</td><td>LED RED 0805</td><td>12</td><td>4940</td><td>None</td></tr><tr class=""><td>19</td><td></td><td>RESISTENCIAd - 1K0</td><td>2</td><td>9880</td><td>None</td></tr><tr class=""><td>20</td><td>C25296</td><td>RESISTENCIAb - 240</td><td>1</td><td>340</td><td>None</td></tr><tr class=""><td>21</td><td></td><td>RESISTENCIAf - 10K0</td><td>15</td><td>4940</td><td>No hay reel de reserva</td></tr><tr class=""><td>22</td><td>C7568791</td><td>MOSFET - AOD4184A-VB</td><td>1</td><td>0</td><td></td></tr><tr class=""><td>23</td><td>C194407</td><td>CONECTOR - DCJack C130239</td><td>1</td><td>250</td><td>None</td></tr><tr class=""><td>24</td><td></td><td>Terminal 3P</td><td>4</td><td>0</td><td></td></tr><tr class=""><td>25</td><td></td><td>Terminal 4P</td><td>2</td><td>0</td><td></td></tr><tr class=""><td>26</td><td></td><td>Terminal 5P</td><td>4</td><td>0</td><td></td></tr><tr class=""><td>4</td><td>C119051</td><td>CAPACITOR - 10 uf Tantalum 16V SA-3216</td><td>4</td><td>1970</td><td>None</td></tr><tr class=""><td>192</td><td>C2987288</td><td>EXPANSOR - HGSEMI PCF8574T/TR</td><td>1</td><td>50</td><td></td></tr><tr class=""><td>13</td><td></td><td>RESISTENCIAa - 3.4</td><td>1</td><td>10000</td><td>Compra 02/06/2026 2 reels</td></tr><tr class=""><td>14</td><td>C965812</td><td>RESISTENCIAd - 2K2</td><td>8</td><td>1000</td><td></td></tr><tr class=""><td>55</td><td></td><td>RESISTENCIAe - 4K7</td><td>2</td><td>10000</td><td>reel</td></tr>
             </table>
         </body>
+        <h1 style="text-align:center;">------------------------</h1>
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 10vh; width: 100vw; box-sizing: border-box;">
+        <div style="font-weight: bold; margin-bottom: 12px; font-family: sans-serif; font-size: 1.2rem;">Imagen de la Placa</div>
+        <img src="imagenes/Purimatic v2.2.jpeg" alt="Purimatic v2.2 v1.0" loading="lazy" decoding="async" style="max-width: 90%; height: auto; object-fit: contain;">
+        </div>
         </html>
         
 <style>
@@ -142,13 +148,13 @@ footer {
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 </style>
-  <div style="height: 20px;"></div>
+  <div style="height: 14px;"></div>
 <footer>
-    <p style="margin-top:15px;">
+    <p style="margin-top:5px;">
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 30/04/2026 09:33:19
+        Fecha y hora: 29/06/2026 19:16:46
     </p>
 </footer>
         
