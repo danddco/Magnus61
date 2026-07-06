@@ -1,0 +1,476 @@
+
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>CircuitDesignMx</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            header {
+                background-color: limegreen;
+                color: white;
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            }
+            .logo {
+                height: 60px;
+                margin-right: 20px;
+            }
+            #titulo {
+                flex-grow: 1;
+                text-align: center;
+                font-size: 2em;
+                font-family: Arial, sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <header id="cabecera">
+            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+            <h1 id="titulo">CircuitDesignMX</h1>
+            <a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html">Home</a>
+        </header>
+    </body>
+    </html>
+    
+    <style>
+        table { border-collapse: collapse; width: 95%; margin: 20px auto; font-size: 20px; font-weight: bold; text-align: left; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .alerta { background-color: #f8d7da; color: #721c24; }
+        .vent { background-color: #e2f0d9; color: #385723; }
+        .domi { background-color: #fff2cc; color: #7f6000; }
+        .entra { background-color: #d9e1f2; color: #1f4e78; }
+        .fabri { background-color: #fce4d6; color: #c65911; }
+        .ok { background-color: #d4edda; color: #155724; }
+        .text-right-bold { text-align: right; font-weight: bold; }
+        .divider { text-align: center; }
+    </style>
+    <body>
+        <h1 class="divider">David</h1> 
+        <h1 class="divider">-------------------------</h1>
+        <h2 class="divider">Disponibilidad de Placas</h2>
+    
+        <table>
+         <thead>
+            <tr>
+                <th rowspan="2">Proyecto</th>
+                <th rowspan="2">Componente</th>
+                <th colspan="2">En Fabricacion</th>
+                <th colspan="2">Lista para Enviar</th>
+            </tr>
+            <tr>
+                <th>cantidad</th>
+                <th>fecha</th>
+                <th>cantidad</th>
+                <th>fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+    
+        <tr>
+            <td>David</td>
+            <td class="text-right-bold" style="font-size: 30px;">Placas</td>
+            <td>30</td>
+            <td>2026-07-03</td>
+            <td class="text-right-bold" style="font-size: 32px;">0</td>
+            <td>2026-07-03</td>
+        </tr>
+        
+          </tbody>
+        </table>
+
+        <h1 class="divider">-------------------------</h1>
+        <h2 class="divider">Secuencias de Trabajo</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Proyecto</th>
+                    <th>Lote</th>
+                    <th>Fecha</th>
+                    <th>Descripcion</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr class='alerta'><td>Venta-Estimada</td><td>Placas</td><td>2026-07-03</td><td style='font-size:24px; font-weight:bold;'>No hay Placas</td><td>0</td></tr><tr ><td>Fabricacion-Entrada</td><td>Placas</td><td>2026-07-03</td><td style='font-size:24px; font-weight:bold;'>En Stock 30 Placas Virgenes  - RESISTENCIA - FR2512J101 TS ?????</td><td>30</td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-06-17</td><td style='font-size:24px; font-weight:bold;'>Enviada 15 Placas + 1 Reparada</td><td>15</td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-06-01</td><td style='font-size:24px; font-weight:bold;'></td><td>15</td></tr>
+            </tbody>
+        </table>
+
+        <h1 class="divider">-------------------------</h1>
+        <h2 class="divider">Componentes Especificos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>idE</th>
+                    <th>Descripcion</th>
+                    <th>Existencia</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr class='alerta'><td>211</td><td>MICRO - 1CANQ5K c4 S=$</td><td>0</td></tr>
+            </tbody>
+        </table>
+
+        <h1 class="divider">------------------------</h1>
+        <h2 class="divider">Componentes Criticos para 30 Placas.</h2>
+        <h5 class="divider">Ver fecha de la pagina.</h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>idE</th>
+                    <th>Descripcion</th>
+                    <th>Ctdad Unitaria</th>
+                    <th>Ctdad Proy</th>
+                    <th>Ctdad Stock</th>
+                    <th>Diferencia</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody>
+    
+        <tr class="ok">
+            <td>56</td>
+            <td>RELAY - 12V - 2US / 10 A</td>
+            <td class="text-right-bold" style="font-size:24px;">2</td>
+            <td class="text-right-bold" style="font-size:24px;">60</td>
+            <td class="text-right-bold" style="font-size:24px;">4283</td>
+            <td class="text-right-bold" style="font-size:24px;">4223</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>51</td>
+            <td>Terminal Block KF128-5.0-2P Standard</td>
+            <td class="text-right-bold" style="font-size:24px;">16</td>
+            <td class="text-right-bold" style="font-size:24px;">480</td>
+            <td class="text-right-bold" style="font-size:24px;">9120</td>
+            <td class="text-right-bold" style="font-size:24px;">8640</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>23</td>
+            <td>CONECTOR - DCJack C130239</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">250</td>
+            <td class="text-right-bold" style="font-size:24px;">220</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>16</td>
+            <td>Resistencia Potenciometro POT 10kΩ </td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">515</td>
+            <td class="text-right-bold" style="font-size:24px;">485</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>41</td>
+            <td>Capacitor 630 - AJC MPP 104J630V</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">943</td>
+            <td class="text-right-bold" style="font-size:24px;">913</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>12</td>
+            <td>Pin Header 1x2 Single Macho</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">144</td>
+            <td class="text-right-bold" style="font-size:24px;">114</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>109</td>
+            <td>Pin Header 1x3 Single Macho</td>
+            <td class="text-right-bold" style="font-size:24px;">2</td>
+            <td class="text-right-bold" style="font-size:24px;">60</td>
+            <td class="text-right-bold" style="font-size:24px;">126</td>
+            <td class="text-right-bold" style="font-size:24px;">66</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>114</td>
+            <td>Pin Header 1x6 Single Macho</td>
+            <td class="text-right-bold" style="font-size:24px;">2</td>
+            <td class="text-right-bold" style="font-size:24px;">60</td>
+            <td class="text-right-bold" style="font-size:24px;">128</td>
+            <td class="text-right-bold" style="font-size:24px;">68</td>
+            <td>Por Fragmentacion</td>
+        </tr>
+        
+        <tr class="ok">
+            <td>5</td>
+            <td>DIODO - SS34 - MS</td>
+            <td class="text-right-bold" style="font-size:24px;">3</td>
+            <td class="text-right-bold" style="font-size:24px;">90</td>
+            <td class="text-right-bold" style="font-size:24px;">1910</td>
+            <td class="text-right-bold" style="font-size:24px;">1820</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>107</td>
+            <td>CAPACITOR - 220 uF Electrolytic 35V</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">577</td>
+            <td class="text-right-bold" style="font-size:24px;">547</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>7</td>
+            <td>Regulador de Voltaje Linear 7805-C21706</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">470</td>
+            <td class="text-right-bold" style="font-size:24px;">440</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>10</td>
+            <td>CAPACITOR - 470 uf Electrolitico 10V SMD</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">1956</td>
+            <td class="text-right-bold" style="font-size:24px;">1926</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>105</td>
+            <td>CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">1872</td>
+            <td class="text-right-bold" style="font-size:24px;">1842</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>8</td>
+            <td>SWITCH - Tactil Push Bottom </td>
+            <td class="text-right-bold" style="font-size:24px;">2</td>
+            <td class="text-right-bold" style="font-size:24px;">60</td>
+            <td class="text-right-bold" style="font-size:24px;">1940</td>
+            <td class="text-right-bold" style="font-size:24px;">1880</td>
+            <td>Compra 02/06/2026</td>
+        </tr>
+        
+        <tr class="ok">
+            <td>28</td>
+            <td>MICRO - ATMEGA 328pAU</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">320</td>
+            <td class="text-right-bold" style="font-size:24px;">290</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>4</td>
+            <td>CAPACITOR - 10 uf Tantalum 16V SA-3216</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">1970</td>
+            <td class="text-right-bold" style="font-size:24px;">1940</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>45</td>
+            <td>OPTOACOPLADOR - MOC 3063</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">970</td>
+            <td class="text-right-bold" style="font-size:24px;">940</td>
+            <td>Compra 02/06/2026</td>
+        </tr>
+        
+        <tr class="ok">
+            <td>40</td>
+            <td>MOSFET - BT138-800CW</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">770</td>
+            <td class="text-right-bold" style="font-size:24px;">740</td>
+            <td>Compra 02/06/2026</td>
+        </tr>
+        
+        <tr class="ok">
+            <td>17</td>
+            <td>LED GREEN 0805</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">6770</td>
+            <td class="text-right-bold" style="font-size:24px;">6740</td>
+            <td>Agotado en la P6P</td>
+        </tr>
+        
+        <tr class="ok">
+            <td>18</td>
+            <td>LED RED 0805</td>
+            <td class="text-right-bold" style="font-size:24px;">2</td>
+            <td class="text-right-bold" style="font-size:24px;">60</td>
+            <td class="text-right-bold" style="font-size:24px;">4940</td>
+            <td class="text-right-bold" style="font-size:24px;">4880</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>15</td>
+            <td>Switching Diode SMD 1N4004</td>
+            <td class="text-right-bold" style="font-size:24px;">7</td>
+            <td class="text-right-bold" style="font-size:24px;">210</td>
+            <td class="text-right-bold" style="font-size:24px;">2790</td>
+            <td class="text-right-bold" style="font-size:24px;">2580</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>11</td>
+            <td>CAPACITOR - 22 pF 0805</td>
+            <td class="text-right-bold" style="font-size:24px;">2</td>
+            <td class="text-right-bold" style="font-size:24px;">60</td>
+            <td class="text-right-bold" style="font-size:24px;">3940</td>
+            <td class="text-right-bold" style="font-size:24px;">3880</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>9</td>
+            <td>Capacitor 100 nf Ceramico 16V 0805</td>
+            <td class="text-right-bold" style="font-size:24px;">13</td>
+            <td class="text-right-bold" style="font-size:24px;">390</td>
+            <td class="text-right-bold" style="font-size:24px;">19610</td>
+            <td class="text-right-bold" style="font-size:24px;">19220</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>35</td>
+            <td>TRANSISTOR - J3Y Bipolar</td>
+            <td class="text-right-bold" style="font-size:24px;">6</td>
+            <td class="text-right-bold" style="font-size:24px;">180</td>
+            <td class="text-right-bold" style="font-size:24px;">2820</td>
+            <td class="text-right-bold" style="font-size:24px;">2640</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>29</td>
+            <td>RESISTENCIA - 5K1</td>
+            <td class="text-right-bold" style="font-size:24px;">6</td>
+            <td class="text-right-bold" style="font-size:24px;">180</td>
+            <td class="text-right-bold" style="font-size:24px;">14820</td>
+            <td class="text-right-bold" style="font-size:24px;">14640</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>19</td>
+            <td>RESISTENCIAd - 1K0</td>
+            <td class="text-right-bold" style="font-size:24px;">4</td>
+            <td class="text-right-bold" style="font-size:24px;">120</td>
+            <td class="text-right-bold" style="font-size:24px;">9880</td>
+            <td class="text-right-bold" style="font-size:24px;">9760</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>38</td>
+            <td>RESISTENCIAb - 330</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">4420</td>
+            <td class="text-right-bold" style="font-size:24px;">4390</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>21</td>
+            <td>RESISTENCIAf - 10K0</td>
+            <td class="text-right-bold" style="font-size:24px;">2</td>
+            <td class="text-right-bold" style="font-size:24px;">60</td>
+            <td class="text-right-bold" style="font-size:24px;">4940</td>
+            <td class="text-right-bold" style="font-size:24px;">4880</td>
+            <td>No hay reel de reserva</td>
+        </tr>
+        
+        <tr class="ok">
+            <td>20</td>
+            <td>RESISTENCIAb - 240</td>
+            <td class="text-right-bold" style="font-size:24px;">2</td>
+            <td class="text-right-bold" style="font-size:24px;">60</td>
+            <td class="text-right-bold" style="font-size:24px;">340</td>
+            <td class="text-right-bold" style="font-size:24px;">280</td>
+            <td></td>
+        </tr>
+        
+        <tr class="ok">
+            <td>44</td>
+            <td>Pinheader 2p -Jumper</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">436</td>
+            <td class="text-right-bold" style="font-size:24px;">406</td>
+            <td></td>
+        </tr>
+        
+        <tr class="alerta">
+            <td>46</td>
+            <td>RESISTENCIA - FR2512J101 TS</td>
+            <td class="text-right-bold" style="font-size:24px;">1</td>
+            <td class="text-right-bold" style="font-size:24px;">30</td>
+            <td class="text-right-bold" style="font-size:24px;">-30</td>
+            <td class="text-right-bold" style="font-size:24px;">-60</td>
+            <td></td>
+        </tr>
+        
+            </tbody>
+        </table>
+        <h1 class="divider">------------------------</h1>
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 30px auto; width: 100%;">
+            <div style="font-weight: bold; margin-bottom: 12px; font-family: sans-serif; font-size: 1.2rem;">Imagen de la Placa</div>
+            <img src="imagenes/David.jpeg" alt="David v1.0" loading="lazy" decoding="async" style="max-width: 90%; height: auto; object-fit: contain;">
+        </div>
+    </body>
+    </html>
+    
+<style>
+footer {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+</style>
+  <div style="height: 14px;"></div>
+<footer>
+    <p style="margin-top:5px;">
+        &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
+    </p>
+    <p style="margin-top:5px;">
+        Fecha y hora: 06/07/2026 11:18:20
+    </p>
+</footer>
+        
