@@ -3,183 +3,78 @@
     <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>CircuitDesignMx</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reporte de Alertas: Inventario Crítico</title>
         <style>
-            * {
-                margin: 0;
-                padding: 0;
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 40px;
+                background-color: #fcfcfc;
+                color: #333;
             }
-            header {
-                background-color: limegreen;
+            .contenedor {
+                max-width: 1000px;
+                margin: auto;
+                background: white;
+                padding: 30px;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            }
+            h1 {
+                color: #990000;
+                border-bottom: 2px solid #ffcccc;
+                padding-bottom: 10px;
+                font-size: 24px;
+            }
+            p {
+                color: #666;
+                font-size: 14px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th {
+                background-color: #990000;
                 color: white;
-                padding: 10px;
-                display: flex;
-                align-items: center;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                text-align: left;
+                padding: 12px;
+                font-size: 14px;
+                text-transform: uppercase;
             }
-            .logo {
-                height: 60px;
-                margin-right: 20px;
+            td {
+                padding: 12px;
+                border-bottom: 1px solid #ddd;
+                font-size: 14px;
             }
-            #titulo {
-                flex-grow: 1;
-                text-align: center;
-                font-size: 2em;
-                font-family: Arial, sans-serif;
+            .alerta-roja {
+                background-color: #ffcccc;
+                color: #990000;
             }
+            .text-center { text-align: center; }
+            .text-right { text-align: right; }
         </style>
     </head>
     <body>
-        <header id="cabecera">
-            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
-            <h1 id="titulo">CircuitDesignMX</h1>
-            <a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html">Home</a>
-        </header>
-    </body>
-    </html>
-    
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 90%;
-            margin: auto;
-            font-size: 14px;
-            font-weight: bold;
-            text-align: left;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-            text-align: center;
-        }
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-        }
-        .alerta {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        .bajo {
-            background-color: #fff3cd;
-        }
-    </style>
-
-    <h2 style="text-align:center;">Componentes Criticos</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>LCSC</th>
-                <th>Descripción</th>
-                <th>Existencia</th>
-                
-                <th>Fecha</th>
-                <th>Observaciones</th>
-                
-            </tr>
-        </thead>
-        <tbody>
-    
-        <tr class="alerta">
-            <td>213</td>
-            <td style="text-align:left;font-size: 18px;"></td>
-            <td style="text-align:left;font-size: 20px;">ACRILICO 1 Oreja Superior (Monterrey)</td>
-            <td style="text-align:right;">1</td>
-            
-            <td>2026-06-22</td>
-            <td style="text-align:left;font-size: 18px;">None</td>
-           
-        </tr>
-        
-        <tr class="alerta">
-            <td>23</td>
-            <td style="text-align:left;font-size: 18px;">C194407</td>
-            <td style="text-align:left;font-size: 20px;">CONECTOR - DCJack C130239</td>
-            <td style="text-align:right;">250</td>
-            
-            <td>2026-06-22</td>
-            <td style="text-align:left;font-size: 18px;">None</td>
-           
-        </tr>
-        
-        <tr class="alerta">
-            <td>214</td>
-            <td style="text-align:left;font-size: 18px;">C111196</td>
-            <td style="text-align:left;font-size: 20px;">CONECTOR - MICRO SD CARD (TF CARD) SMD - TF-15x15</td>
-            <td style="text-align:right;">0</td>
-            
-            <td>2026-04-14</td>
-            <td style="text-align:left;font-size: 18px;"></td>
-           
-        </tr>
-        
-        <tr class="alerta">
-            <td>225</td>
-            <td style="text-align:left;font-size: 18px;">C574141</td>
-            <td style="text-align:left;font-size: 20px;">CONECTOR D-SUB - HEMBRA - 37POS PANEL MOUNT</td>
-            <td style="text-align:right;">0</td>
-            
-            <td>2026-07-06</td>
-            <td style="text-align:left;font-size: 18px;">Ajuste</td>
-           
-        </tr>
-        
-        <tr class="alerta">
-            <td>46</td>
-            <td style="text-align:left;font-size: 18px;"></td>
-            <td style="text-align:left;font-size: 20px;">RESISTENCIA - FR2512J101 TS</td>
-            <td style="text-align:right;">-30</td>
-            
-            <td>2026-05-19</td>
-            <td style="text-align:left;font-size: 18px;">None</td>
-           
-        </tr>
-        
-        <tr class="alerta">
-            <td>39</td>
-            <td style="text-align:left;font-size: 18px;">C934172</td>
-            <td style="text-align:left;font-size: 20px;">RESISTENCIAb - 470 </td>
-            <td style="text-align:right;">-100</td>
-            
-            <td>2026-07-03</td>
-            <td style="text-align:left;font-size: 18px;">None</td>
-           
-        </tr>
-        
-        <tr class="alerta">
-            <td>115</td>
-            <td style="text-align:left;font-size: 18px;">C5123702</td>
-            <td style="text-align:left;font-size: 20px;">SWITCH - Dip 4 Position Basculante</td>
-            <td style="text-align:right;">30</td>
-            
-            <td>2026-07-03</td>
-            <td style="text-align:left;font-size: 18px;">None</td>
-           
-        </tr>
-        
-        </tbody>
-    </table>
-    
-<style>
-footer {
-    background-color: red;
-    color: white;
-    padding: 5px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-</style>
-  <div style="height: 14px;"></div>
-<footer>
-    <p style="margin-top:5px;">
-        &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
-    </p>
-    <p style="margin-top:5px;">
-        Fecha y hora: 06/07/2026 14:02:20
-    </p>
-</footer>
-        
+        <div class="contenedor">
+            <h1>Reporte de Alertas: Inventario Crítico - CirDesMx</h1>
+            <p>Este reporte muestra únicamente los artículos cuyo stock restante es inferior a la cantidad mínima requerida. 
+            Si además el facturado es igual a 0, se resaltan en rojo.</p>
+    <table class='tabla-reporte'>
+<thead><tr><th>ID</th><th>Descripción del Artículo</th><th>Cant. Mínima</th><th>Suma Facturado</th><th>Suma Restantes</th></tr></thead>
+<tbody><tr class='alerta-roja'><td>23</td><td>CONECTOR - DCJack C130239</td><td>300</td><td>0.0</td><td>220.0</td></tr>
+<tr class=''><td>39</td><td>RESISTENCIAb - 470 </td><td>0</td><td>1000.0</td><td>-100.0</td></tr>
+<tr class='alerta-roja'><td>46</td><td>RESISTENCIA - FR2512J101 TS</td><td>0</td><td>0.0</td><td>-30.0</td></tr>
+<tr class=''><td>115</td><td>SWITCH - Dip 4 Position Basculante</td><td>100</td><td>440.0</td><td>30.0</td></tr>
+<tr class=''><td>176</td><td>CONECTOR - CACHIMBA - 6P HEMBRA</td><td>10</td><td>200.0</td><td>8.0</td></tr>
+<tr class='alerta-roja'><td>200</td><td>CONECTOR - CACHIMBA - 5P HEMBRA 5.08</td><td>23</td><td>0.0</td><td>14.0</td></tr>
+<tr class=''><td>202</td><td>CONECTOR - CACHIMBA - 6P MACHO - 90 grados</td><td>20</td><td>150.0</td><td>13.0</td></tr>
+<tr class=''><td>203</td><td>CONECTOR - CACHIMBA - 5P MACHO - 90 grados</td><td>20</td><td>200.0</td><td>14.0</td></tr>
+<tr class='alerta-roja'><td>213</td><td>ACRILICO 1 Oreja Superior (Monterrey)</td><td>10</td><td>0.0</td><td>1.0</td></tr>
+<tr class='alerta-roja'><td>214</td><td>CONECTOR - MICRO SD CARD (TF CARD) SMD - TF-15x15</td><td>1</td><td>0.0</td><td>0.0</td></tr>
+<tr class='alerta-roja'><td>225</td><td>CONECTOR D-SUB - HEMBRA - 37POS PANEL MOUNT</td><td>1</td><td>0.0</td><td>0.0</td></tr>
+</tbody></table>
+</div>
+</body>
+</html>
