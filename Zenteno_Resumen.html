@@ -48,12 +48,6 @@
             gap: 10px;
         }
 
-        .grid5 {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
-
         .card {
             background: white;
             padding: 10px 5px;
@@ -95,15 +89,8 @@
             margin-top: 5px;
         }
 
-        @media (max-width: 1000px) {
-            .grid5 {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
         @media (max-width: 700px) {
-            .grid3,
-            .grid5 {
+            .grid3 {
                 grid-template-columns: 1fr;
             }
 
@@ -158,7 +145,7 @@
         Lista para Enviar
     </h3>
 
-    <div class="grid5">
+    <div class="grid3">
 
         <div class="card">
             <h2>Tarjeta Vending Pro</h2>
@@ -175,18 +162,6 @@
         <div class="card">
             <h2>Basic Duo</h2>
             <div class="valor">5</div>
-            <div class="fecha">2026-07-03</div>
-        </div>
-
-        <div class="card">
-            <h2>Pantalla 5 pulgadas</h2>
-            <div class="valor">0</div>
-            <div class="fecha">2026-07-03</div>
-        </div>
-
-        <div class="card">
-            <h2>Pantalla 7 pulgadas</h2>
-            <div class="valor">3</div>
             <div class="fecha">2026-07-03</div>
         </div>
 
