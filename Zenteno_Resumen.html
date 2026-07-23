@@ -1,7 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Circuit Design MX</title>
 
     <style>
@@ -24,11 +27,25 @@
             text-align: center;
         }
 
+        .titulo-seccion {
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .titulo-fabricacion {
+            margin-top: 20px;
+            margin-bottom: 14px;
+        }
+
+        .titulo-envio {
+            margin-top: 90px;
+            margin-bottom: 14px;
+        }
+
         .grid3 {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
-            margin-bottom: 10px;
         }
 
         .grid5 {
@@ -89,6 +106,10 @@
             .grid5 {
                 grid-template-columns: 1fr;
             }
+
+            .titulo-envio {
+                margin-top: 60px;
+            }
         }
     </style>
 </head>
@@ -107,62 +128,60 @@
         Advanced Water Systems
     </h2>
 
-    <h3 style="text-align:center; margin-top:16px; margin-bottom:10px;">
+    <h3 class="titulo-seccion titulo-fabricacion">
         En Fabricación
     </h3>
 
-    <!-- 3 cuadros: En fabricación -->
     <div class="grid3">
 
         <div class="card">
-            <h2>Vending Pro</h2>
+            <h2>Tarjeta Vending Pro</h2>
             <div class="valor">15</div>
             <div class="fecha">2026-06-16</div>
         </div>
 
         <div class="card">
-            <h2>Vending Mini</h2>
+            <h2>Tarjeta Vending Mini</h2>
             <div class="valor">30</div>
             <div class="fecha">2026-07-04</div>
         </div>
 
         <div class="card">
             <h2>Basic Duo</h2>
-            <div class="valor">30</div>
+            <div class="valor">12</div>
             <div class="fecha">2026-07-08</div>
         </div>
 
     </div>
 
-    <h3 style="text-align:center; margin-top:16px; margin-bottom:10px;">
+    <h3 class="titulo-seccion titulo-envio">
         Lista para Enviar
     </h3>
 
-    <!-- 5 cuadros: Lista para enviar -->
     <div class="grid5">
 
         <div class="card">
-            <h2>Vending Pro</h2>
+            <h2>Tarjeta Vending Pro</h2>
+            <div class="valor">2</div>
+            <div class="fecha">2026-07-02</div>
+        </div>
+
+        <div class="card">
+            <h2>Tarjeta Vending Mini</h2>
             <div class="valor">7</div>
             <div class="fecha">2026-07-02</div>
         </div>
 
         <div class="card">
-            <h2>Vending Mini</h2>
-            <div class="valor">11</div>
-            <div class="fecha">2026-07-02</div>
-        </div>
-
-        <div class="card">
             <h2>Basic Duo</h2>
-            <div class="valor">0</div>
-            <div class="fecha">2026-07-23</div>
+            <div class="valor">5</div>
+            <div class="fecha">2026-07-03</div>
         </div>
 
         <div class="card">
             <h2>Pantalla 5 pulgadas</h2>
-            <div class="valor">12</div>
-            <div class="fecha">2026-07-23</div>
+            <div class="valor">0</div>
+            <div class="fecha">2026-07-03</div>
         </div>
 
         <div class="card">
@@ -185,3 +204,4 @@
 
 </body>
 </html>
+```
