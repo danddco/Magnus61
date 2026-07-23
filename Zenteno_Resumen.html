@@ -1,22 +1,99 @@
 <!DOCTYPE html>
-    <html lang="es">
-    <head>
+<html lang="es">
+<head>
     <meta charset="UTF-8">
     <title>Circuit Design MX</title>
+
     <style>
-    * { margin: 0; padding: 0; }
-    #cabecera { background-color: limegreen; padding: 10px; color: white; text-align: center; }
-    body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
-    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-    .grid4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 10px; }
-    .card { background: white; padding: 5px; border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); text-align: center; }
-    .valor { font-size: 40px; font-weight: bold; color: #333; }
-    .fecha { font-size: 16px; color: #666; margin-top: 5px; }
-    footer { background-color: red; color: white; padding: 8px; text-align: center; margin-top: 40px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        #cabecera {
+            background-color: limegreen;
+            padding: 10px;
+            color: white;
+            text-align: center;
+        }
+
+        .grid3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .grid5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+        }
+
+        .card {
+            background: white;
+            padding: 10px 5px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .valor {
+            font-size: 40px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .fecha {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        footer {
+            background-color: red;
+            color: white;
+            padding: 8px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        footer p {
+            margin-top: 5px;
+        }
+
+        @media (max-width: 1000px) {
+            .grid5 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .grid3,
+            .grid5 {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
-    </head>
-    <body>
+</head>
+
+<body>
 
     <header id="cabecera">
         <h1>Circuit Design Mx</h1>
@@ -25,78 +102,86 @@
     <h1 style="text-align:center; margin-top:20px;">
         Reporte de Producción
     </h1>
+
     <h2 style="text-align:center; margin-top:16px;">
         Advanced Water Systems
     </h2>
 
-    <h3 style="text-align:center; margin-top:16px;">
-        En Fabricacion.
+    <h3 style="text-align:center; margin-top:16px; margin-bottom:10px;">
+        En Fabricación
     </h3>
 
-    <!-- 2 cuadros arriba: En Fabricación -->
-    <div class="grid2">
+    <!-- 3 cuadros: En fabricación -->
+    <div class="grid3">
+
         <div class="card">
-            <h2>Tarjeta Vending Pro</h2>
+            <h2>Vending Pro</h2>
             <div class="valor">15</div>
             <div class="fecha">2026-06-16</div>
         </div>
 
         <div class="card">
-            <h2>Tarjeta Vending Mini</h2>
+            <h2>Vending Mini</h2>
             <div class="valor">30</div>
             <div class="fecha">2026-07-04</div>
         </div>
-    </div>
-    <h3 style="text-align:center; margin-top:16px;">
-        Lista para Enviar.
-    </h3>
-    <!-- 4 cuadros abajo: Listas para enviar -->
 
-    <div class="grid4">
         <div class="card">
-            <h2>Tarjeta Vending Pro</h2>
-            <div class="valor">2</div>
-            <div class="fecha">2026-07-02</div>
+            <h2>Basic Duo</h2>
+            <div class="valor">30</div>
+            <div class="fecha">2026-07-08</div>
         </div>
 
+    </div>
+
+    <h3 style="text-align:center; margin-top:16px; margin-bottom:10px;">
+        Lista para Enviar
+    </h3>
+
+    <!-- 5 cuadros: Lista para enviar -->
+    <div class="grid5">
+
         <div class="card">
-            <h2>Tarjeta Vending Mini</h2>
+            <h2>Vending Pro</h2>
             <div class="valor">7</div>
             <div class="fecha">2026-07-02</div>
         </div>
 
         <div class="card">
-            <h2>Pantalla 5 pulgada</h2>
-            <div class="valor">0</div>
-            <div class="fecha">2026-07-03</div>
+            <h2>Vending Mini</h2>
+            <div class="valor">11</div>
+            <div class="fecha">2026-07-02</div>
         </div>
 
         <div class="card">
-            <h2>Pantalla 7 pulgada</h2>
+            <h2>Basic Duo</h2>
+            <div class="valor">0</div>
+            <div class="fecha">2026-07-23</div>
+        </div>
+
+        <div class="card">
+            <h2>Pantalla 5 pulgadas</h2>
+            <div class="valor">12</div>
+            <div class="fecha">2026-07-23</div>
+        </div>
+
+        <div class="card">
+            <h2>Pantalla 7 pulgadas</h2>
             <div class="valor">3</div>
             <div class="fecha">2026-07-03</div>
         </div>
+
     </div>
 
-    </body>
-    </html>
-    
-<style>
-footer {
-    background-color: red;
-    color: white;
-    padding: 5px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
-</style>
-  <div style="height: 14px;"></div>
-<footer>
-    <p style="margin-top:5px;">
-        &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
-    </p>
-    <p style="margin-top:5px;">
-        Fecha y hora: 07/07/2026 12:42:02
-    </p>
-</footer>
-        
+    <footer>
+        <p>
+            &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
+        </p>
+
+        <p>
+            Fecha y hora: 07/07/2026 12:42:02
+        </p>
+    </footer>
+
+</body>
+</html>
