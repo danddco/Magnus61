@@ -38,164 +38,173 @@
     </body>
     </html>
     
-    <style>
-        table { border-collapse: collapse; width: 80%; margin: auto; font-size: 20px; font-weight: bold; text-align:center;}
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: right; }
-        th { background-color: #f2f2f2; }
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .alerta { background-color: #f8d7da; color: #721c24; }
-    </style>
-    <body>
-        <h2 style="text-align:center;">Balance de Disponibilidad de Placas</h2>
-        <table>
-         <thead>
-            <tr>
-                <th rowspan="2">Proyecto</th>
-                <th rowspan="2">Componente</th>
-                <th colspan="2">En Fabricacion </th>
-                <th colspan="2">Lista para Enviar</th>
-            </tr>
-            <tr>
-                <th>cantidad</th>
-                <th>fecha</th>
-                <th>cantidad</th>
-                <th>fecha</th>
-            </tr>
-          </thead>  
-    
+<style>
+    table {
+        border-collapse: collapse;
+        width: auto;              /* ✅ ancho automático */
+        margin: auto;
+        font-size: 18px;
+        table-layout: auto;       /* ✅ columnas ajustadas al contenido */
+    }
+    th, td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        white-space: nowrap;      /* ✅ evita saltos de línea */
+    }
+    th {
+        background-color: #f2f2f2;
+        text-align: center;       /* ✅ encabezados centrados */
+    }
+    td {
+        text-align: right;        /* ✅ números alineados a la derecha */
+    }
+    body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+    }
+    .negativo {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+</style>
+<body>
+    <h2 style="text-align:center;">Balance de Placas - Reporte 2026-07-29</h2>
+    <table>
+     <thead>
+        <tr>
+            <th>Proyecto</th>
+            <th>Componente</th>
+            <th>En Fabricación (cant)</th>
+            <th>Fecha</th>
+            <th>Lista para Enviar (cant)</th>
+            <th>Fecha</th>
+        </tr>
+      </thead>  
+
         <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">AWS Mini v1.0</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
+            <td style="font-weight: bold;">Fashident v1.0</td>
+            <td>Placas</td>
+            <td>70</td>
+            <td>2026-07-28</td>
+            <td style="font-weight: bold;">108</td>
+            <td>2026-07-28</td>
+        </tr>
+        
+        <tr >
+            <td style="font-weight: bold;">Purisystems v1.0</td>
+            <td>Placas</td>
+            <td>0</td>
+            <td>2026-06-06</td>
+            <td style="font-weight: bold;">30</td>
+            <td>2026-06-06</td>
+        </tr>
+        
+        <tr >
+            <td style="font-weight: bold;">AWS Mini v1.0</td>
+            <td>Placas</td>
             <td>30</td>
             <td>2026-07-27</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">29</td>
+            <td style="font-weight: bold;">29</td>
             <td>2026-07-27</td>
         </tr>
         
         <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">AWS Pro v1.0</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
+            <td style="font-weight: bold;">Darmax Agua Purificada y Alcalina</td>
+            <td>Placas</td>
+            <td>0</td>
+            <td>2026-05-21</td>
+            <td style="font-weight: bold;">10</td>
+            <td>2026-05-21</td>
+        </tr>
+        
+        <tr >
+            <td style="font-weight: bold;">Purimatic v2.2</td>
+            <td>Placas</td>
+            <td>0</td>
+            <td>2026-03-18</td>
+            <td style="font-weight: bold;">7</td>
+            <td>2026-03-18</td>
+        </tr>
+        
+        <tr >
+            <td style="font-weight: bold;">AWS Pro v1.0</td>
+            <td>Placas</td>
             <td>15</td>
             <td>2026-06-16</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">2</td>
+            <td style="font-weight: bold;">2</td>
             <td>2026-06-16</td>
         </tr>
         
         <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Autoclave</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
-            <td>5</td>
-            <td>2026-04-13</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">0</td>
+            <td style="font-weight: bold;">Veco v1.0</td>
+            <td>Placas</td>
+            <td>20</td>
+            <td>2026-07-28</td>
+            <td style="font-weight: bold;">0</td>
             <td></td>
         </tr>
         
         <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">DUO ver1.0</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placa</td>
+            <td style="font-weight: bold;">Monterrey v1.0</td>
+            <td>Placas</td>
+            <td>0</td>
+            <td>2026-06-18</td>
+            <td style="font-weight: bold;">0</td>
+            <td>2026-06-18</td>
+        </tr>
+        
+        <tr >
+            <td style="font-weight: bold;">David</td>
+            <td>Placas</td>
+            <td>30</td>
+            <td>2026-07-03</td>
+            <td style="font-weight: bold;">0</td>
+            <td>2026-07-03</td>
+        </tr>
+        
+        <tr >
+            <td style="font-weight: bold;">Kit Led / Conector</td>
+            <td>Placas</td>
+            <td>1250</td>
+            <td>2026-07-27</td>
+            <td style="font-weight: bold;">0</td>
+            <td>2026-07-27</td>
+        </tr>
+        
+        <tr >
+            <td style="font-weight: bold;">DUO ver1.0</td>
+            <td>Placa</td>
             <td>5</td>
             <td>2026-06-10</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">0</td>
+            <td style="font-weight: bold;">0</td>
             <td></td>
         </tr>
         
         <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Darmax Agua Purificada y Alcalina</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
+            <td style="font-weight: bold;">Vitesco</td>
+            <td>Placas</td>
             <td>0</td>
-            <td>2026-05-21</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">10</td>
-            <td>2026-05-21</td>
+            <td>2026-05-28</td>
+            <td style="font-weight: bold;">0</td>
+            <td>2026-05-28</td>
         </tr>
         
         <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">David</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
-            <td>30</td>
-            <td>2026-07-03</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">0</td>
-            <td>2026-07-03</td>
-        </tr>
-        
-        <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Fashident v1.0</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
-            <td>50</td>
-            <td>2026-06-25</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">108</td>
-            <td>2026-06-25</td>
-        </tr>
-        
-        <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Hiran Proyecto 1</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
-            <td>0</td>
-            <td>2026-05-13</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">0</td>
-            <td></td>
-        </tr>
-        
-        <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Kit Led / Conector</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
-            <td>1250</td>
-            <td>2026-07-28</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">0</td>
-            <td>2026-07-28</td>
-        </tr>
-        
-        <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Kit Yasaky</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Principal</td>
-            <td>0</td>
-            <td>2026-05-05</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">0</td>
-            <td>2026-05-05</td>
-        </tr>
-        
-        <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Monterrey v1.0</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
-            <td>0</td>
-            <td>2026-06-18</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">0</td>
-            <td>2026-06-18</td>
-        </tr>
-        
-        <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Purimatic v2.2</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
-            <td>0</td>
-            <td>2026-03-18</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">7</td>
-            <td>2026-03-18</td>
-        </tr>
-        
-        <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Purisystems v1.0</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
-            <td>0</td>
-            <td>2026-06-06</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">30</td>
-            <td>2026-06-06</td>
-        </tr>
-        
-        <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Vending Mini</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placa</td>
+            <td style="font-weight: bold;">Vending Mini</td>
+            <td>Placa</td>
             <td>15</td>
             <td>2026-05-27</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">0</td>
+            <td style="font-weight: bold;">0</td>
             <td></td>
         </tr>
         
         <tr >
-            <td style="text-align:right;font-size: 36px;font-weight: bold;">Vitesco</td>
-            <td style="text-align:right;font-size: 34px;font-weight: bold;">Placas</td>
+            <td style="font-weight: bold;">Kit Yasaky</td>
+            <td>Principal</td>
             <td>0</td>
-            <td>2026-05-28</td>
-            <td style="text-align:right;font-size: 40px;font-weight: bold;">0</td>
-            <td>2026-05-28</td>
+            <td>2026-05-05</td>
+            <td style="font-weight: bold;">0</td>
+            <td>2026-05-05</td>
         </tr>
         
         </table>
@@ -217,7 +226,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 28/07/2026 16:03:51
+        Fecha y hora: 29/07/2026 08:56:10
     </p>
 </footer>
         
