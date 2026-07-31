@@ -50,7 +50,7 @@
             color: #0056b3;
         }
 
-        /* Secciones (Las 7 páginas en una) */
+        /* Secciones (Las páginas en una) */
         section {
             padding: 100px 20px 60px 20px;
             min-height: 100vh;
@@ -80,6 +80,19 @@
             max-width: 600px;
             font-size: 18px;
             color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Estilos para la Imagen de Instalación (Ajustada al 90% de la pantalla) */
+        .img-instalacion {
+            width: 60vw; /* 90% del ancho del viewport o pantalla */
+            max-width: 1200px; /* Evita que se pixele en monitores gigantes */
+            height: auto;
+            max-height: 70vh; /* Limita el alto para que quepa bien en pantallas verticales */
+            object-fit: cover; /* Recorta la imagen armónicamente si excede la altura */
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+            margin-top: 15px;
         }
 
         /* Contenedor de Botones de Contacto */
@@ -117,61 +130,39 @@
     <!-- Menú de Navegación -->
     <header>
         <nav>
-            <a href="#inicio">Inicio</a>
             <a href="#caracteristicas">Características</a>
             <a href="#instalacion">Instalación</a>
-            <a href="#uso">Modo de Uso</a>
-            <a href="#mantenimiento">Mantenimiento</a>
             <a href="#preguntas">Preguntas Frecuentes</a>
             <a href="#contacto">Contacto</a>
         </nav>
     </header>
 
-    <!-- Contenido: 7 Páginas en una sola -->
     <main>
-        <!-- 1. Inicio -->
-        <section id="inicio">
-            <h2>1. Guía del Producto</h2>
-            <p>Bienvenido a la guía oficial. Descubre cómo maximizar el potencial de tu nuevo dispositivo desde el primer día.</p>
-        </section>
-
-        <!-- 2. Características -->
+        <!-- 1. Características -->
         <section id="caracteristicas">
-            <h2>2. Características Clave</h2>
+            <h2>1. Características Clave</h2>
             <p>Diseño ergonómico, materiales de alta durabilidad y tecnología de última generación integrada para tu comodidad.</p>
         </section>
 
-        <!-- 3. Instalación -->
+        <!-- 2. Instalación -->
         <section id="instalacion">
-            <h2>3. Instalación Paso a Paso</h2>
+            <h2>2. Instalación Paso a Paso</h2>
             <p>Conecta el cable de alimentación, enciende el equipo y sigue el asistente de configuración en pantalla.</p>
+            <img class="img-instalacion" src="imagenes/duo_basic.jpeg" alt="Diagrama o proceso de instalación del dispositivo">
         </section>
 
-        <!-- 4. Modo de Uso -->
-        <section id="uso">
-            <h2>4. Modo de Uso</h2>
-            <p>Presiona el botón principal para iniciar. Utiliza el panel táctil para navegar entre las diferentes funciones básicas.</p>
-        </section>
-
-        <!-- 5. Mantenimiento -->
-        <section id="mantenimiento">
-            <h2>5. Mantenimiento y Limpieza</h2>
-            <p>Limpia la superficie con un paño seco de microfibra. Evita el uso de líquidos abrasivos o exposición directa al sol.</p>
-        </section>
-
-        <!-- 6. Preguntas Frecuentes -->
+        <!-- 3. Preguntas Frecuentes -->
         <section id="preguntas">
-            <h2>6. Preguntas Frecuentes</h2>
+            <h2>3. Preguntas Frecuentes</h2>
             <p>¿No enciende? Revisa la conexión. ¿Parpadea una luz roja? El equipo necesita cargarse durante al menos 30 minutos.</p>
         </section>
 
-        <!-- 7. Contacto -->
+        <!-- 4. Contacto -->
         <section id="contacto">
-            <h2>7. Soporte y Contacto</h2>
+            <h2>4. Soporte y Contacto</h2>
             <p>¿Tienes dudas adicionales sobre el producto? Elige tu canal de atención preferido para hablar con un asesor:</p>
             
             <div class="contacto-container">
-                <!-- Reemplaza el número de teléfono (incluye código de país) y el correo según corresponda -->
                 <a href="tel:+521234567890" class="btn btn-tel">📞 Llamar por Teléfono</a>
                 <a href="mailto:soporte@://tuempresa.com" class="btn btn-gmail">✉️ Enviar Gmail</a>
                 <a href="https://wa.me" target="_blank" class="btn btn-watzap">💬 Chat por WhatsApp</a>
