@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Producto</title>
+    <style>
+        /* Estilos Generales */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: #333;
+            background-color: #f9f9f9;
+            line-height: 1.6;
+        }
+
+        /* Menú de Navegación Fijo */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 10px;
+        }
+
+        nav a {
+            color: #007BFF;
+            text-decoration: none;
+            padding: 8px 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            color: #0056b3;
+        }
+
+        /* Secciones (Las 7 páginas en una) */
+        section {
+            padding: 100px 20px 60px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        section:nth-child(even) {
+            background-color: #ffffff;
+        }
+
+        section:nth-child(odd) {
+            background-color: #f1f5f9;
+        }
+
+        h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #111;
+        }
+
+        p {
+            max-width: 600px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        /* Contenedor de Botones de Contacto */
+        .contacto-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background 0.3s;
+        }
+
+        .btn-tel { background-color: #007BFF; }
+        .btn-tel:hover { background-color: #0056b3; }
+
+        .btn-gmail { background-color: #D44638; }
+        .btn-gmail:hover { background-color: #b5372d; }
+
+        .btn-watzap { background-color: #25D366; }
+        .btn-watzap:hover { background-color: #1ebd5c; }
+    </style>
+</head>
+<body>
+
+    <!-- Menú de Navegación -->
+    <header>
+        <nav>
+            <a href="#inicio">Inicio</a>
+            <a href="#caracteristicas">Características</a>
+            <a href="#instalacion">Instalación</a>
+            <a href="#uso">Modo de Uso</a>
+            <a href="#mantenimiento">Mantenimiento</a>
+            <a href="#preguntas">Preguntas Frecuentes</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </header>
+
+    <!-- Contenido: 7 Páginas en una sola -->
+    <main>
+        <!-- 1. Inicio -->
+        <section id="inicio">
+            <h2>1. Guía del Producto</h2>
+            <p>Bienvenido a la guía oficial. Descubre cómo maximizar el potencial de tu nuevo dispositivo desde el primer día.</p>
+        </section>
+
+        <!-- 2. Características -->
+        <section id="caracteristicas">
+            <h2>2. Características Clave</h2>
+            <p>Diseño ergonómico, materiales de alta durabilidad y tecnología de última generación integrada para tu comodidad.</p>
+        </section>
+
+        <!-- 3. Instalación -->
+        <section id="instalacion">
+            <h2>3. Instalación Paso a Paso</h2>
+            <p>Conecta el cable de alimentación, enciende el equipo y sigue el asistente de configuración en pantalla.</p>
+        </section>
+
+        <!-- 4. Modo de Uso -->
+        <section id="uso">
+            <h2>4. Modo de Uso</h2>
+            <p>Presiona el botón principal para iniciar. Utiliza el panel táctil para navegar entre las diferentes funciones básicas.</p>
+        </section>
+
+        <!-- 5. Mantenimiento -->
+        <section id="mantenimiento">
+            <h2>5. Mantenimiento y Limpieza</h2>
+            <p>Limpia la superficie con un paño seco de microfibra. Evita el uso de líquidos abrasivos o exposición directa al sol.</p>
+        </section>
+
+        <!-- 6. Preguntas Frecuentes -->
+        <section id="preguntas">
+            <h2>6. Preguntas Frecuentes</h2>
+            <p>¿No enciende? Revisa la conexión. ¿Parpadea una luz roja? El equipo necesita cargarse durante al menos 30 minutos.</p>
+        </section>
+
+        <!-- 7. Contacto -->
+        <section id="contacto">
+            <h2>7. Soporte y Contacto</h2>
+            <p>¿Tienes dudas adicionales sobre el producto? Elige tu canal de atención preferido para hablar con un asesor:</p>
+            
+            <div class="contacto-container">
+                <!-- Reemplaza el número de teléfono (incluye código de país) y el correo según corresponda -->
+                <a href="tel:+521234567890" class="btn btn-tel">📞 Llamar por Teléfono</a>
+                <a href="mailto:soporte@://tuempresa.com" class="btn btn-gmail">✉️ Enviar Gmail</a>
+                <a href="https://wa.me" target="_blank" class="btn btn-watzap">💬 Chat por WhatsApp</a>
+            </div>
+        </section>
+    </main>
+
+</body>
+</html>
