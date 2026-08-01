@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Guía de Producto</title>
+
     <style>
-        /* Estilos Generales */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,14 +20,13 @@
             line-height: 1.6;
         }
 
-        /* Menú de Navegación Fijo */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             background: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
 
@@ -39,7 +38,7 @@
         }
 
         nav a {
-            color: #007BFF;
+            color: #007bff;
             text-decoration: none;
             padding: 8px 15px;
             font-weight: bold;
@@ -50,9 +49,8 @@
             color: #0056b3;
         }
 
-        /* Secciones (Las páginas en una) */
         section {
-            padding: 100px 20px 60px 20px;
+            padding: 100px 20px 60px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -63,7 +61,7 @@
         }
 
         section:nth-child(even) {
-            background-color: #ffffff;
+            background-color: #fff;
         }
 
         section:nth-child(odd) {
@@ -77,25 +75,66 @@
         }
 
         p {
-            max-width: 600px;
+            max-width: 700px;
             font-size: 18px;
             color: #555;
             margin-bottom: 20px;
         }
 
-        /* Estilos para la Imagen de Instalación (Ajustada al 90% de la pantalla) */
-        .img-instalacion {
-            width: 60vw; /* 90% del ancho del viewport o pantalla */
-            max-width: 1200px; /* Evita que se pixele en monitores gigantes */
-            height: auto;
-            max-height: 70vh; /* Limita el alto para que quepa bien en pantallas verticales */
-            object-fit: cover; /* Recorta la imagen armónicamente si excede la altura */
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-            margin-top: 15px;
+        /* Dos imágenes por línea */
+        .caracteristicas-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1100px;
+            margin-top: 20px;
         }
 
-        /* Contenedor de Botones de Contacto */
+        .caracteristica-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .caracteristica-item p {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        #caracteristicas .img-instalacion {
+            width: 100%;
+            max-width: 430px;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        #instalacion p {
+            margin-bottom: 8px;
+        }
+
+        #instalacion .img-instalacion {
+            width: 60%;
+            max-width: 1200px;
+            height: auto;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            border-bottom: 2px solid #ccc;
+            padding-bottom: 10px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
         .contacto-container {
             display: flex;
             gap: 15px;
@@ -115,19 +154,52 @@
             transition: background 0.3s;
         }
 
-        .btn-tel { background-color: #007BFF; }
-        .btn-tel:hover { background-color: #0056b3; }
+        .btn-tel {
+            background-color: #007bff;
+        }
 
-        .btn-gmail { background-color: #D44638; }
-        .btn-gmail:hover { background-color: #b5372d; }
+        .btn-tel:hover {
+            background-color: #0056b3;
+        }
 
-        .btn-watzap { background-color: #25D366; }
-        .btn-watzap:hover { background-color: #1ebd5c; }
+        .btn-gmail {
+            background-color: #d44638;
+        }
+
+        .btn-gmail:hover {
+            background-color: #b5372d;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1ebd5c;
+        }
+
+        /* En celular, una imagen por línea */
+        @media (max-width: 700px) {
+            .caracteristicas-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #instalacion .img-instalacion {
+                width: 95%;
+            }
+
+            h2 {
+                font-size: 26px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
-<body>
 
-    <!-- Menú de Navegación -->
+<body>
     <header>
         <nav>
             <a href="#caracteristicas">Características</a>
@@ -138,37 +210,200 @@
     </header>
 
     <main>
-        <!-- 1. Características -->
         <section id="caracteristicas">
             <h2>1. Características Clave</h2>
-            <p>Diseño ergonómico, materiales de alta durabilidad y tecnología de última generación integrada para tu comodidad.</p>
+            <p>La Placa Duo Basic de Advancer Water System, esta diseñada para la venta de Agua, tanto natural como alcalina.</p>
+            <p>Esta diseñada para que el propio cliente, mediante un sistema de menues (Pantalla 12), conforme la venta en procesos de 1, 4, 10 y 20 litros.</p>
+            <p>Usted puede mediante el menu en la pantalla, selecciona una de las siguiente serie de opciones: Precios, Calibracion, Maquina, Audio, Totalizador y Diagnosticos.</p>
+            <p>Para moverse en las Pantalla, usted utiliza los Botones B1, que selecciona la opcion deseada; B2 mueve hacia adelante los numeros o las acciones,
+              B3, que mueve hacia atras la opcion o disminuye la cifra y B4 que retorna a la pantalla anterior.</p>
+            <div class="caracteristicas-grid">
+
+                <div class="caracteristica-item">
+                    <p>Pantalla inicial</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_00.png"
+                         alt="Pantalla inicial">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 1</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_01.png"
+                         alt="Pantalla 1">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 2</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_02.png"
+                         alt="Pantalla 2">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 3</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_03.png"
+                         alt="Pantalla 3">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 4</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_04.png"
+                         alt="Pantalla 4">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 5</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_05.png"
+                         alt="Pantalla 5">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 6</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_06.png"
+                         alt="Pantalla 6">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 7</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_07.png"
+                         alt="Pantalla 7">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 8</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_08.png"
+                         alt="Pantalla 8">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 9</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_09.png"
+                         alt="Pantalla 9">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 10</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_10.png"
+                         alt="Pantalla 10">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 11</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo_11.png"
+                         alt="Pantalla 11">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 12</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo12.png"
+                         alt="Pantalla 12">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 13</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo13.png"
+                         alt="Pantalla 13">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 14</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo14.png"
+                         alt="Pantalla 14">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 15</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo15.png"
+                         alt="Pantalla 15">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 16</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo16.png"
+                         alt="Pantalla 16">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 17</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo17.png"
+                         alt="Pantalla 17">
+                </div>
+
+                <div class="caracteristica-item">
+                    <p>Pantalla 18</p>
+                    <img class="img-instalacion"
+                         src="imagenes/Duo18.png"
+                         alt="Pantalla 18">
+                </div>
+
+            </div>
         </section>
 
-        <!-- 2. Instalación -->
         <section id="instalacion">
             <h2>2. Instalación Paso a Paso</h2>
-            <p>Conecta el cable de alimentación, enciende el equipo y sigue el asistente de configuración en pantalla.</p>
-            <img class="img-instalacion" src="imagenes/duo_basic.jpeg" alt="Diagrama o proceso de instalación del dispositivo">
+
+            <p>
+                Conecta el cable de alimentación, enciende el equipo y sigue
+                el asistente de configuración en pantalla.
+            </p>
+
+            <img class="img-instalacion"
+                 src="imagenes/duo_basic.jpeg"
+                 alt="Diagrama de instalación del dispositivo">
         </section>
 
-        <!-- 3. Preguntas Frecuentes -->
         <section id="preguntas">
             <h2>3. Preguntas Frecuentes</h2>
-            <p>¿No enciende? Revisa la conexión. ¿Parpadea una luz roja? El equipo necesita cargarse durante al menos 30 minutos.</p>
+
+            <p>
+                ¿No enciende? Revisa la conexión. ¿Parpadea una luz roja?
+                El equipo necesita cargarse durante al menos 30 minutos.
+            </p>
         </section>
 
-        <!-- 4. Contacto -->
         <section id="contacto">
             <h2>4. Soporte y Contacto</h2>
-            <p>¿Tienes dudas adicionales sobre el producto? Elige tu canal de atención preferido para hablar con un asesor:</p>
-            
+
+            <p>
+                ¿Tienes dudas adicionales sobre el producto? Elige tu canal
+                de atención preferido para hablar con un asesor:
+            </p>
+
             <div class="contacto-container">
-                <a href="tel:+521234567890" class="btn btn-tel">📞 Llamar por Teléfono</a>
-                <a href="mailto:soporte@://tuempresa.com" class="btn btn-gmail">✉️ Enviar Gmail</a>
-                <a href="https://wa.me" target="_blank" class="btn btn-watzap">💬 Chat por WhatsApp</a>
+                <a href="tel:+521234567890"
+                   class="btn btn-tel">
+                    📞 Llamar por Teléfono
+                </a>
+
+                <a href="mailto:soporte@tuempresa.com"
+                   class="btn btn-gmail">
+                    ✉️ Enviar correo
+                </a>
+
+                <a href="https://wa.me/521234567890"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn btn-whatsapp">
+                    💬 Chat por WhatsApp
+                </a>
             </div>
         </section>
     </main>
-
 </body>
 </html>
