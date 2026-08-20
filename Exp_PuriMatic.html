@@ -39,7 +39,7 @@
     </html>
     
     <style>
-        table { border-collapse: collapse; width: 95%; margin: auto; font-size: 20px; font-weight: bold; text-align:left;}
+        table { border-collapse: collapse; width: 95%; margin: auto; font-size: 20px; font-weight: bold; text-align:right;}
         th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
         th { background-color: #f2f2f2; }
         body { font-family: Arial, sans-serif; padding: 20px; }
@@ -54,7 +54,7 @@
          <thead>
             <tr>
                 <th rowspan="2">Proyecto</th>
-                <th rowspan="2">Componente</th>
+
                 <th colspan="2">En Fabricacion </th>
                 <th colspan="2">Lista para Enviar</th>
             </tr>
@@ -68,11 +68,10 @@
     
         <tr >
             <td>Purimatic v2.2</td>
-            <td style="text-align:right;font-size: 30px;font-weight: bold;">Placas</td>
-            <td>0</td>
-            <td>2026-03-18</td>
+            <td>20</td>
+            <td>2026-08-20</td>
             <td style="text-align:right;font-size: 32px;font-weight: bold;">7</td>
-            <td>2026-03-18</td>
+            <td>2026-08-20</td>
             
         </tr>
         
@@ -92,16 +91,20 @@
                 <th>Descripcion</th>
                 <th>Cantidad</th>
             </tr>
-        <tr class='.alerta'><td>Venta-Estimada</td><td>Placas</td><td>2026-09-03</td><td style='text-align:left;font-size:24px;font-weight:bold;'></td><td></td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-07-09</td><td style='text-align:left;font-size:24px;font-weight:bold;'>4 Placas - 4 LCD</td><td>4</td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-07-01</td><td style='text-align:left;font-size:24px;font-weight:bold;'>4 Placas - 4 LCD</td><td>4</td></tr>
+        <tr ><td>Fabricacion-Entrada</td><td>Placas</td><td>2026-08-20</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Entrada de 20 Placas, pendiente balance de recursos</td><td>20</td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-07-09</td><td style='text-align:left;font-size:24px;font-weight:bold;'>4 Placas - 4 LCD</td><td>4</td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-07-01</td><td style='text-align:left;font-size:24px;font-weight:bold;'>4 Placas - 4 LCD</td><td>4</td></tr>
             </table>
         </body>
         </html>
         
+     <style>
+            .alerta { background-color: #f8d7da; color: #721c24; }
+        </style>
         </table>
     </body>
     </html>
     
     <body>
+        
         <h1 style="text-align:center;">-------------------------</h1>
         <h2 style="text-align:center;">Componentes Especificos</h2>
         <table>
@@ -110,36 +113,239 @@
                 <th>Descripcion</th>
                 <th>Existencia</th>
             </tr>
-        <tr class=""><td>128</td><td>RELAY - de Potencia G6DN-1A-SL 12 VDC</td><td>72</td></tr>
+        <tr class=".alerta"><td>128</td><td>RELAY - de Potencia G6DN-1A-SL 12 VDC</td><td>52</td></tr>
+      
             </table>
         </body>
         </html>
         
     <body>
+ 
         <h1 style="text-align:center;">------------------------</h1>
-        <h2 style="text-align:center;">Componentes Criticos para 30 Placas.</h2>
+        <h2 style="text-align:center;">Componentes Criticos para 20 Placas.</h2>
         <h5 style="text-align:center;">Ver fecha de la pagina.</h5>
 
         <table>
             <tr>
 
                 <th>idE</th>
-                <th>LCSC</th>
                 <th>Descripcion</th>
+                <th>Ctdad Unitaria</th>
                 <th>Ctdad Proy</th>
                 <th>Ctdad Stock</th>
+                <th>Diferencia</th>
                 <th>Observaciones</th>
             </tr>
-        <tr class=""><td>107</td><td>C310848</td><td>CAPACITOR - 220 uF Electrolytic 35V</td><td>2</td><td>547</td><td>None</td></tr><tr class=""><td>2</td><td></td><td>MICRO - ATMEGA 2560</td><td>1</td><td>70</td><td>None</td></tr><tr class=""><td>105</td><td>C12676</td><td>CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td><td>1</td><td>1842</td><td>None</td></tr><tr class=""><td>7</td><td></td><td>Regulador de Voltaje Linear 7805-C21706</td><td>1</td><td>470</td><td>None</td></tr><tr class=""><td>5</td><td></td><td>DIODO - SS34 - MS</td><td>1</td><td>1910</td><td>None</td></tr><tr class=""><td>6</td><td></td><td>Transistor ULN2003AD</td><td>2</td><td>0</td><td></td></tr><tr class=""><td>8</td><td>C410366</td><td>SWITCH - Tactil Push Bottom </td><td>5</td><td>1940</td><td>Compra 02/06/2026</td></tr><tr class=""><td>9</td><td>C360619</td><td>Capacitor 100 nf Ceramico 16V 0805</td><td>25</td><td>19610</td><td>None</td></tr><tr class=""><td>10</td><td>C129480</td><td>CAPACITOR - 470 uf Electrolitico 10V SMD</td><td>2</td><td>1926</td><td>None</td></tr><tr class=""><td>11</td><td></td><td>CAPACITOR - 22 pF 0805</td><td>2</td><td>3940</td><td>None</td></tr><tr class=""><td>12</td><td>C52016390</td><td>Pin Header 1x2 Single Macho</td><td>18</td><td>144</td><td></td></tr><tr class=""><td>13</td><td></td><td>RESISTENCIAa - 3.4</td><td>1</td><td>10000</td><td>Compra 02/06/2026 2 reels</td></tr><tr class=""><td>15</td><td>C162731</td><td>Switching Diode SMD 1N4004</td><td>1</td><td>2790</td><td>None</td></tr><tr class=""><td>16</td><td></td><td>Resistencia Potenciometro POT 10kΩ </td><td>1</td><td>485</td><td>None</td></tr><tr class=""><td>17</td><td>C965815</td><td>LED GREEN 0805</td><td>1</td><td>6770</td><td>Agotado en la P6P</td></tr><tr class=""><td>18</td><td>C965812</td><td>LED RED 0805</td><td>12</td><td>4940</td><td>None</td></tr><tr class=""><td>19</td><td></td><td>RESISTENCIAd - 1K0</td><td>2</td><td>9880</td><td>None</td></tr><tr class=""><td>20</td><td>C25296</td><td>RESISTENCIAb - 240</td><td>1</td><td>340</td><td>None</td></tr><tr class=""><td>21</td><td></td><td>RESISTENCIAf - 10K0</td><td>15</td><td>4940</td><td>No hay reel de reserva</td></tr><tr class=""><td>22</td><td>C7568791</td><td>MOSFET - AOD4184A-VB</td><td>1</td><td>0</td><td></td></tr><tr class=""><td>23</td><td>C194407</td><td>CONECTOR - DCJack C130239</td><td>1</td><td>220</td><td>None</td></tr><tr class=""><td>24</td><td></td><td>Terminal 3P</td><td>4</td><td>0</td><td></td></tr><tr class=""><td>25</td><td></td><td>Terminal 4P</td><td>2</td><td>0</td><td></td></tr><tr class=""><td>26</td><td></td><td>Terminal 5P</td><td>4</td><td>0</td><td></td></tr><tr class=""><td>4</td><td>C119051</td><td>CAPACITOR - 10 uf Tantalum 16V SA-3216</td><td>4</td><td>1970</td><td>None</td></tr><tr class=""><td>192</td><td>C2987288</td><td>EXPANSOR - HGSEMI PCF8574T/TR</td><td>1</td><td>50</td><td></td></tr><tr class=""><td>13</td><td></td><td>RESISTENCIAa - 3.4</td><td>1</td><td>10000</td><td>Compra 02/06/2026 2 reels</td></tr><tr class=""><td>14</td><td>C965812</td><td>RESISTENCIAd - 2K2</td><td>8</td><td>1000</td><td></td></tr><tr class=""><td>55</td><td></td><td>RESISTENCIAe - 4K7</td><td>2</td><td>10000</td><td>reel</td></tr>
+        <tr class="ok">
+            <td>107</td>
+            <td>CAPACITOR - 220 uF Electrolytic 35V</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>2</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>40</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>997</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>957</td>
+            <td>1 Reel, Compra Recibida - 1</td></tr><tr class="ok">
+            <td>2</td>
+            <td>MICRO - ATMEGA 2560</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>70</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>50</td>
+            <td>inventario</td></tr><tr class="ok">
+            <td>105</td>
+            <td>CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1792</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1772</td>
+            <td>None</td></tr><tr class="ok">
+            <td>7</td>
+            <td>Regulador de Voltaje Linear 7805-C21706</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>420</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>400</td>
+            <td>None</td></tr><tr class="ok">
+            <td>5</td>
+            <td>DIODO - SS34 - MS</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>5310</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>5290</td>
+            <td>Compra, 1 reel</td></tr><tr class="alerta">
+            <td>6</td>
+            <td>Transistor ULN2003AD</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>2</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>40</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>0</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>-40</td>
+            <td></td></tr><tr class="ok">
+            <td>8</td>
+            <td>SWITCH - Tactil Push Bottom </td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>5</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>100</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1590</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1490</td>
+            <td>None</td></tr><tr class="ok">
+            <td>9</td>
+            <td>Capacitor 100 nf Ceramico 16V 0805</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>25</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>500</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>24060</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>23560</td>
+            <td>Compra, 1 reel</td></tr><tr class="ok">
+            <td>10</td>
+            <td>CAPACITOR - 470 uf Electrolitico 10V SMD</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>2</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>40</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1876</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1836</td>
+            <td>None</td></tr><tr class="ok">
+            <td>11</td>
+            <td>CAPACITOR - 22 pF 0805</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>2</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>40</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>3840</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>3800</td>
+            <td>None</td></tr><tr class="alerta">
+            <td>12</td>
+            <td>Pin Header 1x2 Single Macho</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>18</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>360</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>144</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>-216</td>
+            <td></td></tr><tr class="ok">
+            <td>13</td>
+            <td>RESISTENCIAa - 3.4</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>14650</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>14630</td>
+            <td>Compra, 1 reel</td></tr><tr class="ok">
+            <td>15</td>
+            <td>Switching Diode SMD 1N4004</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>2590</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>2570</td>
+            <td>None</td></tr><tr class="ok">
+            <td>16</td>
+            <td>Resistencia Potenciometro POT 10kΩ </td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>485</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>465</td>
+            <td>None</td></tr><tr class="ok">
+            <td>17</td>
+            <td>LED GREEN 0805</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>6670</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>6650</td>
+            <td>None</td></tr><tr class="ok">
+            <td>18</td>
+            <td>LED RED 0805</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>12</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>240</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>7690</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>7450</td>
+            <td>1 Reel, Compra Recibida - 14</td></tr><tr class="ok">
+            <td>19</td>
+            <td>RESISTENCIAd - 1K0</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>2</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>40</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>9880</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>9840</td>
+            <td>None</td></tr><tr class="ok">
+            <td>20</td>
+            <td>RESISTENCIAb - 240</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>340</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>320</td>
+            <td>None</td></tr><tr class="ok">
+            <td>21</td>
+            <td>RESISTENCIAf - 10K0</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>15</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>300</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>9240</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>8940</td>
+            <td>1 Reel - 17</td></tr><tr class="alerta">
+            <td>22</td>
+            <td>MOSFET - AOD4184A-VB</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>0</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>-20</td>
+            <td>Ajuste</td></tr><tr class="ok">
+            <td>23</td>
+            <td>CONECTOR - DCJack C130239</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>220</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>200</td>
+            <td>None</td></tr><tr class="alerta">
+            <td>162</td>
+            <td>CONECTOR - Presion 3P</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>4</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>80</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>0</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>-80</td>
+            <td></td></tr><tr class="alerta">
+            <td>122</td>
+            <td>CONECTOR - Presion 4P</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>2</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>40</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>-180</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>-220</td>
+            <td>None</td></tr><tr class="alerta">
+            <td>25</td>
+            <td>CONECTOR - Presion 5P</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>4</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>80</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>0</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>-80</td>
+            <td></td></tr><tr class="ok">
+            <td>4</td>
+            <td>CAPACITOR - 10 uf Tantalum 16V SA-3216</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>4</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>80</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1920</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1840</td>
+            <td>None</td></tr><tr class="ok">
+            <td>192</td>
+            <td>EXPANSOR - HGSEMI PCF8574T/TR</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>50</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>30</td>
+            <td></td></tr><tr class="ok">
+            <td>13</td>
+            <td>RESISTENCIAa - 3.4</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>20</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>14650</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>14630</td>
+            <td>Compra, 1 reel</td></tr><tr class="ok">
+            <td>14</td>
+            <td>RESISTENCIAd - 2K2</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>8</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>160</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>6000</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>5840</td>
+            <td>1 Reel, Compra Recibida - 10</td></tr><tr class="ok">
+            <td>55</td>
+            <td>RESISTENCIAe - 4K7</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>2</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>40</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>9950</td>
+            <td style='text-align:right;font-size:24px;font-weight:bold;'>9910</td>
+            <td>None</td></tr>
             </table>
-        </body>
-        <h1 style="text-align:center;">------------------------</h1>
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 10vh; width: 100vw; box-sizing: border-box;">
-        <div style="font-weight: bold; margin-bottom: 12px; font-family: sans-serif; font-size: 1.2rem;">Imagen de la Placa</div>
-        <img src="imagenes/PuriMatic.jpeg" alt="Purimatic v2.2 v1.0" loading="lazy" decoding="async" style="max-width: 90%; height: auto; object-fit: contain;">
-        <p>Detalles: Variante A con 6 Relevadores de Potencia; Variante B con 3 Relevadores de Potencia.</p>
-        </div>
-      
+         <h1 style="text-align:center;">------------------------</h1>
+             <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 10vh; width: 100vw; box-sizing: border-box;">
+             <div style="font-weight: bold; margin-bottom: 12px; font-family: sans-serif; font-size: 1.2rem;">Imagen de la Placa</div>
+             <img src="imagenes/PuriMatic.jpeg" alt="Purimatic v2.2 v1.0" loading="lazy" decoding="async" style="max-width: 90%; height: auto; object-fit: contain;">
+             <p>Detalles: Variante A con 6 Relevadores de Potencia; Variante B con 3 Relevadores de Potencia.</p>
         </html>
         
 <style>
@@ -157,7 +363,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 10/07/2026 09:14:09
+        Fecha y hora: 20/08/2026 09:21:19
     </p>
 </footer>
         
