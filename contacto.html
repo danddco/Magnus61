@@ -730,6 +730,16 @@
           </div>
 
           <div class="project-note">
+            <strong>Correo de contacto</strong>
+            <p>
+              Las solicitudes se enviarán a
+              <a href="mailto:19magnus61@gmail.com" style="color:var(--brand);font-weight:800;">
+                19magnus61@gmail.com
+              </a>
+            </p>
+          </div>
+
+          <div class="project-note">
             <strong>¿Ya tienes archivos técnicos?</strong>
             <p>
               Puedes indicar en el mensaje si cuentas con Gerber, BOM, esquemático,
@@ -821,7 +831,7 @@
 
               <div class="field full">
                 <div class="submit-row">
-                  <button class="button button-primary" type="submit">Enviar solicitud</button>
+                  <button class="button button-primary" type="submit">Enviar solicitud por Gmail</button>
                   <a class="back-link" href="Dandco_Mx_inicio_con_contacto.html">← Volver a la página principal</a>
                 </div>
               </div>
@@ -956,6 +966,7 @@
       const mensaje = document.getElementById("mensaje").value.trim();
       const archivos = document.getElementById("archivos").checked ? "Sí" : "No";
 
+      const destino = "19magnus61@gmail.com";
       const asunto = `Solicitud de proyecto Dandco Mx - ${nombre}`;
 
       const cuerpo = [
@@ -963,7 +974,7 @@
         "",
         `Nombre: ${nombre}`,
         `Empresa: ${empresa || "No indicada"}`,
-        `Correo: ${correo}`,
+        `Correo del cliente: ${correo}`,
         `Teléfono: ${telefono || "No indicado"}`,
         `Servicio requerido: ${servicio}`,
         `Cantidad estimada: ${cantidad || "No indicada"}`,
@@ -975,13 +986,24 @@
       ].join("
 ");
 
-      const destino = "19magnus61@gmail.com";
-      const mailto = `mailto:${destino}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+      const gmailUrl =
+        "https://mail.google.com/mail/?view=cm&fs=1" +
+        "&to=" + encodeURIComponent(destino) +
+        "&su=" + encodeURIComponent(asunto) +
+        "&body=" + encodeURIComponent(cuerpo);
 
-      formStatus.textContent = "Abriendo tu aplicación de correo para enviar la solicitud a 19magnus61@gmail.com...";
+      formStatus.textContent =
+        "Abriendo Gmail con la solicitud dirigida a 19magnus61@gmail.com...";
       formStatus.style.display = "block";
 
-      window.location.href = mailto;
+      const ventana = window.open(gmailUrl, "_blank", "noopener");
+
+      if (!ventana) {
+        formStatus.innerHTML =
+          'El navegador bloqueó la nueva ventana. ' +
+          '<a href="' + gmailUrl + '" target="_blank" rel="noopener" ' +
+          'style="font-weight:800;color:var(--brand);">Haz clic aquí para abrir Gmail</a>.';
+      }
     });
   </script>
 
