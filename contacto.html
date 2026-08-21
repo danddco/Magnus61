@@ -657,7 +657,7 @@
   <header class="navbar">
     <div class="container nav-inner">
 
-      <a class="brand-logo" href="Dandco_Mx_inicio_con_contacto.html#inicio" aria-label="Dandco Mx">
+      <a class="brand-logo" href="https://danddco.github.io/Magnus61/" aria-label="Dandco Mx">
         <img src="imagenes/LogoDMX.jpeg" alt="Dandco Mx">
         <span>Dandco Mx</span>
       </a>
@@ -665,10 +665,10 @@
       <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
 
       <nav class="nav-links" id="navLinks" aria-label="Navegación principal">
-        <a href="Dandco_Mx_inicio_con_contacto.html#empresa">Empresa</a>
-        <a href="Dandco_Mx_inicio_con_contacto.html#servicios">Servicios</a>
-        <a href="Dandco_Mx_inicio_con_contacto.html#proceso">Proceso</a>
-        <a href="Dandco_Mx_inicio_con_contacto.html#capacidad">Capacidad</a>
+        <a href="https://danddco.github.io/Magnus61/#empresa">Empresa</a>
+        <a href="https://danddco.github.io/Magnus61/#servicios">Servicios</a>
+        <a href="https://danddco.github.io/Magnus61/#proceso">Proceso</a>
+        <a href="https://danddco.github.io/Magnus61/#capacidad">Capacidad</a>
         <a href="https://danddco.github.io/Magnus61/San25Fco.html">Empresarial</a>
         <a class="nav-cta" href="contacto.html">Contacto</a>
       </nav>
@@ -732,7 +732,7 @@
           <div class="project-note">
             <strong>Correo de contacto</strong>
             <p>
-              Las solicitudes se enviarán a
+              Las solicitudes se reciben en
               <a href="mailto:19magnus61@gmail.com" style="color:var(--brand);font-weight:800;">
                 19magnus61@gmail.com
               </a>
@@ -755,32 +755,39 @@
             <p>Los campos marcados con <span class="required">*</span> son necesarios.</p>
           </div>
 
-          <form id="contactForm">
-            <div class="form-grid">
+          <form id="contactForm"
+                  action="https://formsubmit.co/19magnus61@gmail.com"
+                  method="POST">
+            <input type="hidden" name="_subject" value="Nueva solicitud de proyecto - Dandco Mx">
+              <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="_captcha" value="false">
+              <input type="text" name="_honey" style="display:none">
+
+              <div class="form-grid">
 
               <div class="field">
                 <label for="nombre">Nombre <span class="required">*</span></label>
-                <input id="nombre" name="nombre" type="text" autocomplete="name" required>
+                <input id="nombre" name="Nombre" type="text" autocomplete="name" required>
               </div>
 
               <div class="field">
                 <label for="empresa">Empresa</label>
-                <input id="empresa" name="empresa" type="text" autocomplete="organization">
+                <input id="empresa" name="Empresa" type="text" autocomplete="organization">
               </div>
 
               <div class="field">
                 <label for="correo">Correo electrónico <span class="required">*</span></label>
-                <input id="correo" name="correo" type="email" autocomplete="email" required>
+                <input id="correo" name="_replyto" type="email" autocomplete="email" required>
               </div>
 
               <div class="field">
                 <label for="telefono">Teléfono</label>
-                <input id="telefono" name="telefono" type="tel" autocomplete="tel">
+                <input id="telefono" name="Telefono" type="tel" autocomplete="tel">
               </div>
 
               <div class="field">
                 <label for="servicio">Servicio requerido <span class="required">*</span></label>
-                <select id="servicio" name="servicio" required>
+                <select id="servicio" name="Servicio" required>
                   <option value="">Seleccionar...</option>
                   <option>Diseño electrónico</option>
                   <option>Diseño y fabricación de PCB</option>
@@ -794,7 +801,7 @@
 
               <div class="field">
                 <label for="cantidad">Cantidad estimada</label>
-                <select id="cantidad" name="cantidad">
+                <select id="cantidad" name="Cantidad">
                   <option value="">Seleccionar...</option>
                   <option>1 a 5 unidades</option>
                   <option>6 a 20 unidades</option>
@@ -807,14 +814,14 @@
 
               <div class="field full">
                 <label for="proyecto">Nombre o referencia del proyecto</label>
-                <input id="proyecto" name="proyecto" type="text" placeholder="Ej. Control de motor, tarjeta de potencia, equipo de prueba...">
+                <input id="proyecto" name="Proyecto" type="text" placeholder="Ej. Control de motor, tarjeta de potencia, equipo de prueba...">
               </div>
 
               <div class="field full">
                 <label for="mensaje">Descripción del proyecto <span class="required">*</span></label>
                 <textarea
                   id="mensaje"
-                  name="mensaje"
+                  name="Mensaje"
                   required
                   placeholder="Describe brevemente qué necesitas, en qué etapa está el proyecto y cualquier requerimiento importante."
                 ></textarea>
@@ -822,7 +829,7 @@
 
               <div class="field full">
                 <div class="check-row">
-                  <input id="archivos" name="archivos" type="checkbox">
+                  <input id="archivos" name="Archivos_tecnicos" type="checkbox">
                   <label for="archivos">
                     Cuento con archivos técnicos o documentación que puedo compartir para revisión.
                   </label>
@@ -831,15 +838,11 @@
 
               <div class="field full">
                 <div class="submit-row">
-                  <button class="button button-primary" type="submit">Enviar solicitud por Gmail</button>
-                  <a class="back-link" href="Dandco_Mx_inicio_con_contacto.html">← Volver a la página principal</a>
+                  <button class="button button-primary" type="submit">Enviar solicitud</button>
+                  <a class="back-link" href="https://danddco.github.io/Magnus61/">← Volver a la página principal</a>
                 </div>
               </div>
 
-            </div>
-
-            <div class="form-status" id="formStatus" role="status" aria-live="polite">
-              Preparando solicitud para enviar por correo...
             </div>
           </form>
         </section>
@@ -905,17 +908,17 @@
         <div>
           <h3>Servicios</h3>
           <div class="footer-links">
-            <a href="Dandco_Mx_inicio_con_contacto.html#servicios">Diseño y fabricación</a>
-            <a href="Dandco_Mx_inicio_con_contacto.html#servicios">Prototipado y desarrollo</a>
-            <a href="Dandco_Mx_inicio_con_contacto.html#servicios">Ensamble electrónico</a>
-            <a href="Dandco_Mx_inicio_con_contacto.html#capacidad">Capacidad de producción</a>
+            <a href="https://danddco.github.io/Magnus61/#servicios">Diseño y fabricación</a>
+            <a href="https://danddco.github.io/Magnus61/#servicios">Prototipado y desarrollo</a>
+            <a href="https://danddco.github.io/Magnus61/#servicios">Ensamble electrónico</a>
+            <a href="https://danddco.github.io/Magnus61/#capacidad">Capacidad de producción</a>
           </div>
         </div>
 
         <div>
           <h3>Navegación</h3>
           <div class="footer-links">
-            <a href="Dandco_Mx_inicio_con_contacto.html">Inicio</a>
+            <a href="https://danddco.github.io/Magnus61/">Inicio</a>
             <a href="contacto.html">Contacto</a>
             <a href="https://www.facebook.com/people/Circuit-Design/61555871219697/" target="_blank" rel="noopener">Facebook</a>
             <a href="https://www.instagram.com/circuitdesign12/" target="_blank" rel="noopener">Instagram</a>
@@ -935,8 +938,6 @@
   <script>
     const menuToggle = document.getElementById("menuToggle");
     const navLinks = document.getElementById("navLinks");
-    const contactForm = document.getElementById("contactForm");
-    const formStatus = document.getElementById("formStatus");
 
     menuToggle.addEventListener("click", () => {
       navLinks.classList.toggle("open");
@@ -946,64 +947,6 @@
       link.addEventListener("click", () => {
         navLinks.classList.remove("open");
       });
-    });
-
-    contactForm.addEventListener("submit", event => {
-      event.preventDefault();
-
-      if (!contactForm.checkValidity()) {
-        contactForm.reportValidity();
-        return;
-      }
-
-      const nombre = document.getElementById("nombre").value.trim();
-      const empresa = document.getElementById("empresa").value.trim();
-      const correo = document.getElementById("correo").value.trim();
-      const telefono = document.getElementById("telefono").value.trim();
-      const servicio = document.getElementById("servicio").value;
-      const cantidad = document.getElementById("cantidad").value;
-      const proyecto = document.getElementById("proyecto").value.trim();
-      const mensaje = document.getElementById("mensaje").value.trim();
-      const archivos = document.getElementById("archivos").checked ? "Sí" : "No";
-
-      const destino = "19magnus61@gmail.com";
-      const asunto = `Solicitud de proyecto Dandco Mx - ${nombre}`;
-
-      const cuerpo = [
-        "SOLICITUD DE PROYECTO - DANDCO MX",
-        "",
-        `Nombre: ${nombre}`,
-        `Empresa: ${empresa || "No indicada"}`,
-        `Correo del cliente: ${correo}`,
-        `Teléfono: ${telefono || "No indicado"}`,
-        `Servicio requerido: ${servicio}`,
-        `Cantidad estimada: ${cantidad || "No indicada"}`,
-        `Proyecto: ${proyecto || "No indicado"}`,
-        `Cuenta con archivos técnicos: ${archivos}`,
-        "",
-        "Descripción del proyecto:",
-        mensaje
-      ].join("
-");
-
-      const gmailUrl =
-        "https://mail.google.com/mail/?view=cm&fs=1" +
-        "&to=" + encodeURIComponent(destino) +
-        "&su=" + encodeURIComponent(asunto) +
-        "&body=" + encodeURIComponent(cuerpo);
-
-      formStatus.textContent =
-        "Abriendo Gmail con la solicitud dirigida a 19magnus61@gmail.com...";
-      formStatus.style.display = "block";
-
-      const ventana = window.open(gmailUrl, "_blank", "noopener");
-
-      if (!ventana) {
-        formStatus.innerHTML =
-          'El navegador bloqueó la nueva ventana. ' +
-          '<a href="' + gmailUrl + '" target="_blank" rel="noopener" ' +
-          'style="font-weight:800;color:var(--brand);">Haz clic aquí para abrir Gmail</a>.';
-      }
     });
   </script>
 
