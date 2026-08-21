@@ -786,7 +786,8 @@
                 <label for="cantidad">Cantidad estimada</label>
                 <select id="cantidad" name="cantidad">
                   <option value="">Seleccionar...</option>
-                  <option>10 a 20 unidades</option>
+                  <option>1 a 5 unidades</option>
+                  <option>6 a 20 unidades</option>
                   <option>21 a 100 unidades</option>
                   <option>101 a 500 unidades</option>
                   <option>Más de 500 unidades</option>
@@ -821,15 +822,14 @@
               <div class="field full">
                 <div class="submit-row">
                   <button class="button button-primary" type="submit">Enviar solicitud</button>
-                  <a class="back-link" href="index.html">← Volver a la página principal</a>
+                  <a class="back-link" href="Dandco_Mx_inicio_con_contacto.html">← Volver a la página principal</a>
                 </div>
               </div>
 
             </div>
 
             <div class="form-status" id="formStatus" role="status" aria-live="polite">
-              El formulario está listo. Para recibir solicitudes reales es necesario conectar
-              este botón a tu correo, servidor o servicio de formularios.
+              Preparando solicitud para enviar por correo...
             </div>
           </form>
         </section>
@@ -946,8 +946,42 @@
         return;
       }
 
+      const nombre = document.getElementById("nombre").value.trim();
+      const empresa = document.getElementById("empresa").value.trim();
+      const correo = document.getElementById("correo").value.trim();
+      const telefono = document.getElementById("telefono").value.trim();
+      const servicio = document.getElementById("servicio").value;
+      const cantidad = document.getElementById("cantidad").value;
+      const proyecto = document.getElementById("proyecto").value.trim();
+      const mensaje = document.getElementById("mensaje").value.trim();
+      const archivos = document.getElementById("archivos").checked ? "Sí" : "No";
+
+      const asunto = `Solicitud de proyecto Dandco Mx - ${nombre}`;
+
+      const cuerpo = [
+        "SOLICITUD DE PROYECTO - DANDCO MX",
+        "",
+        `Nombre: ${nombre}`,
+        `Empresa: ${empresa || "No indicada"}`,
+        `Correo: ${correo}`,
+        `Teléfono: ${telefono || "No indicado"}`,
+        `Servicio requerido: ${servicio}`,
+        `Cantidad estimada: ${cantidad || "No indicada"}`,
+        `Proyecto: ${proyecto || "No indicado"}`,
+        `Cuenta con archivos técnicos: ${archivos}`,
+        "",
+        "Descripción del proyecto:",
+        mensaje
+      ].join("
+");
+
+      const destino = "19magnus61@gmail.com";
+      const mailto = `mailto:${destino}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+
+      formStatus.textContent = "Abriendo tu aplicación de correo para enviar la solicitud a 19magnus61@gmail.com...";
       formStatus.style.display = "block";
-      formStatus.scrollIntoView({ behavior: "smooth", block: "nearest" });
+
+      window.location.href = mailto;
     });
   </script>
 
