@@ -38,6 +38,7 @@
     </body>
     </html>
     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <style>
         :root {
             --azul: #1f4e78;
@@ -128,19 +129,22 @@
         .tabla-wrap {
             width: 100%;
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
             border: 1px solid var(--borde);
             border-radius: 9px;
+            background: white;
         }
 
         table {
             width: 100%;
             min-width: 800px;
             border-collapse: collapse;
-            font-size: 17px;
+            font-size: 18px;
+            line-height: 1.45;
         }
 
         th, td {
-            padding: 10px 12px;
+            padding: 12px 14px;
             border-right: 1px solid var(--borde);
             border-bottom: 1px solid var(--borde);
             vertical-align: middle;
@@ -286,30 +290,129 @@
         }
 
         @media (max-width: 900px) {
+            body {
+                font-size: 18px;
+            }
+
             .pagina {
-                width: 98%;
-                padding-top: 12px;
+                width: 100%;
+                padding: 8px 8px 35px;
             }
 
             .hero {
-                padding: 20px;
+                padding: 20px 18px;
+                margin-bottom: 14px;
                 border-radius: 8px;
             }
 
+            .hero h1 {
+                font-size: 30px;
+                line-height: 1.15;
+                margin-bottom: 12px;
+            }
+
+            .hero .reporte-info {
+                font-size: 18px;
+                line-height: 1.5;
+            }
+
+            .hero .fecha-reporte {
+                font-size: 17px;
+            }
+
             .seccion {
-                padding: 14px;
+                padding: 14px 10px;
+                margin-bottom: 16px;
+                border-radius: 8px;
+            }
+
+            .seccion h2 {
+                font-size: 25px;
+                line-height: 1.2;
+            }
+
+            .subtitulo {
+                font-size: 18px;
+                line-height: 1.45;
             }
 
             .grid-tecnico {
                 grid-template-columns: 1fr;
             }
 
-            table {
-                font-size: 15px;
+            .tabla-wrap {
+                margin-top: 8px;
+                overflow-x: auto;
+                overscroll-behavior-x: contain;
             }
 
-            th, td {
-                padding: 8px;
+            table {
+                min-width: 980px;
+                font-size: 20px;
+                line-height: 1.4;
+            }
+
+            th {
+                font-size: 20px;
+                font-weight: 800;
+                padding: 14px 12px;
+                white-space: nowrap;
+            }
+
+            td {
+                font-size: 20px;
+                padding: 14px 12px;
+            }
+
+            .numero {
+                font-size: 21px;
+                font-weight: 700;
+            }
+
+            .numero-grande {
+                font-size: 25px;
+                font-weight: 800;
+            }
+
+            .fecha-centro {
+                font-size: 19px;
+                font-weight: 700;
+            }
+
+            .badge {
+                font-size: 16px;
+                padding: 6px 10px;
+            }
+
+            .nota,
+            .tarjeta-tecnica p {
+                font-size: 18px;
+                line-height: 1.5;
+            }
+
+            .tarjeta-tecnica h3 {
+                font-size: 21px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            table {
+                min-width: 940px;
+                font-size: 21px;
+            }
+
+            th,
+            td {
+                font-size: 21px;
+                padding: 15px 12px;
+            }
+
+            .numero-grande {
+                font-size: 27px;
+            }
+
+            .seccion h2 {
+                font-size: 26px;
             }
         }
 
@@ -653,38 +756,28 @@
                 <article class="tarjeta-tecnica">
                     <h3>Variantes de la tarjeta</h3>
                     <p>
-                        La tarjeta Purimatic v2.2 se encuentra disponible en dos
-                        configuraciones: <strong>Variante A</strong>, equipada con
-                        6 relevadores de potencia, y <strong>Variante B</strong>,
-                        equipada con 3 relevadores de potencia.
+                        ...
                     </p>
                 </article>
 
                 <article class="tarjeta-tecnica">
                     <h3>Ajuste de contraste de la pantalla LCD</h3>
                     <p>
-                        Gire lentamente el potenciómetro de ajuste hasta obtener
-                        una visualización clara, uniforme y estable de los
-                        caracteres en la pantalla LCD.
+                        ...
                     </p>
                 </article>
 
                 <article class="tarjeta-tecnica">
                     <h3>Prueba con la tarjeta energizada</h3>
                     <p>
-                        Con la tarjeta correctamente alimentada, puentee
-                        momentáneamente los <strong>dos puntos identificados en
-                        color rojo</strong>. Verifique que el valor correspondiente
-                        al dinero depositado aumente correctamente en la pantalla LCD.
+                        ...
                     </p>
                 </article>
 
                 <article class="tarjeta-tecnica">
                     <h3>Prueba de continuidad — puntos amarillos</h3>
                     <p>
-                        Con la tarjeta completamente desconectada de la
-                        alimentación eléctrica, compruebe la continuidad entre
-                        los puntos identificados en <strong>color amarillo</strong>.
+                        ...
                     </p>
                 </article>
 
@@ -733,7 +826,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 28/08/2026 16:17:14
+        Fecha y hora: 28/08/2026 16:28:34
     </p>
 </footer>
         
