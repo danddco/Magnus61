@@ -39,162 +39,685 @@
     </html>
     
     <style>
-        table { border-collapse: collapse; width: 95%; margin: auto; font-size: 20px; font-weight: bold; text-align:right;}
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .alerta { background-color: #f8d7da; color: #721c24; }
+        :root {
+            --azul: #1f4e78;
+            --azul-2: #346b98;
+            --texto: #26333f;
+            --muted: #697580;
+            --borde: #d8dee5;
+            --fondo: #f4f6f8;
+            --blanco: #ffffff;
+            --rojo-bg: #f8d7da;
+            --rojo-txt: #721c24;
+            --verde-bg: #def1e2;
+            --verde-txt: #1c6632;
+            --amarillo-bg: #fff3cd;
+            --amarillo-txt: #6f5900;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--fondo);
+            color: var(--texto);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+        }
+
+        .pagina {
+            width: min(1500px, 96%);
+            margin: 0 auto;
+            padding: 24px 0 50px;
+        }
+
+        .hero {
+            padding: 28px 34px;
+            margin-bottom: 24px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--azul), var(--azul-2));
+            color: white;
+            box-shadow: 0 4px 16px rgba(0,0,0,.08);
+        }
+
+        .hero h1 {
+            display: block;
+            margin: 0 0 14px 0;
+            font-size: clamp(30px, 4vw, 46px);
+            line-height: 1.15;
+        }
+
+        .hero .reporte-info {
+            display: block;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.55;
+            opacity: .94;
+        }
+
+        .hero .fecha-reporte {
+            display: block;
+            margin-top: 6px;
+            font-size: 15px;
+            line-height: 1.45;
+            opacity: .90;
+        }
+
+        .seccion {
+            margin-bottom: 24px;
+            padding: 22px;
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.04);
+        }
+
+        .seccion h2 {
+            margin: 0 0 6px;
+            color: var(--azul);
+            font-size: 26px;
+        }
+
+        .subtitulo {
+            margin: 0 0 18px;
+            color: var(--muted);
+        }
+
+        .tabla-wrap {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--borde);
+            border-radius: 9px;
+        }
+
+        table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+            font-size: 17px;
+        }
+
+        th, td {
+            padding: 10px 12px;
+            border-right: 1px solid var(--borde);
+            border-bottom: 1px solid var(--borde);
+            vertical-align: middle;
+        }
+
+        th:last-child,
+        td:last-child {
+            border-right: 0;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #edf3f8;
+            color: #223b50;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbfd;
+        }
+
+        tbody tr:hover {
+            background: #eef6fc;
+        }
+
+        .numero {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .fecha-centro {
+            text-align: center;
+            vertical-align: middle;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .numero-grande {
+            text-align: right;
+            font-size: 24px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .fila-alerta {
+            background: var(--rojo-bg) !important;
+            color: var(--rojo-txt);
+        }
+
+        .fila-venta,
+        .fila-ok {
+            background: var(--verde-bg) !important;
+            color: var(--verde-txt);
+        }
+
+        .fila-domingo {
+            background: #eef0f2 !important;
+            color: #555;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .badge-ok {
+            background: var(--verde-bg);
+            color: var(--verde-txt);
+        }
+
+        .badge-falta {
+            background: var(--rojo-bg);
+            color: var(--rojo-txt);
+        }
+
+        .nota {
+            margin-top: 16px;
+            padding: 13px 16px;
+            border-left: 5px solid #ddb100;
+            border-radius: 6px;
+            background: var(--amarillo-bg);
+            color: var(--amarillo-txt);
+        }
+
+        .grid-tecnico {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .tarjeta-tecnica {
+            padding: 16px;
+            border: 1px solid var(--borde);
+            border-radius: 9px;
+            background: #fbfcfd;
+        }
+
+        .tarjeta-tecnica h3 {
+            margin: 0 0 7px;
+            color: var(--azul);
+            font-size: 18px;
+        }
+
+        .tarjeta-tecnica p {
+            margin: 0;
+        }
+
+        .imagen-placa {
+            margin: 22px 0 4px;
+            text-align: center;
+        }
+
+        .imagen-placa img {
+            display: block;
+            width: auto;
+            max-width: min(100%, 1100px);
+            max-height: 760px;
+            margin: 0 auto;
+            padding: 8px;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            background: white;
+            object-fit: contain;
+        }
+
+        .pie {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .pagina {
+                width: 98%;
+                padding-top: 12px;
+            }
+
+            .hero {
+                padding: 20px;
+                border-radius: 8px;
+            }
+
+            .seccion {
+                padding: 14px;
+            }
+
+            .grid-tecnico {
+                grid-template-columns: 1fr;
+            }
+
+            table {
+                font-size: 15px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .pagina {
+                width: 100%;
+            }
+
+            .hero,
+            .seccion {
+                box-shadow: none;
+            }
+        }
     </style>
-    <body>
-        <h1 style="text-align:center;">Kit Led / Conector</h1> 
-        <h1 style="text-align:center;">-------------------------</h1>
-        <h2 style="text-align:center;">Disponibilidad de Placas</h2>
     
-        <table>
-         <thead>
-            <tr>
-                <th rowspan="2">Proyecto</th>
+    <main class="pagina">
 
-                <th colspan="2">En Fabricacion </th>
-                <th colspan="2">Lista para Enviar</th>
-            </tr>
-            <tr>
-                <th>cantidad</th>
-                <th>fecha</th>
-                <th>cantidad</th>
-                <th>fecha</th>
-            </tr>
-          </thead>  
+        <header class="hero">
+            <h1>Kit Led / Conector</h1>
+
+            <div class="reporte-info">
+                 - Reporte de disponibilidad, secuencias de trabajo,
+                componentes y materiales críticos.
+            </div>
+
+            <div class="fecha-reporte">
+                Actualizado: <strong>Viernes 2026-08-28</strong>
+            </div>
+        </header>
     
-        <tr >
-            <td>Kit Led / Conector</td>
-            <td>1000</td>
-            <td>2026-08-25</td>
-            <td style="text-align:right;font-size: 32px;font-weight: bold;">330</td>
-            <td>2026-08-25</td>
-            
-        </tr>
-        
-        </table>
-    </body>
-    </html>
+        <section class="seccion">
+            <h2>Disponibilidad de Placas</h2>
+            <p class="subtitulo">
+                Estado actual de fabricación y disponibilidad para envío.
+            </p>
+
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Proyecto</th>
+                            <th colspan="2">En Fabricación</th>
+                            <th colspan="2">Listas para Enviar</th>
+                        </tr>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th class="fecha-centro">Fecha</th>
+                            <th>Cantidad</th>
+                            <th class="fecha-centro">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
     
-    <body>
-         <h1 style="text-align:center;">-------------------------</h1>
-        <h2 style="text-align:center;">Secuencias de Trabajo</h2>
-
-        <table>
-            <tr>
-                <th>Proyecto</th>
-                <th>Lote</th>
-                <th>Fecha</th>
-                <th>Descripcion</th>
-                <th>Cantidad</th>
-            </tr>
-        <tr ><td>Fabricacion-Entrada</td><td>Placas</td><td>2026-08-25</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Entrada de 100 Placas, garantizada fabricacion de 82 // 820 con recursos, pasados a reservados</td><td>1000</td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-08-24</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Venta 350 kit con sus cables</td><td>350</td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-08-20</td><td style='text-align:left;font-size:24px;font-weight:bold;'>35 // 350 Placas y 355 Cables</td><td>350</td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-07-31</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Con 202 cables Kit</td><td>200</td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-06-12</td><td style='text-align:left;font-size:24px;font-weight:bold;'></td><td>170</td></tr><tr class='vent'><td>Venta-Concretada</td><td>Placas</td><td>2026-05-11</td><td style='text-align:left;font-size:24px;font-weight:bold;'></td><td>600</td></tr>
-            </table>
-        </body>
-        </html>
-        
-     <style>
-            .alerta { background-color: #f8d7da; color: #721c24; }
-        </style>
-        </table>
-    </body>
-    </html>
+                        <tr>
+                            <td>Kit Led / Conector</td>
+                            <td class="numero">1000</td>
+                            <td class="fecha-centro">Viernes 2026-08-28</td>
+                            <td class="numero-grande">-50</td>
+                            <td class="fecha-centro">Viernes 2026-08-28</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+        </section>
     
-    <body>
-        
-        <h1 style="text-align:center;">-------------------------</h1>
-        <h2 style="text-align:center;">Componentes Especificos</h2>
-        <table>
-            <tr>
-                <th>idE</th>
-                <th>Descripcion</th>
-                <th>Existencia</th>
-            </tr>
-        <tr class=".alerta"><td>125</td><td>CABLE - KIT</td><td>407</td></tr>
-      
-            </table>
-        </body>
-        </html>
-        
-    <body>
- 
-        <h1 style="text-align:center;">------------------------</h1>
-        <h2 style="text-align:center;">Componentes Criticos para 100 Placas / 1000 Set.</h2>
-        <h5 style="text-align:center;">Ver fecha de la pagina.</h5>
+        <section class="seccion">
+            <h2>Secuencias de Trabajo</h2>
+            <p class="subtitulo">
+                Actividades registradas para el proyecto.
+                Los registros más recientes aparecen primero.
+            </p>
 
-        <table>
-            <tr>
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Proceso</th>
+                            <th>Lote</th>
+                            <th class="fecha-centro">Fecha</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr class="">
+                            <td>Fabricacion-Entrada</td>
+                            <td>Placas</td>
+                            <td class="fecha-centro">Viernes 2026-08-28</td>
+                            <td style="font-weight:700;">
+                                Entrada de 100 Placas, garantizada fabricacion de 82 // 820 con recursos, pasados a reservados
+                            </td>
+                            <td class="numero">1000</td>
+                        </tr>
+                
+                        <tr class="fila-venta">
+                            <td>Venta-Concretada</td>
+                            <td>Placas</td>
+                            <td class="fecha-centro">Miércoles 2026-08-26</td>
+                            <td style="font-weight:700;">
+                                Venta de 40 / 400 set con sus cables
+                            </td>
+                            <td class="numero">400</td>
+                        </tr>
+                
+                        <tr class="fila-venta">
+                            <td>Venta-Concretada</td>
+                            <td>Placas</td>
+                            <td class="fecha-centro">Lunes 2026-08-24</td>
+                            <td style="font-weight:700;">
+                                Venta 350 kit con sus cables
+                            </td>
+                            <td class="numero">350</td>
+                        </tr>
+                
+                        <tr class="fila-venta">
+                            <td>Venta-Concretada</td>
+                            <td>Placas</td>
+                            <td class="fecha-centro">Jueves 2026-08-20</td>
+                            <td style="font-weight:700;">
+                                35 // 350 Placas y 355 Cables
+                            </td>
+                            <td class="numero">350</td>
+                        </tr>
+                
+                        <tr class="fila-venta">
+                            <td>Venta-Concretada</td>
+                            <td>Placas</td>
+                            <td class="fecha-centro">Viernes 2026-07-31</td>
+                            <td style="font-weight:700;">
+                                Con 202 cables Kit
+                            </td>
+                            <td class="numero">200</td>
+                        </tr>
+                
+                        <tr class="fila-venta">
+                            <td>Venta-Concretada</td>
+                            <td>Placas</td>
+                            <td class="fecha-centro">Viernes 2026-06-12</td>
+                            <td style="font-weight:700;">
+                                
+                            </td>
+                            <td class="numero">170</td>
+                        </tr>
+                
+                        <tr class="fila-venta">
+                            <td>Venta-Concretada</td>
+                            <td>Placas</td>
+                            <td class="fecha-centro">Lunes 2026-05-11</td>
+                            <td style="font-weight:700;">
+                                
+                            </td>
+                            <td class="numero">600</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
+        <section class="seccion">
+            <h2>Componentes Específicos</h2>
+            <p class="subtitulo">
+                Consulta rápida de componentes seleccionados y existencia actual.
+            </p>
 
-                <th>idE</th>
-                <th>Descripcion</th>
-                <th>Ctdad Unitaria</th>
-                <th>Ctdad Proy</th>
-                <th>Ctdad Stock</th>
-                <th>Diferencia</th>
-                <th>Observaciones</th>
-            </tr>
-        <tr class="alerta">
-            <td>115</td>
-            <td>SWITCH - Dip 4 Position Basculante</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>1000</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-180</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-1180</td>
-            <td>None</td></tr><tr class="alerta">
-            <td>39</td>
-            <td>RESISTENCIAb - 470 </td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>2</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>2000</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-1600</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-3600</td>
-            <td>None</td></tr><tr class="ok">
-            <td>38</td>
-            <td>RESISTENCIAb - 330</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>1000</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>8420</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>7420</td>
-            <td>None</td></tr><tr class="alerta">
-            <td>120</td>
-            <td>LED - RGB</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>2</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>2000</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-880</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-2880</td>
-            <td>None</td></tr><tr class="alerta">
-            <td>125</td>
-            <td>CABLE - KIT</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>1000</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>407</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-593</td>
-            <td>Confeccionado por Cesar</td></tr><tr class="alerta">
-            <td>122</td>
-            <td>CONECTOR - Presion 4P</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>1000</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-220</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-1220</td>
-            <td>None</td></tr><tr class="alerta">
-            <td>121</td>
-            <td>CONECTOR - Presion 2P</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>1</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>1000</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-180</td>
-            <td style='text-align:right;font-size:24px;font-weight:bold;'>-1180</td>
-            <td>None</td></tr>
-            </table>
-        </body>
-        <h1 style="text-align:center;">------------------------</h1>
-        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 10vh; width: 100vw; box-sizing: border-box;">
-        <div style="font-weight: bold; margin-bottom: 12px; font-family: sans-serif; font-size: 1.2rem;">Imagen de la Placa</div>
-        <img src="imagenes/Led_Conector.jpeg" alt="Kit Led / Conector v1.0" loading="lazy" decoding="async" style="max-width: 90%; height: auto; object-fit: contain;">
-        </div>
-        </html>
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>idE</th>
+                            <th>Descripción</th>
+                            <th>Existencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td>125</td>
+                            <td>CABLE - KIT</td>
+                            <td class="numero-grande">407</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
+        <section class="seccion">
+            <h2>Componentes Críticos para 5 Placas</h2>
+            <p class="subtitulo">
+                Comparación entre los materiales requeridos para producir
+                5 placas y la existencia actual en STOCK.
+            </p>
+
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>idE</th>
+                            <th>Descripción</th>
+                            <th>Ctdad. Unitaria</th>
+                            <th>Ctdad. Proyecto</th>
+                            <th>Stock</th>
+                            <th>Diferencia</th>
+                            <th>Estado</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr class="fila-ok">
+                            <td>125</td>
+                            <td>CABLE - KIT</td>
+                            <td class="numero">1</td>
+                            <td class="numero-grande">5</td>
+                            <td class="numero-grande">407</td>
+                            <td class="numero-grande">402</td>
+                            <td>
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td>Confeccionado por Cesar</td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td>121</td>
+                            <td>CONECTOR - PRESION - 2P - TERM BLK 2POS 3.5mm TH</td>
+                            <td class="numero">1</td>
+                            <td class="numero-grande">5</td>
+                            <td class="numero-grande">60</td>
+                            <td class="numero-grande">55</td>
+                            <td>
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td>Ajuste - Reiniciar</td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td>122</td>
+                            <td>CONECTOR - PRESION - 4P -TERM BLK 4POS 3.5mm TH</td>
+                            <td class="numero">1</td>
+                            <td class="numero-grande">5</td>
+                            <td class="numero-grande">40</td>
+                            <td class="numero-grande">35</td>
+                            <td>
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td>Ajuste - Reiniciar</td>
+                        </tr>
+                
+                        <tr class="fila-alerta">
+                            <td>120</td>
+                            <td>LED - RGB</td>
+                            <td class="numero">2</td>
+                            <td class="numero-grande">10</td>
+                            <td class="numero-grande">-880</td>
+                            <td class="numero-grande">-890</td>
+                            <td>
+                                <span class="badge badge-falta">FALTANTE</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td>38</td>
+                            <td>RESISTENCIAb - 330</td>
+                            <td class="numero">1</td>
+                            <td class="numero-grande">5</td>
+                            <td class="numero-grande">8420</td>
+                            <td class="numero-grande">8415</td>
+                            <td>
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                
+                        <tr class="fila-alerta">
+                            <td>39</td>
+                            <td>RESISTENCIAb - 470 </td>
+                            <td class="numero">2</td>
+                            <td class="numero-grande">10</td>
+                            <td class="numero-grande">-1600</td>
+                            <td class="numero-grande">-1610</td>
+                            <td>
+                                <span class="badge badge-falta">FALTANTE</span>
+                            </td>
+                            <td></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td>115</td>
+                            <td>SWITCH - 4 posiciones - DIP SPST 25mA 24V</td>
+                            <td class="numero">1</td>
+                            <td class="numero-grande">5</td>
+                            <td class="numero-grande">8</td>
+                            <td class="numero-grande">3</td>
+                            <td>
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td>Ajuste Re-Inicial</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="nota">
+                <strong>Resumen:</strong>
+                2 componente(s) requieren atención para completar
+                la producción de 5 placas.
+                La existencia indicada corresponde al momento en que se generó
+                esta página.
+            </div>
+        </section>
+    
+        <section class="seccion">
+            <h2>Imagen e Información Técnica de la Placa</h2>
+            <p class="subtitulo">
+                Referencia visual y procedimiento básico de inspección.
+            </p>
+    
+            <figure class="imagen-placa">
+                <img
+                    src="imagenes/Led_Conector.jpeg"
+                    alt="Kit Led / Conector"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <figcaption class="pie">
+                    Imagen de referencia de Kit Led / Conector
+                </figcaption>
+            </figure>
         
+            <div class="grid-tecnico">
+
+                <article class="tarjeta-tecnica">
+                    <h3>Variantes de la tarjeta</h3>
+                    <p>
+                        La tarjeta Purimatic v2.2 se encuentra disponible en dos
+                        configuraciones: <strong>Variante A</strong>, equipada con
+                        6 relevadores de potencia, y <strong>Variante B</strong>,
+                        equipada con 3 relevadores de potencia.
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Ajuste de contraste de la pantalla LCD</h3>
+                    <p>
+                        Gire lentamente el potenciómetro de ajuste hasta obtener
+                        una visualización clara, uniforme y estable de los
+                        caracteres en la pantalla LCD.
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Prueba con la tarjeta energizada</h3>
+                    <p>
+                        Con la tarjeta correctamente alimentada, puentee
+                        momentáneamente los <strong>dos puntos identificados en
+                        color rojo</strong>. Verifique que el valor correspondiente
+                        al dinero depositado aumente correctamente en la pantalla LCD.
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Prueba de continuidad — puntos amarillos</h3>
+                    <p>
+                        Con la tarjeta completamente desconectada de la
+                        alimentación eléctrica, compruebe la continuidad entre
+                        los puntos identificados en <strong>color amarillo</strong>.
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Prueba de continuidad — puntos blancos</h3>
+                    <p>
+                        Manteniendo la tarjeta sin alimentación eléctrica,
+                        compruebe la continuidad entre los puntos identificados
+                        en <strong>color blanco</strong>.
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Criterio de inspección</h3>
+                    <p>
+                        Finalice la revisión únicamente cuando la pantalla LCD
+                        sea legible, la prueba de incremento de saldo responda
+                        correctamente y las verificaciones de continuidad sean
+                        satisfactorias.
+                    </p>
+                </article>
+
+            </div>
+
+            <div class="nota">
+                <strong>Importante:</strong>
+                Las pruebas de continuidad deben realizarse únicamente con la
+                tarjeta desconectada de cualquier fuente de alimentación.
+            </div>
+        </section>
+
+    </main>
+    
 <style>
 footer {
     background-color: red;
@@ -210,7 +733,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 25/08/2026 09:08:47
+        Fecha y hora: 28/08/2026 16:17:14
     </p>
 </footer>
         
