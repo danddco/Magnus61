@@ -291,128 +291,208 @@
 
         @media (max-width: 900px) {
             body {
-                font-size: 18px;
+                font-size: 17px;
             }
 
             .pagina {
                 width: 100%;
-                padding: 8px 8px 35px;
+                padding: 8px 7px 32px;
             }
 
             .hero {
-                padding: 20px 18px;
+                padding: 18px 16px;
                 margin-bottom: 14px;
                 border-radius: 8px;
             }
 
             .hero h1 {
-                font-size: 30px;
+                font-size: 29px;
                 line-height: 1.15;
-                margin-bottom: 12px;
+                margin-bottom: 10px;
             }
 
             .hero .reporte-info {
-                font-size: 18px;
-                line-height: 1.5;
+                font-size: 17px;
+                line-height: 1.45;
             }
 
             .hero .fecha-reporte {
-                font-size: 17px;
+                font-size: 16px;
+                line-height: 1.4;
             }
 
             .seccion {
-                padding: 14px 10px;
-                margin-bottom: 16px;
+                padding: 13px 8px;
+                margin-bottom: 15px;
                 border-radius: 8px;
             }
 
             .seccion h2 {
-                font-size: 25px;
+                font-size: 24px;
                 line-height: 1.2;
+                margin-bottom: 7px;
             }
 
             .subtitulo {
-                font-size: 18px;
-                line-height: 1.45;
+                font-size: 16px;
+                line-height: 1.4;
+                margin-bottom: 12px;
             }
 
             .grid-tecnico {
                 grid-template-columns: 1fr;
             }
 
+            /*
+             * En móvil la tabla se convierte en tarjetas verticales.
+             * Así todo cabe en el ancho del teléfono y desaparece
+             * el desplazamiento horizontal.
+             */
             .tabla-wrap {
-                margin-top: 8px;
-                overflow-x: auto;
-                overscroll-behavior-x: contain;
+                width: 100%;
+                overflow: visible;
+                border: 0;
+                background: transparent;
             }
 
             table {
-                min-width: 980px;
-                font-size: 20px;
-                line-height: 1.4;
+                display: block;
+                width: 100%;
+                min-width: 0 !important;
+                font-size: 17px;
+                border-collapse: separate;
             }
 
-            th {
-                font-size: 20px;
+            thead {
+                display: none;
+            }
+
+            tbody {
+                display: block;
+                width: 100%;
+            }
+
+            tbody tr {
+                display: block;
+                width: 100%;
+                margin: 0 0 12px;
+                padding: 5px 0;
+                border: 1px solid var(--borde);
+                border-radius: 9px;
+                background: white;
+                overflow: hidden;
+                box-shadow: 0 1px 4px rgba(0,0,0,.04);
+            }
+
+            tbody tr:nth-child(even) {
+                background: white;
+            }
+
+            tbody td {
+                display: grid;
+                grid-template-columns: minmax(118px, 39%) minmax(0, 61%);
+                align-items: center;
+                width: 100%;
+                min-width: 0;
+                padding: 9px 10px;
+                border-right: 0;
+                border-bottom: 1px solid var(--borde);
+                font-size: 17px;
+                line-height: 1.35;
+                text-align: left !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                word-break: normal;
+            }
+
+            tbody td:last-child {
+                border-bottom: 0;
+            }
+
+            tbody td::before {
+                content: attr(data-label);
+                display: block;
+                padding-right: 8px;
+                color: #30485d;
                 font-weight: 800;
-                padding: 14px 12px;
-                white-space: nowrap;
+                font-size: 15px;
+                line-height: 1.25;
             }
 
-            td {
-                font-size: 20px;
-                padding: 14px 12px;
-            }
-
-            .numero {
-                font-size: 21px;
+            .numero,
+            .numero-grande,
+            .fecha-centro {
+                text-align: left !important;
+                font-size: 18px;
                 font-weight: 700;
             }
 
             .numero-grande {
-                font-size: 25px;
+                font-size: 21px;
                 font-weight: 800;
             }
 
             .fecha-centro {
-                font-size: 19px;
-                font-weight: 700;
+                white-space: normal;
             }
 
             .badge {
-                font-size: 16px;
-                padding: 6px 10px;
+                font-size: 15px;
+                padding: 5px 9px;
             }
 
-            .nota,
-            .tarjeta-tecnica p {
-                font-size: 18px;
-                line-height: 1.5;
+            .nota {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .tarjeta-tecnica {
+                padding: 14px;
             }
 
             .tarjeta-tecnica h3 {
-                font-size: 21px;
+                font-size: 20px;
+            }
+
+            .tarjeta-tecnica p {
+                font-size: 17px;
+                line-height: 1.5;
+            }
+
+            .imagen-placa img {
+                max-width: 100%;
+                height: auto;
             }
         }
 
         @media (max-width: 480px) {
-            table {
-                min-width: 940px;
-                font-size: 21px;
+            .pagina {
+                padding-left: 5px;
+                padding-right: 5px;
             }
 
-            th,
-            td {
-                font-size: 21px;
-                padding: 15px 12px;
+            .seccion {
+                padding-left: 6px;
+                padding-right: 6px;
+            }
+
+            tbody td {
+                grid-template-columns: minmax(105px, 37%) minmax(0, 63%);
+                padding: 9px 8px;
+                font-size: 16px;
+            }
+
+            tbody td::before {
+                font-size: 14px;
+            }
+
+            .numero,
+            .fecha-centro {
+                font-size: 17px;
             }
 
             .numero-grande {
-                font-size: 27px;
-            }
-
-            .seccion h2 {
-                font-size: 26px;
+                font-size: 20px;
             }
         }
 
@@ -471,11 +551,11 @@
                     <tbody>
     
                         <tr>
-                            <td>Kit Led / Conector</td>
-                            <td class="numero">1000</td>
-                            <td class="fecha-centro">Viernes 2026-08-28</td>
-                            <td class="numero-grande">-50</td>
-                            <td class="fecha-centro">Viernes 2026-08-28</td>
+                            <td data-label="Proyecto">Kit Led / Conector</td>
+                            <td data-label="En fabricación" class="numero">1000</td>
+                            <td data-label="Fecha fabricación" class="fecha-centro">Viernes 2026-08-28</td>
+                            <td data-label="Listas para enviar" class="numero-grande">-50</td>
+                            <td data-label="Fecha disponible" class="fecha-centro">Viernes 2026-08-28</td>
                         </tr>
                 
                     </tbody>
@@ -504,73 +584,73 @@
                     <tbody>
     
                         <tr class="">
-                            <td>Fabricacion-Entrada</td>
-                            <td>Placas</td>
-                            <td class="fecha-centro">Viernes 2026-08-28</td>
-                            <td style="font-weight:700;">
+                            <td data-label="Proceso">Fabricacion-Entrada</td>
+                            <td data-label="Lote">Placas</td>
+                            <td data-label="Fecha" class="fecha-centro">Viernes 2026-08-28</td>
+                            <td data-label="Descripción" style="font-weight:700;">
                                 Entrada de 100 Placas, garantizada fabricacion de 82 // 820 con recursos, pasados a reservados
                             </td>
-                            <td class="numero">1000</td>
+                            <td data-label="Cantidad" class="numero">1000</td>
                         </tr>
                 
                         <tr class="fila-venta">
-                            <td>Venta-Concretada</td>
-                            <td>Placas</td>
-                            <td class="fecha-centro">Miércoles 2026-08-26</td>
-                            <td style="font-weight:700;">
+                            <td data-label="Proceso">Venta-Concretada</td>
+                            <td data-label="Lote">Placas</td>
+                            <td data-label="Fecha" class="fecha-centro">Miércoles 2026-08-26</td>
+                            <td data-label="Descripción" style="font-weight:700;">
                                 Venta de 40 / 400 set con sus cables
                             </td>
-                            <td class="numero">400</td>
+                            <td data-label="Cantidad" class="numero">400</td>
                         </tr>
                 
                         <tr class="fila-venta">
-                            <td>Venta-Concretada</td>
-                            <td>Placas</td>
-                            <td class="fecha-centro">Lunes 2026-08-24</td>
-                            <td style="font-weight:700;">
+                            <td data-label="Proceso">Venta-Concretada</td>
+                            <td data-label="Lote">Placas</td>
+                            <td data-label="Fecha" class="fecha-centro">Lunes 2026-08-24</td>
+                            <td data-label="Descripción" style="font-weight:700;">
                                 Venta 350 kit con sus cables
                             </td>
-                            <td class="numero">350</td>
+                            <td data-label="Cantidad" class="numero">350</td>
                         </tr>
                 
                         <tr class="fila-venta">
-                            <td>Venta-Concretada</td>
-                            <td>Placas</td>
-                            <td class="fecha-centro">Jueves 2026-08-20</td>
-                            <td style="font-weight:700;">
+                            <td data-label="Proceso">Venta-Concretada</td>
+                            <td data-label="Lote">Placas</td>
+                            <td data-label="Fecha" class="fecha-centro">Jueves 2026-08-20</td>
+                            <td data-label="Descripción" style="font-weight:700;">
                                 35 // 350 Placas y 355 Cables
                             </td>
-                            <td class="numero">350</td>
+                            <td data-label="Cantidad" class="numero">350</td>
                         </tr>
                 
                         <tr class="fila-venta">
-                            <td>Venta-Concretada</td>
-                            <td>Placas</td>
-                            <td class="fecha-centro">Viernes 2026-07-31</td>
-                            <td style="font-weight:700;">
+                            <td data-label="Proceso">Venta-Concretada</td>
+                            <td data-label="Lote">Placas</td>
+                            <td data-label="Fecha" class="fecha-centro">Viernes 2026-07-31</td>
+                            <td data-label="Descripción" style="font-weight:700;">
                                 Con 202 cables Kit
                             </td>
-                            <td class="numero">200</td>
+                            <td data-label="Cantidad" class="numero">200</td>
                         </tr>
                 
                         <tr class="fila-venta">
-                            <td>Venta-Concretada</td>
-                            <td>Placas</td>
-                            <td class="fecha-centro">Viernes 2026-06-12</td>
-                            <td style="font-weight:700;">
+                            <td data-label="Proceso">Venta-Concretada</td>
+                            <td data-label="Lote">Placas</td>
+                            <td data-label="Fecha" class="fecha-centro">Viernes 2026-06-12</td>
+                            <td data-label="Descripción" style="font-weight:700;">
                                 
                             </td>
-                            <td class="numero">170</td>
+                            <td data-label="Cantidad" class="numero">170</td>
                         </tr>
                 
                         <tr class="fila-venta">
-                            <td>Venta-Concretada</td>
-                            <td>Placas</td>
-                            <td class="fecha-centro">Lunes 2026-05-11</td>
-                            <td style="font-weight:700;">
+                            <td data-label="Proceso">Venta-Concretada</td>
+                            <td data-label="Lote">Placas</td>
+                            <td data-label="Fecha" class="fecha-centro">Lunes 2026-05-11</td>
+                            <td data-label="Descripción" style="font-weight:700;">
                                 
                             </td>
-                            <td class="numero">600</td>
+                            <td data-label="Cantidad" class="numero">600</td>
                         </tr>
                 
                     </tbody>
@@ -596,9 +676,9 @@
                     <tbody>
     
                         <tr>
-                            <td>125</td>
-                            <td>CABLE - KIT</td>
-                            <td class="numero-grande">407</td>
+                            <td data-label="idE">125</td>
+                            <td data-label="Descripción">CABLE - KIT</td>
+                            <td data-label="Existencia" class="numero-grande">407</td>
                         </tr>
                 
                     </tbody>
@@ -630,94 +710,94 @@
                     <tbody>
     
                         <tr class="fila-ok">
-                            <td>125</td>
-                            <td>CABLE - KIT</td>
-                            <td class="numero">1</td>
-                            <td class="numero-grande">5</td>
-                            <td class="numero-grande">407</td>
-                            <td class="numero-grande">402</td>
-                            <td>
+                            <td data-label="idE">125</td>
+                            <td data-label="Descripción">CABLE - KIT</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">5</td>
+                            <td data-label="Stock" class="numero-grande">407</td>
+                            <td data-label="Diferencia" class="numero-grande">402</td>
+                            <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
-                            <td>Confeccionado por Cesar</td>
+                            <td data-label="Observaciones">Confeccionado por Cesar</td>
                         </tr>
                 
                         <tr class="fila-ok">
-                            <td>121</td>
-                            <td>CONECTOR - PRESION - 2P - TERM BLK 2POS 3.5mm TH</td>
-                            <td class="numero">1</td>
-                            <td class="numero-grande">5</td>
-                            <td class="numero-grande">60</td>
-                            <td class="numero-grande">55</td>
-                            <td>
+                            <td data-label="idE">121</td>
+                            <td data-label="Descripción">CONECTOR - PRESION - 2P - TERM BLK 2POS 3.5mm TH</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">5</td>
+                            <td data-label="Stock" class="numero-grande">60</td>
+                            <td data-label="Diferencia" class="numero-grande">55</td>
+                            <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
-                            <td>Ajuste - Reiniciar</td>
+                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
                         </tr>
                 
                         <tr class="fila-ok">
-                            <td>122</td>
-                            <td>CONECTOR - PRESION - 4P -TERM BLK 4POS 3.5mm TH</td>
-                            <td class="numero">1</td>
-                            <td class="numero-grande">5</td>
-                            <td class="numero-grande">40</td>
-                            <td class="numero-grande">35</td>
-                            <td>
+                            <td data-label="idE">122</td>
+                            <td data-label="Descripción">CONECTOR - PRESION - 4P -TERM BLK 4POS 3.5mm TH</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">5</td>
+                            <td data-label="Stock" class="numero-grande">40</td>
+                            <td data-label="Diferencia" class="numero-grande">35</td>
+                            <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
-                            <td>Ajuste - Reiniciar</td>
+                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
                         </tr>
                 
                         <tr class="fila-alerta">
-                            <td>120</td>
-                            <td>LED - RGB</td>
-                            <td class="numero">2</td>
-                            <td class="numero-grande">10</td>
-                            <td class="numero-grande">-880</td>
-                            <td class="numero-grande">-890</td>
-                            <td>
+                            <td data-label="idE">120</td>
+                            <td data-label="Descripción">LED - RGB</td>
+                            <td data-label="Ctdad. unitaria" class="numero">2</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">10</td>
+                            <td data-label="Stock" class="numero-grande">-880</td>
+                            <td data-label="Diferencia" class="numero-grande">-890</td>
+                            <td data-label="Estado">
                                 <span class="badge badge-falta">FALTANTE</span>
                             </td>
-                            <td></td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
-                            <td>38</td>
-                            <td>RESISTENCIAb - 330</td>
-                            <td class="numero">1</td>
-                            <td class="numero-grande">5</td>
-                            <td class="numero-grande">8420</td>
-                            <td class="numero-grande">8415</td>
-                            <td>
+                            <td data-label="idE">38</td>
+                            <td data-label="Descripción">RESISTENCIAb - 330</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">5</td>
+                            <td data-label="Stock" class="numero-grande">8420</td>
+                            <td data-label="Diferencia" class="numero-grande">8415</td>
+                            <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
-                            <td></td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-alerta">
-                            <td>39</td>
-                            <td>RESISTENCIAb - 470 </td>
-                            <td class="numero">2</td>
-                            <td class="numero-grande">10</td>
-                            <td class="numero-grande">-1600</td>
-                            <td class="numero-grande">-1610</td>
-                            <td>
+                            <td data-label="idE">39</td>
+                            <td data-label="Descripción">RESISTENCIAb - 470 </td>
+                            <td data-label="Ctdad. unitaria" class="numero">2</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">10</td>
+                            <td data-label="Stock" class="numero-grande">-1600</td>
+                            <td data-label="Diferencia" class="numero-grande">-1610</td>
+                            <td data-label="Estado">
                                 <span class="badge badge-falta">FALTANTE</span>
                             </td>
-                            <td></td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
-                            <td>115</td>
-                            <td>SWITCH - 4 posiciones - DIP SPST 25mA 24V</td>
-                            <td class="numero">1</td>
-                            <td class="numero-grande">5</td>
-                            <td class="numero-grande">8</td>
-                            <td class="numero-grande">3</td>
-                            <td>
+                            <td data-label="idE">115</td>
+                            <td data-label="Descripción">SWITCH - 4 posiciones - DIP SPST 25mA 24V</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">5</td>
+                            <td data-label="Stock" class="numero-grande">8</td>
+                            <td data-label="Diferencia" class="numero-grande">3</td>
+                            <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
-                            <td>Ajuste Re-Inicial</td>
+                            <td data-label="Observaciones">Ajuste Re-Inicial</td>
                         </tr>
                 
                     </tbody>
@@ -826,7 +906,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 28/08/2026 16:28:34
+        Fecha y hora: 28/08/2026 16:34:05
     </p>
 </footer>
         
