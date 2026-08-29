@@ -484,6 +484,11 @@
                 max-width: 100%;
                 height: auto;
             }
+
+            /* En celular, mostrar únicamente componentes con faltante. */
+            .componentes-criticos .fila-ok {
+                display: none !important;
+            }
         }
 
         @media (max-width: 480px) {
@@ -539,7 +544,12 @@
             <h1>Kit Led / Conector</h1>
 
             <div class="reporte-info">
-                 - EXPEDIENTE.
+                 - Reporte de disponibilidad, secuencias de trabajo,
+                componentes y materiales críticos.
+            </div>
+
+            <div class="fecha-reporte">
+                Actualizado: <strong>Sábado 2026-08-29</strong>
             </div>
         </header>
     
@@ -670,7 +680,7 @@
             </div>
         </section>
     
-        <section class="seccion">
+        <section class="seccion componentes-criticos">
             <h2>Componentes Críticos para 5 Placas</h2>
             <p class="subtitulo">
                 Comparación entre los materiales requeridos para producir
@@ -848,14 +858,19 @@
                 <article class="tarjeta-tecnica">
                     <h3>Prueba de continuidad — puntos blancos</h3>
                     <p>
-                      .
+                        Manteniendo la tarjeta sin alimentación eléctrica,
+                        compruebe la continuidad entre los puntos identificados
+                        en <strong>color blanco</strong>.
                     </p>
                 </article>
 
                 <article class="tarjeta-tecnica">
                     <h3>Criterio de inspección</h3>
                     <p>
-                        .
+                        Finalice la revisión únicamente cuando la pantalla LCD
+                        sea legible, la prueba de incremento de saldo responda
+                        correctamente y las verificaciones de continuidad sean
+                        satisfactorias.
                     </p>
                 </article>
 
@@ -863,7 +878,8 @@
 
             <div class="nota">
                 <strong>Importante:</strong>
-                Mantener el grosor adecuado en la union del Led con el cable.
+                Las pruebas de continuidad deben realizarse únicamente con la
+                tarjeta desconectada de cualquier fuente de alimentación.
             </div>
         </section>
 
@@ -884,7 +900,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 28/08/2026 21:14:20
+        Fecha y hora: 29/08/2026 06:28:41
     </p>
 </footer>
         
