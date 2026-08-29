@@ -212,22 +212,6 @@
             color: #555;
         }
 
-        .fila-pendiente {
-            background: #f8d7da !important;
-            color: #721c24 !important;
-            font-weight: 700;
-        }
-
-        .estado-pendiente {
-            display: inline-block;
-            padding: 4px 9px;
-            border-radius: 999px;
-            background: #b42318;
-            color: #ffffff;
-            font-weight: 800;
-            white-space: nowrap;
-        }
-
         .badge {
             display: inline-block;
             padding: 4px 10px;
@@ -457,11 +441,6 @@
                 padding: 5px 9px;
             }
 
-            .estado-pendiente {
-                font-size: 15px;
-                padding: 5px 9px;
-            }
-
             .nota {
                 font-size: 17px;
                 line-height: 1.45;
@@ -483,11 +462,6 @@
             .imagen-placa img {
                 max-width: 100%;
                 height: auto;
-            }
-
-            /* En celular, mostrar únicamente componentes con faltante. */
-            .componentes-criticos .fila-ok {
-                display: none !important;
             }
         }
 
@@ -544,17 +518,13 @@
             <h1>Kit Led / Conector</h1>
 
             <div class="reporte-info">
-                 - Reporte de disponibilidad, secuencias de trabajo,
-                componentes y materiales críticos.
+                 - Expediente.
             </div>
 
-            <div class="fecha-reporte">
-                Actualizado: <strong>Sábado 2026-08-29</strong>
-            </div>
         </header>
     
         <section class="seccion">
-            <h2>Disponibilidad de Placas</h2>
+            <h2>Disponibilidad de Set</h2>
             <p class="subtitulo">
                 Estado actual de fabricación y disponibilidad para envío.
             </p>
@@ -603,32 +573,26 @@
                             <th>Proceso</th>
                             <th>Lote</th>
                             <th class="fecha-centro">Fecha</th>
-                            <th>Prioridad</th>
-                            <th>Estado</th>
                             <th>Descripción</th>
                             <th>Cantidad</th>
                         </tr>
                     </thead>
                     <tbody>
     
-                        <tr class="fila-pendiente">
+                        <tr class="">
                             <td data-label="Proceso">Fabricacion-Proceso</td>
                             <td data-label="Lote">Placas</td>
                             <td data-label="Fecha" class="fecha-centro">Viernes 2026-08-28</td>
-                            <td data-label="Prioridad" class="numero">1</td>
-                            <td data-label="Estado"><span class="estado-pendiente">Pendiente</span></td>
                             <td data-label="Descripción" style="font-weight:700;">
                                 FabricaR 760 cables, Cesar fabrico 497 cable.
                             </td>
                             <td data-label="Cantidad" class="numero">0</td>
                         </tr>
                 
-                        <tr class="fila-pendiente">
+                        <tr class="">
                             <td data-label="Proceso">Fabricacion-TH</td>
                             <td data-label="Lote">Placas</td>
                             <td data-label="Fecha" class="fecha-centro">Viernes 2026-08-28</td>
-                            <td data-label="Prioridad" class="numero">3</td>
-                            <td data-label="Estado"><span class="estado-pendiente">Pendiente</span></td>
                             <td data-label="Descripción" style="font-weight:700;">
                                 Pendientes por montar 190 set por falta de componentes
                             </td>
@@ -639,8 +603,6 @@
                             <td data-label="Proceso">Venta-Concretada</td>
                             <td data-label="Lote">Placas</td>
                             <td data-label="Fecha" class="fecha-centro">Miércoles 2026-08-26</td>
-                            <td data-label="Prioridad" class="numero">0</td>
-                            <td data-label="Estado">Resuelto</td>
                             <td data-label="Descripción" style="font-weight:700;">
                                 Venta de 40 / 400 set con sus cables
                             </td>
@@ -680,11 +642,11 @@
             </div>
         </section>
     
-        <section class="seccion componentes-criticos">
-            <h2>Componentes Críticos para 5 Placas</h2>
+        <section class="seccion">
+            <h2>Componentes Críticos para 190 Set</h2>
             <p class="subtitulo">
                 Comparación entre los materiales requeridos para producir
-                5 placas y la existencia actual en STOCK.
+                190 set y la existencia actual en STOCK.
             </p>
 
             <div class="tabla-wrap">
@@ -707,37 +669,37 @@
                             <td data-label="idE">125</td>
                             <td data-label="Descripción">CABLE - KIT</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">5</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">190</td>
                             <td data-label="Stock" class="numero-grande">504</td>
-                            <td data-label="Diferencia" class="numero-grande">499</td>
+                            <td data-label="Diferencia" class="numero-grande">314</td>
                             <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
                             <td data-label="Observaciones">Ajuste - Reinial</td>
                         </tr>
                 
-                        <tr class="fila-ok">
+                        <tr class="fila-alerta">
                             <td data-label="idE">121</td>
                             <td data-label="Descripción">CONECTOR - PRESION - 2P - TERM BLK 2POS 3.5mm TH</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">5</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">190</td>
                             <td data-label="Stock" class="numero-grande">60</td>
-                            <td data-label="Diferencia" class="numero-grande">55</td>
+                            <td data-label="Diferencia" class="numero-grande">-130</td>
                             <td data-label="Estado">
-                                <span class="badge badge-ok">SUFICIENTE</span>
+                                <span class="badge badge-falta">FALTANTE</span>
                             </td>
                             <td data-label="Observaciones">Ajuste - Reiniciar</td>
                         </tr>
                 
-                        <tr class="fila-ok">
+                        <tr class="fila-alerta">
                             <td data-label="idE">122</td>
                             <td data-label="Descripción">CONECTOR - PRESION - 4P -TERM BLK 4POS 3.5mm TH</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">5</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">190</td>
                             <td data-label="Stock" class="numero-grande">40</td>
-                            <td data-label="Diferencia" class="numero-grande">35</td>
+                            <td data-label="Diferencia" class="numero-grande">-150</td>
                             <td data-label="Estado">
-                                <span class="badge badge-ok">SUFICIENTE</span>
+                                <span class="badge badge-falta">FALTANTE</span>
                             </td>
                             <td data-label="Observaciones">Ajuste - Reiniciar</td>
                         </tr>
@@ -746,9 +708,9 @@
                             <td data-label="idE">120</td>
                             <td data-label="Descripción">LED - RGB</td>
                             <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">10</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">380</td>
                             <td data-label="Stock" class="numero-grande">0</td>
-                            <td data-label="Diferencia" class="numero-grande">-10</td>
+                            <td data-label="Diferencia" class="numero-grande">-380</td>
                             <td data-label="Estado">
                                 <span class="badge badge-falta">FALTANTE</span>
                             </td>
@@ -759,9 +721,9 @@
                             <td data-label="idE">38</td>
                             <td data-label="Descripción">RESISTENCIAb - 330</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">5</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">190</td>
                             <td data-label="Stock" class="numero-grande">8420</td>
-                            <td data-label="Diferencia" class="numero-grande">8415</td>
+                            <td data-label="Diferencia" class="numero-grande">8230</td>
                             <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
@@ -772,24 +734,24 @@
                             <td data-label="idE">39</td>
                             <td data-label="Descripción">RESISTENCIAb - 470 </td>
                             <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">10</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">380</td>
                             <td data-label="Stock" class="numero-grande">-1600</td>
-                            <td data-label="Diferencia" class="numero-grande">-1610</td>
+                            <td data-label="Diferencia" class="numero-grande">-1980</td>
                             <td data-label="Estado">
                                 <span class="badge badge-falta">FALTANTE</span>
                             </td>
                             <td data-label="Observaciones"></td>
                         </tr>
                 
-                        <tr class="fila-ok">
+                        <tr class="fila-alerta">
                             <td data-label="idE">115</td>
                             <td data-label="Descripción">SWITCH - 4 posiciones - DIP SPST 25mA 24V</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">5</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">190</td>
                             <td data-label="Stock" class="numero-grande">8</td>
-                            <td data-label="Diferencia" class="numero-grande">3</td>
+                            <td data-label="Diferencia" class="numero-grande">-182</td>
                             <td data-label="Estado">
-                                <span class="badge badge-ok">SUFICIENTE</span>
+                                <span class="badge badge-falta">FALTANTE</span>
                             </td>
                             <td data-label="Observaciones">Ajuste Re-Inicial</td>
                         </tr>
@@ -800,8 +762,8 @@
 
             <div class="nota">
                 <strong>Resumen:</strong>
-                2 componente(s) requieren atención para completar
-                la producción de 5 placas.
+                5 componente(s) requieren atención para completar
+                la producción de 190 set.
                 La existencia indicada corresponde al momento en que se generó
                 esta página.
             </div>
@@ -858,19 +820,14 @@
                 <article class="tarjeta-tecnica">
                     <h3>Prueba de continuidad — puntos blancos</h3>
                     <p>
-                        Manteniendo la tarjeta sin alimentación eléctrica,
-                        compruebe la continuidad entre los puntos identificados
-                        en <strong>color blanco</strong>.
+                    .
                     </p>
                 </article>
 
                 <article class="tarjeta-tecnica">
                     <h3>Criterio de inspección</h3>
                     <p>
-                        Finalice la revisión únicamente cuando la pantalla LCD
-                        sea legible, la prueba de incremento de saldo responda
-                        correctamente y las verificaciones de continuidad sean
-                        satisfactorias.
+                        .
                     </p>
                 </article>
 
@@ -878,8 +835,7 @@
 
             <div class="nota">
                 <strong>Importante:</strong>
-                Las pruebas de continuidad deben realizarse únicamente con la
-                tarjeta desconectada de cualquier fuente de alimentación.
+                Mantener el grosor adecuado en la union del Led con el cable..
             </div>
         </section>
 
@@ -900,7 +856,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 29/08/2026 06:28:41
+        Fecha y hora: 29/08/2026 06:41:17
     </p>
 </footer>
         
