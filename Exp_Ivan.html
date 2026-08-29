@@ -38,101 +38,1187 @@
     </body>
     </html>
     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <style>
-        table { border-collapse: collapse; width: 80%; margin: auto; font-size: 20px; font-weight: bold; text-align:left;}
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .alerta { background-color: #f8d7da; color: #721c24; }
+        :root {
+            --azul: #1f4e78;
+            --azul-2: #346b98;
+            --texto: #26333f;
+            --muted: #697580;
+            --borde: #d8dee5;
+            --fondo: #f4f6f8;
+            --blanco: #ffffff;
+            --rojo-bg: #f8d7da;
+            --rojo-txt: #721c24;
+            --verde-bg: #def1e2;
+            --verde-txt: #1c6632;
+            --amarillo-bg: #fff3cd;
+            --amarillo-txt: #6f5900;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--fondo);
+            color: var(--texto);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+        }
+
+        .pagina {
+            width: min(1500px, 96%);
+            margin: 0 auto;
+            padding: 24px 0 50px;
+        }
+
+        .hero {
+            padding: 28px 34px;
+            margin-bottom: 24px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--azul), var(--azul-2));
+            color: white;
+            box-shadow: 0 4px 16px rgba(0,0,0,.08);
+        }
+
+        .hero h1 {
+            display: block;
+            margin: 0 0 14px 0;
+            font-size: clamp(30px, 4vw, 46px);
+            line-height: 1.15;
+        }
+
+        .hero .reporte-info {
+            display: block;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.55;
+            opacity: .94;
+        }
+
+        .hero .fecha-reporte {
+            display: block;
+            margin-top: 6px;
+            font-size: 15px;
+            line-height: 1.45;
+            opacity: .90;
+        }
+
+        .seccion {
+            margin-bottom: 24px;
+            padding: 22px;
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.04);
+        }
+
+        .seccion h2 {
+            margin: 0 0 6px;
+            color: var(--azul);
+            font-size: 26px;
+        }
+
+        .subtitulo {
+            margin: 0 0 18px;
+            color: var(--muted);
+        }
+
+        .tabla-wrap {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 1px solid var(--borde);
+            border-radius: 9px;
+            background: white;
+        }
+
+        table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+            font-size: 18px;
+            line-height: 1.45;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            border-right: 1px solid var(--borde);
+            border-bottom: 1px solid var(--borde);
+            vertical-align: middle;
+        }
+
+        th:last-child,
+        td:last-child {
+            border-right: 0;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #edf3f8;
+            color: #223b50;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbfd;
+        }
+
+        tbody tr:hover {
+            background: #eef6fc;
+        }
+
+        .numero {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .fecha-centro {
+            text-align: center;
+            vertical-align: middle;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .numero-grande {
+            text-align: right;
+            font-size: 24px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .fila-alerta {
+            background: var(--rojo-bg) !important;
+            color: var(--rojo-txt);
+        }
+
+        .fila-venta,
+        .fila-ok {
+            background: var(--verde-bg) !important;
+            color: var(--verde-txt);
+        }
+
+        .fila-domingo {
+            background: #eef0f2 !important;
+            color: #555;
+        }
+
+        .fila-pendiente {
+            background: #f8d7da !important;
+            color: #721c24 !important;
+            font-weight: 700;
+        }
+
+        .estado-pendiente {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: #b42318;
+            color: #ffffff;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .badge-ok {
+            background: var(--verde-bg);
+            color: var(--verde-txt);
+        }
+
+        .badge-falta {
+            background: var(--rojo-bg);
+            color: var(--rojo-txt);
+        }
+
+        .nota {
+            margin-top: 16px;
+            padding: 13px 16px;
+            border-left: 5px solid #ddb100;
+            border-radius: 6px;
+            background: var(--amarillo-bg);
+            color: var(--amarillo-txt);
+        }
+
+        .grid-tecnico {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .tarjeta-tecnica {
+            padding: 16px;
+            border: 1px solid var(--borde);
+            border-radius: 9px;
+            background: #fbfcfd;
+        }
+
+        .tarjeta-tecnica h3 {
+            margin: 0 0 7px;
+            color: var(--azul);
+            font-size: 18px;
+        }
+
+        .tarjeta-tecnica p {
+            margin: 0;
+        }
+
+        .imagen-placa {
+            margin: 22px 0 4px;
+            text-align: center;
+        }
+
+        .imagen-placa img {
+            display: block;
+            width: auto;
+            max-width: min(100%, 1100px);
+            max-height: 760px;
+            margin: 0 auto;
+            padding: 8px;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            background: white;
+            object-fit: contain;
+        }
+
+        .pie {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                font-size: 17px;
+            }
+
+            .pagina {
+                width: 100%;
+                padding: 8px 7px 32px;
+            }
+
+            .hero {
+                padding: 18px 16px;
+                margin-bottom: 14px;
+                border-radius: 8px;
+            }
+
+            .hero h1 {
+                font-size: 29px;
+                line-height: 1.15;
+                margin-bottom: 10px;
+            }
+
+            .hero .reporte-info {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .hero .fecha-reporte {
+                font-size: 16px;
+                line-height: 1.4;
+            }
+
+            .seccion {
+                padding: 13px 8px;
+                margin-bottom: 15px;
+                border-radius: 8px;
+            }
+
+            .seccion h2 {
+                font-size: 24px;
+                line-height: 1.2;
+                margin-bottom: 7px;
+            }
+
+            .subtitulo {
+                font-size: 16px;
+                line-height: 1.4;
+                margin-bottom: 12px;
+            }
+
+            .grid-tecnico {
+                grid-template-columns: 1fr;
+            }
+
+            /*
+             * En móvil la tabla se convierte en tarjetas verticales.
+             * Así todo cabe en el ancho del teléfono y desaparece
+             * el desplazamiento horizontal.
+             */
+            .tabla-wrap {
+                width: 100%;
+                overflow: visible;
+                border: 0;
+                background: transparent;
+            }
+
+            table {
+                display: block;
+                width: 100%;
+                min-width: 0 !important;
+                font-size: 17px;
+                border-collapse: separate;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody {
+                display: block;
+                width: 100%;
+            }
+
+            tbody tr {
+                display: block;
+                width: 100%;
+                margin: 0 0 12px;
+                padding: 5px 0;
+                border: 1px solid var(--borde);
+                border-radius: 9px;
+                background: white;
+                overflow: hidden;
+                box-shadow: 0 1px 4px rgba(0,0,0,.04);
+            }
+
+            tbody tr:nth-child(even) {
+                background: white;
+            }
+
+            tbody td {
+                display: grid;
+                grid-template-columns: minmax(118px, 39%) minmax(0, 61%);
+                align-items: center;
+                width: 100%;
+                min-width: 0;
+                padding: 9px 10px;
+                border-right: 0;
+                border-bottom: 1px solid var(--borde);
+                font-size: 17px;
+                line-height: 1.35;
+                text-align: left !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                word-break: normal;
+            }
+
+            tbody td:last-child {
+                border-bottom: 0;
+            }
+
+            tbody td::before {
+                content: attr(data-label);
+                display: block;
+                padding-right: 8px;
+                color: #30485d;
+                font-weight: 800;
+                font-size: 15px;
+                line-height: 1.25;
+            }
+
+            .numero,
+            .numero-grande,
+            .fecha-centro {
+                text-align: left !important;
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .numero-grande {
+                font-size: 21px;
+                font-weight: 800;
+            }
+
+            .fecha-centro {
+                white-space: normal;
+            }
+
+            .badge {
+                font-size: 15px;
+                padding: 5px 9px;
+            }
+
+            .estado-pendiente {
+                font-size: 15px;
+                padding: 5px 9px;
+            }
+
+            .nota {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .tarjeta-tecnica {
+                padding: 14px;
+            }
+
+            .tarjeta-tecnica h3 {
+                font-size: 20px;
+            }
+
+            .tarjeta-tecnica p {
+                font-size: 17px;
+                line-height: 1.5;
+            }
+
+            .imagen-placa img {
+                max-width: 100%;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pagina {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            .seccion {
+                padding-left: 6px;
+                padding-right: 6px;
+            }
+
+            tbody td {
+                grid-template-columns: minmax(105px, 37%) minmax(0, 63%);
+                padding: 9px 8px;
+                font-size: 16px;
+            }
+
+            tbody td::before {
+                font-size: 14px;
+            }
+
+            .numero,
+            .fecha-centro {
+                font-size: 17px;
+            }
+
+            .numero-grande {
+                font-size: 20px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .pagina {
+                width: 100%;
+            }
+
+            .hero,
+            .seccion {
+                box-shadow: none;
+            }
+        }
     </style>
-    <body>
-        <h1 style="text-align:center;">Expediente Fashident v1.0</h1> 
-        <h1 style="text-align:center;">-------------------------</h1>
-        
     
-        <h2 style="text-align:center;">Balance de Disponibilidad de Placas</h2>
-    
-        <table>
-         <thead>
-            <tr>
-                <th rowspan="2">Proyecto</th>
-                <th rowspan="2">Componente</th>
-                <th colspan="2">En Fabricacion </th>
-                <th colspan="2">Lista para Enviar</th>
-            </tr>
-            <tr>
-                <th>cantidad</th>
-                <th>fecha</th>
-                <th>cantidad</th>
-                <th>fecha</th>
-            </tr>
-          </thead>  
-    
-        <tr >
-            <td>Fashident v1.0</td>
-            <td style="text-align:right;font-size: 30px;font-weight: bold;">Placas</td>
-            <td>35</td>
-            <td>2026-08-25</td>
-            <td style="text-align:right;font-size: 32px;font-weight: bold;">90</td>
-            <td>2026-08-25</td>
-        </tr>
-        
-        </table>
-    </body>
-    </html>
-    
-    <body>
-         <h1 style="text-align:center;">-------------------------</h1>
-        <h2 style="text-align:center;">Secuencias de Trabajo</h2>
+    <main class="pagina">
 
-        <table>
-            <tr>
-                <th>Proyecto</th>
-                <th>Lote</th>
-                <th>Fecha</th>
-                <th>Descripcion</th>
-                <th>Cantidad</th>
-            </tr>
-        <tr class='entra'><td>Fabricacion-Entrada</td><td>Placas</td><td>2026-08-25</td><td style='text-align:left;font-size:24px;font-weight:bold;'>20 Recibidas - Estado Virgen</td><td>20</td></tr><tr class='entra'><td>Fabricacion-Entrada</td><td>Placas</td><td>2026-08-25</td><td style='text-align:left;font-size:24px;font-weight:bold;'>15 Recibidas - Estado Virgen</td><td>15</td></tr><tr class='entra'><td>Fabricacion-Programacion</td><td>Placas</td><td>2026-08-20</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Todas las pantallas probadas y con su interfase</td><td>0</td></tr><tr class='entra'><td>Fabricacion-Proceso</td><td>Placas</td><td>2026-08-13</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Recuperada Pantalla con problemas, era una situacion de programacion de fabrica</td><td>0</td></tr><tr class='entra'><td>Fabricacion-Proceso</td><td>Placas</td><td>2026-08-12</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Probada y con Programacion 39 Pantallas, Falta puente, 1 con problemas</td><td>0</td></tr><tr class='entra'><td>Fabricacion-Diagnostico</td><td>Placas</td><td>2026-08-11</td><td style='text-align:left;font-size:24px;font-weight:bold;'>6 Placas Reparadas lista para envio</td><td></td></tr><tr class='entra'><td>Fabricacion-Proceso</td><td>Placas</td><td>2026-08-11</td><td style='text-align:left;font-size:24px;font-weight:bold;'>70 placas lista para envio Lote</td><td></td></tr><tr class='entra'><td>Fabricacion-Proceso</td><td>Placas</td><td>2026-08-11</td><td style='text-align:left;font-size:24px;font-weight:bold;'>20 placas lista para envio Lote 2</td><td></td></tr><tr class='entra'><td>Fabricacion-SMD</td><td>Placas</td><td>2026-08-11</td><td style='text-align:left;font-size:24px;font-weight:bold;'>35 Placas Virgenes</td><td></td></tr><tr class='entra'><td>Fabricacion-Salida</td><td>Placas</td><td>2026-08-03</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Recuperada 1 Placa</td><td>21</td></tr><tr class='entra'><td>Venta-Estimada</td><td>Placas</td><td>2026-07-24</td><td style='text-align:left;font-size:24px;font-weight:bold;'>Disponible 108 placas.</td><td></td></tr><tr class='entra'><td>Venta-Concretada</td><td>Placas</td><td>2026-07-04</td><td style='text-align:left;font-size:24px;font-weight:bold;'>110 Placas, 12 Pantallas 5' y 12 cables 3 mts; con tercero</td><td>110</td></tr><tr class='entra'><td>Venta-Concretada</td><td>Placas</td><td>2026-05-23</td><td style='text-align:left;font-size:24px;font-weight:bold;'>IncluyO la venta de 12 pantallas y 12 cables</td><td>70</td></tr>
-            </table>
-        </body>
-        </html>
-        
-        </table>
-    </body>
-    </html>
-    
-    <body>
-        <h1 style="text-align:center;">-------------------------</h1>
-        <h2 style="text-align:center;">Componentes Especificos</h2>
-        <table>
-            <tr>
-                <th>idE</th>
-                <th>Descripcion</th>
-                <th>Existencia</th>
-            </tr>
-        <tr class=""><td>80</td><td>CABLE - 4 Largo (Iva)</td><td>14</td></tr><tr class=""><td>72</td><td>PANTALLA - 5'' - Capacitiva - DMG80480C050_09WTC</td><td>40</td></tr>
-            </table>
-        </body>
-        </html>
-        
-    <body>
-        <h1 style="text-align:center;">------------------------</h1>
-        <h2 style="text-align:center;">Componentes por Proyecto con Stock CRITICO</h2>
+        <header class="hero">
+            <h1>Fashident v1.0</h1>
 
-        <table>
-            <tr>
-                <th>idE</th>
-                <th>Descripcion</th>
-                <th>Ctdad Proy</th>
-                <th>Ctdad Stock</th>
-                <th>Observaciones</th>
-            </tr>
-        <tr class=""><td>133</td><td>Resistencia 383</td><td>-50</td><td>-50</td><td>None</td></tr><tr class=""><td>22</td><td>MOSFET - AOD4184A-VB</td><td>-350</td><td>-20</td><td>None</td></tr>
-            </table>
-        </body>
-        </html>
+            <div class="reporte-info">
+                 - EXPEDIENTE.
+            </div>
+        </header>
+    
+        <section class="seccion">
+            <h2>Disponibilidad de Placas</h2>
+            <p class="subtitulo">
+                Estado actual de fabricación y disponibilidad para envío.
+            </p>
+
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Proyecto</th>
+                            <th colspan="2">En Fabricación</th>
+                            <th colspan="2">Listas para Enviar</th>
+                        </tr>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th class="fecha-centro">Fecha</th>
+                            <th>Cantidad</th>
+                            <th class="fecha-centro">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td data-label="Proyecto">Fashident v1.0</td>
+                            <td data-label="En fabricación" class="numero">35</td>
+                            <td data-label="Fecha fabricación" class="fecha-centro">Viernes 2026-08-28</td>
+                            <td data-label="Listas para enviar" class="numero-grande">30</td>
+                            <td data-label="Fecha disponible" class="fecha-centro">Viernes 2026-08-28</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
+        <section class="seccion">
+            <h2>Secuencias de Trabajo</h2>
+            <p class="subtitulo">
+                Actividades registradas para el proyecto.
+                Los registros más recientes aparecen primero.
+            </p>
+
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Proceso</th>
+                            <th>Lote</th>
+                            <th class="fecha-centro">Fecha</th>
+                            <th>Prioridad</th>
+                            <th>Estado</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr class="fila-pendiente">
+                            <td data-label="Proceso">Fabricacion-SMD</td>
+                            <td data-label="Lote">Placas</td>
+                            <td data-label="Fecha" class="fecha-centro">Viernes 2026-08-28</td>
+                            <td data-label="Prioridad" class="numero">3</td>
+                            <td data-label="Estado"><span class="estado-pendiente">Pendiente</span></td>
+                            <td data-label="Descripción" style="font-weight:700;">
+                                35 Pantalla Virgenes
+                            </td>
+                            <td data-label="Cantidad" class="numero"></td>
+                        </tr>
+                
+                        <tr class="fila-venta">
+                            <td data-label="Proceso">Venta-Concretada</td>
+                            <td data-label="Lote">Placas</td>
+                            <td data-label="Fecha" class="fecha-centro">Viernes 2026-08-28</td>
+                            <td data-label="Prioridad" class="numero">3</td>
+                            <td data-label="Estado">Resuelto</td>
+                            <td data-label="Descripción" style="font-weight:700;">
+                                60 Placas, 13 cables, 20 pantallas,  2 SD con interfase Blanca y Negra
+                            </td>
+                            <td data-label="Cantidad" class="numero">60</td>
+                        </tr>
+                
+                        <tr class="">
+                            <td data-label="Proceso">Fabricacion-Programacion</td>
+                            <td data-label="Lote">Placas</td>
+                            <td data-label="Fecha" class="fecha-centro">Jueves 2026-08-20</td>
+                            <td data-label="Prioridad" class="numero">3</td>
+                            <td data-label="Estado">Resuelto</td>
+                            <td data-label="Descripción" style="font-weight:700;">
+                                Todas las pantallas probadas y con su interfase
+                            </td>
+                            <td data-label="Cantidad" class="numero">0</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
+        <section class="seccion">
+            <h2>Componentes Específicos</h2>
+            <p class="subtitulo">
+                Consulta rápida de componentes seleccionados y existencia actual.
+            </p>
+
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>idE</th>
+                            <th>Descripción</th>
+                            <th>Existencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td data-label="idE">80</td>
+                            <td data-label="Descripción">CABLE - 4 Largo (Iva)</td>
+                            <td data-label="Existencia" class="numero-grande">0</td>
+                        </tr>
+                
+                        <tr>
+                            <td data-label="idE">72</td>
+                            <td data-label="Descripción">PANTALLA - 5&#x27;&#x27; - Capacitiva - DMG80480C050_09WTC</td>
+                            <td data-label="Existencia" class="numero-grande">19</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
+        <section class="seccion">
+            <h2>Componentes Críticos para 35 Placas</h2>
+            <p class="subtitulo">
+                Comparación entre los materiales requeridos para producir
+                35 placas y la existencia actual en STOCK.
+            </p>
+
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>idE</th>
+                            <th>Descripción</th>
+                            <th>Ctdad. Unitaria</th>
+                            <th>Ctdad. Proyecto</th>
+                            <th>Stock</th>
+                            <th>Diferencia</th>
+                            <th>Estado</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr class="fila-alerta">
+                            <td data-label="idE">80</td>
+                            <td data-label="Descripción">CABLE - 4 Largo (Iva)</td>
+                            <td data-label="Ctdad. unitaria" class="numero">3</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">105</td>
+                            <td data-label="Stock" class="numero-grande">0</td>
+                            <td data-label="Diferencia" class="numero-grande">-105</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-falta">FALTANTE</span>
+                            </td>
+                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">4</td>
+                            <td data-label="Descripción">CAPACITOR - 10 uf Tantalum 16V SA-3216</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">1840</td>
+                            <td data-label="Diferencia" class="numero-grande">1805</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">11</td>
+                            <td data-label="Descripción">CAPACITOR - 22 pF 0805</td>
+                            <td data-label="Ctdad. unitaria" class="numero">2</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">70</td>
+                            <td data-label="Stock" class="numero-grande">3800</td>
+                            <td data-label="Diferencia" class="numero-grande">3730</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">107</td>
+                            <td data-label="Descripción">CAPACITOR - 220 uF Electrolytic 35V</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">957</td>
+                            <td data-label="Diferencia" class="numero-grande">922</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">10</td>
+                            <td data-label="Descripción">CAPACITOR - 470 uf Electrolitico 10V SMD</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">1836</td>
+                            <td data-label="Diferencia" class="numero-grande">1801</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">31</td>
+                            <td data-label="Descripción">Capacitor 10 nf </td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">3950</td>
+                            <td data-label="Diferencia" class="numero-grande">3915</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">9</td>
+                            <td data-label="Descripción">Capacitor 100 nf Ceramico 16V 0805</td>
+                            <td data-label="Ctdad. unitaria" class="numero">11</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">385</td>
+                            <td data-label="Stock" class="numero-grande">23560</td>
+                            <td data-label="Diferencia" class="numero-grande">23175</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">54</td>
+                            <td data-label="Descripción">CONECTOR - Terminal de Barrera</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">3256</td>
+                            <td data-label="Diferencia" class="numero-grande">3221</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">105</td>
+                            <td data-label="Descripción">CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">1772</td>
+                            <td data-label="Diferencia" class="numero-grande">1737</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">5</td>
+                            <td data-label="Descripción">DIODO - SS34 - MS</td>
+                            <td data-label="Ctdad. unitaria" class="numero">12</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">420</td>
+                            <td data-label="Stock" class="numero-grande">5290</td>
+                            <td data-label="Diferencia" class="numero-grande">4870</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">34</td>
+                            <td data-label="Descripción">INDUCTOR - 470MT - FIXED 47uH 2.5A 100mΩ </td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">1941</td>
+                            <td data-label="Diferencia" class="numero-grande">1906</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">52</td>
+                            <td data-label="Descripción">LED BLUE 0805</td>
+                            <td data-label="Ctdad. unitaria" class="numero">2</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">70</td>
+                            <td data-label="Stock" class="numero-grande">2900</td>
+                            <td data-label="Diferencia" class="numero-grande">2830</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">17</td>
+                            <td data-label="Descripción">LED GREEN 0805</td>
+                            <td data-label="Ctdad. unitaria" class="numero">2</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">70</td>
+                            <td data-label="Stock" class="numero-grande">6650</td>
+                            <td data-label="Diferencia" class="numero-grande">6580</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">18</td>
+                            <td data-label="Descripción">LED RED 0805</td>
+                            <td data-label="Ctdad. unitaria" class="numero">5</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">175</td>
+                            <td data-label="Stock" class="numero-grande">7450</td>
+                            <td data-label="Diferencia" class="numero-grande">7275</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">28</td>
+                            <td data-label="Descripción">MICRO - ATMEGA 328pAU</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">250</td>
+                            <td data-label="Diferencia" class="numero-grande">215</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones">inventario</td>
+                        </tr>
+                
+                        <tr class="fila-alerta">
+                            <td data-label="idE">22</td>
+                            <td data-label="Descripción">MOSFET - AOD4184A-VB</td>
+                            <td data-label="Ctdad. unitaria" class="numero">7</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">245</td>
+                            <td data-label="Stock" class="numero-grande">-20</td>
+                            <td data-label="Diferencia" class="numero-grande">-265</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-falta">FALTANTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-alerta">
+                            <td data-label="idE">109</td>
+                            <td data-label="Descripción">Pin Header 1x3 Single Macho</td>
+                            <td data-label="Ctdad. unitaria" class="numero">2</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">70</td>
+                            <td data-label="Stock" class="numero-grande">26</td>
+                            <td data-label="Diferencia" class="numero-grande">-44</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-falta">FALTANTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">7</td>
+                            <td data-label="Descripción">Regulador de Voltaje Linear 7805-C21706</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">400</td>
+                            <td data-label="Diferencia" class="numero-grande">365</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">33</td>
+                            <td data-label="Descripción">REGULADOR Voltaje - LM2596</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">750</td>
+                            <td data-label="Diferencia" class="numero-grande">715</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">56</td>
+                            <td data-label="Descripción">RELAY - 12V - 2US / 10 A</td>
+                            <td data-label="Ctdad. unitaria" class="numero">3</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">105</td>
+                            <td data-label="Stock" class="numero-grande">3850</td>
+                            <td data-label="Diferencia" class="numero-grande">3745</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones">inventario</td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">29</td>
+                            <td data-label="Descripción">RESISTENCIA - 5K1</td>
+                            <td data-label="Ctdad. unitaria" class="numero">11</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">385</td>
+                            <td data-label="Stock" class="numero-grande">14270</td>
+                            <td data-label="Diferencia" class="numero-grande">13885</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-alerta">
+                            <td data-label="idE">133</td>
+                            <td data-label="Descripción">Resistencia 383</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">-50</td>
+                            <td data-label="Diferencia" class="numero-grande">-85</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-falta">FALTANTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">13</td>
+                            <td data-label="Descripción">RESISTENCIAa - 3.4</td>
+                            <td data-label="Ctdad. unitaria" class="numero">7</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">245</td>
+                            <td data-label="Stock" class="numero-grande">14610</td>
+                            <td data-label="Diferencia" class="numero-grande">14365</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">55</td>
+                            <td data-label="Descripción">RESISTENCIAe - 4K7</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">9910</td>
+                            <td data-label="Diferencia" class="numero-grande">9875</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">21</td>
+                            <td data-label="Descripción">RESISTENCIAf - 10K0</td>
+                            <td data-label="Ctdad. unitaria" class="numero">14</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">490</td>
+                            <td data-label="Stock" class="numero-grande">8940</td>
+                            <td data-label="Diferencia" class="numero-grande">8450</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-alerta">
+                            <td data-label="idE">36</td>
+                            <td data-label="Descripción">RESISTENCIAg - 47K0</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">0</td>
+                            <td data-label="Diferencia" class="numero-grande">-35</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-falta">FALTANTE</span>
+                            </td>
+                            <td data-label="Observaciones">None</td>
+                        </tr>
+                
+                        <tr class="fila-alerta">
+                            <td data-label="idE">57</td>
+                            <td data-label="Descripción">ROLLO Cable RGB (Kit Led)</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">3</td>
+                            <td data-label="Diferencia" class="numero-grande">-32</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-falta">FALTANTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">58</td>
+                            <td data-label="Descripción">Socket 6p</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">520</td>
+                            <td data-label="Diferencia" class="numero-grande">485</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">59</td>
+                            <td data-label="Descripción">Socket 8p</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
+                            <td data-label="Stock" class="numero-grande">150</td>
+                            <td data-label="Diferencia" class="numero-grande">115</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-alerta">
+                            <td data-label="idE">8</td>
+                            <td data-label="Descripción">SWITCH - Tactil Push Bottom </td>
+                            <td data-label="Ctdad. unitaria" class="numero">7</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">245</td>
+                            <td data-label="Stock" class="numero-grande">8</td>
+                            <td data-label="Diferencia" class="numero-grande">-237</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-falta">FALTANTE</span>
+                            </td>
+                            <td data-label="Observaciones">Ajuste Inicial</td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">15</td>
+                            <td data-label="Descripción">Switching Diode SMD 1N4004</td>
+                            <td data-label="Ctdad. unitaria" class="numero">4</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">140</td>
+                            <td data-label="Stock" class="numero-grande">2570</td>
+                            <td data-label="Diferencia" class="numero-grande">2430</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">130</td>
+                            <td data-label="Descripción">Terminal Block 2P </td>
+                            <td data-label="Ctdad. unitaria" class="numero">10</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">350</td>
+                            <td data-label="Stock" class="numero-grande">441</td>
+                            <td data-label="Diferencia" class="numero-grande">91</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                        <tr class="fila-alerta">
+                            <td data-label="idE">60</td>
+                            <td data-label="Descripción">Terminal Metalico - Conector para cables</td>
+                            <td data-label="Ctdad. unitaria" class="numero">8</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">280</td>
+                            <td data-label="Stock" class="numero-grande">200</td>
+                            <td data-label="Diferencia" class="numero-grande">-80</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-falta">FALTANTE</span>
+                            </td>
+                            <td data-label="Observaciones">None</td>
+                        </tr>
+                
+                        <tr class="fila-ok">
+                            <td data-label="idE">35</td>
+                            <td data-label="Descripción">TRANSISTOR - J3Y Bipolar</td>
+                            <td data-label="Ctdad. unitaria" class="numero">3</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">105</td>
+                            <td data-label="Stock" class="numero-grande">2670</td>
+                            <td data-label="Diferencia" class="numero-grande">2565</td>
+                            <td data-label="Estado">
+                                <span class="badge badge-ok">SUFICIENTE</span>
+                            </td>
+                            <td data-label="Observaciones"></td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="nota">
+                <strong>Resumen:</strong>
+                8 componente(s) requieren atención para completar
+                la producción de 35 placas.
+                La existencia indicada corresponde al momento en que se generó
+                esta página.
+            </div>
+        </section>
+    
+        <section class="seccion">
+            <h2>Imagen e Información Técnica de la Placa</h2>
+            <p class="subtitulo">
+                Referencia visual y procedimiento básico de inspección.
+            </p>
+    
+            <div class="nota">
+                No se encontró la imagen:
+                <strong>imagenes\x.jpeg</strong>
+            </div>
         
+            <div class="grid-tecnico">
+
+                <article class="tarjeta-tecnica">
+                    <h3>Variantes de la tarjeta</h3>
+                    <p>
+                        ...
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Ajuste de contraste de la pantalla LCD</h3>
+                    <p>
+                        ...
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Prueba con la tarjeta energizada</h3>
+                    <p>
+                        ...
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Prueba de continuidad — puntos amarillos</h3>
+                    <p>
+                        ...
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Prueba de continuidad — puntos blancos</h3>
+                    <p>
+                      .
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Criterio de inspección</h3>
+                    <p>
+                        .
+                    </p>
+                </article>
+
+            </div>
+
+            <div class="nota">
+                <strong>Importante:</strong>
+                Mantener el grosor adecuado en la union del Led con el cable.
+            </div>
+        </section>
+
+    </main>
+    
 <style>
 footer {
     background-color: red;
@@ -148,7 +1234,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 25/08/2026 09:22:26
+        Fecha y hora: 28/08/2026 22:01:14
     </p>
 </footer>
         
