@@ -484,6 +484,11 @@
                 max-width: 100%;
                 height: auto;
             }
+
+            /* En celular, mostrar únicamente componentes con faltante. */
+            .componentes-criticos .fila-ok {
+                display: none !important;
+            }
         }
 
         @media (max-width: 480px) {
@@ -536,11 +541,9 @@
     <main class="pagina">
 
         <header class="hero">
-            <h1>Fashident v1.0</h1>
 
-            <div class="reporte-info">
-                 - EXPEDIENTE.
-            </div>
+            <h1>Expediente:  Fashident v1.0</h1>
+
         </header>
     
         <section class="seccion">
@@ -676,7 +679,7 @@
             </div>
         </section>
     
-        <section class="seccion">
+        <section class="seccion componentes-criticos">
             <h2>Componentes Críticos para 35 Placas</h2>
             <p class="subtitulo">
                 Comparación entre los materiales requeridos para producir
@@ -702,10 +705,10 @@
                         <tr class="fila-alerta">
                             <td data-label="idE">80</td>
                             <td data-label="Descripción">CABLE - 4 Largo (Iva)</td>
-                            <td data-label="Ctdad. unitaria" class="numero">3</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">105</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
                             <td data-label="Stock" class="numero-grande">0</td>
-                            <td data-label="Diferencia" class="numero-grande">-105</td>
+                            <td data-label="Diferencia" class="numero-grande">-35</td>
                             <td data-label="Estado">
                                 <span class="badge badge-falta">FALTANTE</span>
                             </td>
@@ -1037,19 +1040,6 @@
                             <td data-label="Observaciones">None</td>
                         </tr>
                 
-                        <tr class="fila-alerta">
-                            <td data-label="idE">57</td>
-                            <td data-label="Descripción">ROLLO Cable RGB (Kit Led)</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">35</td>
-                            <td data-label="Stock" class="numero-grande">3</td>
-                            <td data-label="Diferencia" class="numero-grande">-32</td>
-                            <td data-label="Estado">
-                                <span class="badge badge-falta">FALTANTE</span>
-                            </td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
                         <tr class="fila-ok">
                             <td data-label="idE">58</td>
                             <td data-label="Descripción">Socket 6p</td>
@@ -1147,7 +1137,7 @@
 
             <div class="nota">
                 <strong>Resumen:</strong>
-                8 componente(s) requieren atención para completar
+                7 componente(s) requieren atención para completar
                 la producción de 35 placas.
                 La existencia indicada corresponde al momento en que se generó
                 esta página.
@@ -1160,24 +1150,32 @@
                 Referencia visual y procedimiento básico de inspección.
             </p>
     
-            <div class="nota">
-                No se encontró la imagen:
-                <strong>imagenes\x.jpeg</strong>
-            </div>
+            <figure class="imagen-placa">
+                <img
+                    src="imagenes/fashi.jpg"
+                    alt="Fashident v1.0"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <figcaption class="pie">
+                    Imagen de referencia de Fashident v1.0
+                </figcaption>
+            </figure>
         
             <div class="grid-tecnico">
 
                 <article class="tarjeta-tecnica">
-                    <h3>Variantes de la tarjeta</h3>
+                    <h3>Parametros de Fabricacion</h3>
                     <p>
-                        ...
+                        El conductor tiene que medir 1.5 metros. </p>
+                         <p> El retrofil tiene que medir 3 centimetros
                     </p>
                 </article>
 
                 <article class="tarjeta-tecnica">
-                    <h3>Ajuste de contraste de la pantalla LCD</h3>
+                    <h3>Versiones de pantalla</h3>
                     <p>
-                        ...
+                        Version en Negro y version en Blanco.
                     </p>
                 </article>
 
@@ -1198,14 +1196,14 @@
                 <article class="tarjeta-tecnica">
                     <h3>Prueba de continuidad — puntos blancos</h3>
                     <p>
-                      .
+                     .
                     </p>
                 </article>
 
                 <article class="tarjeta-tecnica">
                     <h3>Criterio de inspección</h3>
                     <p>
-                        .
+                      .
                     </p>
                 </article>
 
@@ -1213,7 +1211,7 @@
 
             <div class="nota">
                 <strong>Importante:</strong>
-                Mantener el grosor adecuado en la union del Led con el cable.
+                Mantener el grosor de la conexion entre el Led y los cables.
             </div>
         </section>
 
@@ -1234,7 +1232,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 28/08/2026 22:01:14
+        Fecha y hora: 29/08/2026 10:38:35
     </p>
 </footer>
         
