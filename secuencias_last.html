@@ -42,31 +42,1701 @@
     <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>Ultimas Secuencias.</title>
-        <style>
-            table { border-collapse: collapse; width: 96%; margin: auto; font-size: 24px; font-weight: bold; }
-            th, td { border: 2px solid black; padding: 8px; text-align: left; }
-            th { background-color: #f2f2f2; }
-            body { font-family: Arial, sans-serif; padding: 20px; }
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+        <title>Últimas Secuencias</title>
 
-            .atrasado { background-color: #ffcccc; color: #cc0000; }
-            .proximos_dias { background-color: #d1ecf1; color: #0c5460; }
-            .preparada { background-color: #F0FFF0; color: #0c5460; }
+        <style>
+            :root {
+                --borde: #cfd6dc;
+                --texto: #26333f;
+                --fondo: #f4f6f8;
+                --blanco: #ffffff;
+                --rojo-bg: #ffcccc;
+                --rojo-txt: #b00000;
+                --azul-bg: #d1ecf1;
+                --azul-txt: #0c5460;
+                --verde-bg: #f0fff0;
+                --verde-txt: #245c36;
+            }
+
+            * { box-sizing: border-box; }
+
+            body {
+                margin: 0;
+                padding: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: var(--texto);
+                background: var(--fondo);
+            }
+
+            h2 {
+                margin: 8px 0 22px;
+                text-align: center;
+                font-size: 32px;
+            }
+
+            .tabla-wrap {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                width: 96%;
+                margin: auto;
+                border-collapse: collapse;
+                background: var(--blanco);
+                font-size: 21px;
+                font-weight: 600;
+            }
+
+            th, td {
+                padding: 10px 12px;
+                border: 2px solid #555;
+                text-align: left;
+                vertical-align: middle;
+            }
+
+            th {
+                background-color: #e9eef2;
+                font-weight: 800;
+            }
+
+            .atrasado {
+                background-color: var(--rojo-bg);
+                color: var(--rojo-txt);
+            }
+
+            .proximos_dias {
+                background-color: var(--azul-bg);
+                color: var(--azul-txt);
+            }
+
+            .preparada {
+                background-color: var(--verde-bg);
+                color: var(--verde-txt);
+            }
+
+            .estado-pendiente {
+                display: inline-block;
+                padding: 5px 10px;
+                border-radius: 999px;
+                background: #b42318;
+                color: white;
+                font-weight: 800;
+                white-space: nowrap;
+            }
+
+            .prioridad {
+                text-align: center;
+                font-size: 23px;
+                font-weight: 800;
+            }
+
+            .fecha {
+                font-weight: 700;
+            }
+
+            @media (max-width: 900px) {
+                body {
+                    padding: 7px;
+                    font-size: 17px;
+                }
+
+                h2 {
+                    margin: 8px 0 14px;
+                    font-size: 27px;
+                }
+
+                .tabla-wrap {
+                    width: 100%;
+                    overflow: visible;
+                }
+
+                table {
+                    display: block;
+                    width: 100%;
+                    min-width: 0;
+                    margin: 0;
+                    border-collapse: separate;
+                    background: transparent;
+                    font-size: 17px;
+                }
+
+                thead {
+                    display: none;
+                }
+
+                tbody {
+                    display: block;
+                    width: 100%;
+                }
+
+                tbody tr {
+                    display: block;
+                    width: 100%;
+                    margin: 0 0 12px;
+                    border: 1px solid var(--borde);
+                    border-radius: 10px;
+                    background: white;
+                    overflow: hidden;
+                    box-shadow: 0 1px 5px rgba(0,0,0,.07);
+                }
+
+                tbody td {
+                    display: grid;
+                    grid-template-columns: minmax(105px, 35%) minmax(0, 65%);
+                    align-items: center;
+                    width: 100%;
+                    min-width: 0;
+                    padding: 9px 10px;
+                    border: 0;
+                    border-bottom: 1px solid var(--borde);
+                    font-size: 17px;
+                    line-height: 1.35;
+                    text-align: left !important;
+                    white-space: normal !important;
+                    overflow-wrap: anywhere;
+                }
+
+                tbody td:last-child {
+                    border-bottom: 0;
+                }
+
+                tbody td::before {
+                    content: attr(data-label);
+                    display: block;
+                    padding-right: 8px;
+                    color: #30485d;
+                    font-size: 15px;
+                    font-weight: 800;
+                    line-height: 1.25;
+                }
+
+                .prioridad {
+                    text-align: left !important;
+                    font-size: 20px;
+                }
+
+                .fecha {
+                    font-size: 17px;
+                }
+
+                .estado-pendiente {
+                    font-size: 15px;
+                    padding: 5px 9px;
+                }
+
+                tbody tr.atrasado {
+                    background: var(--rojo-bg);
+                    color: var(--rojo-txt);
+                }
+
+                tbody tr.atrasado td::before {
+                    color: #8a1c1c;
+                }
+
+                tbody tr.proximos_dias {
+                    background: var(--azul-bg);
+                    color: var(--azul-txt);
+                }
+
+                tbody tr.preparada {
+                    background: var(--verde-bg);
+                    color: var(--verde-txt);
+                }
+            }
+
+            @media (max-width: 480px) {
+                body { padding: 5px; }
+                h2 { font-size: 25px; }
+
+                tbody td {
+                    grid-template-columns: minmax(96px, 34%) minmax(0, 66%);
+                    padding: 9px 8px;
+                    font-size: 16px;
+                }
+
+                tbody td::before {
+                    font-size: 14px;
+                }
+
+                .prioridad {
+                    font-size: 19px;
+                }
+            }
         </style>
     </head>
+
     <body>
-        <h2 style="text-align:center;">Historial.</h2>
-        <table>
-            <tr>
-                <th>Proyecto</th>
-                <th>Proceso</th>
-                <th>Fecha</th>
-                <th>Descripción</th>
-                <th>Orden</th>
-                <th>Estado</th>
-            </tr>
-    <tr class='atrasado'><td style='font-weight:bold;'>DUO ver1.0</td><td>Fabricacion-Entrada</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>15 Placas Virgenes</td><td style='font-weight:bold;'>0</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'></td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>Agotado 1 reel de Termofil  Size 5/2.5  Termo 3/16, para kit led</td><td style='font-weight:bold;'>0</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'>Kit Led / Conector</td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>FabricaR 760 cables, Cesar fabrico 497 cable.</td><td style='font-weight:bold;'>1</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'>Fashident v1.0</td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>Terminal Fabricacion de 20 Cables Fashident</td><td style='font-weight:bold;'>2</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'>AWS Mini v1.0</td><td>Fabricacion-Entrada</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>30 Placas Virgenes</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'>Fashident v1.0</td><td>Fabricacion-Diagnostico</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>6 Placas por rechequear</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'>Purimatic v2.2</td><td>Fabricacion-Entrada</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>Entrada de 20 Placas, pendiente por componentes - Estado Virgen</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'></td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>Lectura MetroContador 1983</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'>Kit Led / Conector</td><td>Fabricacion-TH</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>Pendientes por montar 190 set por falta de componentes</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'>Fashident v1.0</td><td>Fabricacion-SMD</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>35 Placas Virgenes</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'></td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>Agotado 1 reel de 470R Actualizar Stock</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Pendiente</td></tr><tr class='atrasado'><td style='font-weight:bold;'></td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Sábado, 29 de agosto de 2026</td><td style='font-weight:bold;'>Agotado 1 reel de 100nF Actualizar Stock</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Pendiente</td></tr><tr ><td style='font-weight:bold;'>Fashident v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Viernes, 28 de agosto de 2026</td><td style='font-weight:bold;'>60 Placas, 20 cables, 20 pantallas,  2 SD con interfase Blanca y Negra</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Resuelto</td></tr><tr ><td style='font-weight:bold;'>Kit Led / Conector</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Miércoles, 26 de agosto de 2026</td><td style='font-weight:bold;'>Venta de 40 / 400 set con sus cables</td><td style='font-weight:bold;'>0</td><td style='font-weight:bold;'>Resuelto</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Venta-Preparada</td><td style='font-weight:bold;'>Martes, 25 de agosto de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Cancelado</td></tr><tr ><td style='font-weight:bold;'>AWS Pro v1.0</td><td>Fabricacion-Programacion</td><td style='font-weight:bold;'>Lunes, 24 de agosto de 2026</td><td style='font-weight:bold;'>Nueva Interfase 2408 en etiqueta, guardada en PC</td><td style='font-weight:bold;'>0</td><td style='font-weight:bold;'>Resuelto</td></tr><tr ><td style='font-weight:bold;'>AWS Pro v1.0</td><td>Fabricacion-Programacion</td><td style='font-weight:bold;'>Lunes, 24 de agosto de 2026</td><td style='font-weight:bold;'>Programadas: 4 pantallas de 5 pulgada y (2 de 7 pulgadas, enviada por Zenteno), enviado Doc a Bere</td><td style='font-weight:bold;'>0</td><td style='font-weight:bold;'>Resuelto</td></tr><tr ><td style='font-weight:bold;'>DUO ver1.0</td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Lunes, 24 de agosto de 2026</td><td style='font-weight:bold;'>Poner puente a todas las pantallas NO TOUCH, No electricamente comprobadas</td><td style='font-weight:bold;'>2</td><td style='font-weight:bold;'>Resuelto</td></tr><tr ><td style='font-weight:bold;'></td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Viernes, 21 de agosto de 2026</td><td style='font-weight:bold;'>Mantenimiento Cortadora Laser</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Resuelto</td></tr><tr ><td style='font-weight:bold;'>Fashident v1.0</td><td>Fabricacion-Programacion</td><td style='font-weight:bold;'>Jueves, 20 de agosto de 2026</td><td style='font-weight:bold;'>Todas las pantallas probadas y con su interfase</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Resuelto</td></tr><tr ><td style='font-weight:bold;'>Veco v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Jueves, 20 de agosto de 2026</td><td style='font-weight:bold;'>Vendida 20 placas</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Resuelto</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Fabricacion-Entrada</td><td style='font-weight:bold;'>Martes, 18 de agosto de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>-</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Miércoles, 12 de agosto de 2026</td><td style='font-weight:bold;'>Fabricados 12 lotes de 5 cables + 4, ya probados  - 64, mas 26 sin conectores</td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>-</td></tr><tr ><td style='font-weight:bold;'>AWS Mini v1.0</td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Martes, 11 de agosto de 2026</td><td style='font-weight:bold;'>7 Placas de 4</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>AWS Mini v1.0</td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Martes, 11 de agosto de 2026</td><td style='font-weight:bold;'>30 Placas de 5</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>AWS Mini v1.0</td><td>Fabricacion-SMD</td><td style='font-weight:bold;'>Martes, 11 de agosto de 2026</td><td style='font-weight:bold;'>30 Placas Virgenes</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>AWS Mini v1.0</td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Martes, 11 de agosto de 2026</td><td style='font-weight:bold;'>Fabricar Cables</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Martes, 11 de agosto de 2026</td><td style='font-weight:bold;'>5 Placas, 5 LCD, 5 Acrilicos y 5 Cables</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>DUO ver1.0</td><td>Fabricacion-Proceso</td><td style='font-weight:bold;'>Jueves, 06 de agosto de 2026</td><td style='font-weight:bold;'>Programada y Empacada 13 pantallas con 040826</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>DUO ver1.0</td><td>Fabricacion-Salida</td><td style='font-weight:bold;'>Jueves, 06 de agosto de 2026</td><td style='font-weight:bold;'>Empacadas 12</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>DUO ver1.0</td><td>Fabricacion-Diagnostico</td><td style='font-weight:bold;'>Miércoles, 05 de agosto de 2026</td><td style='font-weight:bold;'>Formateada las 6 pantallas que envio con Dwin 030826</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>DUO ver1.0</td><td>Fabricacion-Diagnostico</td><td style='font-weight:bold;'>Miércoles, 05 de agosto de 2026</td><td style='font-weight:bold;'>Formateada las 9 Micro SD con Audio 050826</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>DUO ver1.0</td><td>Fabricacion-Diagnostico</td><td style='font-weight:bold;'>Miércoles, 05 de agosto de 2026</td><td style='font-weight:bold;'>Empaquetada las 4 pantallas de 5 pulgadas</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purimatic v2.2</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Lunes, 03 de agosto de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>3</td><td style='font-weight:bold;'>Resuelto</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Martes, 28 de julio de 2026</td><td style='font-weight:bold;'>5 Placas, 5 LCD, 5 Acrilicos y 5 Cables</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>AWS Mini v1.0</td><td>Fabricacion-Entrada</td><td style='font-weight:bold;'>Lunes, 27 de julio de 2026</td><td style='font-weight:bold;'>Solicitado a LCSC</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Monterrey v1.0</td><td>Venta-Estimada</td><td style='font-weight:bold;'>Miércoles, 22 de julio de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Martes, 21 de julio de 2026</td><td style='font-weight:bold;'>Ademas 5 pantallas LCD</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>AWS Mini v1.0</td><td>Venta-Estimada</td><td style='font-weight:bold;'>Sábado, 18 de julio de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purimatic v2.2</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Jueves, 09 de julio de 2026</td><td style='font-weight:bold;'>4 Placas - 4 LCD</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>AWS Mini v1.0</td><td>Fabricacion-SMD</td><td style='font-weight:bold;'>Lunes, 06 de julio de 2026</td><td style='font-weight:bold;'>Descontada los componentes del Stock</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>David</td><td>Fabricacion-Entrada</td><td style='font-weight:bold;'>Viernes, 03 de julio de 2026</td><td style='font-weight:bold;'>En Stock 30 Placas Virgenes  - RESISTENCIA - FR2512J101 TS ?????</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>David</td><td>Venta-Estimada</td><td style='font-weight:bold;'>Viernes, 03 de julio de 2026</td><td style='font-weight:bold;'>No hay Placas</td><td style='font-weight:bold;'>0</td><td style='font-weight:bold;'>12</td></tr><tr ><td style='font-weight:bold;'>AWS Mini v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Jueves, 02 de julio de 2026</td><td style='font-weight:bold;'>2 Tarjetas - 2 Acrilicos Placa - 2 Acrilico Pantalla - 2 Cables</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>AWS Pro v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Jueves, 02 de julio de 2026</td><td style='font-weight:bold;'>4 Placas, 4 Pantallas, 4 Cables,</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Vitesco</td><td>Venta-Estimada</td><td style='font-weight:bold;'>Miércoles, 01 de julio de 2026</td><td style='font-weight:bold;'>Sin Reserva</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purimatic v2.2</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Miércoles, 01 de julio de 2026</td><td style='font-weight:bold;'>4 Placas - 4 LCD</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Viernes, 26 de junio de 2026</td><td style='font-weight:bold;'>Ademas 5 pantallas LCD</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Monterrey v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Lunes, 22 de junio de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>David</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Miércoles, 17 de junio de 2026</td><td style='font-weight:bold;'>Enviada 15 Placas + 1 Reparada</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Martes, 16 de junio de 2026</td><td style='font-weight:bold;'>Venta de 5 Placas</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>AWS Mini v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Martes, 16 de junio de 2026</td><td style='font-weight:bold;'>5 Placas</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>AWS Pro v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Martes, 16 de junio de 2026</td><td style='font-weight:bold;'>4 Placas</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>DUO ver1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Miércoles, 10 de junio de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Jueves, 04 de junio de 2026</td><td style='font-weight:bold;'>Venta de 5 Placas</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Kit Yasaky</td><td>Venta-Estimada</td><td style='font-weight:bold;'>Jueves, 04 de junio de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>David</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Lunes, 01 de junio de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Vitesco</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Lunes, 01 de junio de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>David</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Viernes, 29 de mayo de 2026</td><td style='font-weight:bold;'>Ajuste</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Lunes, 25 de mayo de 2026</td><td style='font-weight:bold;'>Realizada</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Darmax</td><td>Venta-Estimada</td><td style='font-weight:bold;'>Viernes, 22 de mayo de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Darmax</td><td>Fabricacion-Salida</td><td style='font-weight:bold;'>Jueves, 21 de mayo de 2026</td><td style='font-weight:bold;'>Disponible Pendiente solicitud de Cliente, falta montar SD</td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Lunes, 18 de mayo de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Purisystems v1.0</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Miércoles, 06 de mayo de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Kit Yasaky</td><td>Fabricacion-Entrada</td><td style='font-weight:bold;'>Martes, 05 de mayo de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Kit Yasaky</td><td>Fabricacion-Salida</td><td style='font-weight:bold;'>Martes, 05 de mayo de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Kit Yasaky</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Martes, 05 de mayo de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Darmax</td><td>Fabricacion-Entrada</td><td style='font-weight:bold;'>Miércoles, 22 de abril de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr><tr ><td style='font-weight:bold;'>Darmax</td><td>Venta-Concretada</td><td style='font-weight:bold;'>Miércoles, 22 de abril de 2026</td><td style='font-weight:bold;'></td><td style='font-weight:bold;'>None</td><td style='font-weight:bold;'>None</td></tr>
-        </table>
+        <h2>Historial</h2>
+
+        <div class="tabla-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Proceso</th>
+                        <th>Fecha</th>
+                        <th>Descripción</th>
+                        <th>Orden</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+    
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            DUO ver1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Entrada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            15 Placas Virgenes
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            0
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Agotado 1 reel de Termofil  Size 5/2.5  Termo 3/16, para kit led
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            0
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Kit Led / Conector
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            FabricaR 760 cables, Cesar fabrico 497 cable.
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            1
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Fashident v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Terminal Fabricacion de 20 Cables Fashident
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            2
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Mini v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Entrada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            30 Placas Virgenes
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Fashident v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Diagnostico
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            6 Placas por rechequear
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purimatic v2.2
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Entrada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Entrada de 20 Placas, pendiente por componentes - Estado Virgen
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Lectura MetroContador 1983
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Kit Led / Conector
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-TH
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Pendientes por montar 190 set por falta de componentes
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Fashident v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-SMD
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            35 Placas Virgenes
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Agotado 1 reel de 470R Actualizar Stock
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 29 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Agotado 1 reel de 100nF Actualizar Stock
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            <span class="estado-pendiente">Pendiente</span>
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Fashident v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Viernes, 28 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            60 Placas, 20 cables, 20 pantallas,  2 SD con interfase Blanca y Negra
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            Resuelto
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Kit Led / Conector
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 26 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Venta de 40 / 400 set con sus cables
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            0
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            Resuelto
+                        </td>
+                    </tr>
+        
+                    <tr class="preparada">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Preparada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 25 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            Cancelado
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Pro v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Programacion
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 24 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Nueva Interfase 2408 en etiqueta, guardada en PC
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            0
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            Resuelto
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Pro v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Programacion
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 24 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Programadas: 4 pantallas de 5 pulgada y (2 de 7 pulgadas, enviada por Zenteno), enviado Doc a Bere
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            0
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            Resuelto
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            DUO ver1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 24 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Poner puente a todas las pantallas NO TOUCH, No electricamente comprobadas
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            2
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            Resuelto
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Viernes, 21 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Mantenimiento Cortadora Laser
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            Resuelto
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Fashident v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Programacion
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Jueves, 20 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Todas las pantallas probadas y con su interfase
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            Resuelto
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Veco v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Jueves, 20 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Vendida 20 placas
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            Resuelto
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Entrada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 18 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            -
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 12 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Fabricados 12 lotes de 5 cables + 4, ya probados  - 64, mas 26 sin conectores
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            -
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Mini v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 11 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            7 Placas de 4
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Mini v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 11 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            30 Placas de 5
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Mini v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-SMD
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 11 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            30 Placas Virgenes
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Mini v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 11 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Fabricar Cables
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 11 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            5 Placas, 5 LCD, 5 Acrilicos y 5 Cables
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            DUO ver1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Proceso
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Jueves, 06 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Programada y Empacada 13 pantallas con 040826
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            None
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            None
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            DUO ver1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Salida
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Jueves, 06 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Empacadas 12
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            None
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            None
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            DUO ver1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Diagnostico
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 05 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Formateada las 6 pantallas que envio con Dwin 030826
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            DUO ver1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Diagnostico
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 05 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Formateada las 9 Micro SD con Audio 050826
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            DUO ver1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Diagnostico
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 05 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Empaquetada las 4 pantallas de 5 pulgadas
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purimatic v2.2
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 03 de agosto de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            3
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            Resuelto
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 28 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            5 Placas, 5 LCD, 5 Acrilicos y 5 Cables
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Mini v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Entrada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 27 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Solicitado a LCSC
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Monterrey v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Estimada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 22 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 21 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Ademas 5 pantallas LCD
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Mini v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Estimada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Sábado, 18 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purimatic v2.2
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Jueves, 09 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            4 Placas - 4 LCD
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Mini v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-SMD
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 06 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Descontada los componentes del Stock
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            David
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Estimada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Viernes, 03 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            No hay Placas
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            0
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            12
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            David
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Entrada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Viernes, 03 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            En Stock 30 Placas Virgenes  - RESISTENCIA - FR2512J101 TS ?????
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Pro v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Jueves, 02 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            4 Placas, 4 Pantallas, 4 Cables,
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            None
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            None
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Mini v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Jueves, 02 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            2 Tarjetas - 2 Acrilicos Placa - 2 Acrilico Pantalla - 2 Cables
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Vitesco
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Estimada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 01 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Sin Reserva
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purimatic v2.2
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 01 de julio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            4 Placas - 4 LCD
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Viernes, 26 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Ademas 5 pantallas LCD
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Monterrey v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 22 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            David
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 17 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Enviada 15 Placas + 1 Reparada
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Pro v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 16 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            4 Placas
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            None
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            None
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 16 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Venta de 5 Placas
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            AWS Mini v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 16 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            5 Placas
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            DUO ver1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 10 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Jueves, 04 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Venta de 5 Placas
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Kit Yasaky
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Estimada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Jueves, 04 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            David
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 01 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Vitesco
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 01 de junio de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            David
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Viernes, 29 de mayo de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Ajuste
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 25 de mayo de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Realizada
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="atrasado">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Darmax
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Estimada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Viernes, 22 de mayo de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Darmax
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Salida
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Jueves, 21 de mayo de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            Disponible Pendiente solicitud de Cliente, falta montar SD
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Lunes, 18 de mayo de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Purisystems v1.0
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 06 de mayo de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Kit Yasaky
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Entrada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 05 de mayo de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Kit Yasaky
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Salida
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 05 de mayo de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Kit Yasaky
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Martes, 05 de mayo de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Darmax
+                        </td>
+                        <td data-label="Proceso">
+                            Fabricacion-Entrada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 22 de abril de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                    <tr class="">
+                        <td data-label="Proyecto" style="font-weight:800;">
+                            Darmax
+                        </td>
+                        <td data-label="Proceso">
+                            Venta-Concretada
+                        </td>
+                        <td data-label="Fecha" class="fecha">
+                            Miércoles, 22 de abril de 2026
+                        </td>
+                        <td data-label="Descripción" style="font-weight:700;">
+                            
+                        </td>
+                        <td data-label="Orden" class="prioridad">
+                            
+                        </td>
+                        <td data-label="Estado" style="font-weight:700;">
+                            
+                        </td>
+                    </tr>
+        
+                </tbody>
+            </table>
+        </div>
     </body>
     </html>
     
@@ -85,7 +1755,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 29/08/2026 18:33:46
+        Fecha y hora: 30/08/2026 06:03:12
     </p>
 </footer>
         
