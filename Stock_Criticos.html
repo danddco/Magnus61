@@ -38,56 +38,225 @@
     </body>
     </html>
     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <style>
-    table {
-        border-collapse: collapse;
-        width: auto; /* Se ajusta automáticamente al contenido */
-        margin: 20px auto;
-        font-size: 14px;
-        font-weight: bold;
-        text-align: left;
-        table-layout: auto;
+    * {
+        box-sizing: border-box;
     }
-    th, td {
-        border: 1px solid #ccc;
-        padding: 6px;
-    }
-    th {
-        background-color: #f2f2f2;
-        text-align: center;
-    }
-    td {
-        white-space: nowrap; /* evita saltos innecesarios */
-    }
-    td.descripcion {
-        white-space: normal; /* permite expandirse */
-        max-width: 400px;    /* controla el ancho máximo */
-        word-wrap: break-word;
-    }
+
     body {
         font-family: Arial, sans-serif;
         padding: 20px;
+        margin: 0;
+        background: #f4f6f8;
+        color: #26333f;
     }
+
+    h2 {
+        text-align: center;
+        font-size: 30px;
+        margin: 10px 0 22px;
+    }
+
+    .tabla-wrap {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 96%;
+        margin: 20px auto;
+        font-size: 18px;
+        font-weight: bold;
+        text-align: left;
+        table-layout: auto;
+        background: white;
+    }
+
+    th,
+    td {
+        border: 1px solid #ccc;
+        padding: 10px;
+        vertical-align: middle;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        text-align: center;
+        font-weight: 800;
+    }
+
+    td {
+        white-space: nowrap;
+    }
+
+    td.descripcion {
+        white-space: normal;
+        max-width: 400px;
+        overflow-wrap: anywhere;
+        word-wrap: break-word;
+    }
+
     .alerta {
         background-color: #f8d7da;
         color: #721c24;
     }
+
     .bajo {
         background-color: #fff3cd;
     }
+
     tbody tr:nth-child(odd) {
         background-color: #ffffff;
     }
+
     tbody tr:nth-child(even) {
         background-color: #d9d9d9;
     }
+
     tbody tr:hover {
         background-color: #bfbfbf;
         cursor: pointer;
     }
+
+    .numero {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+        font-weight: 800;
+    }
+
+
+    /* ======================================================
+       CELULAR: TARJETAS SIN DESPLAZAMIENTO HORIZONTAL
+       ====================================================== */
+    @media (max-width: 900px) {
+
+        body {
+            padding: 6px;
+            font-size: 17px;
+        }
+
+        h2 {
+            font-size: 26px;
+            line-height: 1.2;
+            margin: 10px 4px 15px;
+        }
+
+        .tabla-wrap {
+            width: 100%;
+            overflow: visible;
+        }
+
+        table {
+            display: block;
+            width: 100%;
+            min-width: 0;
+            margin: 0;
+            border-collapse: separate;
+            background: transparent;
+            font-size: 17px;
+        }
+
+        thead {
+            display: none;
+        }
+
+        tbody {
+            display: block;
+            width: 100%;
+        }
+
+        tbody tr {
+            display: block;
+            width: 100%;
+            margin: 0 0 12px;
+            border: 1px solid #cfd6dc;
+            border-radius: 10px;
+            overflow: hidden;
+            background: #fff3cd !important;
+            box-shadow: 0 1px 5px rgba(0,0,0,.06);
+        }
+
+        tbody td {
+            display: grid;
+            grid-template-columns: minmax(120px, 40%) minmax(0, 60%);
+            align-items: center;
+
+            width: 100%;
+            min-width: 0;
+
+            padding: 10px 9px;
+
+            border: 0;
+            border-bottom: 1px solid #d8dee5;
+
+            font-size: 17px;
+            line-height: 1.35;
+
+            text-align: left !important;
+            white-space: normal !important;
+
+            overflow-wrap: anywhere;
+            word-break: normal;
+        }
+
+        tbody td:last-child {
+            border-bottom: 0;
+        }
+
+        tbody td::before {
+            content: attr(data-label);
+            display: block;
+            padding-right: 8px;
+            color: #594a00;
+            font-size: 15px;
+            font-weight: 800;
+            line-height: 1.25;
+        }
+
+        td.descripcion {
+            max-width: none;
+            white-space: normal;
+        }
+
+        .numero {
+            text-align: left !important;
+            font-size: 19px;
+            font-weight: 800;
+        }
+    }
+
+
+    @media (max-width: 480px) {
+
+        body {
+            padding: 4px;
+        }
+
+        h2 {
+            font-size: 24px;
+        }
+
+        tbody td {
+            grid-template-columns: minmax(105px, 37%) minmax(0, 63%);
+            padding: 9px 7px;
+            font-size: 16px;
+        }
+
+        tbody td::before {
+            font-size: 14px;
+        }
+
+        .numero {
+            font-size: 18px;
+        }
+    }
     </style>
 
-    <h2 style="text-align:center;">Componentes Críticos vs Facturados vs Existencia</h2>
+    <h2>Componentes Críticos vs Facturados vs Existencia</h2>
+    <div class="tabla-wrap">
     <table>
         <thead>
             <tr>
@@ -101,143 +270,160 @@
         <tbody>
     
         <tr class="bajo">
-            <td style="text-align:right;">6</td>
-            <td class="descripcion">Transistor ULN2003AD</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-40.0</td>
+            <td data-label="ID" class="numero">6</td>
+            <td data-label="Descripción" class="descripcion">Transistor ULN2003AD</td>
+            <td data-label="Ctdad Crítica" class="numero">0.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">-40.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">12</td>
-            <td class="descripcion">Pin Header 1x2 Single Macho</td>
-            <td style="text-align:right;">1.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-216.0</td>
+            <td data-label="ID" class="numero">8</td>
+            <td data-label="Descripción" class="descripcion">SWITCH - Tactil Push Bottom </td>
+            <td data-label="Ctdad Crítica" class="numero">675.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">8.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">22</td>
-            <td class="descripcion">MOSFET - AOD4184A-VB</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-20.0</td>
+            <td data-label="ID" class="numero">12</td>
+            <td data-label="Descripción" class="descripcion">Pin Header 1x2 Single Macho</td>
+            <td data-label="Ctdad Crítica" class="numero">1.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">-216.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">23</td>
-            <td class="descripcion">CONECTOR - DCJack C130239</td>
-            <td style="text-align:right;">300.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">200.0</td>
+            <td data-label="ID" class="numero">22</td>
+            <td data-label="Descripción" class="descripcion">MOSFET - AOD4184A-VB</td>
+            <td data-label="Ctdad Crítica" class="numero">0.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">-20.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">25</td>
-            <td class="descripcion">CONECTOR - Presion 5P</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-80.0</td>
+            <td data-label="ID" class="numero">23</td>
+            <td data-label="Descripción" class="descripcion">CONECTOR - DCJack C130239</td>
+            <td data-label="Ctdad Crítica" class="numero">300.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">200.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">39</td>
-            <td class="descripcion">RESISTENCIAb - 470 </td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-1600.0</td>
+            <td data-label="ID" class="numero">25</td>
+            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 5P - TERM BLK 5POS 3.5mm TH</td>
+            <td data-label="Ctdad Crítica" class="numero">25.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">7.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">46</td>
-            <td class="descripcion">RESISTENCIA - FR2512J101 TS - 100 ohms</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-30.0</td>
+            <td data-label="ID" class="numero">39</td>
+            <td data-label="Descripción" class="descripcion">RESISTENCIAb - 470 </td>
+            <td data-label="Ctdad Crítica" class="numero">0.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">-1600.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">115</td>
-            <td class="descripcion">SWITCH - Dip 4 Position Basculante</td>
-            <td style="text-align:right;">100.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-180.0</td>
+            <td data-label="ID" class="numero">46</td>
+            <td data-label="Descripción" class="descripcion">RESISTENCIA - FR2512J101 TS - 100 ohms</td>
+            <td data-label="Ctdad Crítica" class="numero">0.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">-30.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">120</td>
-            <td class="descripcion">LED - RGB</td>
-            <td style="text-align:right;">600.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-880.0</td>
+            <td data-label="ID" class="numero">115</td>
+            <td data-label="Descripción" class="descripcion">SWITCH - 4 posiciones - DIP SPST 25mA 24V</td>
+            <td data-label="Ctdad Crítica" class="numero">100.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">8.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">121</td>
-            <td class="descripcion">CONECTOR - Presion 2P</td>
-            <td style="text-align:right;">600.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-180.0</td>
+            <td data-label="ID" class="numero">120</td>
+            <td data-label="Descripción" class="descripcion">LED - RGB</td>
+            <td data-label="Ctdad Crítica" class="numero">600.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">0.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">122</td>
-            <td class="descripcion">CONECTOR - Presion 4P</td>
-            <td style="text-align:right;">600.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-220.0</td>
+            <td data-label="ID" class="numero">121</td>
+            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 2P - TERM BLK 2POS 3.5mm TH</td>
+            <td data-label="Ctdad Crítica" class="numero">600.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">60.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">133</td>
-            <td class="descripcion">Resistencia 383</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-50.0</td>
+            <td data-label="ID" class="numero">122</td>
+            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 4P -TERM BLK 4POS 3.5mm TH</td>
+            <td data-label="Ctdad Crítica" class="numero">600.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">40.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">140</td>
-            <td class="descripcion">ACRILICO - Tabla</td>
-            <td style="text-align:right;">2.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">1.0</td>
+            <td data-label="ID" class="numero">133</td>
+            <td data-label="Descripción" class="descripcion">Resistencia 383</td>
+            <td data-label="Ctdad Crítica" class="numero">0.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">-50.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">162</td>
-            <td class="descripcion">CONECTOR - Presion 3P</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">-80.0</td>
+            <td data-label="ID" class="numero">140</td>
+            <td data-label="Descripción" class="descripcion">ACRILICO - Tabla</td>
+            <td data-label="Ctdad Crítica" class="numero">2.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">1.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">213</td>
-            <td class="descripcion">ACRILICO 1 Oreja Superior (Monterrey)</td>
-            <td style="text-align:right;">10.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">1.0</td>
+            <td data-label="ID" class="numero">162</td>
+            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 3P</td>
+            <td data-label="Ctdad Crítica" class="numero">25.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">1.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">231</td>
-            <td class="descripcion">Tornillo y Tuerca para Acrilicos</td>
-            <td style="text-align:right;">10.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">0.0</td>
+            <td data-label="ID" class="numero">204</td>
+            <td data-label="Descripción" class="descripcion">CONECTOR - CACHIMBA - 4P MACHO - 3.81 - Recto - Pequeño</td>
+            <td data-label="Ctdad Crítica" class="numero">200.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">70.0</td>
         </tr>
         
         <tr class="bajo">
-            <td style="text-align:right;">232</td>
-            <td class="descripcion">Conector para cables cinta plana (2 partes)</td>
-            <td style="text-align:right;">10.0</td>
-            <td style="text-align:right;">0.0</td>
-            <td style="text-align:right;">0.0</td>
+            <td data-label="ID" class="numero">213</td>
+            <td data-label="Descripción" class="descripcion">ACRILICO 1 Oreja Superior (Monterrey)</td>
+            <td data-label="Ctdad Crítica" class="numero">10.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">1.0</td>
+        </tr>
+        
+        <tr class="bajo">
+            <td data-label="ID" class="numero">231</td>
+            <td data-label="Descripción" class="descripcion">Tornillo y Tuerca para Acrilicos</td>
+            <td data-label="Ctdad Crítica" class="numero">10.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">0.0</td>
+        </tr>
+        
+        <tr class="bajo">
+            <td data-label="ID" class="numero">232</td>
+            <td data-label="Descripción" class="descripcion">Conector para cables cinta plana (2 partes)</td>
+            <td data-label="Ctdad Crítica" class="numero">10.0</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">0.0</td>
         </tr>
         
         </tbody>
     </table>
+    </div>
     
 <style>
 footer {
@@ -254,7 +440,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 25/08/2026 09:08:27
+        Fecha y hora: 30/08/2026 06:09:03
     </p>
 </footer>
         
