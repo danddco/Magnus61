@@ -15,6 +15,7 @@
                 padding: 10px;
                 display: flex;
                 align-items: center;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
             }
             .logo {
                 height: 60px;
@@ -24,6 +25,7 @@
                 flex-grow: 1;
                 text-align: center;
                 font-size: 2em;
+                font-family: Arial, sans-serif;
             }
         </style>
     </head>
@@ -31,105 +33,732 @@
         <header id="cabecera">
             <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
             <h1 id="titulo">CircuitDesignMX</h1>
+            <a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html">Home</a>
         </header>
     </body>
     </html>
     
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <style>
-        table { border-collapse: collapse; width: 80%; margin: auto; font-size: 20px; font-weight: bold; text-align:left;}
-        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-        th { background-color: #f2f2f2; }
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .alerta { background-color: #f8d7da; color: #721c24; }
+        :root {
+            --azul: #1f4e78;
+            --azul-2: #346b98;
+            --texto: #26333f;
+            --muted: #697580;
+            --borde: #d8dee5;
+            --fondo: #f4f6f8;
+            --blanco: #ffffff;
+            --rojo-bg: #f8d7da;
+            --rojo-txt: #721c24;
+            --verde-bg: #def1e2;
+            --verde-txt: #1c6632;
+            --amarillo-bg: #fff3cd;
+            --amarillo-txt: #6f5900;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--fondo);
+            color: var(--texto);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+        }
+
+        .pagina {
+            width: min(1500px, 96%);
+            margin: 0 auto;
+            padding: 24px 0 50px;
+        }
+
+        .hero {
+            padding: 28px 34px;
+            margin-bottom: 24px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--azul), var(--azul-2));
+            color: white;
+            box-shadow: 0 4px 16px rgba(0,0,0,.08);
+        }
+
+        .hero h1 {
+            display: block;
+            margin: 0 0 14px 0;
+            font-size: clamp(30px, 4vw, 46px);
+            line-height: 1.15;
+        }
+
+        .hero .reporte-info {
+            display: block;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.55;
+            opacity: .94;
+        }
+
+        .hero .fecha-reporte {
+            display: block;
+            margin-top: 6px;
+            font-size: 15px;
+            line-height: 1.45;
+            opacity: .90;
+        }
+
+        .seccion {
+            margin-bottom: 24px;
+            padding: 22px;
+            background: var(--blanco);
+            border: 1px solid var(--borde);
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,.04);
+        }
+
+        .seccion h2 {
+            margin: 0 0 6px;
+            color: var(--azul);
+            font-size: 26px;
+        }
+
+        .subtitulo {
+            margin: 0 0 18px;
+            color: var(--muted);
+        }
+
+        .tabla-wrap {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 1px solid var(--borde);
+            border-radius: 9px;
+            background: white;
+        }
+
+        table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+            font-size: 18px;
+            line-height: 1.45;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            border-right: 1px solid var(--borde);
+            border-bottom: 1px solid var(--borde);
+            vertical-align: middle;
+        }
+
+        th:last-child,
+        td:last-child {
+            border-right: 0;
+        }
+
+        tbody tr:last-child td {
+            border-bottom: 0;
+        }
+
+        th {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            background: #edf3f8;
+            color: #223b50;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        tbody tr:nth-child(even) {
+            background: #fafbfd;
+        }
+
+        tbody tr:hover {
+            background: #eef6fc;
+        }
+
+        .numero {
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .fecha-centro {
+            text-align: center;
+            vertical-align: middle;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .numero-grande {
+            text-align: right;
+            font-size: 24px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .fila-alerta {
+            background: var(--rojo-bg) !important;
+            color: var(--rojo-txt);
+        }
+
+        .fila-venta,
+        .fila-ok {
+            background: var(--verde-bg) !important;
+            color: var(--verde-txt);
+        }
+
+        .fila-domingo {
+            background: #eef0f2 !important;
+            color: #555;
+        }
+
+        .fila-pendiente {
+            background: #f8d7da !important;
+            color: #721c24 !important;
+            font-weight: 700;
+        }
+
+        .estado-pendiente {
+            display: inline-block;
+            padding: 4px 9px;
+            border-radius: 999px;
+            background: #b42318;
+            color: #ffffff;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .badge-ok {
+            background: var(--verde-bg);
+            color: var(--verde-txt);
+        }
+
+        .badge-falta {
+            background: var(--rojo-bg);
+            color: var(--rojo-txt);
+        }
+
+        .nota {
+            margin-top: 16px;
+            padding: 13px 16px;
+            border-left: 5px solid #ddb100;
+            border-radius: 6px;
+            background: var(--amarillo-bg);
+            color: var(--amarillo-txt);
+        }
+
+        .grid-tecnico {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 22px;
+        }
+
+        .tarjeta-tecnica {
+            padding: 16px;
+            border: 1px solid var(--borde);
+            border-radius: 9px;
+            background: #fbfcfd;
+        }
+
+        .tarjeta-tecnica h3 {
+            margin: 0 0 7px;
+            color: var(--azul);
+            font-size: 18px;
+        }
+
+        .tarjeta-tecnica p {
+            margin: 0;
+        }
+
+        .imagen-placa {
+            margin: 22px 0 4px;
+            text-align: center;
+        }
+
+        .imagen-placa img {
+            display: block;
+            width: auto;
+            max-width: min(100%, 1100px);
+            max-height: 760px;
+            margin: 0 auto;
+            padding: 8px;
+            border: 1px solid var(--borde);
+            border-radius: 10px;
+            background: white;
+            object-fit: contain;
+        }
+
+        .pie {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                font-size: 17px;
+            }
+
+            .pagina {
+                width: 100%;
+                padding: 8px 7px 32px;
+            }
+
+            .hero {
+                padding: 18px 16px;
+                margin-bottom: 14px;
+                border-radius: 8px;
+            }
+
+            .hero h1 {
+                font-size: 29px;
+                line-height: 1.15;
+                margin-bottom: 10px;
+            }
+
+            .hero .reporte-info {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .hero .fecha-reporte {
+                font-size: 16px;
+                line-height: 1.4;
+            }
+
+            .seccion {
+                padding: 13px 8px;
+                margin-bottom: 15px;
+                border-radius: 8px;
+            }
+
+            .seccion h2 {
+                font-size: 24px;
+                line-height: 1.2;
+                margin-bottom: 7px;
+            }
+
+            .subtitulo {
+                font-size: 16px;
+                line-height: 1.4;
+                margin-bottom: 12px;
+            }
+
+            .grid-tecnico {
+                grid-template-columns: 1fr;
+            }
+
+            /*
+             * En móvil la tabla se convierte en tarjetas verticales.
+             * Así todo cabe en el ancho del teléfono y desaparece
+             * el desplazamiento horizontal.
+             */
+            .tabla-wrap {
+                width: 100%;
+                overflow: visible;
+                border: 0;
+                background: transparent;
+            }
+
+            table {
+                display: block;
+                width: 100%;
+                min-width: 0 !important;
+                font-size: 17px;
+                border-collapse: separate;
+            }
+
+            thead {
+                display: none;
+            }
+
+            tbody {
+                display: block;
+                width: 100%;
+            }
+
+            tbody tr {
+                display: block;
+                width: 100%;
+                margin: 0 0 12px;
+                padding: 5px 0;
+                border: 1px solid var(--borde);
+                border-radius: 9px;
+                background: white;
+                overflow: hidden;
+                box-shadow: 0 1px 4px rgba(0,0,0,.04);
+            }
+
+            tbody tr:nth-child(even) {
+                background: white;
+            }
+
+            tbody td {
+                display: grid;
+                grid-template-columns: minmax(118px, 39%) minmax(0, 61%);
+                align-items: center;
+                width: 100%;
+                min-width: 0;
+                padding: 9px 10px;
+                border-right: 0;
+                border-bottom: 1px solid var(--borde);
+                font-size: 17px;
+                line-height: 1.35;
+                text-align: left !important;
+                white-space: normal !important;
+                overflow-wrap: anywhere;
+                word-break: normal;
+            }
+
+            tbody td:last-child {
+                border-bottom: 0;
+            }
+
+            tbody td::before {
+                content: attr(data-label);
+                display: block;
+                padding-right: 8px;
+                color: #30485d;
+                font-weight: 800;
+                font-size: 15px;
+                line-height: 1.25;
+            }
+
+            .numero,
+            .numero-grande,
+            .fecha-centro {
+                text-align: left !important;
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .numero-grande {
+                font-size: 21px;
+                font-weight: 800;
+            }
+
+            .fecha-centro {
+                white-space: normal;
+            }
+
+            .badge {
+                font-size: 15px;
+                padding: 5px 9px;
+            }
+
+            .estado-pendiente {
+                font-size: 15px;
+                padding: 5px 9px;
+            }
+
+            .nota {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .tarjeta-tecnica {
+                padding: 14px;
+            }
+
+            .tarjeta-tecnica h3 {
+                font-size: 20px;
+            }
+
+            .tarjeta-tecnica p {
+                font-size: 17px;
+                line-height: 1.5;
+            }
+
+            .imagen-placa img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            /* En celular, mostrar únicamente componentes con faltante. */
+            .componentes-criticos .fila-ok {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pagina {
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+
+            .seccion {
+                padding-left: 6px;
+                padding-right: 6px;
+            }
+
+            tbody td {
+                grid-template-columns: minmax(105px, 37%) minmax(0, 63%);
+                padding: 9px 8px;
+                font-size: 16px;
+            }
+
+            tbody td::before {
+                font-size: 14px;
+            }
+
+            .numero,
+            .fecha-centro {
+                font-size: 17px;
+            }
+
+            .numero-grande {
+                font-size: 20px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .pagina {
+                width: 100%;
+            }
+
+            .hero,
+            .seccion {
+                box-shadow: none;
+            }
+        }
     </style>
-    <body>
-        <h1 style="text-align:center;">Expediente DUO ver1.0</h1> 
-        <h1 style="text-align:center;">-------------------------</h1>
-        
     
-        <h2 style="text-align:center;">Balance de Disponibilidad de Placas</h2>
-    
-        <table>
-         <thead>
-            <tr>
-                <th rowspan="2">Proyecto</th>
-                <th rowspan="2">Componente</th>
-                <th colspan="2">En Fabricacion </th>
-                <th colspan="2">Lista para Enviar</th>
-            </tr>
-            <tr>
-                <th>cantidad</th>
-                <th>fecha</th>
-                <th>cantidad</th>
-                <th>fecha</th>
-            </tr>
-          </thead>  
-    
-        <tr >
-            <td>DUO ver1.0</td>
-            <td style="text-align:right;font-size: 30px;font-weight: bold;">Placa</td>
-            <td>5</td>
-            <td>2026-06-10</td>
-            <td style="text-align:right;font-size: 32px;font-weight: bold;">0</td>
-            <td></td>
-        </tr>
-        
-        </table>
-    </body>
-    </html>
-    
-    <body>
-         <h1 style="text-align:center;">-------------------------</h1>
-        <h2 style="text-align:center;">Secuencias de Trabajo</h2>
+    <main class="pagina">
 
-        <table>
-            <tr>
-                <th>Proyecto</th>
-                <th>Lote</th>
-                <th>Fecha</th>
-                <th>Descripcion</th>
-                <th>Cantidad</th>
-            </tr>
-        <tr class='entra'><td>Fabricacion-Entrada</td><td>Placa</td><td>2026-06-10</td><td style='text-align:left;font-size:24px;font-weight:bold;'></td><td>5</td></tr>
-            </table>
-        </body>
-        </html>
-        
-        </table>
-    </body>
-    </html>
-    
-    <body>
-        <h1 style="text-align:center;">-------------------------</h1>
-        <h2 style="text-align:center;">Componentes Especificos</h2>
-        <table>
-            <tr>
-                <th>idE</th>
-                <th>Descripcion</th>
-                <th>Existencia</th>
-            </tr>
-        
-            </table>
-        </body>
-        </html>
-        
-    <body>
-        <h1 style="text-align:center;">------------------------</h1>
-        <h2 style="text-align:center;">Componentes por Proyecto con Stock CRITICO</h2>
+        <header class="hero">
 
-        <table>
-            <tr>
-                <th>idE</th>
-                <th>Descripcion</th>
-                <th>Ctdad Proy</th>
-                <th>Ctdad Stock</th>
-                <th>Observaciones</th>
-            </tr>
+            <h1>Expediente:  DUO ver1.0</h1>
+
+        </header>
+    
+        <section class="seccion">
+            <h2>Disponibilidad de Placas</h2>
+            <p class="subtitulo">
+                Estado actual de fabricación y disponibilidad para envío.
+            </p>
+
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Proyecto</th>
+                            <th colspan="2">En Fabricación</th>
+                            <th colspan="2">Listas para Enviar</th>
+                        </tr>
+                        <tr>
+                            <th>Cantidad</th>
+                            <th class="fecha-centro">Fecha</th>
+                            <th>Cantidad</th>
+                            <th class="fecha-centro">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td data-label="Proyecto">DUO ver1.0</td>
+                            <td data-label="En fabricación" class="numero">15</td>
+                            <td data-label="Fecha fabricación" class="fecha-centro">Lunes 2026-08-31</td>
+                            <td data-label="Listas para enviar" class="numero-grande">9</td>
+                            <td data-label="Fecha disponible" class="fecha-centro">Lunes 2026-08-31</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
+        <section class="seccion">
+            <h2>Secuencias de Trabajo</h2>
+            <p class="subtitulo">
+                Actividades registradas para el proyecto.
+                Los registros más recientes aparecen primero.
+            </p>
+
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Proceso</th>
+                            <th>Lote</th>
+                            <th class="fecha-centro">Fecha</th>
+                            <th>Prioridad</th>
+                            <th>Estado</th>
+                            <th>Descripción</th>
+                            <th>Cantidad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr class="fila-pendiente">
+                            <td data-label="Proceso">Fabricacion-Entrada</td>
+                            <td data-label="Lote">Placa</td>
+                            <td data-label="Fecha" class="fecha-centro">Lunes 2026-08-31</td>
+                            <td data-label="Prioridad" class="numero">3</td>
+                            <td data-label="Estado"><span class="estado-pendiente">Pendiente</span></td>
+                            <td data-label="Descripción" style="font-weight:700;">
+                                31-08: 15 Placas Virgenes
+                            </td>
+                            <td data-label="Cantidad" class="numero">12</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
+        <section class="seccion">
+            <h2>Componentes Específicos</h2>
+            <p class="subtitulo">
+                Consulta rápida de componentes seleccionados y existencia actual.
+            </p>
+
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>idE</th>
+                            <th>Descripción</th>
+                            <th>Existencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td data-label="idE">195</td>
+                            <td data-label="Descripción">PANTALLA - 5&#x27;&#x27; - No Touch - DMG80480C050_09WN </td>
+                            <td data-label="Existencia" class="numero-grande">17</td>
+                        </tr>
+                
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    
+        <section class="seccion componentes-criticos">
+            <h2>Componentes Críticos para 15 Placas</h2>
+            <p class="subtitulo">
+                Comparación entre los materiales requeridos para producir
+                15 placas y la existencia actual en STOCK.
+            </p>
+
+            <div class="tabla-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>idE</th>
+                            <th>Descripción</th>
+                            <th>Ctdad. Unitaria</th>
+                            <th>Ctdad. Proyecto</th>
+                            <th>Stock</th>
+                            <th>Diferencia</th>
+                            <th>Estado</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    
+                        <tr>
+                            <td colspan="8" data-label="Información">
+                                Sin información de componentes críticos.
+                            </td>
+                        </tr>
         
-            </table>
-        </body>
-        </html>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="nota">
+                <strong>Resumen:</strong>
+                0 componente(s) requieren atención para completar
+                la producción de 15 placas.
+                La existencia indicada corresponde al momento en que se generó
+                esta página.
+            </div>
+        </section>
+    
+        <section class="seccion">
+            <h2>Imagen e Información Técnica de la Placa</h2>
+            <p class="subtitulo">
+                Referencia visual y procedimiento básico de inspección.
+            </p>
+    
+            <figure class="imagen-placa">
+                <img
+                    src="imagenes/duo_basic.jpeg"
+                    alt="DUO ver1.0"
+                    loading="lazy"
+                    decoding="async"
+                >
+                <figcaption class="pie">
+                    Imagen de referencia de DUO ver1.0
+                </figcaption>
+            </figure>
         
+            <div class="grid-tecnico">
+
+                <article class="tarjeta-tecnica">
+                    <h3>Parametros de Fabricacion</h3>
+                    <p>
+              
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3>Versiones.</h3>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3></h3>
+                    <p>
+                        ...
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3></h3>
+                    <p>
+                        ...
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3></h3>
+                    <p>
+                     .
+                    </p>
+                </article>
+
+                <article class="tarjeta-tecnica">
+                    <h3></h3>
+                    <p>
+                      .
+                    </p>
+                </article>
+
+            </div>
+
+            <div class="nota">
+                <strong>Importante:</strong>
+                .
+            </div>
+        </section>
+
+    </main>
+    
 <style>
 footer {
     background-color: red;
@@ -145,7 +774,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 10/06/2026 09:45:21
+        Fecha y hora: 31/08/2026 10:55:43
     </p>
 </footer>
         
