@@ -38,10 +38,58 @@
     </body>
     </html>
     
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
 <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f4f6f8;
+        color: #26333f;
+    }
+
+    .pagina {
+        width: min(1500px, 98%);
+        margin: 0 auto;
+    }
+
+    .encabezado {
+        margin-bottom: 16px;
+        padding: 18px 22px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #1f4e78, #346b98);
+        color: white;
+    }
+
+    .encabezado h2 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.2;
+    }
+
+    .encabezado p {
+        margin: 6px 0 0;
+        font-size: 14px;
+        opacity: .92;
+    }
+
+    .tabla-wrap {
+        width: 100%;
+        overflow-x: auto;
+        border: 1px solid #d8dee5;
+        border-radius: 10px;
+        background: white;
+    }
+
     table {
         border-collapse: collapse;
-        width: 90%;
+        width: 100%;
+        min-width: 1050px;
         margin: auto;
         font-size: 14px;
         font-weight: bold;
@@ -49,3268 +97,3463 @@
     }
 
     th, td {
-        border: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
         padding: 8px;
+        vertical-align: middle;
+    }
+
+    th:last-child,
+    td:last-child {
+        border-right: 0;
+    }
+
+    tbody tr:last-child td {
+        border-bottom: 0;
     }
 
     th {
+        position: sticky;
+        top: 0;
+        z-index: 2;
         background-color: #f2f2f2;
         text-align: center;
     }
 
-    body {
-        font-family: Arial, sans-serif;
-        padding: 20px;
-    }
-
     .alerta {
-        background-color: #f8d7da;
+        background-color: #f8d7da !important;
         color: #721c24;
     }
 
     .bajo {
-        background-color: #fff3cd;
+        background-color: #fff3cd !important;
     }
 
-    /* Filas alternas más contrastadas */
     tbody tr:nth-child(odd) {
         background-color: #ffffff;
     }
 
     tbody tr:nth-child(even) {
-        background-color: #d9d9d9;
+        background-color: #e7e7e7;
     }
 
-    /* Efecto hover */
     tbody tr:hover {
-        background-color: #bfbfbf;
+        background-color: #d7e7f3;
         cursor: pointer;
+    }
+
+    .fecha {
+        text-align: right;
+        white-space: nowrap;
+    }
+
+    .ide {
+        text-align: left;
+        font-size: 18px;
+    }
+
+    .descripcion {
+        text-align: left;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .lcsc {
+        text-align: left;
+    }
+
+    .cantidad,
+    .existencia {
+        text-align: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .observaciones {
+        text-align: left;
+    }
+
+    /* =====================================================
+       CELULAR / TABLET
+       La tabla se transforma en tarjetas verticales.
+       ===================================================== */
+    @media (max-width: 900px) {
+        body {
+            padding: 7px;
+            font-size: 17px;
+        }
+
+        .pagina {
+            width: 100%;
+        }
+
+        .encabezado {
+            margin-bottom: 10px;
+            padding: 15px 13px;
+            border-radius: 8px;
+        }
+
+        .encabezado h2 {
+            font-size: 25px;
+        }
+
+        .encabezado p {
+            font-size: 15px;
+        }
+
+        .tabla-wrap {
+            overflow: visible;
+            border: 0;
+            background: transparent;
+        }
+
+        table {
+            display: block;
+            width: 100%;
+            min-width: 0 !important;
+            border-collapse: separate;
+            font-size: 17px;
+        }
+
+        thead {
+            display: none;
+        }
+
+        tbody {
+            display: block;
+            width: 100%;
+        }
+
+        tbody tr {
+            display: block;
+            width: 100%;
+            margin: 0 0 12px;
+            padding: 5px 0;
+            border: 1px solid #d8dee5;
+            border-radius: 9px;
+            background: white !important;
+            overflow: hidden;
+            box-shadow: 0 1px 4px rgba(0,0,0,.05);
+        }
+
+        tbody tr.alerta {
+            background: #f8d7da !important;
+        }
+
+        tbody tr.bajo {
+            background: #fff3cd !important;
+        }
+
+        tbody td {
+            display: grid;
+            grid-template-columns: minmax(112px, 38%) minmax(0, 62%);
+            align-items: center;
+            width: 100%;
+            min-width: 0;
+            padding: 9px 10px;
+            border-right: 0;
+            border-bottom: 1px solid #d8dee5;
+            font-size: 17px !important;
+            line-height: 1.35;
+            text-align: left !important;
+            white-space: normal !important;
+            overflow-wrap: anywhere;
+            word-break: normal;
+        }
+
+        tbody td:last-child {
+            border-bottom: 0;
+        }
+
+        tbody td::before {
+            content: attr(data-label);
+            display: block;
+            padding-right: 8px;
+            color: #30485d;
+            font-weight: 800;
+            font-size: 15px;
+            line-height: 1.25;
+        }
+
+        .fecha,
+        .ide,
+        .descripcion,
+        .lcsc,
+        .cantidad,
+        .existencia,
+        .observaciones {
+            text-align: left !important;
+            font-size: 18px !important;
+        }
+
+        .descripcion,
+        .cantidad,
+        .existencia {
+            font-weight: 800;
+        }
+    }
+
+    @media (max-width: 480px) {
+        body {
+            padding: 5px;
+        }
+
+        .encabezado h2 {
+            font-size: 22px;
+        }
+
+        tbody td {
+            grid-template-columns: minmax(102px, 36%) minmax(0, 64%);
+            padding: 9px 8px;
+            font-size: 16px !important;
+        }
+
+        tbody td::before {
+            font-size: 14px;
+        }
+
+        .fecha,
+        .ide,
+        .descripcion,
+        .lcsc,
+        .cantidad,
+        .existencia,
+        .observaciones {
+            font-size: 17px !important;
+        }
     }
 </style>
 
-<h2 style="text-align:center;">
-    Registro de los Últimos 100 Movimientos con Componentes
-</h2>
+<main class="pagina">
 
-<table>
-    <thead>
-        <tr>
-            <th>Fecha</th>
-            <th>idE</th>
-            <th>Descripción</th>
-            <th>LCSC</th>
-            <th>Ctdad</th>
-            <th>Existencia</th>
-            <th>Observaciones</th>
-        </tr>
-    </thead>
+    <header class="encabezado">
+        <h2>Registro de los Últimos 100 Movimientos con Componentes</h2>
+        <p>Actualizado: 2026-09-03</p>
+    </header>
 
-    <tbody>
+    <div class="tabla-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Fecha</th>
+                    <th>idE</th>
+                    <th>Descripción</th>
+                    <th>LCSC</th>
+                    <th>Ctdad</th>
+                    <th>Existencia</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
 
-        <tr class="bajo">
+            <tbody>
 
-            <td style="text-align:right;">
-                2026-10-01
-            </td>
+                <tr class="bajo">
 
-            <td style="text-align:left;font-size:18px;">
-                105
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-10-01
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD
-            </td>
+                    <td data-label="idE" class="ide">
+                        105
+                    </td>
 
-            <td style="text-align:left;">
-                C12676
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C12676
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ultima Compra - Reiniciar
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-        </tr>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ultima Compra - Reiniciar
+                    </td>
+
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-03
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-03
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                238
-            </td>
+                    <td data-label="idE" class="ide">
+                        238
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                NYLON Rollo de Bolita para proteger
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        NYLON Rollo de Bolita para proteger
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Comprada
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Comprada
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-03
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-03
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                231
-            </td>
+                    <td data-label="idE" class="ide">
+                        231
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Tornillo y Tuerca para Acrilicos
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Tornillo y Tuerca para Acrilicos
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                100
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        100
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                100
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        100
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-03
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-03
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                26
-            </td>
+                    <td data-label="idE" class="ide">
+                        26
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                TERMOFIL - 8 mm (Para cables de 4 vias redondo - Pantalla DWIN))
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        TERMOFIL - 8 mm (Para cables de 4 vias redondo - Pantalla DWIN))
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-03
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-03
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                163
-            </td>
+                    <td data-label="idE" class="ide">
+                        163
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                TERMOFIL - fino
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        TERMOFIL - fino
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-02
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-02
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                12
-            </td>
+                    <td data-label="idE" class="ide">
+                        12
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Pin Header 1x2 Single Macho
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Pin Header 1x2 Single Macho
+                    </td>
 
-            <td style="text-align:left;">
-                C52016390
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C52016390
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1000
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1000
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1000
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1000
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-02
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-02
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                128
-            </td>
+                    <td data-label="idE" class="ide">
+                        128
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RELAY - de Potencia G6DN-1A-SL 12 VDC
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RELAY - de Potencia G6DN-1A-SL 12 VDC
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                9
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        9
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                9
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        9
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-02
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-02
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                196
-            </td>
+                    <td data-label="idE" class="ide">
+                        196
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                SENSOR - Presion 725
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        SENSOR - Presion 725
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                2
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        2
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                2
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        2
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                85
-            </td>
+                    <td data-label="idE" class="ide">
+                        85
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                MPN D-SUB-DR-35 PORT BB
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        MPN D-SUB-DR-35 PORT BB
+                    </td>
 
-            <td style="text-align:left;">
-                C19077339
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C19077339
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                54
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        54
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                54
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        54
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                35
-            </td>
+                    <td data-label="idE" class="ide">
+                        35
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                TRANSISTOR - J3Y Bipolar
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        TRANSISTOR - J3Y Bipolar
+                    </td>
 
-            <td style="text-align:left;">
-                C2146
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C2146
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                87
-            </td>
+                    <td data-label="idE" class="ide">
+                        87
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Resistencia 820
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Resistencia 820
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                89
-            </td>
+                    <td data-label="idE" class="ide">
+                        89
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                DIODO - 1N4148
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        DIODO - 1N4148
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                88
-            </td>
+                    <td data-label="idE" class="ide">
+                        88
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                DIODO - BAV99
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        DIODO - BAV99
+                    </td>
 
-            <td style="text-align:left;">
-                C109206
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C109206
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                93
-            </td>
+                    <td data-label="idE" class="ide">
+                        93
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAf - 7K5
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAf - 7K5
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                92
-            </td>
+                    <td data-label="idE" class="ide">
+                        92
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAf - 8K2
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAf - 8K2
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                91
-            </td>
+                    <td data-label="idE" class="ide">
+                        91
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAd - 3K0
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAd - 3K0
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                90
-            </td>
+                    <td data-label="idE" class="ide">
+                        90
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAe - 3K9
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAe - 3K9
+                    </td>
 
-            <td style="text-align:left;">
-                C2930268
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C2930268
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                5
-            </td>
+                    <td data-label="idE" class="ide">
+                        5
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                DIODO - SS34 - MS
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        DIODO - SS34 - MS
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                55
-            </td>
+                    <td data-label="idE" class="ide">
+                        55
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Resistencia 4K7
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Resistencia 4K7
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                95
-            </td>
+                    <td data-label="idE" class="ide">
+                        95
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                FERRITA - 
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        FERRITA - 
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                17
-            </td>
+                    <td data-label="idE" class="ide">
+                        17
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                LED GREEN 0805
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        LED GREEN 0805
+                    </td>
 
-            <td style="text-align:left;">
-                C965815
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C965815
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                3
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        3
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                3
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        3
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                52
-            </td>
+                    <td data-label="idE" class="ide">
+                        52
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                LED BLUE 0805
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        LED BLUE 0805
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                29
-            </td>
+                    <td data-label="idE" class="ide">
+                        29
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIA - 5K1
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIA - 5K1
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Compra
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Compra
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                18
-            </td>
+                    <td data-label="idE" class="ide">
+                        18
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                LED RED 0805
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        LED RED 0805
+                    </td>
 
-            <td style="text-align:left;">
-                C965812
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C965812
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                2
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        2
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                2
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        2
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                98
-            </td>
+                    <td data-label="idE" class="ide">
+                        98
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAf - 12K0
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAf - 12K0
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                96
-            </td>
+                    <td data-label="idE" class="ide">
+                        96
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAe - 3K3
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAe - 3K3
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                97
-            </td>
+                    <td data-label="idE" class="ide">
+                        97
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAd - 1K2
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAd - 1K2
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                99
-            </td>
+                    <td data-label="idE" class="ide">
+                        99
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAg - 120K
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAg - 120K
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                100
-            </td>
+                    <td data-label="idE" class="ide">
+                        100
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAg - 510K0
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAg - 510K0
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                101
-            </td>
+                    <td data-label="idE" class="ide">
+                        101
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CAPACITOR - 1 mf Tantalum 16V SA-3216
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CAPACITOR - 1 mf Tantalum 16V SA-3216
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                11
-            </td>
+                    <td data-label="idE" class="ide">
+                        11
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CAPACITOR - 22 pF 0805
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CAPACITOR - 22 pF 0805
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                9
-            </td>
+                    <td data-label="idE" class="ide">
+                        9
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Capacitor 100 nf Ceramico 16V 0805
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Capacitor 100 nf Ceramico 16V 0805
+                    </td>
 
-            <td style="text-align:left;">
-                C360619
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C360619
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                4
-            </td>
+                    <td data-label="idE" class="ide">
+                        4
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CAPACITOR - 10 uf Tantalum 16V SA-3216
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CAPACITOR - 10 uf Tantalum 16V SA-3216
+                    </td>
 
-            <td style="text-align:left;">
-                C119051
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C119051
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                102
-            </td>
+                    <td data-label="idE" class="ide">
+                        102
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CAPACITOR - 1 mf Ceramico 16V 0805
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CAPACITOR - 1 mf Ceramico 16V 0805
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                21
-            </td>
+                    <td data-label="idE" class="ide">
+                        21
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAf - 10K0
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAf - 10K0
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                10
-            </td>
+                    <td data-label="idE" class="ide">
+                        10
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CAPACITOR - 470 uf Electrolitico 10V SMD
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CAPACITOR - 470 uf Electrolitico 10V SMD
+                    </td>
 
-            <td style="text-align:left;">
-                C129480
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C129480
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                33
-            </td>
+                    <td data-label="idE" class="ide">
+                        33
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                REGULADOR Voltaje - LM2596
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        REGULADOR Voltaje - LM2596
+                    </td>
 
-            <td style="text-align:left;">
-                C347423
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C347423
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        0
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        0
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar Quedan alrededor de 65
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar Quedan alrededor de 65
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                34
-            </td>
+                    <td data-label="idE" class="ide">
+                        34
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                INDUCTOR - 470MT - FIXED 47uH 2.5A 100mΩ 
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        INDUCTOR - 470MT - FIXED 47uH 2.5A 100mΩ 
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                126
-            </td>
+                    <td data-label="idE" class="ide">
+                        126
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                SENSOR - Presion
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        SENSOR - Presion
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                7
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        7
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                7
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        7
+                    </td>
 
-            <td style="text-align:left;">
-                caja 2
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        caja 2
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                144
-            </td>
+                    <td data-label="idE" class="ide">
+                        144
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                FUSIBLE - Reseatable PTC 15V 1812
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        FUSIBLE - Reseatable PTC 15V 1812
+                    </td>
 
-            <td style="text-align:left;">
-                C17313
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C17313
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                148
-            </td>
+                    <td data-label="idE" class="ide">
+                        148
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Diode Array 1 Pair Common Cathode 100V 15A Surface Mount TO-252
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Diode Array 1 Pair Common Cathode 100V 15A Surface Mount TO-252
+                    </td>
 
-            <td style="text-align:left;">
-                C19725816
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C19725816
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                50
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        50
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                50
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        50
+                    </td>
 
-            <td style="text-align:left;">
-                En Almacen Cubeta Negra
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        En Almacen Cubeta Negra
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                149
-            </td>
+                    <td data-label="idE" class="ide">
+                        149
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - HEADER -  3P 
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - HEADER -  3P 
+                    </td>
 
-            <td style="text-align:left;">
-                C132505
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C132505
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                100
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        100
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                100
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        100
+                    </td>
 
-            <td style="text-align:left;">
-                En Almacen
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        En Almacen
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                150
-            </td>
+                    <td data-label="idE" class="ide">
+                        150
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CARCASA -  3P
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CARCASA -  3P
+                    </td>
 
-            <td style="text-align:left;">
-                C169018
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C169018
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                150
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        150
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                150
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        150
+                    </td>
 
-            <td style="text-align:left;">
-                En Almacen
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        En Almacen
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                159
-            </td>
+                    <td data-label="idE" class="ide">
+                        159
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                HXY MOSFET PC817C Phototransistor Output 5kVrms 1 Channel SMD-4P
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        HXY MOSFET PC817C Phototransistor Output 5kVrms 1 Channel SMD-4P
+                    </td>
 
-            <td style="text-align:left;">
-                C5451663
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C5451663
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                100
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        100
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                100
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        100
+                    </td>
 
-            <td style="text-align:left;">
-                En Almacen - Cubeta
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        En Almacen - Cubeta
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                166
-            </td>
+                    <td data-label="idE" class="ide">
+                        166
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAa - 60
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAa - 60
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajueste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajueste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                172
-            </td>
+                    <td data-label="idE" class="ide">
+                        172
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAe - 5K1
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAe - 5K1
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                37
-            </td>
+                    <td data-label="idE" class="ide">
+                        37
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                DIODO - 1N4004
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        DIODO - 1N4004
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                186
-            </td>
+                    <td data-label="idE" class="ide">
+                        186
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                COMPARADOR - DIFERENCIAL - TI LM311DR
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        COMPARADOR - DIFERENCIAL - TI LM311DR
+                    </td>
 
-            <td style="text-align:left;">
-                C12597
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C12597
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                30
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        30
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                30
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        30
+                    </td>
 
-            <td style="text-align:left;">
-                Almacen - Cubeta
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Almacen - Cubeta
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                190
-            </td>
+                    <td data-label="idE" class="ide">
+                        190
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                SENSOR - Movimiento - HSR501
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        SENSOR - Movimiento - HSR501
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                5
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        5
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                5
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        5
+                    </td>
 
-            <td style="text-align:left;">
-                Caja 2
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Caja 2
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                20
-            </td>
+                    <td data-label="idE" class="ide">
+                        20
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAb - 240
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAb - 240
+                    </td>
 
-            <td style="text-align:left;">
-                C25296
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C25296
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        0
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        0
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                38
-            </td>
+                    <td data-label="idE" class="ide">
+                        38
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAb - 330
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAb - 330
+                    </td>
 
-            <td style="text-align:left;">
-                C850262
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C850262
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                197
-            </td>
+                    <td data-label="idE" class="ide">
+                        197
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                SENSOR - Temperatura
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        SENSOR - Temperatura
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Caja 2
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Caja 2
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                157
-            </td>
+                    <td data-label="idE" class="ide">
+                        157
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                SENSOR - Ultrasonido
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        SENSOR - Ultrasonido
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                3
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        3
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                3
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        3
+                    </td>
 
-            <td style="text-align:left;">
-                Caja 2
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Caja 2
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                198
-            </td>
+                    <td data-label="idE" class="ide">
+                        198
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                PANTALLA - DIGITAL - Numerica
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        PANTALLA - DIGITAL - Numerica
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                10
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        10
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                10
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        10
+                    </td>
 
-            <td style="text-align:left;">
-                caja 2
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        caja 2
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                108
-            </td>
+                    <td data-label="idE" class="ide">
+                        108
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CAPACITOR - 100uF ±20% 50V Aluminum Electrolytic
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CAPACITOR - 100uF ±20% 50V Aluminum Electrolytic
+                    </td>
 
-            <td style="text-align:left;">
-                C141428
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C141428
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                500
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        500
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                500
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        500
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                53
-            </td>
+                    <td data-label="idE" class="ide">
+                        53
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Convertidor DC-DC LM2596
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Convertidor DC-DC LM2596
+                    </td>
 
-            <td style="text-align:left;">
-                C347423
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C347423
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Compra 02/06/2026
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Compra 02/06/2026
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                223
-            </td>
+                    <td data-label="idE" class="ide">
+                        223
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAe - 3K4
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAe - 3K4
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                104
-            </td>
+                    <td data-label="idE" class="ide">
+                        104
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - HEADER SMD R/A 6POS 2mm
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - HEADER SMD R/A 6POS 2mm
 
-            </td>
+                    </td>
 
-            <td style="text-align:left;">
-                C7462716
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C7462716
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar y algo mas
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar y algo mas
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                36
-            </td>
+                    <td data-label="idE" class="ide">
+                        36
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAg - 47K0
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAg - 47K0
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        0
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        0
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                107
-            </td>
+                    <td data-label="idE" class="ide">
+                        107
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CAPACITOR - 220 uF Electrolytic 35V
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CAPACITOR - 220 uF Electrolytic 35V
+                    </td>
 
-            <td style="text-align:left;">
-                C310848
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C310848
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                600
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        600
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                560
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        560
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                234
-            </td>
+                    <td data-label="idE" class="ide">
+                        234
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                MICROCHIP MCP4716A0T-E/CH
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        MICROCHIP MCP4716A0T-E/CH
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                4
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        4
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                4
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        4
+                    </td>
 
-            <td style="text-align:left;">
-                Almacen - Cubeta
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Almacen - Cubeta
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                39
-            </td>
+                    <td data-label="idE" class="ide">
+                        39
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Resistencia 470
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Resistencia 470
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        0
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        0
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                8
-            </td>
+                    <td data-label="idE" class="ide">
+                        8
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                SWITCH - Tactil Push Bottom 
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        SWITCH - Tactil Push Bottom 
+                    </td>
 
-            <td style="text-align:left;">
-                C410366
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C410366
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste Inicial
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste Inicial
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                19
-            </td>
+                    <td data-label="idE" class="ide">
+                        19
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAd - 1K0
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAd - 1K0
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                2
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        2
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                2
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        2
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                13
-            </td>
+                    <td data-label="idE" class="ide">
+                        13
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAa - 3.4
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAa - 3.4
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                14
-            </td>
+                    <td data-label="idE" class="ide">
+                        14
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAd - 2K2
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAd - 2K2
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                169
-            </td>
+                    <td data-label="idE" class="ide">
+                        169
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RESISTENCIAb - 390
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RESISTENCIAb - 390
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                239
-            </td>
+                    <td data-label="idE" class="ide">
+                        239
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                RELAY - de Potencia Industrial
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        RELAY - de Potencia Industrial
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Caja 2
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Caja 2
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                240
-            </td>
+                    <td data-label="idE" class="ide">
+                        240
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CABLE - Cinta Computadora Old
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CABLE - Cinta Computadora Old
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                6
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        6
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                6
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        6
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                241
-            </td>
+                    <td data-label="idE" class="ide">
+                        241
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                MOSFET - IRLR3705Z
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        MOSFET - IRLR3705Z
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                28
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        28
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                28
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        28
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                242
-            </td>
+                    <td data-label="idE" class="ide">
+                        242
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                L298
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        L298
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                12
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        12
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                12
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        12
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                243
-            </td>
+                    <td data-label="idE" class="ide">
+                        243
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                SWITCH - 1 posiciones - DIP SPST 25mA 24V
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        SWITCH - 1 posiciones - DIP SPST 25mA 24V
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                12
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        12
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                12
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        12
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                80
-            </td>
+                    <td data-label="idE" class="ide">
+                        80
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CABLE - 4 Largo (Iva)
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CABLE - 4 Largo (Iva)
+                    </td>
 
-            <td style="text-align:left;">
-                225
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        225
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                20
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        20
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                20
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        20
+                    </td>
 
-            <td style="text-align:left;">
-                Fabricado por Cesar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Fabricado por Cesar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                107
-            </td>
+                    <td data-label="idE" class="ide">
+                        107
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Capacitor 220 uf 35V SMD D8XL10.5mm
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Capacitor 220 uf 35V SMD D8XL10.5mm
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                -40
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        -40
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                560
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        560
+                    </td>
 
-            <td style="text-align:left;">
-                None
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        None
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                2
-            </td>
+                    <td data-label="idE" class="ide">
+                        2
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Microcontrolador ATMEGA 2560
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Microcontrolador ATMEGA 2560
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                -20
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        -20
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                70
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        70
+                    </td>
 
-            <td style="text-align:left;">
-                None
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        None
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                16
-            </td>
+                    <td data-label="idE" class="ide">
+                        16
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                Potenciometro 10k
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        Potenciometro 10k
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                -20
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        -20
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                485
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        485
+                    </td>
 
-            <td style="text-align:left;">
-                None
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        None
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                23
-            </td>
+                    <td data-label="idE" class="ide">
+                        23
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                DCJack C130239
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        DCJack C130239
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                -20
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        -20
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                220
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        220
+                    </td>
 
-            <td style="text-align:left;">
-                None
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        None
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                122
-            </td>
+                    <td data-label="idE" class="ide">
+                        122
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - Presion 4P
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - Presion 4P
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                -40
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        -40
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        0
+                    </td>
 
-            <td style="text-align:left;">
-                None
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        None
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-09-01
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-09-01
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                192
-            </td>
+                    <td data-label="idE" class="ide">
+                        192
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                EXPANSOR - HGSEMI PCF8574T/TR
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        EXPANSOR - HGSEMI PCF8574T/TR
+                    </td>
 
-            <td style="text-align:left;">
-                C2987288
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C2987288
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                -20
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        -20
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                50
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        50
+                    </td>
 
-            <td style="text-align:left;">
-                None
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        None
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-31
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-31
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                67
-            </td>
+                    <td data-label="idE" class="ide">
+                        67
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                PANTALLA - LCD - 20x04 (Solo)
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        PANTALLA - LCD - 20x04 (Solo)
+                    </td>
 
-            <td style="text-align:left;">
-                2004A
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        2004A
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        0
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        0
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-31
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-31
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                120
-            </td>
+                    <td data-label="idE" class="ide">
+                        120
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                LED RGB
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        LED RGB
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                2000
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        2000
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                2000
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        2000
+                    </td>
 
-            <td style="text-align:left;">
-                Compra 2 paquetes de 1000
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Compra 2 paquetes de 1000
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-30
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-30
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                238
-            </td>
+                    <td data-label="idE" class="ide">
+                        238
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                NYLON Rollo de Bolita para proteger
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        NYLON Rollo de Bolita para proteger
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        0
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-28
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-28
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                120
-            </td>
+                    <td data-label="idE" class="ide">
+                        120
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                LED RGB
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        LED RGB
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        0
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                2000
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        2000
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-28
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-28
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                125
-            </td>
+                    <td data-label="idE" class="ide">
+                        125
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CABLE - KIT
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CABLE - KIT
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                504
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        504
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                504
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        504
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reinial
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reinial
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                207
-            </td>
+                    <td data-label="idE" class="ide">
+                        207
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CACHIMBA - 5P MACHO - Recto
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CACHIMBA - 5P MACHO - Recto
+                    </td>
 
-            <td style="text-align:left;">
-                C5241857
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C5241857
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                43
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        43
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                43
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        43
+                    </td>
 
-            <td style="text-align:left;">
-                 Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                         Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                177
-            </td>
+                    <td data-label="idE" class="ide">
+                        177
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CACHIMBA - 6P MACHO
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CACHIMBA - 6P MACHO
+                    </td>
 
-            <td style="text-align:left;">
-                C8449
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C8449
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                26
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        26
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                26
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        26
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                202
-            </td>
+                    <td data-label="idE" class="ide">
+                        202
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CACHIMBA - 6P MACHO - 90 grados
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CACHIMBA - 6P MACHO - 90 grados
+                    </td>
 
-            <td style="text-align:left;">
-                C8457
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C8457
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                184
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        184
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                184
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        184
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                203
-            </td>
+                    <td data-label="idE" class="ide">
+                        203
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CACHIMBA - 5P MACHO - 90 grados
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CACHIMBA - 5P MACHO - 90 grados
+                    </td>
 
-            <td style="text-align:left;">
-                C395760
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C395760
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                90
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        90
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                90
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        90
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                201
-            </td>
+                    <td data-label="idE" class="ide">
+                        201
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CACHIMBA - 4P MACHO - 5.08 - 90 grados
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CACHIMBA - 4P MACHO - 5.08 - 90 grados
+                    </td>
 
-            <td style="text-align:left;">
-                C395753
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C395753
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                160
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        160
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                160
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        160
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                165
-            </td>
+                    <td data-label="idE" class="ide">
+                        165
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CACHIMBA - 4P HEMBRA - 5.08
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CACHIMBA - 4P HEMBRA - 5.08
+                    </td>
 
-            <td style="text-align:left;">
-                C71372
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C71372
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                126
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        126
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                126
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        126
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                176
-            </td>
+                    <td data-label="idE" class="ide">
+                        176
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CACHIMBA - 6P HEMBRA
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CACHIMBA - 6P HEMBRA
+                    </td>
 
-            <td style="text-align:left;">
-                C71374
+                    <td data-label="LCSC" class="lcsc">
+                        C71374
 
-            </td>
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                160
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        160
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                160
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        160
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                204
-            </td>
+                    <td data-label="idE" class="ide">
+                        204
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CACHIMBA - 4P MACHO - 3.81 - Recto - Pequeño
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CACHIMBA - 4P MACHO - 3.81 - Recto - Pequeño
+                    </td>
 
-            <td style="text-align:left;">
-                C8410
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C8410
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                70
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        70
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                70
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        70
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                205
-            </td>
+                    <td data-label="idE" class="ide">
+                        205
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CACHIMBA - 4P HEMBRA - 3.81
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CACHIMBA - 4P HEMBRA - 3.81
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                318
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        318
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                318
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        318
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                200
-            </td>
+                    <td data-label="idE" class="ide">
+                        200
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - CACHIMBA - 5P HEMBRA 5.08
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - CACHIMBA - 5P HEMBRA 5.08
+                    </td>
 
-            <td style="text-align:left;">
-                C71373
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C71373
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                86
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        86
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                86
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        86
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                115
-            </td>
+                    <td data-label="idE" class="ide">
+                        115
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                SWITCH - 4 posiciones - DIP SPST 25mA 24V
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        SWITCH - 4 posiciones - DIP SPST 25mA 24V
+                    </td>
 
-            <td style="text-align:left;">
-                C5123702
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C5123702
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                8
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        8
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                8
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        8
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste Re-Inicial
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste Re-Inicial
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                162
-            </td>
+                    <td data-label="idE" class="ide">
+                        162
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - PRESION - 3P
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - PRESION - 3P
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        1
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                122
-            </td>
+                    <td data-label="idE" class="ide">
+                        122
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - PRESION - 4P -TERM BLK 4POS 3.5mm TH
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - PRESION - 4P -TERM BLK 4POS 3.5mm TH
+                    </td>
 
-            <td style="text-align:left;">
-                C8455
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C8455
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                40
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        40
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        0
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-27
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-27
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                25
-            </td>
+                    <td data-label="idE" class="ide">
+                        25
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                CONECTOR - PRESION - 5P - TERM BLK 5POS 3.5mm TH
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        CONECTOR - PRESION - 5P - TERM BLK 5POS 3.5mm TH
+                    </td>
 
-            <td style="text-align:left;">
-                C8456
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        C8456
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                7
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        7
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                7
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        7
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste - Reiniciar
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste - Reiniciar
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-25
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-25
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                123
-            </td>
+                    <td data-label="idE" class="ide">
+                        123
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                PANTALLA - 8'' - TOUCH - 8 pulgada (DARMAX)
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        PANTALLA - 8'' - TOUCH - 8 pulgada (DARMAX)
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                1
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        1
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                11
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        11
+                    </td>
 
-            <td style="text-align:left;">
-                Ajuste 09WTR
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        Ajuste 09WTR
+                    </td>
 
-        </tr>
+                </tr>
         
-        <tr class="bajo">
+                <tr class="bajo">
 
-            <td style="text-align:right;">
-                2026-08-25
-            </td>
+                    <td data-label="Fecha" class="fecha">
+                        2026-08-25
+                    </td>
 
-            <td style="text-align:left;font-size:18px;">
-                62
-            </td>
+                    <td data-label="idE" class="ide">
+                        62
+                    </td>
 
-            <td style="text-align:left;font-size:28px;font-weight:bold;">
-                PANTALLA - 5'' - Resistiva - DMG80480C050_03WTR
-            </td>
+                    <td data-label="Descripción" class="descripcion">
+                        PANTALLA - 5'' - Resistiva - DMG80480C050_03WTR
+                    </td>
 
-            <td style="text-align:left;">
-                
-            </td>
+                    <td data-label="LCSC" class="lcsc">
+                        
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                0
-            </td>
+                    <td data-label="Ctdad" class="cantidad">
+                        0
+                    </td>
 
-            <td style="text-align:right;font-size:28px;font-weight:bold;">
-                4
-            </td>
+                    <td data-label="Existencia" class="existencia">
+                        4
+                    </td>
 
-            <td style="text-align:left;">
-                inventario
-            </td>
+                    <td data-label="Observaciones" class="observaciones">
+                        inventario
+                    </td>
 
-        </tr>
+                </tr>
         
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    </div>
+
+</main>
 
 <style>
 footer {
@@ -3327,7 +3570,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 03/09/2026 08:12:48
+        Fecha y hora: 03/09/2026 12:04:52
     </p>
 </footer>
         
