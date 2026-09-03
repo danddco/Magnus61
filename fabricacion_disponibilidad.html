@@ -27,13 +27,60 @@
                 font-size: 2em;
                 font-family: Arial, sans-serif;
             }
+
+            .home-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 92px;
+                min-height: 42px;
+                padding: 8px 14px;
+                border-radius: 8px;
+                background-color: white;
+                color: #1f4e78;
+                text-decoration: none;
+                font-family: Arial, sans-serif;
+                font-size: 16px;
+                font-weight: bold;
+                border: 1px solid rgba(0,0,0,0.12);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+                transition: 0.15s ease;
+            }
+
+            .home-link:hover {
+                background-color: #eef5fa;
+                transform: translateY(-1px);
+            }
+
+            @media (max-width: 700px) {
+                header {
+                    padding: 7px;
+                }
+
+                .logo {
+                    height: 45px;
+                    margin-right: 8px;
+                }
+
+                #titulo {
+                    font-size: 1.25em;
+                    text-align: left;
+                }
+
+                .home-link {
+                    min-width: 72px;
+                    min-height: 38px;
+                    padding: 7px 10px;
+                    font-size: 14px;
+                }
+            }
         </style>
     </head>
     <body>
         <header id="cabecera">
             <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
             <h1 id="titulo">CircuitDesignMX</h1>
-            <a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html">Home</a>
+            <a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html" title="Ir a la página inicial">Inicio</a>
         </header>
     </body>
     </html>
@@ -729,7 +776,7 @@ footer {
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 03/09/2026 12:10:20
+        Fecha y hora: 03/09/2026 12:17:25
     </p>
 </footer>
         
