@@ -1,60 +1,439 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
     <html lang="es">
     <head>
-    <meta charset="UTF-8">
-    <title>CircuitDesignMx</title>
-    <style>
-    * { margin: 0; padding: 0; }
-    #cabecera { background-color: limegreen; padding: 10px; color: white; text-align: center; }
-    body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
-    .card { background: white; padding: 25px; margin: 20px auto; border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); width: 350px; text-align: center; }
-    .valor { font-size: 40px; font-weight: bold; color: #333; }
-    .fecha { font-size: 16px; color: #666; margin-top: 5px; }
-    footer { background-color: red; color: white; padding: 8px; text-align: center; margin-top: 40px; }
-    </style>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+        <title>CircuitDesignMX</title>
+
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html, body {
+                width: 100%;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                background: #f4f6f8;
+                color: #26333f;
+            }
+
+            #cabecera {
+                width: 100%;
+                min-height: 72px;
+                padding: 8px 18px;
+                margin-bottom: 22px;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                align-items: center;
+                gap: 14px;
+                background: linear-gradient(135deg, #1f4e78, #346b98);
+                color: white;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.16);
+            }
+
+            .logo-contenedor {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px 7px;
+                background: white;
+                border-radius: 8px;
+            }
+
+            .logo {
+                display: block;
+                height: 52px;
+                width: auto;
+                max-width: 150px;
+                object-fit: contain;
+            }
+
+            #titulo {
+                margin: 0;
+                text-align: center;
+                font-family: Arial, sans-serif;
+                font-size: 28px;
+                font-weight: 700;
+                letter-spacing: .2px;
+                color: white;
+            }
+
+            .home-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 92px;
+                min-height: 42px;
+                padding: 8px 15px;
+                border: 1px solid rgba(255,255,255,.55);
+                border-radius: 8px;
+                background: white;
+                color: #1f4e78;
+                text-decoration: none;
+                font-family: Arial, sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                box-shadow: 0 1px 3px rgba(0,0,0,.14);
+                transition: background .15s ease, transform .15s ease;
+            }
+
+            .home-link:hover {
+                background: #eef5fa;
+                transform: translateY(-1px);
+            }
+
+            .home-link:active {
+                transform: translateY(0);
+            }
+
+            @media (max-width: 700px) {
+                #cabecera {
+                    min-height: 60px;
+                    padding: 6px 8px;
+                    margin-bottom: 14px;
+                    grid-template-columns: auto 1fr auto;
+                    gap: 7px;
+                }
+
+                .logo-contenedor {
+                    padding: 3px 5px;
+                    border-radius: 6px;
+                }
+
+                .logo {
+                    height: 40px;
+                    max-width: 92px;
+                }
+
+                #titulo {
+                    font-size: 20px;
+                    text-align: left;
+                    line-height: 1.1;
+                }
+
+                .home-link {
+                    min-width: 68px;
+                    min-height: 38px;
+                    padding: 7px 9px;
+                    border-radius: 7px;
+                    font-size: 14px;
+                }
+            }
+
+            @media (max-width: 420px) {
+                #cabecera {
+                    gap: 5px;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+
+                .logo {
+                    height: 36px;
+                    max-width: 78px;
+                }
+
+                #titulo {
+                    font-size: 17px;
+                }
+
+                .home-link {
+                    min-width: 60px;
+                    padding: 6px 8px;
+                    font-size: 13px;
+                }
+            }
+        </style>
     </head>
+
     <body>
+        <header id="cabecera">
+            <div class="logo-contenedor">
+                <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+            </div>
 
-    <header id="cabecera">
-        <h1>CircuitDesignMx</h1>
-    </header>
+            <h1 id="titulo">CircuitDesignMX</h1>
 
-    <h1 style="text-align:center; margin-top:20px;">
-        Reporte de Producción - Fashident v1.0
-    </h1>
+            <a class="home-link"
+               href="https://danddco.github.io/Magnus61/San25Fco.html"
+               title="Ir a la página inicial">Inicio</a>
+        </header>
+    
+    <style>
+        .reporte-produccion {
+            width: min(1100px, 94%);
+            margin: 0 auto;
+            padding: 8px 0 30px;
+            font-family: Arial, sans-serif;
+        }
 
-    <div class="card">
-        <h2>En Fabricación</h2>
-        <div class="valor">35</div>
-        <div class="fecha">2026-08-31</div>
-    </div>
+        .titulo-reporte {
+            margin: 10px 0 8px;
+            text-align: center;
+            color: #1f4e78;
+            font-size: 30px;
+        }
 
-    <div class="card">
-        <h2>Listas para enviar</h2>
-        <div class="valor">50</div>
-        <div class="fecha">2026-08-28</div>
-    </div>
+        .subtitulo-reporte {
+            margin: 0 0 24px;
+            text-align: center;
+            color: #657786;
+            font-size: 15px;
+        }
 
-    </body>
-    </html>
+        .cards-produccion {
+            display: grid;
+            grid-template-columns: repeat(
+                2,
+                minmax(280px, 1fr)
+            );
+            gap: 22px;
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .card-produccion {
+            background: white;
+            padding: 26px 22px;
+            border: 1px solid #d8dee5;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,.06);
+            text-align: center;
+        }
+
+        .card-produccion h2 {
+            margin: 0 0 14px;
+            color: #30485d;
+            font-size: 22px;
+        }
+
+        .valor-produccion {
+            font-size: 44px;
+            line-height: 1;
+            font-weight: 800;
+            color: #1f4e78;
+        }
+
+        .fecha-produccion {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #657786;
+        }
+
+        @media (max-width: 700px) {
+            html,
+            body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .reporte-produccion {
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                padding: 4px 6px 20px;
+            }
+
+            .titulo-reporte {
+                margin: 6px 0 4px;
+                padding: 0 4px;
+                font-size: 23px;
+                line-height: 1.15;
+                overflow-wrap: anywhere;
+            }
+
+            .subtitulo-reporte {
+                margin: 0 0 12px;
+                padding: 0 4px;
+                font-size: 12px;
+                line-height: 1.35;
+                overflow-wrap: anywhere;
+            }
+
+            .cards-produccion {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .card-produccion {
+                width: 100%;
+                min-width: 0;
+                padding: 16px 7px;
+                border-radius: 9px;
+            }
+
+            .card-produccion h2 {
+                min-height: 42px;
+                margin-bottom: 9px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 17px;
+                line-height: 1.15;
+                overflow-wrap: anywhere;
+            }
+
+            .valor-produccion {
+                font-size: 34px;
+            }
+
+            .fecha-produccion {
+                margin-top: 8px;
+                font-size: 12px;
+                line-height: 1.25;
+                white-space: normal;
+                overflow-wrap: anywhere;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .cards-produccion {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 8px;
+            }
+
+            .card-produccion {
+                padding: 17px 10px;
+            }
+
+            .card-produccion h2 {
+                min-height: 0;
+                font-size: 19px;
+            }
+
+            .valor-produccion {
+                font-size: 38px;
+            }
+
+            .fecha-produccion {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .reporte-produccion {
+                padding-left: 4px;
+                padding-right: 4px;
+            }
+
+            .titulo-reporte {
+                font-size: 21px;
+            }
+
+            .valor-produccion {
+                font-size: 35px;
+            }
+        }
+    </style>
+    
+    <main class="reporte-produccion">
+
+        <h1 class="titulo-reporte">
+            Reporte de Producción - Fashident v1.0
+        </h1>
+
+        <p class="subtitulo-reporte">
+            Proyecto: Fashident v1.0
+            &nbsp; | &nbsp;
+            Generado: 2026-09-05
+        </p>
+
+        <div class="cards-produccion">
+
+            <section class="card-produccion">
+                <h2>En Fabricación</h2>
+
+                <div class="valor-produccion">
+                    35
+                </div>
+
+                <div class="fecha-produccion">
+                    2026-09-04
+                </div>
+            </section>
+
+            <section class="card-produccion">
+                <h2>Listas para enviar</h2>
+
+                <div class="valor-produccion">
+                    50
+                </div>
+
+                <div class="fecha-produccion">
+                    2026-08-28
+                </div>
+            </section>
+
+        </div>
+
+    </main>
     
 <style>
-footer {
-    background-color: red;
-    color: white;
-    padding: 5px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+    .espacio-footer {
+        height: 28px;
+    }
+
+    footer {
+        width: 100%;
+        padding: 14px 18px;
+        background: linear-gradient(135deg, #1f4e78, #346b98);
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.14);
+    }
+
+    footer p {
+        margin: 3px 0;
+        line-height: 1.35;
+    }
+
+    footer .copyright {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    footer .fecha-hora {
+        font-size: 13px;
+        color: #e7f0f7;
+    }
+
+    @media (max-width: 700px) {
+        .espacio-footer {
+            height: 20px;
+        }
+
+        footer {
+            padding: 12px 10px;
+        }
+
+        footer .copyright {
+            font-size: 13px;
+        }
+
+        footer .fecha-hora {
+            font-size: 12px;
+        }
+    }
 </style>
-  <div style="height: 14px;"></div>
+
+<div class="espacio-footer"></div>
+
 <footer>
-    <p style="margin-top:5px;">
-        &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
+    <p class="copyright">
+        &copy; 2026 CircuitDesignMX. Todos los derechos reservados.
     </p>
-    <p style="margin-top:5px;">
-        Fecha y hora: 31/08/2026 07:46:52
+
+    <p class="fecha-hora">
+        Fecha y hora: 05/09/2026 09:30:53
     </p>
 </footer>
-        
