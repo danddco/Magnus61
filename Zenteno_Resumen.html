@@ -1,209 +1,641 @@
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+        <title>CircuitDesignMX</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
 
-    <title>Circuit Design MX</title>
+            html, body {
+                width: 100%;
+            }
 
+            body {
+                font-family: Arial, sans-serif;
+                background: #f4f6f8;
+                color: #26333f;
+            }
+
+            #cabecera {
+                width: 100%;
+                min-height: 72px;
+                padding: 8px 18px;
+                margin-bottom: 22px;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                align-items: center;
+                gap: 14px;
+                background: linear-gradient(135deg, #1f4e78, #346b98);
+                color: white;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.16);
+            }
+
+            .logo-contenedor {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px 7px;
+                background: white;
+                border-radius: 8px;
+            }
+
+            .logo {
+                display: block;
+                height: 52px;
+                width: auto;
+                max-width: 150px;
+                object-fit: contain;
+            }
+
+            #titulo {
+                margin: 0;
+                text-align: center;
+                font-family: Arial, sans-serif;
+                font-size: 28px;
+                font-weight: 700;
+                letter-spacing: .2px;
+                color: white;
+            }
+
+            .home-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 92px;
+                min-height: 42px;
+                padding: 8px 15px;
+                border: 1px solid rgba(255,255,255,.55);
+                border-radius: 8px;
+                background: white;
+                color: #1f4e78;
+                text-decoration: none;
+                font-family: Arial, sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                box-shadow: 0 1px 3px rgba(0,0,0,.14);
+                transition: background .15s ease, transform .15s ease;
+            }
+
+            .home-link:hover {
+                background: #eef5fa;
+                transform: translateY(-1px);
+            }
+
+            .home-link:active {
+                transform: translateY(0);
+            }
+
+            @media (max-width: 700px) {
+                #cabecera {
+                    min-height: 60px;
+                    padding: 6px 8px;
+                    margin-bottom: 14px;
+                    grid-template-columns: auto 1fr auto;
+                    gap: 7px;
+                }
+
+                .logo-contenedor {
+                    padding: 3px 5px;
+                    border-radius: 6px;
+                }
+
+                .logo {
+                    height: 40px;
+                    max-width: 92px;
+                }
+
+                #titulo {
+                    font-size: 20px;
+                    text-align: left;
+                    line-height: 1.1;
+                }
+
+                .home-link {
+                    min-width: 68px;
+                    min-height: 38px;
+                    padding: 7px 9px;
+                    border-radius: 7px;
+                    font-size: 14px;
+                }
+            }
+
+            @media (max-width: 420px) {
+                #cabecera {
+                    gap: 5px;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+
+                .logo {
+                    height: 36px;
+                    max-width: 78px;
+                }
+
+                #titulo {
+                    font-size: 17px;
+                }
+
+                .home-link {
+                    min-width: 60px;
+                    padding: 6px 8px;
+                    font-size: 13px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <header id="cabecera">
+            <div class="logo-contenedor">
+                <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+            </div>
+
+            <h1 id="titulo">CircuitDesignMX</h1>
+
+            <a class="home-link"
+               href="https://danddco.github.io/Magnus61/San25Fco.html"
+               title="Ir a la página inicial">Inicio</a>
+        </header>
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
+        .reporte-produccion {
+            width: min(1650px, 98%);
+            margin: 0 auto;
+            padding: 8px 0 32px;
             font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
         }
 
-        #cabecera {
-            background-color: limegreen;
-            padding: 10px;
-            color: white;
+        .titulo-reporte {
+            margin: 8px 0 4px;
             text-align: center;
+            color: #1f4e78;
+            font-size: 30px;
         }
 
-        .titulo-seccion {
+        .subtitulo-reporte {
+            margin: 0 0 22px;
             text-align: center;
-            font-size: 28px;
+            color: #657786;
+            font-size: 14px;
         }
 
-        .titulo-fabricacion {
-            margin-top: 20px;
-            margin-bottom: 14px;
-        }
-
-        .titulo-envio {
-            margin-top: 84px;
-            margin-bottom: 14px;
-        }
-
-        .grid3 {
+        .proyectos-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(
+                3,
+                minmax(0, 1fr)
+            );
+            gap: 16px;
+            align-items: start;
         }
 
-        .card {
+        .proyecto-card {
+            min-width: 0;
             background: white;
-            padding: 10px 5px;
+            border: 1px solid #d8dee5;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,.06);
         }
 
-        .card h2 {
-            min-height: 48px;
-            font-size: 20px;
+        .proyecto-titulo {
+            min-height: 58px;
+            padding: 13px 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .valor {
-            font-size: 40px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .fecha {
-            margin-top: 5px;
-            font-size: 16px;
-            color: #666;
-        }
-
-        footer {
-            margin-top: 40px;
-            padding: 8px;
+            background: linear-gradient(
+                135deg,
+                #1f4e78,
+                #346b98
+            );
             color: white;
-            background-color: red;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            font-size: 20px;
+            font-weight: 800;
+            line-height: 1.2;
         }
 
-        footer p {
-            margin-top: 5px;
+        .metricas {
+            display: grid;
+            grid-template-columns: repeat(
+                2,
+                minmax(0, 1fr)
+            );
+            gap: 10px;
+            padding: 12px;
         }
 
-        @media (max-width: 700px) {
-            .grid3 {
-                grid-template-columns: 1fr;
+        .metrica {
+            min-width: 0;
+            padding: 18px 8px;
+            border: 1px solid #e0e6eb;
+            border-radius: 9px;
+            background: #f9fbfc;
+            text-align: center;
+        }
+
+        .metrica h3 {
+            min-height: 48px;
+            margin: 0 0 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #30485d;
+            font-size: 18px;
+            line-height: 1.2;
+        }
+
+        .valor-produccion {
+            font-size: 38px;
+            line-height: 1;
+            font-weight: 800;
+            color: #1f4e78;
+        }
+
+        .fecha-produccion {
+            margin-top: 9px;
+            min-height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #657786;
+            font-size: 13px;
+            line-height: 1.25;
+            overflow-wrap: anywhere;
+        }
+
+        .sin-datos {
+            padding: 35px 18px;
+            color: #657786;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* ================================================
+           PANTALLAS MEDIANAS / TABLET
+           ================================================ */
+        @media (max-width: 1200px) {
+            .proyectos-grid {
+                grid-template-columns: repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
             }
 
-            .titulo-envio {
-                margin-top: 56px;
+            .proyecto-card:last-child {
+                grid-column: 1 / -1;
+                width: min(620px, 100%);
+                justify-self: center;
+            }
+        }
+
+        /* ================================================
+           CELULAR
+           ================================================ */
+        @media (max-width: 700px) {
+            html,
+            body {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
+            }
+
+            .reporte-produccion {
+                width: 100%;
+                max-width: 100%;
+                margin: 0;
+                padding: 4px 6px 20px;
+            }
+
+            .titulo-reporte {
+                margin: 6px 0 3px;
+                padding: 0 4px;
+                font-size: 23px;
+                line-height: 1.15;
+            }
+
+            .subtitulo-reporte {
+                margin: 0 0 12px;
+                padding: 0 4px;
+                font-size: 12px;
+            }
+
+            .proyectos-grid {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 11px;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .proyecto-card,
+            .proyecto-card:last-child {
+                grid-column: auto;
+                width: 100%;
+                max-width: 100%;
+                min-width: 0;
+                margin: 0;
+                border-radius: 9px;
+                overflow: hidden;
+            }
+
+            .proyecto-titulo {
+                width: 100%;
+                min-height: 0;
+                padding: 10px 8px;
+                font-size: 19px;
+                line-height: 1.18;
+                overflow-wrap: anywhere;
+            }
+
+            .metricas {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 7px;
+                width: 100%;
+                max-width: 100%;
+                padding: 7px;
+            }
+
+            .metrica {
+                width: 100%;
+                min-width: 0;
+                padding: 14px 5px;
+                border-radius: 8px;
+            }
+
+            .metrica h3 {
+                min-height: 38px;
+                margin: 0 0 8px;
+                padding: 0 2px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 15px;
+                line-height: 1.15;
+                overflow-wrap: anywhere;
+            }
+
+            .valor-produccion {
+                font-size: 32px;
+            }
+
+            .fecha-produccion {
+                min-height: 30px;
+                margin-top: 7px;
+                padding: 0 2px;
+                font-size: 11px;
+                line-height: 1.25;
+                white-space: normal;
+                overflow-wrap: anywhere;
+            }
+
+            .sin-datos {
+                padding: 24px 10px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .metricas {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 7px;
+            }
+
+            .metrica {
+                padding: 15px 8px;
+            }
+
+            .metrica h3 {
+                min-height: 0;
+                font-size: 18px;
+            }
+
+            .valor-produccion {
+                font-size: 36px;
+            }
+
+            .fecha-produccion {
+                min-height: 0;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .reporte-produccion {
+                padding-left: 4px;
+                padding-right: 4px;
+            }
+
+            .titulo-reporte {
+                font-size: 21px;
+            }
+
+            .proyecto-titulo {
+                font-size: 18px;
+            }
+
+            .valor-produccion {
+                font-size: 34px;
             }
         }
     </style>
-</head>
+    
+    <main class="reporte-produccion">
 
-<body>
+        <h1 class="titulo-reporte">
+            Reporte de Producción Advanced Water Systems
+        </h1>
 
-    <header id="cabecera">
-        <h1>Circuit Design Mx</h1>
-    </header>
-
-    <h1 style="text-align:center; margin-top:20px;">
-        Reporte de Producción
-    </h1>
-
-    <h2 style="text-align:center; margin-top:16px;">
-        Advanced Water Systems
-    </h2>
-
-    <h3 class="titulo-seccion titulo-fabricacion">
-        En Fabricación
-    </h3>
-
-    <div class="grid3">
-
-        <div class="card">
-            <h2>Vending Pro</h2>
-            <div class="valor">15</div>
-            <div class="fecha">2026-06-16</div>
-        </div>
-
-        <div class="card">
-            <h2>Vending Mini</h2>
-            <div class="valor">30</div>
-            <div class="fecha">2026-07-27</div>
-        </div>
-
-        <div class="card">
-            <h2>Basic Duo</h2>
-            <div class="valor">0</div>
-            <div class="fecha">2026-08-06</div>
-        </div>
-
-    </div>
-
-    <h3 class="titulo-seccion titulo-envio">
-        Lista para Enviar
-    </h3>
-
-    <div class="grid3">
-
-        <div class="card">
-            <h2>Vending Pro</h2>
-            <div class="valor">7</div>
-            <div class="fecha">2026-07-02</div>
-        </div>
-
-        <div class="card">
-            <h2>Vending Mini</h2>
-            <div class="valor">8</div>
-            <div class="fecha">2026-07-27</div>
-        </div>
-
-        <div class="card">
-            <h2>Basic Duo</h2>
-            <div class="valor">12</div>
-            <div class="fecha">2026-08-06</div>
-        </div>
-
-    </div>
-
-    <footer>
-        <p>
-            &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
+        <p class="subtitulo-reporte">
+            Generado: 2026-09-05
         </p>
 
-        <p id="fecha-hora-documento">
-            Fecha y hora:
-        </p>
-    </footer>
+        <div class="proyectos-grid">
 
-    <script>
-        function colocarFechaHoraCreacion() {
-            const ahora = new Date();
+            
+    <section class="proyecto-card">
 
-            const fechaHoraFormateada =
-                ahora.toLocaleString("es-MX", {
-                    day: "2-digit",
-                    month: "2-digit",
-                    year: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                    second: "2-digit",
-                    hour12: false
-                });
+        <div class="proyecto-titulo">
+            AWS Mini v1.0
+        </div>
 
-            document.getElementById(
-                "fecha-hora-documento"
-            ).textContent =
-                "Fecha y hora de creación: " + fechaHoraFormateada;
+        <div class="metricas">
+
+            <article class="metrica">
+                <h3>En Fabricación</h3>
+
+                <div class="valor-produccion">
+                    30
+                </div>
+
+                <div class="fecha-produccion">
+                    2026-09-04
+                </div>
+            </article>
+
+            <article class="metrica">
+                <h3>Listas para enviar</h3>
+
+                <div class="valor-produccion">
+                    33
+                </div>
+
+                <div class="fecha-produccion">
+                    2026-08-31
+                </div>
+            </article>
+
+        </div>
+
+    </section>
+    
+
+            
+    <section class="proyecto-card">
+
+        <div class="proyecto-titulo">
+            AWS Pro v1.0
+        </div>
+
+        <div class="metricas">
+
+            <article class="metrica">
+                <h3>En Fabricación</h3>
+
+                <div class="valor-produccion">
+                    6
+                </div>
+
+                <div class="fecha-produccion">
+                    2026-06-16
+                </div>
+            </article>
+
+            <article class="metrica">
+                <h3>Listas para enviar</h3>
+
+                <div class="valor-produccion">
+                    0
+                </div>
+
+                <div class="fecha-produccion">
+                    2026-07-02
+                </div>
+            </article>
+
+        </div>
+
+    </section>
+    
+
+            
+    <section class="proyecto-card">
+
+        <div class="proyecto-titulo">
+            DUO ver1.0
+        </div>
+
+        <div class="metricas">
+
+            <article class="metrica">
+                <h3>En Fabricación</h3>
+
+                <div class="valor-produccion">
+                    15
+                </div>
+
+                <div class="fecha-produccion">
+                    2026-09-04
+                </div>
+            </article>
+
+            <article class="metrica">
+                <h3>Listas para enviar</h3>
+
+                <div class="valor-produccion">
+                    9
+                </div>
+
+                <div class="fecha-produccion">
+                    2026-08-06
+                </div>
+            </article>
+
+        </div>
+
+    </section>
+    
+
+        </div>
+
+    </main>
+    
+<style>
+    .espacio-footer {
+        height: 28px;
+    }
+
+    footer {
+        width: 100%;
+        padding: 14px 18px;
+        background: linear-gradient(135deg, #1f4e78, #346b98);
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.14);
+    }
+
+    footer p {
+        margin: 3px 0;
+        line-height: 1.35;
+    }
+
+    footer .copyright {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    footer .fecha-hora {
+        font-size: 13px;
+        color: #e7f0f7;
+    }
+
+    @media (max-width: 700px) {
+        .espacio-footer {
+            height: 20px;
         }
 
-        colocarFechaHoraCreacion();
-    </script>
+        footer {
+            padding: 12px 10px;
+        }
 
-</body>
-</html>
+        footer .copyright {
+            font-size: 13px;
+        }
+
+        footer .fecha-hora {
+            font-size: 12px;
+        }
+    }
+</style>
+
+<div class="espacio-footer"></div>
+
+<footer>
+    <p class="copyright">
+        &copy; 2026 CircuitDesignMX. Todos los derechos reservados.
+    </p>
+
+    <p class="fecha-hora">
+        Fecha y hora: 05/09/2026 10:11:49
+    </p>
+</footer>
