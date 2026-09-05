@@ -530,6 +530,11 @@
                 background: white;
             }
 
+            /* Solo en celular: mostrar únicamente faltantes en Componentes Críticos */
+            .componentes-criticos tbody tr.fila-ok {
+                display: none;
+            }
+
             tbody td {
                 display: grid;
                 grid-template-columns: minmax(118px, 39%) minmax(0, 61%);
@@ -810,12 +815,13 @@
             </div>
         </section>
     
-        <section class="seccion">
+        <section class="seccion componentes-criticos">
             <h2>Componentes Críticos para 35 Placas</h2>
             <p class="subtitulo">
                 Comparación entre los materiales requeridos para producir
                 35 placas y la existencia actual en STOCK.
                 Los componentes tipo REEL se consideran como 1 unidad por proyecto.
+                En celular se muestran únicamente los componentes con faltantes.
             </p>
 
             <div class="tabla-wrap">
@@ -1405,6 +1411,6 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 04/09/2026 18:46:18
+        Fecha y hora: 04/09/2026 18:53:32
     </p>
 </footer>
