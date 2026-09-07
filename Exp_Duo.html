@@ -3,40 +3,166 @@
     <html lang="es">
     <head>
         <meta charset="UTF-8">
-        <title>CircuitDesignMx</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+        <title>CircuitDesignMX</title>
+
         <style>
             * {
                 margin: 0;
                 padding: 0;
+                box-sizing: border-box;
             }
-            header {
-                background-color: limegreen;
+
+            html, body {
+                width: 100%;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                background: #f4f6f8;
+                color: #26333f;
+            }
+
+            #cabecera {
+                width: 100%;
+                min-height: 72px;
+                padding: 8px 18px;
+                margin-bottom: 22px;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                align-items: center;
+                gap: 14px;
+                background: linear-gradient(135deg, #1f4e78, #346b98);
                 color: white;
-                padding: 10px;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.16);
+            }
+
+            .logo-contenedor {
                 display: flex;
                 align-items: center;
-                box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                justify-content: center;
+                padding: 4px 7px;
+                background: white;
+                border-radius: 8px;
             }
+
             .logo {
-                height: 60px;
-                margin-right: 20px;
+                display: block;
+                height: 52px;
+                width: auto;
+                max-width: 150px;
+                object-fit: contain;
             }
+
             #titulo {
-                flex-grow: 1;
+                margin: 0;
                 text-align: center;
-                font-size: 2em;
                 font-family: Arial, sans-serif;
+                font-size: 28px;
+                font-weight: 700;
+                letter-spacing: .2px;
+                color: white;
+            }
+
+            .home-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 92px;
+                min-height: 42px;
+                padding: 8px 15px;
+                border: 1px solid rgba(255,255,255,.55);
+                border-radius: 8px;
+                background: white;
+                color: #1f4e78;
+                text-decoration: none;
+                font-family: Arial, sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                box-shadow: 0 1px 3px rgba(0,0,0,.14);
+                transition: background .15s ease, transform .15s ease;
+            }
+
+            .home-link:hover {
+                background: #eef5fa;
+                transform: translateY(-1px);
+            }
+
+            .home-link:active {
+                transform: translateY(0);
+            }
+
+            @media (max-width: 700px) {
+                #cabecera {
+                    min-height: 60px;
+                    padding: 6px 8px;
+                    margin-bottom: 14px;
+                    grid-template-columns: auto 1fr auto;
+                    gap: 7px;
+                }
+
+                .logo-contenedor {
+                    padding: 3px 5px;
+                    border-radius: 6px;
+                }
+
+                .logo {
+                    height: 40px;
+                    max-width: 92px;
+                }
+
+                #titulo {
+                    font-size: 20px;
+                    text-align: left;
+                    line-height: 1.1;
+                }
+
+                .home-link {
+                    min-width: 68px;
+                    min-height: 38px;
+                    padding: 7px 9px;
+                    border-radius: 7px;
+                    font-size: 14px;
+                }
+            }
+
+            @media (max-width: 420px) {
+                #cabecera {
+                    gap: 5px;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+
+                .logo {
+                    height: 36px;
+                    max-width: 78px;
+                }
+
+                #titulo {
+                    font-size: 17px;
+                }
+
+                .home-link {
+                    min-width: 60px;
+                    padding: 6px 8px;
+                    font-size: 13px;
+                }
             }
         </style>
     </head>
+
     <body>
         <header id="cabecera">
-            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+            <div class="logo-contenedor">
+                <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+            </div>
+
             <h1 id="titulo">CircuitDesignMX</h1>
-            <a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html">Home</a>
+
+            <a class="home-link"
+               href="https://danddco.github.io/Magnus61/San25Fco.html"
+               title="Ir a la página inicial">Inicio</a>
         </header>
-    </body>
-    </html>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <style>
@@ -404,6 +530,11 @@
                 background: white;
             }
 
+            /* Solo en celular: mostrar únicamente faltantes en Componentes Críticos */
+            .componentes-criticos tbody tr.fila-ok {
+                display: none;
+            }
+
             tbody td {
                 display: grid;
                 grid-template-columns: minmax(118px, 39%) minmax(0, 61%);
@@ -484,11 +615,6 @@
                 max-width: 100%;
                 height: auto;
             }
-
-            /* En celular, mostrar únicamente componentes con faltante. */
-            .componentes-criticos .fila-ok {
-                display: none !important;
-            }
         }
 
         @media (max-width: 480px) {
@@ -541,9 +667,7 @@
     <main class="pagina">
 
         <header class="hero">
-
-            <h1>Expediente:  DUO ver1.0</h1>
-
+           <h1>Expediente:  DUO ver1.0</h1>
         </header>
     
         <section class="seccion">
@@ -572,9 +696,9 @@
                         <tr>
                             <td data-label="Proyecto">DUO ver1.0</td>
                             <td data-label="En fabricación" class="numero">15</td>
-                            <td data-label="Fecha fabricación" class="fecha-centro">Lunes 2026-08-31</td>
+                            <td data-label="Fecha fabricación" class="fecha-centro">Viernes 2026-09-04</td>
                             <td data-label="Listas para enviar" class="numero-grande">9</td>
-                            <td data-label="Fecha disponible" class="fecha-centro">Lunes 2026-08-31</td>
+                            <td data-label="Fecha disponible" class="fecha-centro">Viernes 2026-09-04</td>
                         </tr>
                 
                     </tbody>
@@ -607,11 +731,11 @@
                         <tr class="fila-pendiente">
                             <td data-label="Proceso">Fabricacion-Entrada</td>
                             <td data-label="Lote">Placa</td>
-                            <td data-label="Fecha" class="fecha-centro">Lunes 2026-08-31</td>
-                            <td data-label="Prioridad" class="numero">3</td>
+                            <td data-label="Fecha" class="fecha-centro">Viernes 2026-09-04</td>
+                            <td data-label="Prioridad" class="numero">2</td>
                             <td data-label="Estado"><span class="estado-pendiente">Pendiente</span></td>
                             <td data-label="Descripción" style="font-weight:700;">
-                                31-08: 15 Placas Virgenes
+                                Placas Virgenes: Pendiente por Montaje
                             </td>
                             <td data-label="Cantidad" class="numero">12</td>
                         </tr>
@@ -654,6 +778,8 @@
             <p class="subtitulo">
                 Comparación entre los materiales requeridos para producir
                 15 placas y la existencia actual en STOCK.
+                Los componentes tipo REEL se consideran como 1 unidad por proyecto.
+                En celular se muestran únicamente los componentes con faltantes.
             </p>
 
             <div class="tabla-wrap">
@@ -712,13 +838,18 @@
             <div class="grid-tecnico">
 
                 <article class="tarjeta-tecnica">
-                    <h3>Parametros de Fabricacion</h3>
-                    <p>
-              
+                    <h3>.</h3>
+            
+                
+                        
+                    
                 </article>
 
                 <article class="tarjeta-tecnica">
-                    <h3>Versiones.</h3>
+                    <h3></h3>
+                    <p>
+                        ...
+                    </p>
                 </article>
 
                 <article class="tarjeta-tecnica">
@@ -732,13 +863,6 @@
                     <h3></h3>
                     <p>
                         ...
-                    </p>
-                </article>
-
-                <article class="tarjeta-tecnica">
-                    <h3></h3>
-                    <p>
-                     .
                     </p>
                 </article>
 
@@ -749,32 +873,80 @@
                     </p>
                 </article>
 
+                <article class="tarjeta-tecnica">
+                    <h3></h3>
+                    <p>
+                        .
+                    </p>
+                </article>
+
             </div>
 
             <div class="nota">
                 <strong>Importante:</strong>
-                .
+                
             </div>
         </section>
 
     </main>
     
 <style>
-footer {
-    background-color: red;
-    color: white;
-    padding: 5px;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+    .espacio-footer {
+        height: 28px;
+    }
+
+    footer {
+        width: 100%;
+        padding: 14px 18px;
+        background: linear-gradient(135deg, #1f4e78, #346b98);
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.14);
+    }
+
+    footer p {
+        margin: 3px 0;
+        line-height: 1.35;
+    }
+
+    footer .copyright {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    footer .fecha-hora {
+        font-size: 13px;
+        color: #e7f0f7;
+    }
+
+    @media (max-width: 700px) {
+        .espacio-footer {
+            height: 20px;
+        }
+
+        footer {
+            padding: 12px 10px;
+        }
+
+        footer .copyright {
+            font-size: 13px;
+        }
+
+        footer .fecha-hora {
+            font-size: 12px;
+        }
+    }
 </style>
-  <div style="height: 14px;"></div>
+
+<div class="espacio-footer"></div>
+
 <footer>
-    <p style="margin-top:5px;">
-        &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
+    <p class="copyright">
+        &copy; 2026 CircuitDesignMX. Todos los derechos reservados.
     </p>
-    <p style="margin-top:5px;">
-        Fecha y hora: 31/08/2026 10:55:43
+
+    <p class="fecha-hora">
+        Fecha y hora: 07/09/2026 07:40:36
     </p>
 </footer>
-        
