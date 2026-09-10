@@ -333,6 +333,11 @@
             color: var(--verde-txt);
         }
 
+        .fila-unico {
+            background: var(--amarillo-bg) !important;
+            color: var(--amarillo-txt) !important;
+        }
+
         .fila-domingo {
             background: #eef0f2 !important;
             color: #555;
@@ -366,6 +371,11 @@
         .badge-ok {
             background: var(--verde-bg);
             color: var(--verde-txt);
+        }
+
+        .badge-unico {
+            background: var(--amarillo-bg);
+            color: var(--amarillo-txt);
         }
 
         .badge-falta {
@@ -695,12 +705,12 @@
     
                         <tr>
                             <td data-label="Proyecto">Fashident v1.0</td>
-                            <td data-label="En fabricación" class="numero">35</td>
-                            <td data-label="Fecha fabricación" class="fecha-centro">Viernes 2026-09-04</td>
+                            <td data-label="En fabricación" class="numero">160</td>
+                            <td data-label="Fecha fabricación" class="fecha-centro">Jueves 2026-09-10</td>
                             <td data-label="Listas para enviar" class="numero-grande">50</td>
-                            <td data-label="Fecha disponible" class="fecha-centro">Viernes 2026-09-04</td>
+                            <td data-label="Fecha disponible" class="fecha-centro">Lunes 2026-08-03</td>
                         </tr>
-                
+        
                     </tbody>
                 </table>
             </div>
@@ -736,6 +746,17 @@
                                 Placas: 160 virgenes
                             </td>
                             <td data-label="Cantidad" class="numero">125</td>
+                        </tr>
+                
+                        <tr class="fila-pendiente">
+                            <td data-label="Proceso">Fabricacion-Proceso</td>
+                            <td data-label="Fecha" class="fecha-centro">Jueves 2026-09-10</td>
+                            <td data-label="Prioridad" class="numero">3</td>
+                            <td data-label="Estado"><span class="estado-pendiente">Pendiente</span></td>
+                            <td data-label="Descripción" style="font-weight:700;">
+                                Componentes Reservados
+                            </td>
+                            <td data-label="Cantidad" class="numero"></td>
                         </tr>
                 
                         <tr class="fila-pendiente">
@@ -811,12 +832,13 @@
         </section>
     
         <section class="seccion componentes-criticos">
-            <h2>Componentes Críticos para 160 Placas</h2>
+            <h2>Componentes Críticos para 0 Placas</h2>
             <p class="subtitulo">
                 Comparación entre los materiales requeridos para producir
-                160 placas y la existencia actual en STOCK.
-                Los componentes tipo REEL se consideran como 1 unidad por proyecto.
+                0 placas y la existencia actual en STOCK.
+                Los componentes tipo REEL y Unicos se consideran como 1 unidad por proyecto.
                 En celular se muestran únicamente los componentes con faltantes.
+                Si los componentes han sido Reservados ya no aparecen en la suma de los stock y la cantidad de placa se lleva al valor 0.
             </p>
 
             <div class="tabla-wrap">
@@ -865,13 +887,13 @@
                             <td data-label="idE">107</td>
                             <td data-label="Descripción">CAPACITOR - 220 uF Electrolytic 35V</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">160</td>
-                            <td data-label="Stock" class="numero-grande">640</td>
-                            <td data-label="Diferencia" class="numero-grande">480</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">800</td>
+                            <td data-label="Diferencia" class="numero-grande">800</td>
                             <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
-                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -917,26 +939,26 @@
                             <td data-label="idE">54</td>
                             <td data-label="Descripción">CONECTOR - Terminal de Barrera</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">160</td>
-                            <td data-label="Stock" class="numero-grande">3256</td>
-                            <td data-label="Diferencia" class="numero-grande">3096</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">3416</td>
+                            <td data-label="Diferencia" class="numero-grande">3416</td>
                             <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
                             <td data-label="Observaciones"></td>
                         </tr>
                 
-                        <tr class="fila-alerta">
+                        <tr class="fila-unico">
                             <td data-label="idE">105</td>
                             <td data-label="Descripción">CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">160</td>
-                            <td data-label="Stock" class="numero-grande">1</td>
-                            <td data-label="Diferencia" class="numero-grande">-159</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">1</td>
+                            <td data-label="Stock" class="numero-grande">161</td>
+                            <td data-label="Diferencia" class="numero-grande">160</td>
                             <td data-label="Estado">
-                                <span class="badge badge-falta">FALTANTE</span>
+                                <span class="badge badge-unico">UNICOS</span>
                             </td>
-                            <td data-label="Observaciones">Ultima Compra - Reiniciar</td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -1008,9 +1030,9 @@
                             <td data-label="idE">28</td>
                             <td data-label="Descripción">MICRO - ATMEGA 328pAU</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">160</td>
-                            <td data-label="Stock" class="numero-grande">362</td>
-                            <td data-label="Diferencia" class="numero-grande">202</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">522</td>
+                            <td data-label="Diferencia" class="numero-grande">522</td>
                             <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
@@ -1034,9 +1056,9 @@
                             <td data-label="idE">109</td>
                             <td data-label="Descripción">Pin Header 1x3 Single Macho</td>
                             <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">320</td>
-                            <td data-label="Stock" class="numero-grande">670</td>
-                            <td data-label="Diferencia" class="numero-grande">350</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">990</td>
+                            <td data-label="Diferencia" class="numero-grande">990</td>
                             <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
@@ -1047,39 +1069,39 @@
                             <td data-label="idE">7</td>
                             <td data-label="Descripción">Regulador de Voltaje Linear 7805-C21706</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">160</td>
-                            <td data-label="Stock" class="numero-grande">440</td>
-                            <td data-label="Diferencia" class="numero-grande">280</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">600</td>
+                            <td data-label="Diferencia" class="numero-grande">600</td>
                             <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
                             <td data-label="Observaciones"></td>
                         </tr>
                 
-                        <tr class="fila-alerta">
+                        <tr class="fila-unico">
                             <td data-label="idE">33</td>
                             <td data-label="Descripción">REGULADOR Voltaje - LM2596</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">160</td>
-                            <td data-label="Stock" class="numero-grande">0</td>
-                            <td data-label="Diferencia" class="numero-grande">-160</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">1</td>
+                            <td data-label="Stock" class="numero-grande">160</td>
+                            <td data-label="Diferencia" class="numero-grande">159</td>
                             <td data-label="Estado">
-                                <span class="badge badge-falta">FALTANTE</span>
+                                <span class="badge badge-unico">UNICOS</span>
                             </td>
-                            <td data-label="Observaciones">Ajuste - Reiniciar Quedan alrededor de 65</td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
                             <td data-label="idE">56</td>
                             <td data-label="Descripción">RELAY - 12V - 2US / 10 A</td>
                             <td data-label="Ctdad. unitaria" class="numero">3</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">480</td>
-                            <td data-label="Stock" class="numero-grande">3850</td>
-                            <td data-label="Diferencia" class="numero-grande">3370</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">4330</td>
+                            <td data-label="Diferencia" class="numero-grande">4330</td>
                             <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
-                            <td data-label="Observaciones">inventario</td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -1190,9 +1212,9 @@
                             <td data-label="idE">27</td>
                             <td data-label="Descripción">TERMINAL BLOCK 2P</td>
                             <td data-label="Ctdad. unitaria" class="numero">10</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">1600</td>
-                            <td data-label="Stock" class="numero-grande">4800</td>
-                            <td data-label="Diferencia" class="numero-grande">3200</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">6400</td>
+                            <td data-label="Diferencia" class="numero-grande">6400</td>
                             <td data-label="Estado">
                                 <span class="badge badge-ok">SUFICIENTE</span>
                             </td>
@@ -1231,8 +1253,8 @@
 
             <div class="nota">
                 <strong>Resumen:</strong>
-                4 componente(s) requieren atención para completar
-                la producción de 160 placas.
+                2 componente(s) requieren atención para completar
+                la producción de 0 placas.
                 La existencia indicada corresponde al momento en que se generó
                 esta página.
             </div>
@@ -1369,6 +1391,6 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 10/09/2026 16:01:36
+        Fecha y hora: 10/09/2026 17:35:56
     </p>
 </footer>
