@@ -164,7 +164,9 @@
                title="Ir a la página inicial">Inicio</a>
         </header>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
     <style>
     * {
         box-sizing: border-box;
@@ -181,7 +183,14 @@
     h2 {
         text-align: center;
         font-size: 30px;
-        margin: 10px 0 22px;
+        margin: 10px 0 8px;
+    }
+
+    .fecha-reporte {
+        text-align: center;
+        color: #657786;
+        margin: 0 0 22px;
+        font-size: 14px;
     }
 
     .tabla-wrap {
@@ -225,25 +234,13 @@
         word-wrap: break-word;
     }
 
-    .alerta {
-        background-color: #f8d7da;
-        color: #721c24;
-    }
-
     .bajo {
         background-color: #fff3cd;
-    }
-
-    tbody tr:nth-child(odd) {
-        background-color: #ffffff;
-    }
-
-    tbody tr:nth-child(even) {
-        background-color: #d9d9d9;
+        color: #594a00;
     }
 
     tbody tr:hover {
-        background-color: #bfbfbf;
+        background-color: #ffe79a;
         cursor: pointer;
     }
 
@@ -253,12 +250,12 @@
         font-weight: 800;
     }
 
+    .tipo {
+        text-align: center;
+        font-weight: 800;
+    }
 
-    /* ======================================================
-       CELULAR: TARJETAS SIN DESPLAZAMIENTO HORIZONTAL
-       ====================================================== */
     @media (max-width: 900px) {
-
         body {
             padding: 6px;
             font-size: 17px;
@@ -267,7 +264,12 @@
         h2 {
             font-size: 26px;
             line-height: 1.2;
-            margin: 10px 4px 15px;
+            margin: 10px 4px 8px;
+        }
+
+        .fecha-reporte {
+            font-size: 14px;
+            margin-bottom: 14px;
         }
 
         .tabla-wrap {
@@ -309,21 +311,15 @@
             display: grid;
             grid-template-columns: minmax(120px, 40%) minmax(0, 60%);
             align-items: center;
-
             width: 100%;
             min-width: 0;
-
             padding: 10px 9px;
-
             border: 0;
             border-bottom: 1px solid #d8dee5;
-
             font-size: 17px;
             line-height: 1.35;
-
             text-align: left !important;
             white-space: normal !important;
-
             overflow-wrap: anywhere;
             word-break: normal;
         }
@@ -347,16 +343,15 @@
             white-space: normal;
         }
 
-        .numero {
+        .numero,
+        .tipo {
             text-align: left !important;
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 800;
         }
     }
 
-
     @media (max-width: 480px) {
-
         body {
             padding: 4px;
         }
@@ -375,19 +370,25 @@
             font-size: 14px;
         }
 
-        .numero {
-            font-size: 18px;
+        .numero,
+        .tipo {
+            font-size: 17px;
         }
     }
     </style>
 
     <h2>Componentes Críticos vs Facturados vs Existencia</h2>
+    <div class="fecha-reporte">
+        Reporte actualizado: 2026-09-11
+    </div>
+
     <div class="tabla-wrap">
     <table>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Descripción</th>
+                <th>Tipo</th>
                 <th>Ctdad Crítica</th>
                 <th>Ctdad Facturada</th>
                 <th>Existencia</th>
@@ -396,105 +397,64 @@
         <tbody>
     
         <tr class="bajo">
-            <td data-label="ID" class="numero">20</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIAb - 240</td>
-            <td data-label="Ctdad Crítica" class="numero">1.0</td>
+            <td data-label="ID" class="numero">80</td>
+            <td data-label="Descripción" class="descripcion">CABLE - 4 Largo (Iva)</td>
+            <td data-label="Tipo" class="tipo">Cables</td>
+            <td data-label="Ctdad Crítica" class="numero">20</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">1.0</td>
         </tr>
         
         <tr class="bajo">
-            <td data-label="ID" class="numero">25</td>
-            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 5P - TERM BLK 5POS 3.5mm TH</td>
-            <td data-label="Ctdad Crítica" class="numero">25.0</td>
+            <td data-label="ID" class="numero">246</td>
+            <td data-label="Descripción" class="descripcion">Guantes Desechables</td>
+            <td data-label="Tipo" class="tipo">Gastable</td>
+            <td data-label="Ctdad Crítica" class="numero">2</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">7.0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">36</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIAg - 47K0</td>
-            <td data-label="Ctdad Crítica" class="numero">1.0</td>
-            <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">0.0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">46</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIA - FR2512J101 TS - 100 ohms</td>
-            <td data-label="Ctdad Crítica" class="numero">0.0</td>
-            <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">-30.0</td>
+            <td data-label="Existencia" class="numero">1.0</td>
         </tr>
         
         <tr class="bajo">
             <td data-label="ID" class="numero">65</td>
             <td data-label="Descripción" class="descripcion">PANTALLA - LCD - 20x04 Modulo Completo</td>
-            <td data-label="Ctdad Crítica" class="numero">20.0</td>
+            <td data-label="Tipo" class="tipo">Pantalla</td>
+            <td data-label="Ctdad Crítica" class="numero">20</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
             <td data-label="Existencia" class="numero">19.0</td>
         </tr>
         
         <tr class="bajo">
-            <td data-label="ID" class="numero">80</td>
-            <td data-label="Descripción" class="descripcion">CABLE - 4 Largo (Iva)</td>
-            <td data-label="Ctdad Crítica" class="numero">20.0</td>
+            <td data-label="ID" class="numero">105</td>
+            <td data-label="Descripción" class="descripcion">CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
+            <td data-label="Tipo" class="tipo">R_Costoso</td>
+            <td data-label="Ctdad Crítica" class="numero">1</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">1.0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">86</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIAa - 10</td>
-            <td data-label="Ctdad Crítica" class="numero">1.0</td>
-            <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">0.0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">115</td>
-            <td data-label="Descripción" class="descripcion">SWITCH - 4 posiciones - DIP SPST 25mA 24V</td>
-            <td data-label="Ctdad Crítica" class="numero">100.0</td>
-            <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">8.0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">121</td>
-            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 2P - TERM BLK 2POS 3.5mm TH</td>
-            <td data-label="Ctdad Crítica" class="numero">600.0</td>
-            <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">60.0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">122</td>
-            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 4P -TERM BLK 4POS 3.5mm TH</td>
-            <td data-label="Ctdad Crítica" class="numero">600.0</td>
-            <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">-229.0</td>
         </tr>
         
         <tr class="bajo">
             <td data-label="ID" class="numero">133</td>
             <td data-label="Descripción" class="descripcion">Resistencia 383</td>
-            <td data-label="Ctdad Crítica" class="numero">0.0</td>
+            <td data-label="Tipo" class="tipo">R_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">0</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
             <td data-label="Existencia" class="numero">-50.0</td>
         </tr>
         
         <tr class="bajo">
-            <td data-label="ID" class="numero">162</td>
-            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 3P</td>
-            <td data-label="Ctdad Crítica" class="numero">25.0</td>
+            <td data-label="ID" class="numero">86</td>
+            <td data-label="Descripción" class="descripcion">RESISTENCIAa - 10</td>
+            <td data-label="Tipo" class="tipo">R_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">1</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">1.0</td>
+            <td data-label="Existencia" class="numero">0.0</td>
         </tr>
         
         <tr class="bajo">
             <td data-label="ID" class="numero">167</td>
             <td data-label="Descripción" class="descripcion">RESISTENCIAa - 100</td>
-            <td data-label="Ctdad Crítica" class="numero">1.0</td>
+            <td data-label="Tipo" class="tipo">R_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">1</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
             <td data-label="Existencia" class="numero">0.0</td>
         </tr>
@@ -502,7 +462,17 @@
         <tr class="bajo">
             <td data-label="ID" class="numero">168</td>
             <td data-label="Descripción" class="descripcion">RESISTENCIAa - 120</td>
-            <td data-label="Ctdad Crítica" class="numero">1.0</td>
+            <td data-label="Tipo" class="tipo">R_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">1</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">0.0</td>
+        </tr>
+        
+        <tr class="bajo">
+            <td data-label="ID" class="numero">20</td>
+            <td data-label="Descripción" class="descripcion">RESISTENCIAb - 240</td>
+            <td data-label="Tipo" class="tipo">R_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">1</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
             <td data-label="Existencia" class="numero">0.0</td>
         </tr>
@@ -510,7 +480,8 @@
         <tr class="bajo">
             <td data-label="ID" class="numero">170</td>
             <td data-label="Descripción" class="descripcion">RESISTENCIAc - 680</td>
-            <td data-label="Ctdad Crítica" class="numero">1.0</td>
+            <td data-label="Tipo" class="tipo">R_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">1</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
             <td data-label="Existencia" class="numero">0.0</td>
         </tr>
@@ -518,41 +489,73 @@
         <tr class="bajo">
             <td data-label="ID" class="numero">171</td>
             <td data-label="Descripción" class="descripcion">RESISTENCIAc - 750</td>
-            <td data-label="Ctdad Crítica" class="numero">1.0</td>
+            <td data-label="Tipo" class="tipo">R_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">1</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
             <td data-label="Existencia" class="numero">0.0</td>
+        </tr>
+        
+        <tr class="bajo">
+            <td data-label="ID" class="numero">36</td>
+            <td data-label="Descripción" class="descripcion">RESISTENCIAg - 47K0</td>
+            <td data-label="Tipo" class="tipo">R_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">1</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">0.0</td>
+        </tr>
+        
+        <tr class="bajo">
+            <td data-label="ID" class="numero">33</td>
+            <td data-label="Descripción" class="descripcion">REGULADOR Voltaje - LM2596</td>
+            <td data-label="Tipo" class="tipo">S_Costoso</td>
+            <td data-label="Ctdad Crítica" class="numero">1</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">-160.0</td>
+        </tr>
+        
+        <tr class="bajo">
+            <td data-label="ID" class="numero">6</td>
+            <td data-label="Descripción" class="descripcion">Transistor ULN2003AD</td>
+            <td data-label="Tipo" class="tipo">S_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">50</td>
+            <td data-label="Ctdad Facturada" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">40.0</td>
         </tr>
         
         <tr class="bajo">
             <td data-label="ID" class="numero">204</td>
             <td data-label="Descripción" class="descripcion">CONECTOR - CACHIMBA - 4P MACHO - 3.81 - Recto - Pequeño</td>
-            <td data-label="Ctdad Crítica" class="numero">200.0</td>
+            <td data-label="Tipo" class="tipo">T_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">200</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">70.0</td>
+            <td data-label="Existencia" class="numero">40.0</td>
         </tr>
         
         <tr class="bajo">
-            <td data-label="ID" class="numero">215</td>
-            <td data-label="Descripción" class="descripcion">z</td>
-            <td data-label="Ctdad Crítica" class="numero">1.0</td>
+            <td data-label="ID" class="numero">162</td>
+            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 3P</td>
+            <td data-label="Tipo" class="tipo">T_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">25</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">1.0</td>
         </tr>
         
         <tr class="bajo">
-            <td data-label="ID" class="numero">232</td>
-            <td data-label="Descripción" class="descripcion">Conector para cables cinta plana (2 partes)</td>
-            <td data-label="Ctdad Crítica" class="numero">10.0</td>
+            <td data-label="ID" class="numero">25</td>
+            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 5P - TERM BLK 5POS 3.5mm TH</td>
+            <td data-label="Tipo" class="tipo">T_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">25</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">7.0</td>
         </tr>
         
         <tr class="bajo">
-            <td data-label="ID" class="numero">253</td>
-            <td data-label="Descripción" class="descripcion">SENSOR - Presion MPX5700GP KLY2137C</td>
-            <td data-label="Ctdad Crítica" class="numero">1.0</td>
+            <td data-label="ID" class="numero">46</td>
+            <td data-label="Descripción" class="descripcion">RESISTENCIA - FR2512J101 TS - 100 ohms</td>
+            <td data-label="Tipo" class="tipo">T_Normal</td>
+            <td data-label="Ctdad Crítica" class="numero">0</td>
             <td data-label="Ctdad Facturada" class="numero">0.0</td>
-            <td data-label="Existencia" class="numero">0.0</td>
+            <td data-label="Existencia" class="numero">-30.0</td>
         </tr>
         
         </tbody>
@@ -616,6 +619,6 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 10/09/2026 18:11:13
+        Fecha y hora: 11/09/2026 18:19:09
     </p>
 </footer>
