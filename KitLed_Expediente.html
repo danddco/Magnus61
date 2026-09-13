@@ -322,6 +322,86 @@
             font-variant-numeric: tabular-nums;
         }
 
+
+        /* =====================================================
+           AJUSTE ESPECIFICO: COMPONENTES CRITICOS
+           ===================================================== */
+        .tabla-criticos {
+            table-layout: fixed;
+            min-width: 1180px;
+        }
+
+        .tabla-criticos th,
+        .tabla-criticos td {
+            padding-left: 9px;
+            padding-right: 9px;
+        }
+
+        .tabla-criticos th:nth-child(1),
+        .tabla-criticos td:nth-child(1) {
+            width: 64px;
+        }
+
+        .tabla-criticos th:nth-child(2),
+        .tabla-criticos td:nth-child(2) {
+            width: 280px;
+        }
+
+        .tabla-criticos th:nth-child(3),
+        .tabla-criticos td:nth-child(3) {
+            width: 105px;
+        }
+
+        .tabla-criticos th:nth-child(4),
+        .tabla-criticos td:nth-child(4) {
+            width: 105px;
+        }
+
+        .tabla-criticos th:nth-child(5),
+        .tabla-criticos td:nth-child(5) {
+            width: 105px;
+        }
+
+        .tabla-criticos th:nth-child(6),
+        .tabla-criticos td:nth-child(6) {
+            width: 120px;
+        }
+
+        .tabla-criticos th:nth-child(7),
+        .tabla-criticos td:nth-child(7) {
+            width: 90px;
+        }
+
+        .tabla-criticos th:nth-child(8),
+        .tabla-criticos td:nth-child(8) {
+            width: 125px;
+        }
+
+        .tabla-criticos th:nth-child(9),
+        .tabla-criticos td:nth-child(9) {
+            width: 180px;
+        }
+
+        .tabla-criticos td:nth-child(2),
+        .tabla-criticos td:nth-child(9) {
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        .tabla-criticos td:nth-child(4),
+        .tabla-criticos td:nth-child(5),
+        .tabla-criticos td:nth-child(6),
+        .tabla-criticos td:nth-child(7),
+        .tabla-criticos td:nth-child(8) {
+            font-size: 18px;
+        }
+
+        .tabla-criticos th:nth-child(8) {
+            white-space: normal;
+            line-height: 1.15;
+            text-align: center;
+        }
+
         .fila-alerta {
             background: var(--rojo-bg) !important;
             color: var(--rojo-txt);
@@ -515,6 +595,27 @@
                 border-collapse: separate;
             }
 
+
+            .tabla-criticos {
+                display: block;
+                width: 100%;
+                min-width: 0 !important;
+                table-layout: auto;
+            }
+
+            .tabla-criticos th,
+            .tabla-criticos td {
+                width: auto !important;
+            }
+
+            .tabla-criticos td:nth-child(4),
+            .tabla-criticos td:nth-child(5),
+            .tabla-criticos td:nth-child(6),
+            .tabla-criticos td:nth-child(7),
+            .tabla-criticos td:nth-child(8) {
+                font-size: 17px;
+            }
+
             thead {
                 display: none;
             }
@@ -705,10 +806,10 @@
     
                         <tr>
                             <td data-label="Proyecto">Kit Led / Conector</td>
-                            <td data-label="En fabricación" class="numero">190</td>
-                            <td data-label="Fecha fabricación" class="fecha-centro">Viernes 2026-09-04</td>
-                            <td data-label="Listas para enviar" class="numero-grande">0</td>
-                            <td data-label="Fecha disponible" class="fecha-centro">Viernes 2026-08-28</td>
+                            <td data-label="En fabricación" class="numero">0</td>
+                            <td data-label="Fecha fabricación" class="fecha-centro">Miércoles 2026-09-09</td>
+                            <td data-label="Listas para enviar" class="numero-grande">190</td>
+                            <td data-label="Fecha disponible" class="fecha-centro">Miércoles 2026-09-09</td>
                         </tr>
         
                     </tbody>
@@ -758,6 +859,17 @@
                                 Placas: 19/190 Pendientes por montaje TH, por falta de componentes
                             </td>
                             <td data-label="Cantidad" class="numero">0</td>
+                        </tr>
+                
+                        <tr class="">
+                            <td data-label="Proceso">Fabricacion-Salida</td>
+                            <td data-label="Fecha" class="fecha-centro">Miércoles 2026-09-09</td>
+                            <td data-label="Prioridad" class="numero">3</td>
+                            <td data-label="Estado">Resuelto</td>
+                            <td data-label="Descripción" style="font-weight:700;">
+                                
+                            </td>
+                            <td data-label="Cantidad" class="numero">190</td>
                         </tr>
                 
                         <tr class="">
@@ -827,22 +939,21 @@
         </section>
     
         <section class="seccion componentes-criticos">
-            <h2>Componentes Críticos para 190 Placas</h2>
+            <h2>Componentes Críticos para 0 Placas</h2>
             <p class="subtitulo">
                 Comparación entre los materiales requeridos para producir
-                190 placas y la existencia actual en STOCK.
+                0 placas y la existencia actual en STOCK.
                 La condición CRÍTICO se determina por el Tipo del componente:
                 R_Normal es crítico con Existencia &lt;= 0; R_Costoso,
                 S_Costoso, T_Costoso, S_Normal, T_Normal, Pantalla,
                 Gastable, Cables y Otros son críticos cuando
                 Existencia &lt; Ctdad. Crítica.
                 En celular se muestran únicamente los componentes críticos.
-                Si los componentes han sido Reservados ya no aparecen en la suma
-                del STOCK y la cantidad disponible se lleva al valor 0.
+                Si los componentes han sido Reservados la cantidad necesaria ya esta retirada del STOCK.
             </p>
 
             <div class="tabla-wrap">
-                <table>
+                <table class="tabla-criticos">
                     <thead>
                         <tr>
                             <th>idE</th>
@@ -852,8 +963,7 @@
                             <th>Ctdad. Unitaria</th>
                             <th>Ctdad. Proyecto</th>
                             <th>Stock</th>
-                            <th>Diferencia Proyecto</th>
-                            <th>Estado</th>
+                            <th>Diferencia<br>Proyecto</th>
                             <th>Observaciones</th>
                         </tr>
                     </thead>
@@ -862,15 +972,12 @@
                         <tr class="fila-ok">
                             <td data-label="idE">125</td>
                             <td data-label="Descripción">CABLE - KIT</td>
-                            <td data-label="Tipo">cable</td>
+                            <td data-label="Tipo">Cables</td>
                             <td data-label="Ctdad. crítica" class="numero">0</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">190</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
                             <td data-label="Stock" class="numero-grande">380</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">190</td>
-                            <td data-label="Estado">
-                                <span class="badge badge-ok">NO CRITICO</span>
-                            </td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">380</td>
                             <td data-label="Observaciones">Inventario</td>
                         </tr>
                 
@@ -880,58 +987,46 @@
                             <td data-label="Tipo">R_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">0</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">190</td>
-                            <td data-label="Stock" class="numero-grande">1</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-189</td>
-                            <td data-label="Estado">
-                                <span class="badge badge-ok">NO CRITICO</span>
-                            </td>
-                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">2</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">2</td>
+                            <td data-label="Observaciones">Compra</td>
                         </tr>
                 
-                        <tr class="fila-alerta">
+                        <tr class="fila-ok">
                             <td data-label="idE">39</td>
                             <td data-label="Descripción">RESISTENCIAb - 470 </td>
                             <td data-label="Tipo">R_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">0</td>
                             <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">380</td>
-                            <td data-label="Stock" class="numero-grande">0</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-380</td>
-                            <td data-label="Estado">
-                                <span class="badge badge-falta">CRITICO</span>
-                            </td>
-                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">1</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">1</td>
+                            <td data-label="Observaciones">Compra</td>
                         </tr>
                 
-                        <tr class="fila-alerta">
+                        <tr class="fila-ok">
                             <td data-label="idE">121</td>
                             <td data-label="Descripción">CONECTOR - PRESION - 2P - TERM BLK 2POS 3.5mm TH</td>
                             <td data-label="Tipo">T_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">600</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">190</td>
-                            <td data-label="Stock" class="numero-grande">-130</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-320</td>
-                            <td data-label="Estado">
-                                <span class="badge badge-falta">CRITICO</span>
-                            </td>
-                            <td data-label="Observaciones"></td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">1370</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">1370</td>
+                            <td data-label="Observaciones">Compra</td>
                         </tr>
                 
-                        <tr class="fila-alerta">
+                        <tr class="fila-ok">
                             <td data-label="idE">122</td>
                             <td data-label="Descripción">CONECTOR - PRESION - 4P -TERM BLK 4POS 3.5mm TH</td>
                             <td data-label="Tipo">T_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">600</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">190</td>
-                            <td data-label="Stock" class="numero-grande">-190</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-380</td>
-                            <td data-label="Estado">
-                                <span class="badge badge-falta">CRITICO</span>
-                            </td>
-                            <td data-label="Observaciones"></td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">1310</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">1310</td>
+                            <td data-label="Observaciones">Compra</td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -940,27 +1035,21 @@
                             <td data-label="Tipo">T_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">600</td>
                             <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">380</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
                             <td data-label="Stock" class="numero-grande">1620</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">1240</td>
-                            <td data-label="Estado">
-                                <span class="badge badge-ok">NO CRITICO</span>
-                            </td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">1620</td>
                             <td data-label="Observaciones"></td>
                         </tr>
                 
-                        <tr class="fila-alerta">
+                        <tr class="fila-ok">
                             <td data-label="idE">115</td>
                             <td data-label="Descripción">SWITCH - 4 posiciones - DIP SPST 25mA 24V</td>
                             <td data-label="Tipo">T_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">100</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">190</td>
-                            <td data-label="Stock" class="numero-grande">-182</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-372</td>
-                            <td data-label="Estado">
-                                <span class="badge badge-falta">CRITICO</span>
-                            </td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">1318</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">1318</td>
                             <td data-label="Observaciones"></td>
                         </tr>
                 
@@ -970,10 +1059,10 @@
 
             <div class="nota">
                 <strong>Resumen:</strong>
-                4 componente(s) están en condición CRÍTICA
+                0 componente(s) están en condición CRÍTICA
                 según las reglas definidas por Tipo.
                 La cantidad de proyecto continúa calculándose para
-                190 placas como referencia de producción.
+                0 placas como referencia de producción.
                 La existencia indicada corresponde al momento en que se generó
                 esta página.
             </div>
@@ -1000,7 +1089,7 @@
               <div class="grid-tecnico">
   
                   <article class="tarjeta-tecnica">
-                      <h3>.</h3>
+                      <h3>Detalles Tecnicos.</h3>
               
                   
                           
@@ -1008,41 +1097,10 @@
                   </article>
   
                   <article class="tarjeta-tecnica">
-                      <h3>Tantos cables como placas.
-                          Cada Placa tiene 10 set  </h3>
-                      <p>
-                          ...
-                      </p>
+                      <h3>Observaciones</h3>
+                      <p>Tantos cables como set.</p>
+                      <p>Cada Placa tiene 10 set</p>
                   </article>
-  
-                  <article class="tarjeta-tecnica">
-                      <h3></h3>
-                      <p>
-                          ...
-                      </p>
-                  </article>
-  
-                  <article class="tarjeta-tecnica">
-                      <h3></h3>
-                      <p>
-                          ...
-                      </p>
-                  </article>
-  
-                  <article class="tarjeta-tecnica">
-                      <h3></h3>
-                      <p>
-                        .
-                      </p>
-                  </article>
-  
-                  <article class="tarjeta-tecnica">
-                      <h3></h3>
-                      <p>
-                          .
-                      </p>
-                  </article>
-  
               </div>
   
               <div class="nota">
@@ -1110,6 +1168,6 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 11/09/2026 11:52:38
+        Fecha y hora: 13/09/2026 07:33:05
     </p>
 </footer>
