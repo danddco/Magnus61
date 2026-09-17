@@ -840,14 +840,25 @@
                     <tbody>
     
                         <tr class="fila-pendiente">
-                            <td data-label="Proceso">Fabricacion-Entrada</td>
-                            <td data-label="Fecha" class="fecha-centro">Jueves 2026-09-10</td>
-                            <td data-label="Prioridad" class="numero">3</td>
+                            <td data-label="Proceso">Fabricacion-Diagnostico</td>
+                            <td data-label="Fecha" class="fecha-centro">Jueves 2026-09-17</td>
+                            <td data-label="Prioridad" class="numero">2</td>
                             <td data-label="Estado"><span class="estado-pendiente">Pendiente</span></td>
                             <td data-label="Descripción" style="font-weight:700;">
-                                Placas: 160 virgenes
+                                Placas: 60 Virgenes
                             </td>
-                            <td data-label="Cantidad" class="numero">125</td>
+                            <td data-label="Cantidad" class="numero"></td>
+                        </tr>
+                
+                        <tr class="fila-pendiente">
+                            <td data-label="Proceso">Fabricacion-Diagnostico</td>
+                            <td data-label="Fecha" class="fecha-centro">Jueves 2026-09-17</td>
+                            <td data-label="Prioridad" class="numero">2</td>
+                            <td data-label="Estado"><span class="estado-pendiente">Pendiente</span></td>
+                            <td data-label="Descripción" style="font-weight:700;">
+                                Placas: Montadas 100 con smd
+                            </td>
+                            <td data-label="Cantidad" class="numero"></td>
                         </tr>
                 
                         <tr class="">
@@ -908,13 +919,31 @@
                         <tr>
                             <td data-label="idE">80</td>
                             <td data-label="Descripción">CABLE - 4 Largo (Iva)</td>
-                            <td data-label="Existencia" class="numero-grande">80</td>
+                            <td data-label="Existencia" class="numero-grande">70</td>
+                        </tr>
+                
+                        <tr>
+                            <td data-label="idE">28</td>
+                            <td data-label="Descripción">MICRO - ATMEGA 328pAU</td>
+                            <td data-label="Existencia" class="numero-grande">382</td>
                         </tr>
                 
                         <tr>
                             <td data-label="idE">72</td>
                             <td data-label="Descripción">PANTALLA - 5&#x27;&#x27; - Capacitiva - DMG80480C050_09WTC</td>
                             <td data-label="Existencia" class="numero-grande">19</td>
+                        </tr>
+                
+                        <tr>
+                            <td data-label="idE">33</td>
+                            <td data-label="Descripción">REGULADOR Voltaje - LM2596</td>
+                            <td data-label="Existencia" class="numero-grande">640</td>
+                        </tr>
+                
+                        <tr>
+                            <td data-label="idE">36</td>
+                            <td data-label="Descripción">RESISTENCIAg - 47K0</td>
+                            <td data-label="Existencia" class="numero-grande">100</td>
                         </tr>
                 
                     </tbody>
@@ -953,6 +982,18 @@
                     </thead>
                     <tbody>
     
+                        <tr class="fila-ok">
+                            <td data-label="idE">36</td>
+                            <td data-label="Descripción">RESISTENCIAg - 47K0</td>
+                            <td data-label="Tipo">R_Costoso</td>
+                            <td data-label="Ctdad. crítica" class="numero">1</td>
+                            <td data-label="Ctdad. unitaria" class="numero">1</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Stock" class="numero-grande">100</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">100</td>
+                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
+                        </tr>
+                
                         <tr class="fila-ok">
                             <td data-label="idE">4</td>
                             <td data-label="Descripción">CAPACITOR - 10 uf Tantalum 16V SA-3216</td>
@@ -1037,16 +1078,16 @@
                             <td data-label="Observaciones">Ajuste - Reiniciar</td>
                         </tr>
                 
-                        <tr class="fila-ok">
+                        <tr class="fila-alerta">
                             <td data-label="idE">34</td>
                             <td data-label="Descripción">INDUCTOR - 470MT - FIXED 47uH 2.5A 100mΩ </td>
                             <td data-label="Tipo">R_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">0</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
                             <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">1</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">1</td>
-                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
+                            <td data-label="Stock" class="numero-grande">0</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">0</td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -1080,9 +1121,9 @@
                             <td data-label="Ctdad. crítica" class="numero">1</td>
                             <td data-label="Ctdad. unitaria" class="numero">5</td>
                             <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">2</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">2</td>
-                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
+                            <td data-label="Stock" class="numero-grande">1</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">1</td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -1158,27 +1199,15 @@
                         </tr>
                 
                         <tr class="fila-alerta">
-                            <td data-label="idE">36</td>
-                            <td data-label="Descripción">RESISTENCIAg - 47K0</td>
-                            <td data-label="Tipo">R_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">1</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">0</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">0</td>
-                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
-                        </tr>
-                
-                        <tr class="fila-ok">
                             <td data-label="idE">8</td>
                             <td data-label="Descripción">SWITCH - Tactil Push Bottom</td>
                             <td data-label="Tipo">R_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">1</td>
                             <td data-label="Ctdad. unitaria" class="numero">7</td>
                             <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">1</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">1</td>
-                            <td data-label="Observaciones">Ajuste Inicial</td>
+                            <td data-label="Stock" class="numero-grande">0</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">0</td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -1217,16 +1246,16 @@
                             <td data-label="Observaciones">Compra</td>
                         </tr>
                 
-                        <tr class="fila-alerta">
+                        <tr class="fila-ok">
                             <td data-label="idE">33</td>
                             <td data-label="Descripción">REGULADOR Voltaje - LM2596</td>
                             <td data-label="Tipo">S_Costoso</td>
                             <td data-label="Ctdad. crítica" class="numero">1</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
                             <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">-160</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-160</td>
-                            <td data-label="Observaciones"></td>
+                            <td data-label="Stock" class="numero-grande">640</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">640</td>
+                            <td data-label="Observaciones">Reel de Reserva</td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -1260,9 +1289,9 @@
                             <td data-label="Ctdad. crítica" class="numero">250</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
                             <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">410</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">410</td>
-                            <td data-label="Observaciones"></td>
+                            <td data-label="Stock" class="numero-grande">910</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">910</td>
+                            <td data-label="Observaciones">Reel de Reserva</td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -1416,6 +1445,6 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 13/09/2026 07:11:12
+        Fecha y hora: 17/09/2026 13:02:44
     </p>
 </footer>
