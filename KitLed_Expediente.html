@@ -806,8 +806,8 @@
     
                         <tr>
                             <td data-label="Proyecto">Kit Led / Conector</td>
-                            <td data-label="En fabricación" class="numero">0</td>
-                            <td data-label="Fecha fabricación" class="fecha-centro">Miércoles 2026-09-09</td>
+                            <td data-label="En fabricación" class="numero">150</td>
+                            <td data-label="Fecha fabricación" class="fecha-centro">Jueves 2026-09-17</td>
                             <td data-label="Listas para enviar" class="numero-grande">190</td>
                             <td data-label="Fecha disponible" class="fecha-centro">Miércoles 2026-09-09</td>
                         </tr>
@@ -850,13 +850,24 @@
                             <td data-label="Cantidad" class="numero">0</td>
                         </tr>
                 
+                        <tr class="fila-pendiente">
+                            <td data-label="Proceso">Fabricacion-Entrada</td>
+                            <td data-label="Fecha" class="fecha-centro">Jueves 2026-09-17</td>
+                            <td data-label="Prioridad" class="numero">3</td>
+                            <td data-label="Estado"><span class="estado-pendiente">Pendiente</span></td>
+                            <td data-label="Descripción" style="font-weight:700;">
+                                Placas: 15 placas / 150 kits en camino
+                            </td>
+                            <td data-label="Cantidad" class="numero">150</td>
+                        </tr>
+                
                         <tr class="">
                             <td data-label="Proceso">Fabricacion-Proceso</td>
                             <td data-label="Fecha" class="fecha-centro">Miércoles 2026-09-09</td>
                             <td data-label="Prioridad" class="numero">2</td>
                             <td data-label="Estado">Resuelto</td>
                             <td data-label="Descripción" style="font-weight:700;">
-                                Cables: Cortar mas de 500 cables
+                                Cables: Cortar mas de 1500 cables
                             </td>
                             <td data-label="Cantidad" class="numero">0</td>
                         </tr>
@@ -908,7 +919,7 @@
                         <tr>
                             <td data-label="idE">125</td>
                             <td data-label="Descripción">CABLE - KIT</td>
-                            <td data-label="Existencia" class="numero-grande">380</td>
+                            <td data-label="Existencia" class="numero-grande">230</td>
                         </tr>
                 
                     </tbody>
@@ -917,15 +928,13 @@
         </section>
     
         <section class="seccion componentes-criticos">
-            <h2>Componentes Críticos para 0 Placas</h2>
+            <h2>Componentes Críticos para 150 Placas</h2>
             <p class="subtitulo">
                 Comparación entre los materiales requeridos para producir
-                0 placas y la existencia actual en STOCK.
-                La condición CRÍTICO se determina por el Tipo del componente:
-                R_Normal es crítico con Existencia &lt;= 0; R_Costoso,
-                S_Costoso, T_Costoso, S_Normal, T_Normal, Pantalla,
-                Gastable, Cables y Otros son críticos cuando
-                Existencia &lt; Ctdad. Crítica.
+                150 placas y la existencia actual en STOCK.
+                Un componente se muestra en rojo cuando el STOCK es menor que
+                la Ctdad. Proyecto o cuando el STOCK es menor que la Ctdad. Crítica.
+                Basta con que se cumpla una de las dos condiciones para considerarlo CRÍTICO.
                 En celular se muestran únicamente los componentes críticos.
                 Si los componentes han sido Reservados la cantidad necesaria ya esta retirada del STOCK.
             </p>
@@ -953,33 +962,33 @@
                             <td data-label="Tipo">Cables</td>
                             <td data-label="Ctdad. crítica" class="numero">0</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">380</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">380</td>
-                            <td data-label="Observaciones">Inventario</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">150</td>
+                            <td data-label="Stock" class="numero-grande">230</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">80</td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
-                        <tr class="fila-ok">
+                        <tr class="fila-alerta">
                             <td data-label="idE">38</td>
                             <td data-label="Descripción">RESISTENCIAb - 330</td>
                             <td data-label="Tipo">R_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">0</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">150</td>
                             <td data-label="Stock" class="numero-grande">2</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">2</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">-148</td>
                             <td data-label="Observaciones">Compra</td>
                         </tr>
                 
-                        <tr class="fila-ok">
+                        <tr class="fila-alerta">
                             <td data-label="idE">39</td>
                             <td data-label="Descripción">RESISTENCIAb - 470 </td>
                             <td data-label="Tipo">R_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">0</td>
                             <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">300</td>
                             <td data-label="Stock" class="numero-grande">1</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">1</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">-299</td>
                             <td data-label="Observaciones">Compra</td>
                         </tr>
                 
@@ -989,10 +998,10 @@
                             <td data-label="Tipo">T_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">600</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">1370</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">1370</td>
-                            <td data-label="Observaciones">Compra</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">150</td>
+                            <td data-label="Stock" class="numero-grande">1220</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">1070</td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -1001,10 +1010,10 @@
                             <td data-label="Tipo">T_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">600</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">1310</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">1310</td>
-                            <td data-label="Observaciones">Compra</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">150</td>
+                            <td data-label="Stock" class="numero-grande">1160</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">1010</td>
+                            <td data-label="Observaciones"></td>
                         </tr>
                 
                         <tr class="fila-ok">
@@ -1013,9 +1022,9 @@
                             <td data-label="Tipo">T_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">600</td>
                             <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">1620</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">1620</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">300</td>
+                            <td data-label="Stock" class="numero-grande">1320</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">1020</td>
                             <td data-label="Observaciones"></td>
                         </tr>
                 
@@ -1025,9 +1034,9 @@
                             <td data-label="Tipo">T_Normal</td>
                             <td data-label="Ctdad. crítica" class="numero">100</td>
                             <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">0</td>
-                            <td data-label="Stock" class="numero-grande">1318</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">1318</td>
+                            <td data-label="Ctdad. proyecto" class="numero-grande">150</td>
+                            <td data-label="Stock" class="numero-grande">1168</td>
+                            <td data-label="Diferencia proyecto" class="numero-grande">1018</td>
                             <td data-label="Observaciones"></td>
                         </tr>
                 
@@ -1037,10 +1046,11 @@
 
             <div class="nota">
                 <strong>Resumen:</strong>
-                0 componente(s) están en condición CRÍTICA
-                según las reglas definidas por Tipo.
+                2 componente(s) están en condición CRÍTICA
+                porque el Stock es menor que la Ctdad. Proyecto o menor
+                que la Ctdad. Crítica.
                 La cantidad de proyecto continúa calculándose para
-                0 placas como referencia de producción.
+                150 placas como referencia de producción.
                 La existencia indicada corresponde al momento en que se generó
                 esta página.
             </div>
@@ -1146,6 +1156,6 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 17/09/2026 12:55:27
+        Fecha y hora: 17/09/2026 19:34:36
     </p>
 </footer>
