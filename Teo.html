@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prueba de voz · cs_stock</title>
+<style>
+:root{--azul:#184F78;--azul2:#123B5D;--fondo:#F3F6F9;--panel:#fff;--borde:#D7E0E7;--texto:#263746;--muted:#657786;--rojo:#B42318}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--fondo);color:var(--texto)}
+header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:white;padding:18px}
+main{max-width:1400px;margin:auto;padding:16px}
+h1{margin:0;font-size:22px}.sub{opacity:.9;margin-top:4px;font-size:13px}
+.panel{background:white;border:1px solid var(--borde);border-radius:12px;padding:14px;margin-bottom:14px}
+.estado{padding:10px 12px;border-radius:8px;background:#eef4f8;margin-bottom:12px}.estado.ok{background:#eef9f0}.estado.error{background:#fff0f0;color:#8c2020}
+.voice{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.mic{width:64px;height:64px;border-radius:50%;border:0;background:var(--azul);color:white;font-size:28px;cursor:pointer}
+.mic.escuchando{background:var(--rojo);animation:pulse .8s infinite alternate}@keyframes pulse{to{transform:scale(1.05);opacity:.8}}
+.transcript{min-height:64px;border:1px solid var(--borde);border-radius:9px;padding:10px;background:#fafcfd}
+.transcript small{color:var(--muted);display:block;margin-bottom:4px}
+button{font:inherit}.btn{border:0;border-radius:8px;padding:10px 14px;background:var(--azul);color:white;font-weight:bold;cursor:pointer}.btn.alt{background:#e5edf3;color:var(--texto)}
+.controls{display:grid;grid-template-columns:2fr auto auto auto;gap:8px;margin-top:12px}
+input{padding:10px;border:1px solid #c9d4dc;border-radius:8px;font:inherit;width:100%}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
+.card{background:white;border:1px solid var(--borde);border-radius:10px;padding:12px}.card small{display:block;color:var(--muted);margin-bottom:5px}.card b{font-size:22px;color:var(--azul2)}
+.table-wrap{overflow:auto;background:white;border:1px solid var(--borde);border-radius:10px;max-height:65vh}
+table{width:100%;border-collapse:collapse;min-width:1150px}th,td{padding:8px;border-bottom:1px solid #e8edf1;font-size:12px;text-align:left}th{position:sticky;top:0;background:#edf3f7}
+tr.critical{background:#fff0ee}.badge{display:inline-block;padding:3px 7px;border-radius:999px;font-size:11px;font-weight:bold}.badge.red{background:#fee4e2;color:var(--rojo)}.badge.green{background:#e9f7ec;color:#2e7d32}
+.help{font-size:13px;color:var(--muted);line-height:1.55}
+@media(max-width:850px){.voice{grid-template-columns:auto 1fr}.voice .btn{grid-column:1/-1}.controls{grid-template-columns:1fr 1fr}.controls input{grid-column:1/-1}.cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header><h1>Prueba de voz · cs_stock</h1><div class="sub">Supabase + reconocimiento de voz del navegador</div></header>
+<main>
+  <div id="estado" class="estado">Conectando con Supabase...</div>
+
+  <section class="panel">
+    <div class="voice">
+      <button id="mic" class="mic" title="Hablar">🎤</button>
+      <div class="transcript"><small>El navegador entendió:</small><div id="textoVoz">Pulsa el micrófono y habla.</div></div>
+      <button id="hablarRespuesta" class="btn alt">🔊 Repetir respuesta</button>
+    </div>
+
+    <div class="controls">
+      <input id="buscar" placeholder="Escribe un LCSC, ID o descripción para consultar su stock...">
+      <button id="buscarBtn" class="btn">BUSCAR</button>
+      <button id="criticosBtn" class="btn alt">CRÍTICOS</button>
+      <button id="todosBtn" class="btn alt">TODOS</button>
+    </div>
+
+    <div class="help">
+      Prueba diciendo: <b>“¿Cuántos tengo de C12345?”</b>, <b>“Dime el stock de C12345”</b>, <b>“Buscar resistencia”</b>,
+      <b>“Mostrar componentes críticos”</b>, <b>“Mostrar stock cero”</b>,
+      <b>“Mostrar todos”</b> o <b>“Tipo R Normal”</b>.
+    </div>
+  </section>
+
+  <section class="cards">
+    <div class="card"><small>Total en cs_stock</small><b id="total">0</b></div>
+    <div class="card"><small>Resultados visibles</small><b id="visibles">0</b></div>
+    <div class="card"><small>Críticos visibles</small><b id="criticos">0</b></div>
+    <div class="card"><small>Stock cero visible</small><b id="cero">0</b></div>
+  </section>
+
+  <section class="panel"><b>Respuesta:</b><div id="respuesta" style="margin-top:6px">Esperando una consulta.</div></section>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>ID</th><th>LCSC</th><th>Descripción</th><th>Stock</th><th>Mínimo</th>
+        <th>Tipo</th><th>Ubicación</th><th>Fecha</th><th>Observación</th><th>Estado</th>
+      </tr></thead>
+      <tbody id="tbody"><tr><td colspan="10">Cargando...</td></tr></tbody>
+    </table>
+  </div>
+</main>
+
+<script>
+"use strict";
+
+const SUPABASE_URL = "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+let datos = [];
+let vista = [];
+let ultimaRespuesta = "";
+
+const $ = id => document.getElementById(id);
+const n = v => Number.isFinite(Number(v)) ? Number(v) : 0;
+const esCritico = r => n(r.cs_ctda) < n(r.cs_ctmi);
+
+function esc(v){
+  return String(v ?? "")
+    .replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;").replace(/'/g,"&#039;");
+}
+function normaliza(s){
+  return String(s ?? "").toLowerCase().normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"").replace(/_/g," ").trim();
+}
+function decir(texto){
+  ultimaRespuesta = texto;
+  $("respuesta").textContent = texto;
+  if(!("speechSynthesis" in window)) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(texto);
+  u.lang = "es-MX";
+  u.rate = 1;
+  speechSynthesis.speak(u);
+}
+async function cargar(){
+  try{
+    $("estado").textContent = "Conectando con Supabase...";
+    const r = await fetch(`${SUPABASE_URL}/rest/v1/cs_stock?select=*`,{
+      headers:{apikey:SUPABASE_ANON_KEY,Authorization:"Bearer "+SUPABASE_ANON_KEY,Accept:"application/json"}
+    });
+    const txt = await r.text();
+    if(!r.ok) throw new Error(txt);
+    datos = JSON.parse(txt);
+    vista = datos.slice();
+    $("total").textContent = datos.length;
+    $("estado").className = "estado ok";
+    $("estado").textContent = `Conectado · ${datos.length} registros disponibles`;
+    pintar();
+    decir(`Conexión correcta. Se cargaron ${datos.length} registros.`);
+  }catch(e){
+    $("estado").className = "estado error";
+    $("estado").textContent = "ERROR: " + e.message;
+    $("tbody").innerHTML = `<tr><td colspan="10">No se pudieron cargar los datos.</td></tr>`;
+  }
+}
+function pintar(){
+  $("visibles").textContent = vista.length;
+  $("criticos").textContent = vista.filter(esCritico).length;
+  $("cero").textContent = vista.filter(r=>n(r.cs_ctda)===0).length;
+
+  if(!vista.length){
+    $("tbody").innerHTML = `<tr><td colspan="10">Sin resultados.</td></tr>`;
+    return;
+  }
+
+  $("tbody").innerHTML = vista.map(r=>{
+    const c = esCritico(r);
+    const cero = n(r.cs_ctda)===0;
+    return `<tr class="${c?"critical":""}">
+      <td>${esc(r.idE)}</td>
+      <td>${esc(r.cs_lcsc)}</td>
+      <td>${esc(r.cs_desc)}</td>
+      <td><b>${esc(r.cs_ctda)}</b></td>
+      <td>${esc(r.cs_ctmi)}</td>
+      <td>${esc(r.cs_tipo)}</td>
+      <td>${esc(r.cs_ubicado)}</td>
+      <td>${esc(r.cs_fecha)}</td>
+      <td>${esc(r.cs_observe)}</td>
+      <td>${c?`<span class="badge red">${cero?"SIN STOCK":"CRÍTICO"}</span>`:`<span class="badge green">OK</span>`}</td>
+    </tr>`;
+  }).join("");
+}
+function descripcionCorta(r){
+  const codigo = String(r.cs_lcsc ?? "").trim();
+  const desc = String(r.cs_desc ?? "").trim();
+  if(codigo && desc) return `${codigo}, ${desc}`;
+  if(codigo) return codigo;
+  if(desc) return desc;
+  return `ID ${r.idE}`;
+}
+
+function responderElemento(r){
+  vista = [r];
+  pintar();
+
+  const cantidad = n(r.cs_ctda);
+  const nombre = descripcionCorta(r);
+  const ubicacion = String(r.cs_ubicado ?? "").trim();
+
+  let mensaje = `Encontré ${nombre}. Tienes ${cantidad.toLocaleString("es-MX")} piezas en stock.`;
+  if(ubicacion){
+    mensaje += ` Está ubicado en ${ubicacion}.`;
+  }
+  decir(mensaje);
+}
+
+function buscarTexto(termino){
+  const q = normaliza(termino);
+
+  if(!q){
+    vista = datos.slice();
+    pintar();
+    decir(`Mostrando los ${vista.length} registros.`);
+    return;
+  }
+
+  const exactos = datos.filter(r =>
+    normaliza(r.cs_lcsc) === q ||
+    normaliza(r.idE) === q
+  );
+
+  if(exactos.length === 1){
+    responderElemento(exactos[0]);
+    return;
+  }
+
+  const exactDesc = datos.filter(r => normaliza(r.cs_desc) === q);
+  if(exactDesc.length === 1){
+    responderElemento(exactDesc[0]);
+    return;
+  }
+
+  vista = datos.filter(r=>{
+    const campos = [
+      r.idE,
+      r.cs_lcsc,
+      r.cs_desc,
+      r.cs_tipo,
+      r.cs_ubicado,
+      r.cs_observe,
+      r.cs_can
+    ];
+    return campos.some(v => normaliza(v).includes(q));
+  });
+
+  pintar();
+
+  if(vista.length === 0){
+    decir(`No encontré ningún componente para ${termino}.`);
+    return;
+  }
+
+  if(vista.length === 1){
+    responderElemento(vista[0]);
+    return;
+  }
+
+  decir(`Encontré ${vista.length} componentes que coinciden con ${termino}. Se muestran en pantalla. Dime el código LCSC exacto para indicarte su stock.`);
+}
+
+function filtrarTipo(tipoHablado){
+  const q = normaliza(tipoHablado);
+  vista = datos.filter(r=>normaliza(r.cs_tipo).includes(q));
+  pintar();
+  decir(vista.length
+    ? `Encontré ${vista.length} componentes del tipo ${tipoHablado}.`
+    : `No encontré componentes del tipo ${tipoHablado}.`);
+}
+
+function limpiarConsultaVoz(frase){
+  let s = frase.trim();
+
+  const patrones = [
+    /^cu[aá]nt(?:o|os|a|as)\s+(?:tengo|tenemos)\s+(?:de|del|de la)?\s*/i,
+    /^cu[aá]nt(?:o|os|a|as)\s+hay\s+(?:de|del|de la)?\s*/i,
+    /^dime\s+(?:el\s+)?stock\s+(?:de|del|de la)?\s*/i,
+    /^dime\s+cu[aá]nt(?:o|os|a|as)\s+(?:tengo|tenemos)\s+(?:de|del|de la)?\s*/i,
+    /^consulta\s+(?:el\s+)?stock\s+(?:de|del|de la)?\s*/i,
+    /^buscar\s+/i,
+    /^busca\s+/i,
+    /^localiza(?:r)?\s+/i,
+    /^encuentra\s+/i
+  ];
+
+  for(const p of patrones){
+    const nuevo = s.replace(p, "").trim();
+    if(nuevo !== s){
+      s = nuevo;
+      break;
+    }
+  }
+
+  return s.replace(/^[¿?\s]+|[?.!,;:\s]+$/g, "").trim();
+}
+
+function ejecutarComando(frase){
+  const original = frase.trim();
+  const f = normaliza(original);
+  $("textoVoz").textContent = original;
+  if(!f) return;
+
+  if(f.includes("mostrar todos") || f==="todos" || f.includes("ver todos")){
+    vista = datos.slice();
+    $("buscar").value="";
+    pintar();
+    decir(`Mostrando los ${vista.length} registros.`);
+    return;
+  }
+
+  if(f.includes("stock cero") || f.includes("stock en cero") || f.includes("sin stock")){
+    vista = datos.filter(r=>n(r.cs_ctda)===0);
+    pintar();
+    decir(`Hay ${vista.length} componentes con stock en cero.`);
+    return;
+  }
+
+  if(f.includes("critico") || f.includes("criticos") || f.includes("critica") || f.includes("criticas")){
+    vista = datos.filter(esCritico);
+    pintar();
+    decir(`Hay ${vista.length} componentes críticos.`);
+    return;
+  }
+
+  if(f.startsWith("tipo ")){
+    filtrarTipo(original.substring(5).trim());
+    return;
+  }
+
+  const termino = limpiarConsultaVoz(original);
+  $("buscar").value = termino;
+  buscarTexto(termino);
+}
+
+$("buscarBtn").addEventListener("click",()=>buscarTexto($("buscar").value));
+$("buscar").addEventListener("keydown",e=>{if(e.key==="Enter") buscarTexto($("buscar").value);});
+$("criticosBtn").addEventListener("click",()=>{vista=datos.filter(esCritico);pintar();decir(`Hay ${vista.length} componentes críticos.`);});
+$("todosBtn").addEventListener("click",()=>{vista=datos.slice();$("buscar").value="";pintar();decir(`Mostrando los ${vista.length} registros.`);});
+$("hablarRespuesta").addEventListener("click",()=>{if(ultimaRespuesta) decir(ultimaRespuesta);});
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if(!SpeechRecognition){
+  $("mic").disabled = true;
+  $("mic").style.opacity = ".45";
+  $("textoVoz").textContent = "Este navegador no soporta reconocimiento de voz. Prueba Chrome o Edge.";
+}else{
+  const rec = new SpeechRecognition();
+  rec.lang = "es-MX";
+  rec.interimResults = false;
+  rec.continuous = false;
+  rec.maxAlternatives = 1;
+
+  rec.onstart = ()=>{$("mic").classList.add("escuchando");$("textoVoz").textContent="Escuchando...";};
+  rec.onend = ()=>{$("mic").classList.remove("escuchando");};
+  rec.onerror = e=>{$("mic").classList.remove("escuchando");$("textoVoz").textContent="Error de voz: "+e.error;};
+  rec.onresult = e=>ejecutarComando(e.results[0][0].transcript);
+
+  $("mic").addEventListener("click",()=>{try{rec.start();}catch(e){}});
+}
+
+cargar();
+</script>
+</body>
+</html>
