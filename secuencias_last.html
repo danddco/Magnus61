@@ -419,6 +419,17 @@
     <body>
         <h2>Bitacora</h2>
 
+        <div id="estado-supabase"
+             style="
+                width:96%;
+                margin:-12px auto 14px;
+                text-align:right;
+                color:#657786;
+                font:600 13px Arial, sans-serif;
+             ">
+            Conectando con Supabase...
+        </div>
+
         <div class="tabla-wrap">
             <table>
                 <thead>
@@ -431,915 +442,404 @@
                         <th>Estado</th>
                     </tr>
                 </thead>
-                <tbody>
-    
-                    <tr class="prioridad-alta">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            AWS Mini v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Estimada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Viernes, 18 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: 7 Placas de 4 botones
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Alta
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
+                <tbody id="secuencias-body">
+                    <tr>
+                        <td colspan="6" style="text-align:center; padding:24px;">
+                            Cargando datos directamente desde Supabase...
                         </td>
                     </tr>
-        
-                    <tr class="prioridad-alta">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            DUO ver1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Estimada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Viernes, 18 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: 2 Placas
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Alta
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
-                        </td>
-                    </tr>
-        
-                    <tr class="prioridad-alta">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Purisystems v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Salida
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Jueves, 17 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Ventar Preparar 5 kits para el lunes
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Alta
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
-                        </td>
-                    </tr>
-        
-                    <tr class="prioridad-alta">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            AWS Mini v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Diagnostico
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Jueves, 17 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: 2 Placas Fase SMD con componentes volteados - Cesar
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Alta
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
-                        </td>
-                    </tr>
-        
-                    <tr class="prioridad-media">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Fashident v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Diagnostico
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Jueves, 17 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: 60 Virgenes
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Media
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
-                        </td>
-                    </tr>
-        
-                    <tr class="prioridad-media">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Fashident v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Diagnostico
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Jueves, 17 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: Montadas 100 con smd
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Media
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
-                        </td>
-                    </tr>
-        
-                    <tr class="prioridad-media">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Kit Led / Conector
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Proceso
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Martes, 15 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Cables: Montaje de LED alrededor de 300 cables
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Media
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
-                        </td>
-                    </tr>
-        
-                    <tr class="prioridad-baja">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Kit Led / Conector
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Entrada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Jueves, 17 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: 15 placas / 150 kits en camino
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
-                        </td>
-                    </tr>
-        
-                    <tr class="prioridad-baja">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            AWS Mini v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Proceso
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Domingo, 13 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: Pedir Placa de Adaptadores de Pantalla LCD
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
-                        </td>
-                    </tr>
-        
-                    <tr class="prioridad-baja">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            David
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Entrada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Jueves, 10 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: En Camino
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
-                        </td>
-                    </tr>
-        
-                    <tr class="prioridad-baja">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            DUO ver1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Entrada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Viernes, 04 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: 15 Virgenes: Pendiente por Montaje
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            <span class="estado-pendiente">Pendiente</span>
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            AWS Mini v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Diagnostico
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Jueves, 17 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: 30 Placas con SMD de ellas 28 aprobadas- Cesar
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            
-                        </td>
-                        <td data-label="Proceso">
-                            
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Lunes, 14 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Limpieza a la P&P, incluye recuperacion de componentes: Botones, cap470, pc817, 4184A, SS34  y Moc 3063
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Kit Led / Conector
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Proceso
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Miércoles, 09 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Cables: Cortar mas de 1500 cables
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Media
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Darmax
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Programacion
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Martes, 08 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Las 5 Placas restantes NO estan programadas - Daniel
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            AWS Mini v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Preparada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Martes, 08 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            3 Placas 4B, 7 Placas de 5B, 10 Orejas, 10 Acrilico Pantalla, 10 Cables, 10 Pantallas
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Media
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Darmax
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Lunes, 07 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            5 Placas, 1 pantalla de 5' NT, 2 pantallas de 8' y 3 cables 4-corto
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Alta
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Fashident v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Proceso
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Viernes, 04 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Cables: Poner Terminales a 50 Cables
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Purimatic v2.2
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Salida
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Viernes, 04 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placa: Reparar 1 placa con componente dañado, aprobadas 9
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Alta
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Kit Led / Conector
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-TH
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Viernes, 04 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas: 19/190 Pendientes por montaje TH, por falta de componentes
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            AWS Mini v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Entrada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Viernes, 04 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placas Virgenes 30, pendiente por montajes
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Media
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Kit Led / Conector
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Miércoles, 02 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            500 set con 504 cables
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Alta
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Purisystems v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Miércoles, 02 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            5 Placas, 5 LCD, 5 Acrilicos y 5 Cables
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Alta
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Purimatic v2.2
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Proceso
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Martes, 01 de septiembre de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            10 Placas fabricadas completas por Cesar
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Proceso
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Lunes, 31 de agosto de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Lectura MetroContador 2007 PROMEDIO 8 de 4.91 a las 05:32
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Proceso
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Lunes, 31 de agosto de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            31-08: Comprar royo de Nylon para envolver placas.
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Alta
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Fashident v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Diagnostico
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Lunes, 31 de agosto de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Placa: 6 Placas por rechequear
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Fashident v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Viernes, 28 de agosto de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            60 Placas, 20 cables, 20 pantallas,  2 SD con interfase Blanca y Negra
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Proceso
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Viernes, 28 de agosto de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Lectura MetroContador 1983
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            AWS Pro v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Programacion
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Lunes, 24 de agosto de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Programadas: 4 pantallas de 5 pulgada y (2 de 7 pulgadas, enviada por Zenteno), enviado Doc a Bere
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            AWS Pro v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Programacion
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Lunes, 24 de agosto de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Nueva Interfase 2408 en etiqueta, guardada en PC
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            0
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Proceso
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Viernes, 21 de agosto de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Mantenimiento Cortadora Laser
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Veco v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Jueves, 20 de agosto de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Vendida 20 placas
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            Baja
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            AWS Pro v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Jueves, 02 de julio de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            4 Placas, 4 Pantallas, 4 Cables,
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            None
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Monterrey v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Lunes, 22 de junio de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            David
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Miércoles, 17 de junio de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            Enviada 15 Placas + 1 Reparada
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            AWS Pro v1.0
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Martes, 16 de junio de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            4 Placas
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            None
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Vitesco
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Lunes, 01 de junio de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            David
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Lunes, 01 de junio de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Kit Yasaky
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Martes, 05 de mayo de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Kit Yasaky
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Salida
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Martes, 05 de mayo de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Kit Yasaky
-                        </td>
-                        <td data-label="Proceso">
-                            Fabricacion-Entrada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Martes, 05 de mayo de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
-                    <tr class="cumplido">
-                        <td data-label="Proyecto" style="font-weight:800;">
-                            Darmax
-                        </td>
-                        <td data-label="Proceso">
-                            Venta-Concretada
-                        </td>
-                        <td data-label="Fecha" class="fecha">
-                            Miércoles, 22 de abril de 2026
-                        </td>
-                        <td data-label="Descripción" style="font-weight:700;">
-                            
-                        </td>
-                        <td data-label="Prioridad" class="prioridad">
-                            None
-                        </td>
-                        <td data-label="Estado" style="font-weight:700;">
-                            Resuelto
-                        </td>
-                    </tr>
-        
                 </tbody>
             </table>
         </div>
-    </body>
+    
+<script>
+(function () {
+    "use strict";
+
+    const SUPABASE_URL = "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    // Publishable/anon key. Es una clave de cliente; la seguridad real
+    // depende de las políticas RLS de Supabase.
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const TABLA = "gs_secuencias";
+    const LIMITE_VISIBLE = 80;
+    const LIMITE_LECTURA = 1000;
+
+    const tbody = document.getElementById("secuencias-body");
+    const estado = document.getElementById("estado-supabase");
+
+    function texto(valor) {
+        return valor === null || valor === undefined ? "" : String(valor);
+    }
+
+    function prioridadTexto(valor) {
+        const p = texto(valor).trim();
+        if (p === "1") return "Alta";
+        if (p === "2") return "Media";
+        if (p === "3") return "Baja";
+        return p;
+    }
+
+    function fechaNumero(valor) {
+        const s = texto(valor).slice(0, 10);
+        const partes = s.split("-");
+
+        if (partes.length !== 3) return 0;
+
+        const y = Number(partes[0]);
+        const m = Number(partes[1]);
+        const d = Number(partes[2]);
+
+        if (!y || !m || !d) return 0;
+
+        return (y * 10000) + (m * 100) + d;
+    }
+
+    function formatearFecha(valor) {
+        const s = texto(valor).slice(0, 10);
+        const partes = s.split("-");
+
+        if (partes.length !== 3) return s;
+
+        const y = Number(partes[0]);
+        const m = Number(partes[1]);
+        const d = Number(partes[2]);
+
+        if (!y || !m || !d) return s;
+
+        // Se construye como fecha local para evitar que YYYY-MM-DD
+        // retroceda un día por conversión UTC.
+        const fecha = new Date(y, m - 1, d);
+
+        let salida = new Intl.DateTimeFormat(
+            "es-MX",
+            {
+                weekday: "long",
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            }
+        ).format(fecha);
+
+        return salida.charAt(0).toUpperCase() + salida.slice(1);
+    }
+
+    function comparar(a, b) {
+        const estadoA = texto(a.gs_estado).trim().toLowerCase();
+        const estadoB = texto(b.gs_estado).trim().toLowerCase();
+
+        const pendienteA = estadoA === "pendiente";
+        const pendienteB = estadoB === "pendiente";
+
+        if (pendienteA !== pendienteB) {
+            return pendienteA ? -1 : 1;
+        }
+
+        const idA = Number(a.gs_id) || 0;
+        const idB = Number(b.gs_id) || 0;
+
+        const fechaA = fechaNumero(a.gs_fecha);
+        const fechaB = fechaNumero(b.gs_fecha);
+
+        if (pendienteA && pendienteB) {
+            let prioridadA = Number(texto(a.gs_prior).trim());
+            let prioridadB = Number(texto(b.gs_prior).trim());
+
+            if (!Number.isFinite(prioridadA)) prioridadA = 999;
+            if (!Number.isFinite(prioridadB)) prioridadB = 999;
+
+            if (prioridadA !== prioridadB) {
+                return prioridadA - prioridadB;
+            }
+
+            if (fechaA !== fechaB) {
+                return fechaB - fechaA;
+            }
+
+            return idB - idA;
+        }
+
+        if (fechaA !== fechaB) {
+            return fechaB - fechaA;
+        }
+
+        return idB - idA;
+    }
+
+    function claseRegistro(registro) {
+        const prioridad = texto(registro.gs_prior).trim();
+        const estadoRegistro = texto(registro.gs_estado).trim().toLowerCase();
+        const fechaCum = texto(registro.gs_fecha_cum).trim();
+
+        const cumplido =
+            Boolean(fechaCum) ||
+            estadoRegistro === "resuelto";
+
+        if (cumplido) return "cumplido";
+        if (prioridad === "1") return "prioridad-alta";
+        if (prioridad === "2") return "prioridad-media";
+        if (prioridad === "3") return "prioridad-baja";
+
+        return "";
+    }
+
+    function crearCelda(etiqueta, valor, clase, negrita) {
+        const td = document.createElement("td");
+        td.dataset.label = etiqueta;
+
+        if (clase) td.className = clase;
+        if (negrita) td.style.fontWeight = "700";
+
+        td.textContent = texto(valor);
+        return td;
+    }
+
+    function renderizar(registros) {
+        tbody.replaceChildren();
+
+        if (!registros.length) {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+
+            td.colSpan = 6;
+            td.style.textAlign = "center";
+            td.style.padding = "24px";
+            td.textContent = "No hay secuencias para mostrar.";
+
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const registro of registros) {
+            const tr = document.createElement("tr");
+            tr.className = claseRegistro(registro);
+
+            const proyecto = crearCelda(
+                "Proyecto",
+                registro.gs_proyecto,
+                "",
+                true
+            );
+            proyecto.style.fontWeight = "800";
+
+            tr.appendChild(proyecto);
+
+            tr.appendChild(
+                crearCelda(
+                    "Proceso",
+                    registro.gs_proceso,
+                    "",
+                    false
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Fecha",
+                    formatearFecha(registro.gs_fecha),
+                    "fecha",
+                    false
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Descripción",
+                    registro.gs_desc,
+                    "",
+                    true
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Prioridad",
+                    prioridadTexto(registro.gs_prior),
+                    "prioridad",
+                    false
+                )
+            );
+
+            const estadoTd = document.createElement("td");
+            estadoTd.dataset.label = "Estado";
+            estadoTd.style.fontWeight = "700";
+
+            const estadoRegistro =
+                texto(registro.gs_estado).trim();
+
+            const fechaCum =
+                texto(registro.gs_fecha_cum).trim();
+
+            const cumplido =
+                Boolean(fechaCum) ||
+                estadoRegistro.toLowerCase() === "resuelto";
+
+            if (
+                estadoRegistro.toLowerCase() === "pendiente" &&
+                !cumplido
+            ) {
+                const badge = document.createElement("span");
+                badge.className = "estado-pendiente";
+                badge.textContent = "Pendiente";
+                estadoTd.appendChild(badge);
+            } else if (cumplido) {
+                estadoTd.textContent = "Resuelto";
+            } else {
+                estadoTd.textContent = estadoRegistro;
+            }
+
+            tr.appendChild(estadoTd);
+            tbody.appendChild(tr);
+        }
+    }
+
+    function actualizarFechaFooter() {
+        const destino = document.getElementById("fecha-hora-dinamica");
+        if (!destino) return;
+
+        const ahora = new Date();
+
+        const fecha = ahora.toLocaleDateString(
+            "es-MX",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+
+        const hora = ahora.toLocaleTimeString(
+            "es-MX",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false
+            }
+        );
+
+        destino.textContent = `${fecha} ${hora}`;
+    }
+
+    async function cargarSecuencias() {
+        estado.textContent = "Actualizando desde Supabase...";
+
+        const columnas = [
+            "gs_id",
+            "gs_proceso",
+            "gs_proyecto",
+            "gs_lote",
+            "gs_fecha",
+            "gs_desc",
+            "gs_ctda",
+            "gs_prior",
+            "gs_estado",
+            "gs_ver",
+            "gs_fecha_cum"
+        ].join(",");
+
+        const params = new URLSearchParams({
+            select: columnas,
+            gs_ver: "neq.N",
+            limit: String(LIMITE_LECTURA)
+        });
+
+        const url =
+            `${SUPABASE_URL}/rest/v1/${TABLA}?${params.toString()}`;
+
+        try {
+            const respuesta = await fetch(
+                url,
+                {
+                    method: "GET",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                        "Accept": "application/json"
+                    },
+                    cache: "no-store"
+                }
+            );
+
+            if (!respuesta.ok) {
+                const detalle = await respuesta.text();
+
+                throw new Error(
+                    `HTTP ${respuesta.status}: ${detalle}`
+                );
+            }
+
+            const datos = await respuesta.json();
+
+            if (!Array.isArray(datos)) {
+                throw new Error(
+                    "Supabase no devolvió una lista de registros."
+                );
+            }
+
+            datos.sort(comparar);
+
+            const visibles = datos.slice(
+                0,
+                LIMITE_VISIBLE
+            );
+
+            renderizar(visibles);
+            actualizarFechaFooter();
+
+            const ahora = new Date().toLocaleTimeString(
+                "es-MX",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit"
+                }
+            );
+
+            estado.textContent =
+                `Supabase conectado · ${visibles.length} registros · ${ahora}`;
+
+        } catch (error) {
+            console.error(error);
+
+            tbody.replaceChildren();
+
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+
+            td.colSpan = 6;
+            td.style.textAlign = "center";
+            td.style.padding = "24px";
+            td.style.color = "#a02a2a";
+            td.textContent =
+                "No fue posible obtener los datos desde Supabase.";
+
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+
+            estado.textContent =
+                "Error de conexión con Supabase";
+            estado.style.color = "#a02a2a";
+        }
+    }
+
+    actualizarFechaFooter();
+    cargarSecuencias();
+
+    // Actualización automática sin recargar la página.
+    window.setInterval(
+        cargarSecuencias,
+        60000
+    );
+})();
+</script>
+
+</body>
     </html>
     
 <style>
@@ -1399,6 +899,6 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 18/09/2026 16:18:59
+        Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
     </p>
 </footer>
