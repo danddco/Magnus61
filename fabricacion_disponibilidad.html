@@ -448,7 +448,12 @@
 
     <header class="encabezado">
         <h2>Balance de Placas</h2>
-        <p>Reporte actualizado: 2026-09-18</p>
+        <p>
+            Reporte actualizado:
+            <span id="fecha-reporte">--</span>
+            ·
+            <span id="estado-supabase">Conectando con Supabase...</span>
+        </p>
     </header>
 
     <div class="tabla-wrap">
@@ -464,372 +469,13 @@
                 </tr>
             </thead>
 
-            <tbody>
-
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        Kit Led / Conector
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        150
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-09-17
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        190
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-09-09
+            <tbody id="balance-body">
+                <tr>
+                    <td colspan="6"
+                        style="text-align:center; padding:24px;">
+                        Cargando Balance de Placas desde Supabase...
                     </td>
                 </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        Fashident v1.0
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        160
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-09-10
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        50
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-08-03
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        Purisystems v1.0
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        -5
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-09-17
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        25
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-09-17
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        AWS Mini v1.0
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        30
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-09-04
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        22
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-07-27
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        Purimatic v2.2
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        0
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-09-04
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        10
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-09-04
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        DUO ver1.0
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        15
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-09-04
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        9
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-08-06
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        Darmax
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        0
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-05-21
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        5
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-05-21
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        AWS Pro v1.0
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        6
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-06-16
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        0
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-06-16
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        David
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        40
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-09-10
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        0
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-05-06
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        Kit Yasaky
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        0
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-05-05
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        0
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-05-05
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        Monterrey v1.0
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        0
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-06-18
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        0
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-06-07
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        Veco v1.0
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        0
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-08-20
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        0
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-08-20
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        Vending Mini
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        0
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-05-27
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        0
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-05-27
-                    </td>
-                </tr>
-        
-                <tr class="">
-                    <td data-label="Proyecto" class="proyecto">
-                        Vitesco
-                    </td>
-
-                    <td data-label="Componente" class="componente">
-                        
-                    </td>
-
-                    <td data-label="En Fabricación" class="cantidad">
-                        0
-                    </td>
-
-                    <td data-label="Fecha fabricación" class="fecha">
-                        2026-05-28
-                    </td>
-
-                    <td data-label="Lista para Enviar" class="lista-enviar">
-                        0
-                    </td>
-
-                    <td data-label="Fecha disponible" class="fecha">
-                        2026-05-28
-                    </td>
-                </tr>
-        
             </tbody>
         </table>
     </div>
@@ -893,6 +539,629 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 18/09/2026 16:16:19
+        Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
     </p>
 </footer>
+
+
+<script>
+(function () {
+    "use strict";
+
+    const SUPABASE_URL =
+        "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const TABLA = "gs_secuencias";
+    const LOTE = 1000;
+
+    const PROCESOS_VALIDOS = new Set([
+        "Fabricacion-Entrada",
+        "Fabricacion-Salida",
+        "Venta-Concretada",
+        "Venta-Preparada"
+    ]);
+
+    const tbody =
+        document.getElementById("balance-body");
+
+    const estado =
+        document.getElementById("estado-supabase");
+
+    const fechaReporte =
+        document.getElementById("fecha-reporte");
+
+
+    function texto(valor) {
+        return valor === null ||
+               valor === undefined
+            ? ""
+            : String(valor);
+    }
+
+
+    function numero(valor) {
+        if (
+            valor === null ||
+            valor === undefined ||
+            String(valor).trim() === ""
+        ) {
+            return 0;
+        }
+
+        const n = Number(valor);
+
+        return Number.isFinite(n)
+            ? n
+            : 0;
+    }
+
+
+    function mostrarNumero(valor) {
+        const n = numero(valor);
+
+        if (Number.isInteger(n)) {
+            return String(n);
+        }
+
+        return String(
+            Number(n.toFixed(6))
+        );
+    }
+
+
+    function fechaValida(valor) {
+        const s = texto(valor)
+            .trim()
+            .slice(0, 10);
+
+        return /^\d{4}-\d{2}-\d{2}$/.test(s)
+            ? s
+            : "";
+    }
+
+
+    function fechaMax(a, b) {
+        const fa = fechaValida(a);
+        const fb = fechaValida(b);
+
+        if (!fa) return fb;
+        if (!fb) return fa;
+
+        return fa > fb ? fa : fb;
+    }
+
+
+    function actualizarFechaFooter() {
+        const destino =
+            document.getElementById(
+                "fecha-hora-dinamica"
+            );
+
+        if (!destino) {
+            return;
+        }
+
+        const ahora = new Date();
+
+        const fecha =
+            ahora.toLocaleDateString(
+                "es-MX",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                }
+            );
+
+        const hora =
+            ahora.toLocaleTimeString(
+                "es-MX",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false
+                }
+            );
+
+        destino.textContent =
+            `${fecha} ${hora}`;
+    }
+
+
+    function fechaISOHoy() {
+        const ahora = new Date();
+
+        const y = ahora.getFullYear();
+        const m = String(
+            ahora.getMonth() + 1
+        ).padStart(2, "0");
+
+        const d = String(
+            ahora.getDate()
+        ).padStart(2, "0");
+
+        return `${y}-${m}-${d}`;
+    }
+
+
+    async function leerTodasLasSecuencias() {
+        const columnas = [
+            "gs_id",
+            "gs_proyecto",
+            "gs_proceso",
+            "gs_ctda",
+            "gs_fecha"
+        ].join(",");
+
+        const todos = [];
+        let offset = 0;
+
+        while (true) {
+            const params =
+                new URLSearchParams({
+                    select: columnas,
+                    limit: String(LOTE),
+                    offset: String(offset)
+                });
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${TABLA}?` +
+                params.toString();
+
+            const respuesta =
+                await fetch(
+                    url,
+                    {
+                        method: "GET",
+                        headers: {
+                            "apikey":
+                                SUPABASE_ANON_KEY,
+                            "Authorization":
+                                `Bearer ${SUPABASE_ANON_KEY}`,
+                            "Accept":
+                                "application/json"
+                        },
+                        cache: "no-store"
+                    }
+                );
+
+            if (!respuesta.ok) {
+                const detalle =
+                    await respuesta.text();
+
+                throw new Error(
+                    `HTTP ${respuesta.status}: ` +
+                    detalle
+                );
+            }
+
+            const datos =
+                await respuesta.json();
+
+            if (!Array.isArray(datos)) {
+                throw new Error(
+                    "Supabase no devolvió una lista."
+                );
+            }
+
+            todos.push(...datos);
+
+            if (datos.length < LOTE) {
+                break;
+            }
+
+            offset += LOTE;
+        }
+
+        return todos;
+    }
+
+
+    function calcularBalance(filas) {
+        const proyectos = new Map();
+
+        for (const fila of filas) {
+            const proyecto =
+                texto(
+                    fila.gs_proyecto
+                ).trim();
+
+            const proceso =
+                texto(
+                    fila.gs_proceso
+                ).trim();
+
+            if (!proyecto) {
+                continue;
+            }
+
+            if (
+                !PROCESOS_VALIDOS.has(
+                    proceso
+                )
+            ) {
+                continue;
+            }
+
+            if (
+                !proyectos.has(
+                    proyecto
+                )
+            ) {
+                proyectos.set(
+                    proyecto,
+                    {
+                        proyecto,
+                        componente: "",
+                        entrada_total: 0,
+                        salida_total: 0,
+                        venta_total: 0,
+                        venta_preparada_total: 0,
+                        fecha_entrada: "",
+                        fecha_salida: ""
+                    }
+                );
+            }
+
+            const r =
+                proyectos.get(
+                    proyecto
+                );
+
+            const cantidad =
+                numero(
+                    fila.gs_ctda
+                );
+
+            const fecha =
+                fechaValida(
+                    fila.gs_fecha
+                );
+
+            if (
+                proceso ===
+                "Fabricacion-Entrada"
+            ) {
+                r.entrada_total +=
+                    cantidad;
+
+                if (
+                    fecha &&
+                    (
+                        !r.fecha_entrada ||
+                        fecha >
+                        r.fecha_entrada
+                    )
+                ) {
+                    r.fecha_entrada =
+                        fecha;
+                }
+            }
+
+            else if (
+                proceso ===
+                "Fabricacion-Salida"
+            ) {
+                r.salida_total +=
+                    cantidad;
+
+                if (
+                    fecha &&
+                    (
+                        !r.fecha_salida ||
+                        fecha >
+                        r.fecha_salida
+                    )
+                ) {
+                    r.fecha_salida =
+                        fecha;
+                }
+            }
+
+            else if (
+                proceso ===
+                "Venta-Concretada"
+            ) {
+                r.venta_total +=
+                    cantidad;
+            }
+
+            else if (
+                proceso ===
+                "Venta-Preparada"
+            ) {
+                r.venta_preparada_total +=
+                    cantidad;
+            }
+        }
+
+        const resultado = [];
+
+        for (
+            const r
+            of proyectos.values()
+        ) {
+            r.en_fabricacion =
+                r.entrada_total -
+                r.salida_total;
+
+            r.lista_enviar =
+                r.salida_total -
+                r.venta_total -
+                r.venta_preparada_total;
+
+            r.fecha_reciente =
+                fechaMax(
+                    r.fecha_entrada,
+                    r.fecha_salida
+                );
+
+            r.fecha_envio =
+                r.salida_total !== 0
+                    ? r.fecha_salida
+                    : "";
+
+            resultado.push(r);
+        }
+
+        resultado.sort(
+            (a, b) => {
+                if (
+                    b.lista_enviar !==
+                    a.lista_enviar
+                ) {
+                    return (
+                        b.lista_enviar -
+                        a.lista_enviar
+                    );
+                }
+
+                return (
+                    a.proyecto
+                        .localeCompare(
+                            b.proyecto,
+                            "es"
+                        )
+                );
+            }
+        );
+
+        return resultado;
+    }
+
+
+    function celda(
+        etiqueta,
+        valor,
+        clase
+    ) {
+        const td =
+            document.createElement(
+                "td"
+            );
+
+        td.dataset.label =
+            etiqueta;
+
+        if (clase) {
+            td.className =
+                clase;
+        }
+
+        td.textContent =
+            texto(valor);
+
+        return td;
+    }
+
+
+    function renderizar(balance) {
+        tbody.replaceChildren();
+
+        if (!balance.length) {
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+            const td =
+                document.createElement(
+                    "td"
+                );
+
+            td.colSpan = 6;
+            td.style.textAlign =
+                "center";
+            td.style.padding =
+                "24px";
+
+            td.textContent =
+                "No hay proyectos para mostrar.";
+
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+
+            return;
+        }
+
+        for (
+            const fila
+            of balance
+        ) {
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+            if (
+                fila.lista_enviar < 0
+            ) {
+                tr.className =
+                    "negativo";
+            }
+
+            tr.appendChild(
+                celda(
+                    "Proyecto",
+                    fila.proyecto,
+                    "proyecto"
+                )
+            );
+
+            tr.appendChild(
+                celda(
+                    "Componente",
+                    fila.componente,
+                    "componente"
+                )
+            );
+
+            tr.appendChild(
+                celda(
+                    "En Fabricación",
+                    mostrarNumero(
+                        fila.en_fabricacion
+                    ),
+                    "cantidad"
+                )
+            );
+
+            tr.appendChild(
+                celda(
+                    "Fecha fabricación",
+                    fila.fecha_reciente,
+                    "fecha"
+                )
+            );
+
+            tr.appendChild(
+                celda(
+                    "Lista para Enviar",
+                    mostrarNumero(
+                        fila.lista_enviar
+                    ),
+                    "lista-enviar"
+                )
+            );
+
+            tr.appendChild(
+                celda(
+                    "Fecha disponible",
+                    fila.fecha_envio,
+                    "fecha"
+                )
+            );
+
+            tbody.appendChild(
+                tr
+            );
+        }
+    }
+
+
+    async function actualizarReporte() {
+        estado.textContent =
+            "Actualizando desde Supabase...";
+
+        estado.style.color =
+            "";
+
+        try {
+            const secuencias =
+                await leerTodasLasSecuencias();
+
+            const balance =
+                calcularBalance(
+                    secuencias
+                );
+
+            renderizar(
+                balance
+            );
+
+            const ahora =
+                new Date()
+                    .toLocaleTimeString(
+                        "es-MX",
+                        {
+                            hour:
+                                "2-digit",
+                            minute:
+                                "2-digit",
+                            second:
+                                "2-digit"
+                        }
+                    );
+
+            fechaReporte.textContent =
+                fechaISOHoy();
+
+            estado.textContent =
+                `Supabase conectado · ` +
+                `${balance.length} proyectos · ` +
+                `${ahora}`;
+
+            actualizarFechaFooter();
+
+        } catch (error) {
+            console.error(
+                error
+            );
+
+            tbody.replaceChildren();
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+            const td =
+                document.createElement(
+                    "td"
+                );
+
+            td.colSpan = 6;
+            td.style.textAlign =
+                "center";
+            td.style.padding =
+                "24px";
+            td.style.color =
+                "#a02a2a";
+
+            td.textContent =
+                "No fue posible obtener " +
+                "los datos desde Supabase.";
+
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+
+            estado.textContent =
+                "Error de conexión con Supabase";
+
+            estado.style.color =
+                "#ffe3e3";
+        }
+    }
+
+
+    actualizarFechaFooter();
+    fechaReporte.textContent =
+        fechaISOHoy();
+
+    actualizarReporte();
+
+    // Refresco automático cada 60 segundos.
+    window.setInterval(
+        actualizarReporte,
+        60000
+    );
+
+})();
+</script>
+
