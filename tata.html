@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prueba Supabase - cs_stock</title>
+<style>
+:root{
+  --azul:#184F78;
+  --azul-oscuro:#123B5D;
+  --fondo:#F3F6F9;
+  --panel:#FFFFFF;
+  --borde:#D7E0E7;
+  --texto:#263746;
+  --muted:#657786;
+  --sel:#D9ECFA;
+  --ok:#2E7D32;
+  --warn:#B26A00;
+  --danger:#B42318;
+  --danger-bg:#FFF0EE;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--fondo);
+  color:var(--texto);
+}
+header{
+  background:linear-gradient(135deg,var(--azul),var(--azul-oscuro));
+  color:white;
+  padding:18px 22px;
+  box-shadow:0 2px 10px rgba(0,0,0,.12);
+}
+.header-inner{
+  max-width:1500px;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+h1{
+  margin:0;
+  font-size:22px;
+}
+.subtitle{
+  opacity:.88;
+  margin-top:4px;
+  font-size:13px;
+}
+.status{
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:10px;
+  padding:9px 12px;
+  font-size:13px;
+}
+main{
+  max-width:1500px;
+  margin:18px auto;
+  padding:0 16px 30px;
+}
+.cards{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+  margin-bottom:14px;
+}
+.card{
+  background:var(--panel);
+  border:1px solid var(--borde);
+  border-radius:12px;
+  padding:14px 16px;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+.card .label{
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.card .value{
+  font-size:24px;
+  font-weight:700;
+  color:var(--azul-oscuro);
+}
+.toolbar{
+  background:var(--panel);
+  border:1px solid var(--borde);
+  border-radius:12px;
+  padding:12px;
+  display:grid;
+  grid-template-columns:2fr 1fr auto auto auto;
+  gap:9px;
+  align-items:center;
+  margin-bottom:14px;
+}
+input,select,button{
+  font:inherit;
+}
+input,select{
+  width:100%;
+  border:1px solid #C7D2DB;
+  border-radius:8px;
+  padding:10px 11px;
+  background:white;
+  color:var(--texto);
+  outline:none;
+}
+input:focus,select:focus{
+  border-color:var(--azul);
+  box-shadow:0 0 0 3px rgba(24,79,120,.10);
+}
+button{
+  border:0;
+  border-radius:8px;
+  padding:10px 13px;
+  cursor:pointer;
+  background:var(--azul);
+  color:white;
+  font-weight:700;
+  white-space:nowrap;
+}
+button:hover{background:var(--azul-oscuro)}
+button.secondary{
+  background:#E7EDF2;
+  color:var(--texto);
+}
+button.secondary:hover{background:#D8E2EA}
+button.active-danger{
+  background:var(--danger);
+}
+.panel{
+  background:var(--panel);
+  border:1px solid var(--borde);
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
+}
+.panel-head{
+  padding:12px 14px;
+  border-bottom:1px solid var(--borde);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.small{
+  font-size:12px;
+  color:var(--muted);
+}
+.table-wrap{
+  overflow:auto;
+  max-height:68vh;
+}
+table{
+  width:100%;
+  border-collapse:collapse;
+  min-width:1280px;
+}
+th{
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:#EDF3F7;
+  color:#365269;
+  font-size:12px;
+  text-align:left;
+  padding:10px 9px;
+  border-bottom:1px solid var(--borde);
+}
+td{
+  font-size:12px;
+  padding:9px;
+  border-bottom:1px solid #E7EDF1;
+  vertical-align:top;
+}
+tbody tr:hover{background:#F7FAFC}
+tbody tr.critico{background:var(--danger-bg)}
+.badge{
+  display:inline-block;
+  border-radius:999px;
+  padding:4px 8px;
+  font-size:11px;
+  font-weight:700;
+  background:#E9EFF4;
+}
+.badge.red{
+  background:#FEE4E2;
+  color:var(--danger);
+}
+.badge.green{
+  background:#E9F7EC;
+  color:var(--ok);
+}
+.empty{
+  text-align:center;
+  padding:45px 16px;
+  color:var(--muted);
+}
+.error{
+  background:#FFF1F1;
+  border:1px solid #F3BBBB;
+  color:#8E1919;
+  padding:12px;
+  border-radius:10px;
+  margin-bottom:14px;
+  display:none;
+  white-space:pre-wrap;
+}
+.loading{
+  display:none;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+  color:var(--muted);
+}
+.dot{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--azul);
+  animation:pulse .8s infinite alternate;
+}
+@keyframes pulse{to{opacity:.25}}
+.mobile-list{display:none}
+
+@media(max-width:900px){
+  main{padding:0 10px 24px}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .toolbar{grid-template-columns:1fr 1fr}
+  .toolbar .wide{grid-column:1/-1}
+  .table-wrap{display:none}
+  .mobile-list{display:block;padding:10px}
+  .mobile-item{
+    border:1px solid var(--borde);
+    border-radius:10px;
+    padding:12px;
+    margin-bottom:10px;
+    background:white;
+  }
+  .mobile-item.critico{
+    background:var(--danger-bg);
+    border-color:#F4C5C0;
+  }
+  .mobile-title{
+    font-weight:700;
+    color:var(--azul-oscuro);
+    margin-bottom:4px;
+    overflow-wrap:anywhere;
+  }
+  .mobile-desc{
+    font-size:12px;
+    color:var(--muted);
+    margin-bottom:9px;
+    overflow-wrap:anywhere;
+  }
+  .mobile-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:6px 10px;
+    font-size:12px;
+  }
+  .mobile-grid b{color:#52697B}
+}
+@media(max-width:520px){
+  .cards{grid-template-columns:1fr 1fr}
+  .card .value{font-size:20px}
+  .toolbar{grid-template-columns:1fr}
+  .toolbar .wide{grid-column:auto}
+  .mobile-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>Prueba Supabase · cs_stock</h1>
+      <div class="subtitle">Consulta real de inventario · solo lectura</div>
+    </div>
+    <div class="status" id="estadoConexion">Sin conectar</div>
+  </div>
+</header>
+
+<main>
+  <div class="error" id="errorBox"></div>
+
+  <section class="cards">
+    <div class="card">
+      <div class="label">Registros cargados</div>
+      <div class="value" id="kpiTotal">0</div>
+    </div>
+    <div class="card">
+      <div class="label">Componentes críticos</div>
+      <div class="value" id="kpiCriticos">0</div>
+    </div>
+    <div class="card">
+      <div class="label">Stock = 0</div>
+      <div class="value" id="kpiCero">0</div>
+    </div>
+    <div class="card">
+      <div class="label">Última consulta</div>
+      <div class="value" id="kpiMs">—</div>
+    </div>
+  </section>
+
+  <section class="toolbar">
+    <input class="wide" id="busqueda" type="search"
+      placeholder="Buscar por ID, LCSC, descripción, tipo, ubicación...">
+    <select id="filtroTipo">
+      <option value="">Todos los tipos</option>
+    </select>
+    <button id="btnCriticos" class="secondary">Solo críticos</button>
+    <button id="btnCero" class="secondary">Stock = 0</button>
+    <button id="btnRecargar">Recargar</button>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <b>Tabla cs_stock</b>
+        <div class="small" id="resumenVista">0 registros visibles</div>
+      </div>
+      <div class="loading" id="loading"><span class="dot"></span> Consultando Supabase...</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>idE</th>
+            <th>LCSC</th>
+            <th>Descripción</th>
+            <th>Stock</th>
+            <th>MXN</th>
+            <th>Mínimo</th>
+            <th>Fecha</th>
+            <th>Observación</th>
+            <th>CAN</th>
+            <th>Tipo</th>
+            <th>Ubicación</th>
+            <th>Imagen</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="mobile-list" id="mobileList"></div>
+  </section>
+</main>
+
+<script>
+const SUPABASE_URL = "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+const CAMPOS = "idE,cs_lcsc,cs_desc,cs_ctda,cs_mxn,cs_ctmi,cs_fecha,cs_observe,cs_can,cs_tipo,cs_ubicado,cs_imagen";
+const BATCH = 1000;
+
+let datos = [];
+let soloCriticos = false;
+let soloCero = false;
+
+const $ = id => document.getElementById(id);
+const esc = v => String(v ?? "")
+  .replaceAll("&","&amp;")
+  .replaceAll("<","&lt;")
+  .replaceAll(">","&gt;")
+  .replaceAll('"',"&quot;")
+  .replaceAll("'","&#039;");
+
+function n(v){
+  const x = Number(v);
+  return Number.isFinite(x) ? x : 0;
+}
+function esCritico(r){
+  return n(r.cs_ctda) < n(r.cs_ctmi);
+}
+function fmtMoney(v){
+  const x = Number(v);
+  if(!Number.isFinite(x)) return "";
+  return x.toLocaleString("es-MX",{style:"currency",currency:"MXN",maximumFractionDigits:4});
+}
+function setLoading(on){
+  $("loading").style.display = on ? "flex" : "none";
+}
+function showError(msg){
+  $("errorBox").textContent = msg;
+  $("errorBox").style.display = "block";
+}
+function clearError(){
+  $("errorBox").style.display = "none";
+  $("errorBox").textContent = "";
+}
+
+async function cargarTodo(){
+  clearError();
+  setLoading(true);
+  $("estadoConexion").textContent = "Conectando...";
+  const t0 = performance.now();
+  try{
+    let todos = [];
+    let desde = 0;
+
+    while(true){
+      const hasta = desde + BATCH - 1;
+      const url = `${SUPABASE_URL}/rest/v1/cs_stock?select=${encodeURIComponent(CAMPOS)}&order=idE.asc`;
+      const resp = await fetch(url,{
+        method:"GET",
+        headers:{
+          "apikey":SUPABASE_ANON_KEY,
+          "Authorization":`Bearer ${SUPABASE_ANON_KEY}`,
+          "Accept":"application/json",
+          "Range":`${desde}-${hasta}`,
+          "Range-Unit":"items"
+        }
+      });
+
+      if(!resp.ok){
+        const texto = await resp.text();
+        throw new Error(`HTTP ${resp.status} ${resp.statusText}\n${texto}`);
+      }
+
+      const lote = await resp.json();
+      todos.push(...lote);
+
+      if(lote.length < BATCH) break;
+      desde += BATCH;
+
+      // Protección razonable para una página de prueba.
+      if(desde >= 100000){
+        throw new Error("Se alcanzó el límite de seguridad de 100,000 filas para esta página de prueba.");
+      }
+    }
+
+    datos = todos;
+    const ms = performance.now() - t0;
+    $("kpiMs").textContent = `${ms.toFixed(0)} ms`;
+    $("estadoConexion").textContent = `Conectado · ${datos.length.toLocaleString("es-MX")} registros`;
+    cargarTipos();
+    actualizarKpis();
+    render();
+  }catch(err){
+    $("estadoConexion").textContent = "Error de conexión";
+    showError(
+      "No fue posible leer cs_stock.\n\n" +
+      err.message +
+      "\n\nRevise que la tabla exista, que la clave pública sea válida y que las políticas RLS permitan SELECT."
+    );
+  }finally{
+    setLoading(false);
+  }
+}
+
+function cargarTipos(){
+  const actual = $("filtroTipo").value;
+  const tipos = [...new Set(datos.map(r => (r.cs_tipo ?? "").trim()).filter(Boolean))]
+    .sort((a,b)=>a.localeCompare(b,"es"));
+
+  $("filtroTipo").innerHTML =
+    `<option value="">Todos los tipos</option>` +
+    tipos.map(t=>`<option value="${esc(t)}">${esc(t)}</option>`).join("");
+
+  if(tipos.includes(actual)) $("filtroTipo").value = actual;
+}
+
+function actualizarKpis(){
+  $("kpiTotal").textContent = datos.length.toLocaleString("es-MX");
+  $("kpiCriticos").textContent = datos.filter(esCritico).length.toLocaleString("es-MX");
+  $("kpiCero").textContent = datos.filter(r=>n(r.cs_ctda)===0).length.toLocaleString("es-MX");
+}
+
+function datosFiltrados(){
+  const q = $("busqueda").value.trim().toLowerCase();
+  const tipo = $("filtroTipo").value;
+
+  return datos.filter(r=>{
+    if(tipo && (r.cs_tipo ?? "") !== tipo) return false;
+    if(soloCriticos && !esCritico(r)) return false;
+    if(soloCero && n(r.cs_ctda)!==0) return false;
+
+    if(!q) return true;
+    const bolsa = [
+      r.idE,r.cs_lcsc,r.cs_desc,r.cs_ctda,r.cs_mxn,r.cs_ctmi,
+      r.cs_fecha,r.cs_observe,r.cs_can,r.cs_tipo,r.cs_ubicado
+    ].map(v=>String(v ?? "").toLowerCase()).join(" | ");
+    return bolsa.includes(q);
+  });
+}
+
+function render(){
+  const lista = datosFiltrados();
+  $("resumenVista").textContent =
+    `${lista.length.toLocaleString("es-MX")} de ${datos.length.toLocaleString("es-MX")} registros visibles`;
+
+  if(lista.length===0){
+    $("tbody").innerHTML = `<tr><td colspan="13" class="empty">No hay registros que coincidan con el filtro.</td></tr>`;
+    $("mobileList").innerHTML = `<div class="empty">No hay registros que coincidan con el filtro.</div>`;
+    return;
+  }
+
+  $("tbody").innerHTML = lista.map(r=>{
+    const crit = esCritico(r);
+    const cero = n(r.cs_ctda)===0;
+    const estado = crit
+      ? `<span class="badge red">${cero ? "SIN STOCK" : "CRÍTICO"}</span>`
+      : `<span class="badge green">OK</span>`;
+    return `<tr class="${crit ? "critico":""}">
+      <td>${esc(r.idE)}</td>
+      <td>${esc(r.cs_lcsc)}</td>
+      <td>${esc(r.cs_desc)}</td>
+      <td><b>${esc(r.cs_ctda)}</b></td>
+      <td>${esc(fmtMoney(r.cs_mxn))}</td>
+      <td>${esc(r.cs_ctmi)}</td>
+      <td>${esc(r.cs_fecha)}</td>
+      <td>${esc(r.cs_observe)}</td>
+      <td>${esc(r.cs_can)}</td>
+      <td>${esc(r.cs_tipo)}</td>
+      <td>${esc(r.cs_ubicado)}</td>
+      <td>${r.cs_imagen ? `<span title="${esc(r.cs_imagen)}">Sí</span>` : ""}</td>
+      <td>${estado}</td>
+    </tr>`;
+  }).join("");
+
+  $("mobileList").innerHTML = lista.map(r=>{
+    const crit = esCritico(r);
+    const cero = n(r.cs_ctda)===0;
+    return `<article class="mobile-item ${crit ? "critico":""}">
+      <div class="mobile-title">${esc(r.cs_lcsc || ("ID " + r.idE))}</div>
+      <div class="mobile-desc">${esc(r.cs_desc)}</div>
+      <div class="mobile-grid">
+        <div><b>ID:</b> ${esc(r.idE)}</div>
+        <div><b>Stock:</b> ${esc(r.cs_ctda)}</div>
+        <div><b>Mínimo:</b> ${esc(r.cs_ctmi)}</div>
+        <div><b>Tipo:</b> ${esc(r.cs_tipo)}</div>
+        <div><b>Ubicación:</b> ${esc(r.cs_ubicado)}</div>
+        <div><b>Precio:</b> ${esc(fmtMoney(r.cs_mxn))}</div>
+        <div><b>Fecha:</b> ${esc(r.cs_fecha)}</div>
+        <div><b>Estado:</b> ${
+          crit
+            ? `<span class="badge red">${cero ? "SIN STOCK":"CRÍTICO"}</span>`
+            : `<span class="badge green">OK</span>`
+        }</div>
+      </div>
+    </article>`;
+  }).join("");
+}
+
+$("busqueda").addEventListener("input",render);
+$("filtroTipo").addEventListener("change",render);
+
+$("btnCriticos").addEventListener("click",()=>{
+  soloCriticos = !soloCriticos;
+  $("btnCriticos").className = soloCriticos ? "active-danger" : "secondary";
+  render();
+});
+
+$("btnCero").addEventListener("click",()=>{
+  soloCero = !soloCero;
+  $("btnCero").className = soloCero ? "active-danger" : "secondary";
+  render();
+});
+
+$("btnRecargar").addEventListener("click",cargarTodo);
+
+cargarTodo();
+</script>
+</body>
+</html>
