@@ -404,6 +404,14 @@
     <main>
         <h1 class="seccion-principal">Expediente Kit Led / Conector</h1>
 
+        <p id="estado-supabase" style="
+            text-align:center;
+            color:#657786;
+            margin:-8px 0 18px;
+            font-size:14px;
+        ">Conectando con Supabase...</p>
+
+
         <div class="separador">-------------------------</div>
         <h2>Balance de Disponibilidad de Placas</h2>
 
@@ -423,16 +431,7 @@
                         <th>fecha</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Kit Led / Conector</td>
-                        <td>Placas</td>
-                        <td>150</td>
-                        <td>2026-05-24</td>
-                        <td>20</td>
-                        <td>2026-05-24</td>
-                    </tr>
-                </tbody>
+                <tbody id="disponibilidad-body"><tr><td colspan="20">Cargando desde Supabase...</td></tr></tbody>
             </table>
         </div>
 
@@ -450,36 +449,7 @@
                         <th>Cantidad</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Venta-Estimada</td>
-                        <td>Placas</td>
-                        <td>2026-06-11</td>
-                        <td>Solo DISPONIBLE 2 Placas // 20 Kits</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Fabricacion-Proceso</td>
-                        <td>Placas</td>
-                        <td>2026-06-01</td>
-                        <td>Fabricar No menos de 100 cables KIT</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Fabricacion-TH</td>
-                        <td>Placas</td>
-                        <td>2026-05-27</td>
-                        <td>Por TH 15 placas / 150 kits (Componentes Reservados)</td>
-                        <td>150</td>
-                    </tr>
-                    <tr>
-                        <td>Venta-Concretada</td>
-                        <td>Placas</td>
-                        <td>2026-05-11</td>
-                        <td></td>
-                        <td>600</td>
-                    </tr>
-                </tbody>
+                <tbody id="secuencias-body"><tr><td colspan="20">Cargando desde Supabase...</td></tr></tbody>
             </table>
         </div>
 
@@ -495,13 +465,7 @@
                         <th>Existencia</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>125</td>
-                        <td>CABLE - KIT</td>
-                        <td>510</td>
-                    </tr>
-                </tbody>
+                <tbody id="especificos-body"><tr><td colspan="20">Cargando desde Supabase...</td></tr></tbody>
             </table>
         </div>
 
@@ -518,26 +482,7 @@
                         <th>Ctdad Stock</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>115</td>
-                        <td>SWITCH - Dip 4 Position Basculante</td>
-                        <td>1</td>
-                        <td>580</td>
-                    </tr>
-                    <tr>
-                        <td>39</td>
-                        <td>RESISTENCIAb - 470</td>
-                        <td>2</td>
-                        <td>0</td>
-                    </tr>
-                    <tr>
-                        <td>125</td>
-                        <td>CABLE - KIT</td>
-                        <td>1</td>
-                        <td>510</td>
-                    </tr>
-                </tbody>
+                <tbody id="proyecto-body"><tr><td colspan="20">Cargando desde Supabase...</td></tr></tbody>
             </table>
         </div>
     
@@ -589,8 +534,509 @@
             &copy; 2026 CircuitDesignMX. Todos los derechos reservados.
         </p>
         <p class="fecha-hora">
-            Fecha y hora: 27/05/2026 15:16:41
+            Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
         </p>
     </footer>
+
+
+<script>
+(function () {
+    "use strict";
+
+    const PROYECTO = "Kit Led / Conector";
+    const COMPONENTES_ESPECIFICOS = new Set(["125"]);
+
+    const SUPABASE_URL =
+        "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const PAGE_SIZE = 1000;
+
+    function texto(v) {
+        return v === null || v === undefined ? "" : String(v);
+    }
+
+    function numero(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 0;
+    }
+
+    function numeroVisible(v) {
+        const n = numero(v);
+        return Number.isInteger(n)
+            ? String(n)
+            : String(Number(n.toFixed(6)));
+    }
+
+    function fechaISO(v) {
+        return texto(v).trim().slice(0, 10);
+    }
+
+    function fechaMayor(...fechas) {
+        const f = fechas
+            .map(fechaISO)
+            .filter(x => /^\d{4}-\d{2}-\d{2}$/.test(x))
+            .sort();
+        return f.length ? f[f.length - 1] : "";
+    }
+
+    function actualizarFooter() {
+        const el = document.getElementById("fecha-hora-dinamica");
+        if (!el) return;
+
+        const ahora = new Date();
+
+        const fecha = ahora.toLocaleDateString(
+            "es-MX",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+
+        const hora = ahora.toLocaleTimeString(
+            "es-MX",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false
+            }
+        );
+
+        el.textContent = `${fecha} ${hora}`;
+    }
+
+    async function fetchTabla(tabla, select, filtros = {}) {
+        const total = [];
+        let offset = 0;
+
+        while (true) {
+            const p = new URLSearchParams({
+                select,
+                limit: String(PAGE_SIZE),
+                offset: String(offset)
+            });
+
+            for (const [k, v] of Object.entries(filtros)) {
+                p.set(k, v);
+            }
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${tabla}?${p.toString()}`;
+
+            const r = await fetch(
+                url,
+                {
+                    method: "GET",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                        "Accept": "application/json"
+                    },
+                    cache: "no-store"
+                }
+            );
+
+            if (!r.ok) {
+                const detalle = await r.text();
+                throw new Error(
+                    `${tabla}: HTTP ${r.status}: ${detalle}`
+                );
+            }
+
+            const datos = await r.json();
+
+            if (!Array.isArray(datos)) {
+                throw new Error(
+                    `${tabla}: respuesta inválida`
+                );
+            }
+
+            total.push(...datos);
+
+            if (datos.length < PAGE_SIZE) {
+                break;
+            }
+
+            offset += PAGE_SIZE;
+        }
+
+        return total;
+    }
+
+    function celda(textoValor, clase = "") {
+        const td = document.createElement("td");
+        td.textContent = texto(textoValor);
+        if (clase) td.className = clase;
+        return td;
+    }
+
+    function renderDisponibilidad(secuencias) {
+        let entrada = 0;
+        let salida = 0;
+        let venta = 0;
+        let ventaPreparada = 0;
+
+        let fechaEntrada = "";
+        let fechaSalida = "";
+
+        for (const r of secuencias) {
+            const proc = texto(r.gs_proceso).trim();
+            const cant = numero(r.gs_ctda);
+            const fecha = fechaISO(r.gs_fecha);
+
+            if (proc === "Fabricacion-Entrada") {
+                entrada += cant;
+                fechaEntrada = fechaMayor(fechaEntrada, fecha);
+            }
+            else if (proc === "Fabricacion-Salida") {
+                salida += cant;
+                fechaSalida = fechaMayor(fechaSalida, fecha);
+            }
+            else if (proc === "Venta-Concretada") {
+                venta += cant;
+            }
+            else if (proc === "Venta-Preparada") {
+                ventaPreparada += cant;
+            }
+        }
+
+        // Se conserva la lógica del expediente original.
+        const enFabricacion = entrada - salida;
+        const listasEnviar = salida - venta - ventaPreparada;
+        const fechaFabricacion = fechaMayor(fechaEntrada, fechaSalida);
+        const fechaDisponible = salida > 0 ? fechaSalida : "";
+
+        const tbody =
+            document.getElementById("disponibilidad-body");
+
+        tbody.replaceChildren();
+
+        const tr = document.createElement("tr");
+        tr.appendChild(celda(PROYECTO));
+        tr.appendChild(celda("Placas"));
+        tr.appendChild(celda(numeroVisible(enFabricacion)));
+        tr.appendChild(celda(fechaFabricacion));
+        tr.appendChild(celda(numeroVisible(listasEnviar)));
+        tr.appendChild(celda(fechaDisponible));
+
+        tbody.appendChild(tr);
+    }
+
+    function prioridadNumerica(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 999;
+    }
+
+    function renderSecuencias(secuencias) {
+        const tbody =
+            document.getElementById("secuencias-body");
+
+        tbody.replaceChildren();
+
+        const filas = secuencias
+            .filter(r =>
+                texto(r.gs_ver).trim().toUpperCase() !== "N"
+            )
+            .sort((a, b) => {
+                const aPend =
+                    texto(a.gs_estado).trim().toLowerCase() === "pendiente";
+                const bPend =
+                    texto(b.gs_estado).trim().toLowerCase() === "pendiente";
+
+                if (aPend !== bPend) {
+                    return aPend ? -1 : 1;
+                }
+
+                if (aPend && bPend) {
+                    const dp =
+                        prioridadNumerica(a.gs_prior) -
+                        prioridadNumerica(b.gs_prior);
+
+                    if (dp !== 0) return dp;
+                }
+
+                const fa = fechaISO(a.gs_fecha);
+                const fb = fechaISO(b.gs_fecha);
+
+                if (fa !== fb) {
+                    return fb.localeCompare(fa);
+                }
+
+                return numero(b.gs_id) - numero(a.gs_id);
+            });
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin secuencias registradas.");
+            td.colSpan = 5;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const tr = document.createElement("tr");
+
+            // La primera columna del HTML histórico se llama Proyecto,
+            // pero su contenido corresponde al proceso.
+            tr.appendChild(celda(r.gs_proceso));
+            tr.appendChild(celda(r.gs_lote));
+            tr.appendChild(celda(fechaISO(r.gs_fecha)));
+            tr.appendChild(celda(r.gs_desc));
+            tr.appendChild(celda(numeroVisible(r.gs_ctda)));
+
+            tbody.appendChild(tr);
+        }
+    }
+
+    function mapaStock(stockRows) {
+        const mapa = new Map();
+
+        for (const r of stockRows) {
+            mapa.set(
+                texto(r.idE).trim().replace(/\.0$/, ""),
+                r
+            );
+        }
+
+        return mapa;
+    }
+
+    function renderEspecificos(stockRows) {
+        const tbody =
+            document.getElementById("especificos-body");
+
+        tbody.replaceChildren();
+
+        const mapa = mapaStock(stockRows);
+
+        const filas = [...COMPONENTES_ESPECIFICOS]
+            .map(id => mapa.get(id))
+            .filter(Boolean);
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin componentes específicos.");
+            td.colSpan = 3;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const tr = document.createElement("tr");
+
+            tr.appendChild(celda(
+                texto(r.idE).replace(/\.0$/, "")
+            ));
+
+            tr.appendChild(celda(r.cs_desc));
+            tr.appendChild(celda(
+                numeroVisible(r.cs_ctda)
+            ));
+
+            tbody.appendChild(tr);
+        }
+    }
+
+    function renderComponentesProyecto(proyectoRows, stockRows) {
+        const tbody =
+            document.getElementById("proyecto-body");
+
+        tbody.replaceChildren();
+
+        const stock = mapaStock(stockRows);
+
+        // Sumar cp_ctda por idE, preservando la descripción del proyecto
+        // si no existe descripción en STOCK.
+        const agrupado = new Map();
+
+        for (const r of proyectoRows) {
+            const id =
+                texto(r.cp_idE).trim().replace(/\.0$/, "");
+
+            if (!id) continue;
+
+            if (!agrupado.has(id)) {
+                agrupado.set(id, {
+                    idE: id,
+                    descripcion: texto(r.cp_desc),
+                    cantidad: 0
+                });
+            }
+
+            const item = agrupado.get(id);
+            item.cantidad += numero(r.cp_ctda);
+
+            if (!item.descripcion && r.cp_desc) {
+                item.descripcion = texto(r.cp_desc);
+            }
+        }
+
+        const filas = [...agrupado.values()]
+            .sort((a, b) =>
+                texto(a.descripcion)
+                    .localeCompare(
+                        texto(b.descripcion),
+                        "es",
+                        { sensitivity: "base" }
+                    )
+            );
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin componentes del proyecto.");
+            td.colSpan = 4;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const s = stock.get(r.idE);
+
+            const descripcion =
+                s && texto(s.cs_desc).trim()
+                    ? s.cs_desc
+                    : r.descripcion;
+
+            const existencia =
+                s ? numero(s.cs_ctda) : 0;
+
+            const tr = document.createElement("tr");
+
+            tr.appendChild(celda(r.idE));
+            tr.appendChild(celda(descripcion));
+            tr.appendChild(celda(
+                numeroVisible(r.cantidad)
+            ));
+            tr.appendChild(celda(
+                numeroVisible(existencia)
+            ));
+
+            tbody.appendChild(tr);
+        }
+    }
+
+    async function actualizarTodo() {
+        const estado =
+            document.getElementById("estado-supabase");
+
+        estado.textContent =
+            "Actualizando datos desde Supabase...";
+
+        estado.style.color = "#657786";
+
+        try {
+            const [
+                secuencias,
+                proyectoRows,
+                stockRows
+            ] = await Promise.all([
+                fetchTabla(
+                    "gs_secuencias",
+                    [
+                        "gs_id",
+                        "gs_proceso",
+                        "gs_subproceso",
+                        "gs_proyecto",
+                        "gs_lote",
+                        "gs_prior",
+                        "gs_fecha",
+                        "gs_desc",
+                        "gs_ctda",
+                        "gs_estado",
+                        "gs_ver",
+                        "gs_fecha_cum"
+                    ].join(","),
+                    {
+                        gs_proyecto:
+                            `eq.${PROYECTO}`
+                    }
+                ),
+
+                fetchTabla(
+                    "cp_proyectos",
+                    [
+                        "cp_id",
+                        "cp_proyecto",
+                        "cp_idE",
+                        "cp_desc",
+                        "cp_ctda"
+                    ].join(","),
+                    {
+                        cp_proyecto:
+                            `eq.${PROYECTO}`
+                    }
+                ),
+
+                fetchTabla(
+                    "cs_stock",
+                    [
+                        "idE",
+                        "cs_desc",
+                        "cs_ctda",
+                        "cs_ctmi",
+                        "cs_tipo",
+                        "cs_observe"
+                    ].join(",")
+                )
+            ]);
+
+            renderDisponibilidad(secuencias);
+            renderSecuencias(secuencias);
+            renderEspecificos(stockRows);
+            renderComponentesProyecto(
+                proyectoRows,
+                stockRows
+            );
+
+            actualizarFooter();
+
+            const hora =
+                new Date().toLocaleTimeString(
+                    "es-MX",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit"
+                    }
+                );
+
+            estado.textContent =
+                `Supabase conectado · ` +
+                `${secuencias.length} secuencias · ` +
+                `${proyectoRows.length} registros BOM · ` +
+                `${hora}`;
+
+        } catch (error) {
+            console.error(error);
+
+            estado.textContent =
+                "Error al obtener datos desde Supabase";
+
+            estado.style.color = "#a02a2a";
+        }
+    }
+
+    actualizarFooter();
+    actualizarTodo();
+
+    // Actualización automática cada 60 segundos.
+    window.setInterval(
+        actualizarTodo,
+        60000
+    );
+
+})();
+</script>
+
 </body>
 </html>
