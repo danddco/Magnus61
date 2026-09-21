@@ -379,7 +379,10 @@
 
     <h2>Componentes Críticos vs Facturados vs Existencia</h2>
     <div class="fecha-reporte">
-        Reporte actualizado: 2026-09-18
+        Reporte actualizado:
+        <span id="fecha-reporte">--</span>
+        ·
+        <span id="estado-supabase">Conectando con Supabase...</span>
     </div>
 
     <div class="tabla-wrap">
@@ -394,153 +397,14 @@
                 <th>Existencia</th>
             </tr>
         </thead>
-        <tbody>
-    
-        <tr class="bajo">
-            <td data-label="ID" class="numero">124</td>
-            <td data-label="Descripción" class="descripcion">ADAPTADOR PANTALLA - LCD - 20x04 - Con Pines)</td>
-            <td data-label="Tipo" class="tipo">Pantalla</td>
-            <td data-label="Ctdad Crítica" class="numero">1</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">0</td>
+        <tbody id="criticos-body">
+        <tr>
+            <td colspan="6"
+                style="text-align:center; padding:24px;">
+                Cargando componentes críticos desde Supabase...
+            </td>
         </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">105</td>
-            <td data-label="Descripción" class="descripcion">CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
-            <td data-label="Tipo" class="tipo">R_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">200</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">-229</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">34</td>
-            <td data-label="Descripción" class="descripcion">INDUCTOR - 470MT - FIXED 47uH 2.5A 100mΩ </td>
-            <td data-label="Tipo" class="tipo">R_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">0</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">133</td>
-            <td data-label="Descripción" class="descripcion">Resistencia 383</td>
-            <td data-label="Tipo" class="tipo">R_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">0</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">-50</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">86</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIAa - 10</td>
-            <td data-label="Tipo" class="tipo">R_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">1</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">167</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIAa - 100</td>
-            <td data-label="Tipo" class="tipo">R_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">1</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">168</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIAa - 120</td>
-            <td data-label="Tipo" class="tipo">R_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">1</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">20</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIAb - 240</td>
-            <td data-label="Tipo" class="tipo">R_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">1</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">170</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIAc - 680</td>
-            <td data-label="Tipo" class="tipo">R_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">1</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">171</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIAc - 750</td>
-            <td data-label="Tipo" class="tipo">R_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">1</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">8</td>
-            <td data-label="Descripción" class="descripcion">SWITCH - Tactil Push Bottom</td>
-            <td data-label="Tipo" class="tipo">R_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">1</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">0</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">6</td>
-            <td data-label="Descripción" class="descripcion">Transistor ULN2003AD</td>
-            <td data-label="Tipo" class="tipo">S_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">50</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">40</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">204</td>
-            <td data-label="Descripción" class="descripcion">CONECTOR - CACHIMBA - 4P MACHO - 3.81 - Recto - Pequeño</td>
-            <td data-label="Tipo" class="tipo">T_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">200</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">40</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">162</td>
-            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 3P</td>
-            <td data-label="Tipo" class="tipo">T_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">25</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">1</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">25</td>
-            <td data-label="Descripción" class="descripcion">CONECTOR - PRESION - 5P - TERM BLK 5POS 3.5mm TH</td>
-            <td data-label="Tipo" class="tipo">T_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">25</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">7</td>
-        </tr>
-        
-        <tr class="bajo">
-            <td data-label="ID" class="numero">46</td>
-            <td data-label="Descripción" class="descripcion">RESISTENCIA - FR2512J101 TS - 100 ohms</td>
-            <td data-label="Tipo" class="tipo">T_Normal</td>
-            <td data-label="Ctdad Crítica" class="numero">0</td>
-            <td data-label="Ctdad Facturada" class="numero">0</td>
-            <td data-label="Existencia" class="numero">-30</td>
-        </tr>
-        
-        </tbody>
+    </tbody>
     </table>
     </div>
     
@@ -601,6 +465,623 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 18/09/2026 16:16:19
+        Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
     </p>
 </footer>
+
+
+<script>
+(function () {
+    "use strict";
+
+    const SUPABASE_URL =
+        "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const LOTE = 1000;
+
+    const TIPOS_CRITICOS_POR_MINIMO = new Set([
+        "otros",
+        "cables",
+        "gastable",
+        "pantalla",
+        "pantallas",
+        "t_normal",
+        "s_normal",
+        "r_costoso",
+        "s_costoso",
+        "t_costoso"
+    ]);
+
+    const TIPOS_CRITICOS_EXISTENCIA_CERO = new Set([
+        "r_normal"
+    ]);
+
+    const tbody =
+        document.getElementById("criticos-body");
+
+    const estado =
+        document.getElementById("estado-supabase");
+
+    const fechaReporte =
+        document.getElementById("fecha-reporte");
+
+
+    function texto(valor) {
+        return valor === null ||
+               valor === undefined
+            ? ""
+            : String(valor);
+    }
+
+
+    function normalizarTipo(valor) {
+        return texto(valor)
+            .trim()
+            .toLocaleLowerCase("es-MX");
+    }
+
+
+    function numero(valor) {
+        if (
+            valor === null ||
+            valor === undefined ||
+            String(valor).trim() === ""
+        ) {
+            return 0;
+        }
+
+        const n = Number(valor);
+
+        return Number.isFinite(n)
+            ? n
+            : 0;
+    }
+
+
+    function mostrarEntero(valor) {
+        return String(
+            Math.round(
+                numero(valor)
+            )
+        );
+    }
+
+
+    function fechaISOHoy() {
+        const ahora = new Date();
+
+        const y = ahora.getFullYear();
+
+        const m = String(
+            ahora.getMonth() + 1
+        ).padStart(2, "0");
+
+        const d = String(
+            ahora.getDate()
+        ).padStart(2, "0");
+
+        return `${y}-${m}-${d}`;
+    }
+
+
+    function actualizarFechaFooter() {
+        const destino =
+            document.getElementById(
+                "fecha-hora-dinamica"
+            );
+
+        if (!destino) {
+            return;
+        }
+
+        const ahora = new Date();
+
+        const fecha =
+            ahora.toLocaleDateString(
+                "es-MX",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                }
+            );
+
+        const hora =
+            ahora.toLocaleTimeString(
+                "es-MX",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false
+                }
+            );
+
+        destino.textContent =
+            `${fecha} ${hora}`;
+    }
+
+
+    async function leerTablaCompleta(
+        tabla,
+        columnas
+    ) {
+        const todos = [];
+        let offset = 0;
+
+        while (true) {
+            const params =
+                new URLSearchParams({
+                    select: columnas,
+                    limit: String(LOTE),
+                    offset: String(offset)
+                });
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${tabla}?` +
+                params.toString();
+
+            const respuesta =
+                await fetch(
+                    url,
+                    {
+                        method: "GET",
+                        headers: {
+                            "apikey":
+                                SUPABASE_ANON_KEY,
+                            "Authorization":
+                                `Bearer ${SUPABASE_ANON_KEY}`,
+                            "Accept":
+                                "application/json"
+                        },
+                        cache: "no-store"
+                    }
+                );
+
+            if (!respuesta.ok) {
+                const detalle =
+                    await respuesta.text();
+
+                throw new Error(
+                    `${tabla}: HTTP ${respuesta.status}: ` +
+                    detalle
+                );
+            }
+
+            const datos =
+                await respuesta.json();
+
+            if (!Array.isArray(datos)) {
+                throw new Error(
+                    `${tabla} no devolvió una lista.`
+                );
+            }
+
+            todos.push(...datos);
+
+            if (datos.length < LOTE) {
+                break;
+            }
+
+            offset += LOTE;
+        }
+
+        return todos;
+    }
+
+
+    function construirResumenRegistros(registros) {
+        /*
+            Equivale al pivot original:
+
+            Facturado      = suma cr_ctda donde cr_accion='Facturado'
+            Suma_Restantes = suma cr_ctda de todas las demás acciones
+        */
+        const resumen = new Map();
+
+        for (const fila of registros) {
+            const id =
+                fila.cr_idE;
+
+            if (
+                id === null ||
+                id === undefined ||
+                String(id).trim() === ""
+            ) {
+                continue;
+            }
+
+            const clave =
+                String(id).trim();
+
+            if (!resumen.has(clave)) {
+                resumen.set(
+                    clave,
+                    {
+                        facturado: 0,
+                        restantes: 0
+                    }
+                );
+            }
+
+            const acumulado =
+                resumen.get(clave);
+
+            const cantidad =
+                numero(fila.cr_ctda);
+
+            const accion =
+                texto(
+                    fila.cr_accion
+                ).trim();
+
+            if (accion === "Facturado") {
+                acumulado.facturado +=
+                    cantidad;
+            } else {
+                acumulado.restantes +=
+                    cantidad;
+            }
+        }
+
+        return resumen;
+    }
+
+
+    function calcularCriticos(
+        stock,
+        resumenRegistros
+    ) {
+        const resultado = [];
+
+        for (const item of stock) {
+            const id =
+                String(
+                    item.idE ?? ""
+                ).trim();
+
+            if (!id) {
+                continue;
+            }
+
+            const resumen =
+                resumenRegistros.get(id) ||
+                {
+                    facturado: 0,
+                    restantes: 0
+                };
+
+            const tipo =
+                normalizarTipo(
+                    item.cs_tipo
+                );
+
+            const minimo =
+                numero(
+                    item.cs_ctmi
+                );
+
+            const existencia =
+                numero(
+                    resumen.restantes
+                );
+
+            const esTipoMinimo =
+                TIPOS_CRITICOS_POR_MINIMO
+                    .has(tipo);
+
+            const esTipoCero =
+                TIPOS_CRITICOS_EXISTENCIA_CERO
+                    .has(tipo);
+
+            const esCritico =
+                (
+                    esTipoMinimo &&
+                    existencia < minimo
+                )
+                ||
+                (
+                    esTipoCero &&
+                    existencia <= 0
+                );
+
+            if (!esCritico) {
+                continue;
+            }
+
+            resultado.push({
+                idE: item.idE,
+                descripcion:
+                    texto(item.cs_desc),
+                tipo:
+                    texto(item.cs_tipo),
+                minimo,
+                facturado:
+                    resumen.facturado,
+                existencia
+            });
+        }
+
+        // Igual que el generador original:
+        // primero Tipo y después Descripción, sin distinguir mayúsculas.
+        resultado.sort(
+            (a, b) => {
+                const tipoA =
+                    normalizarTipo(a.tipo);
+
+                const tipoB =
+                    normalizarTipo(b.tipo);
+
+                const compTipo =
+                    tipoA.localeCompare(
+                        tipoB,
+                        "es"
+                    );
+
+                if (compTipo !== 0) {
+                    return compTipo;
+                }
+
+                return texto(
+                    a.descripcion
+                )
+                .toLocaleLowerCase("es-MX")
+                .localeCompare(
+                    texto(
+                        b.descripcion
+                    )
+                    .toLocaleLowerCase("es-MX"),
+                    "es"
+                );
+            }
+        );
+
+        return resultado;
+    }
+
+
+    function crearCelda(
+        etiqueta,
+        valor,
+        clase
+    ) {
+        const td =
+            document.createElement(
+                "td"
+            );
+
+        td.dataset.label =
+            etiqueta;
+
+        if (clase) {
+            td.className =
+                clase;
+        }
+
+        td.textContent =
+            texto(valor);
+
+        return td;
+    }
+
+
+    function renderizar(criticos) {
+        tbody.replaceChildren();
+
+        if (!criticos.length) {
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+            const td =
+                document.createElement(
+                    "td"
+                );
+
+            td.colSpan = 6;
+            td.style.textAlign =
+                "center";
+            td.style.padding =
+                "22px";
+
+            td.textContent =
+                "No hay componentes críticos " +
+                "para los tipos configurados.";
+
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+
+            return;
+        }
+
+        for (const fila of criticos) {
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+            tr.className =
+                "bajo";
+
+            tr.appendChild(
+                crearCelda(
+                    "ID",
+                    mostrarEntero(
+                        fila.idE
+                    ),
+                    "numero"
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Descripción",
+                    fila.descripcion,
+                    "descripcion"
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Tipo",
+                    fila.tipo,
+                    "tipo"
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Ctdad Crítica",
+                    mostrarEntero(
+                        fila.minimo
+                    ),
+                    "numero"
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Ctdad Facturada",
+                    mostrarEntero(
+                        fila.facturado
+                    ),
+                    "numero"
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Existencia",
+                    mostrarEntero(
+                        fila.existencia
+                    ),
+                    "numero"
+                )
+            );
+
+            tbody.appendChild(tr);
+        }
+    }
+
+
+    async function actualizarReporte() {
+        estado.textContent =
+            "Actualizando desde Supabase...";
+
+        estado.style.color =
+            "";
+
+        try {
+            const [
+                stock,
+                registros
+            ] = await Promise.all([
+                leerTablaCompleta(
+                    "cs_stock",
+                    "idE,cs_desc,cs_tipo,cs_ctmi"
+                ),
+                leerTablaCompleta(
+                    "cr_registros",
+                    "cr_idE,cr_ctda,cr_accion"
+                )
+            ]);
+
+            const resumen =
+                construirResumenRegistros(
+                    registros
+                );
+
+            const criticos =
+                calcularCriticos(
+                    stock,
+                    resumen
+                );
+
+            renderizar(
+                criticos
+            );
+
+            fechaReporte.textContent =
+                fechaISOHoy();
+
+            actualizarFechaFooter();
+
+            const ahora =
+                new Date()
+                    .toLocaleTimeString(
+                        "es-MX",
+                        {
+                            hour:
+                                "2-digit",
+                            minute:
+                                "2-digit",
+                            second:
+                                "2-digit"
+                        }
+                    );
+
+            estado.textContent =
+                `Supabase conectado · ` +
+                `${criticos.length} críticos · ` +
+                `${ahora}`;
+
+        } catch (error) {
+            console.error(error);
+
+            tbody.replaceChildren();
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+            const td =
+                document.createElement(
+                    "td"
+                );
+
+            td.colSpan = 6;
+            td.style.textAlign =
+                "center";
+            td.style.padding =
+                "24px";
+            td.style.color =
+                "#a02a2a";
+
+            td.textContent =
+                "No fue posible obtener " +
+                "los datos desde Supabase.";
+
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+
+            estado.textContent =
+                "Error de conexión con Supabase";
+
+            estado.style.color =
+                "#a02a2a";
+        }
+    }
+
+
+    fechaReporte.textContent =
+        fechaISOHoy();
+
+    actualizarFechaFooter();
+    actualizarReporte();
+
+    // Refresco automático cada 60 segundos.
+    window.setInterval(
+        actualizarReporte,
+        60000
+    );
+
+})();
+</script>
+
