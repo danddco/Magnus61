@@ -456,125 +456,13 @@
         </h1>
 
         <p class="subtitulo-reporte">
-            Generado: 2026-09-11
+            Generado: <span id="fecha-generacion">--</span> &nbsp; | &nbsp; <span id="estado-supabase">Conectando con Supabase...</span>
         </p>
 
-        <div class="proyectos-grid">
-
-            
-    <section class="proyecto-card">
-
-        <div class="proyecto-titulo">
-            AWS Mini v1.0
-        </div>
-
-        <div class="metricas">
-
-            <article class="metrica">
-                <h3>En Fabricación</h3>
-
-                <div class="valor-produccion">
-                    30
-                </div>
-
-                <div class="fecha-produccion">
-                    2026-09-04
-                </div>
-            </article>
-
-            <article class="metrica">
-                <h3>Listas para enviar</h3>
-
-                <div class="valor-produccion">
-                    32
-                </div>
-
-                <div class="fecha-produccion">
-                    2026-08-31
-                </div>
-            </article>
-
-        </div>
-
-    </section>
-    
-
-            
-    <section class="proyecto-card">
-
-        <div class="proyecto-titulo">
-            AWS Pro v1.0
-        </div>
-
-        <div class="metricas">
-
-            <article class="metrica">
-                <h3>En Fabricación</h3>
-
-                <div class="valor-produccion">
-                    6
-                </div>
-
-                <div class="fecha-produccion">
-                    2026-06-16
-                </div>
-            </article>
-
-            <article class="metrica">
-                <h3>Listas para enviar</h3>
-
-                <div class="valor-produccion">
-                    0
-                </div>
-
-                <div class="fecha-produccion">
-                    2026-07-02
-                </div>
-            </article>
-
-        </div>
-
-    </section>
-    
-
-            
-    <section class="proyecto-card">
-
-        <div class="proyecto-titulo">
-            DUO ver1.0
-        </div>
-
-        <div class="metricas">
-
-            <article class="metrica">
-                <h3>En Fabricación</h3>
-
-                <div class="valor-produccion">
-                    15
-                </div>
-
-                <div class="fecha-produccion">
-                    2026-09-04
-                </div>
-            </article>
-
-            <article class="metrica">
-                <h3>Listas para enviar</h3>
-
-                <div class="valor-produccion">
-                    9
-                </div>
-
-                <div class="fecha-produccion">
-                    2026-08-06
-                </div>
-            </article>
-
-        </div>
-
-    </section>
-    
-
+        <div class="proyectos-grid" id="proyectos-grid">
+            <div class="sin-datos">
+                Cargando producción desde Supabase...
+            </div>
         </div>
 
     </main>
@@ -628,6 +516,437 @@
     }
 </style>
 
+
+
+<script>
+(function () {
+    "use strict";
+
+    const PROYECTOS = [
+        "AWS Mini v1.0",
+        "AWS Pro v1.0",
+        "DUO ver1.0"
+    ];
+
+    const SUPABASE_URL =
+        "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const TABLA = "gs_secuencias";
+    const LOTE = 1000;
+
+    function texto(valor) {
+        return valor === null || valor === undefined
+            ? ""
+            : String(valor);
+    }
+
+    function numero(valor) {
+        const n = Number(valor);
+        return Number.isFinite(n) ? n : 0;
+    }
+
+    function mostrarNumero(valor) {
+        const n = numero(valor);
+        return Number.isInteger(n)
+            ? String(n)
+            : String(Number(n.toFixed(6)));
+    }
+
+    function fechaMayor(a, b) {
+        const fa = texto(a).trim().slice(0, 10);
+        const fb = texto(b).trim().slice(0, 10);
+
+        if (!fa) return fb;
+        if (!fb) return fa;
+
+        return fa > fb ? fa : fb;
+    }
+
+    function fechaISOHoy() {
+        const ahora = new Date();
+        const y = ahora.getFullYear();
+        const m = String(ahora.getMonth() + 1).padStart(2, "0");
+        const d = String(ahora.getDate()).padStart(2, "0");
+        return `${y}-${m}-${d}`;
+    }
+
+    function actualizarFechaFooter() {
+        const destino =
+            document.getElementById("fecha-hora-dinamica");
+
+        if (!destino) return;
+
+        const ahora = new Date();
+
+        const fecha = ahora.toLocaleDateString(
+            "es-MX",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+
+        const hora = ahora.toLocaleTimeString(
+            "es-MX",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false
+            }
+        );
+
+        destino.textContent = `${fecha} ${hora}`;
+    }
+
+    async function leerProduccion() {
+        const todos = [];
+        let offset = 0;
+
+        while (true) {
+            const params = new URLSearchParams({
+                select: [
+                    "gs_id",
+                    "gs_proceso",
+                    "gs_proyecto",
+                    "gs_fecha",
+                    "gs_ctda"
+                ].join(","),
+                gs_proyecto:
+                    "in.(AWS Mini v1.0,AWS Pro v1.0,DUO ver1.0)",
+                gs_proceso:
+                    "in.(Fabricacion-Entrada,Fabricacion-Salida,Venta-Concretada)",
+                order:
+                    "gs_proyecto.asc,gs_fecha.asc,gs_id.asc",
+                limit: String(LOTE),
+                offset: String(offset)
+            });
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${TABLA}?` +
+                params.toString();
+
+            const respuesta = await fetch(
+                url,
+                {
+                    method: "GET",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization":
+                            `Bearer ${SUPABASE_ANON_KEY}`,
+                        "Accept": "application/json"
+                    },
+                    cache: "no-store"
+                }
+            );
+
+            if (!respuesta.ok) {
+                const detalle = await respuesta.text();
+
+                throw new Error(
+                    `HTTP ${respuesta.status}: ${detalle}`
+                );
+            }
+
+            const datos = await respuesta.json();
+
+            if (!Array.isArray(datos)) {
+                throw new Error(
+                    "Supabase no devolvió una lista."
+                );
+            }
+
+            todos.push(...datos);
+
+            if (datos.length < LOTE) {
+                break;
+            }
+
+            offset += LOTE;
+        }
+
+        return todos;
+    }
+
+    function resumirProyecto(filas, proyecto) {
+        let entrada = 0;
+        let salida = 0;
+        let venta = 0;
+
+        let fechaEntrada = "";
+        let fechaSalida = "";
+        let fechaVenta = "";
+
+        for (const fila of filas) {
+            if (
+                texto(fila.gs_proyecto).trim() !== proyecto
+            ) {
+                continue;
+            }
+
+            const proceso =
+                texto(fila.gs_proceso).trim();
+
+            const cantidad =
+                numero(fila.gs_ctda);
+
+            const fecha =
+                texto(fila.gs_fecha)
+                    .trim()
+                    .slice(0, 10);
+
+            if (
+                proceso === "Fabricacion-Entrada"
+            ) {
+                entrada += cantidad;
+                fechaEntrada =
+                    fechaMayor(
+                        fechaEntrada,
+                        fecha
+                    );
+            }
+
+            else if (
+                proceso === "Fabricacion-Salida"
+            ) {
+                salida += cantidad;
+                fechaSalida =
+                    fechaMayor(
+                        fechaSalida,
+                        fecha
+                    );
+            }
+
+            else if (
+                proceso === "Venta-Concretada"
+            ) {
+                venta += cantidad;
+                fechaVenta =
+                    fechaMayor(
+                        fechaVenta,
+                        fecha
+                    );
+            }
+        }
+
+        return {
+            proyecto,
+            enFabricacion:
+                entrada - salida,
+            listasEnviar:
+                salida - venta,
+            fechaFabricacion:
+                fechaMayor(
+                    fechaEntrada,
+                    fechaSalida
+                ),
+            fechaDisponible:
+                fechaMayor(
+                    fechaSalida,
+                    fechaVenta
+                )
+        };
+    }
+
+    function crearMetrica(
+        titulo,
+        valor,
+        fecha
+    ) {
+        const article =
+            document.createElement("article");
+
+        article.className = "metrica";
+
+        const h3 =
+            document.createElement("h3");
+
+        h3.textContent = titulo;
+
+        const valorDiv =
+            document.createElement("div");
+
+        valorDiv.className =
+            "valor-produccion";
+
+        valorDiv.textContent =
+            mostrarNumero(valor);
+
+        const fechaDiv =
+            document.createElement("div");
+
+        fechaDiv.className =
+            "fecha-produccion";
+
+        fechaDiv.textContent =
+            fecha || "—";
+
+        article.appendChild(h3);
+        article.appendChild(valorDiv);
+        article.appendChild(fechaDiv);
+
+        return article;
+    }
+
+    function crearTarjeta(datos) {
+        const section =
+            document.createElement("section");
+
+        section.className =
+            "proyecto-card";
+
+        const titulo =
+            document.createElement("div");
+
+        titulo.className =
+            "proyecto-titulo";
+
+        titulo.textContent =
+            datos.proyecto;
+
+        const metricas =
+            document.createElement("div");
+
+        metricas.className =
+            "metricas";
+
+        metricas.appendChild(
+            crearMetrica(
+                "En Fabricación",
+                datos.enFabricacion,
+                datos.fechaFabricacion
+            )
+        );
+
+        metricas.appendChild(
+            crearMetrica(
+                "Listas para enviar",
+                datos.listasEnviar,
+                datos.fechaDisponible
+            )
+        );
+
+        section.appendChild(titulo);
+        section.appendChild(metricas);
+
+        return section;
+    }
+
+    function renderizar(filas) {
+        const grid =
+            document.getElementById(
+                "proyectos-grid"
+            );
+
+        grid.replaceChildren();
+
+        for (const proyecto of PROYECTOS) {
+            const resumen =
+                resumirProyecto(
+                    filas,
+                    proyecto
+                );
+
+            grid.appendChild(
+                crearTarjeta(resumen)
+            );
+        }
+    }
+
+    async function actualizarReporte() {
+        const estado =
+            document.getElementById(
+                "estado-supabase"
+            );
+
+        estado.textContent =
+            "Actualizando desde Supabase...";
+
+        estado.style.color = "";
+
+        try {
+            const filas =
+                await leerProduccion();
+
+            renderizar(filas);
+
+            document.getElementById(
+                "fecha-generacion"
+            ).textContent =
+                fechaISOHoy();
+
+            actualizarFechaFooter();
+
+            const ahora =
+                new Date()
+                    .toLocaleTimeString(
+                        "es-MX",
+                        {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit"
+                        }
+                    );
+
+            estado.textContent =
+                `Supabase conectado · ` +
+                `${filas.length} registros · ` +
+                `${ahora}`;
+
+        } catch (error) {
+            console.error(error);
+
+            const grid =
+                document.getElementById(
+                    "proyectos-grid"
+                );
+
+            grid.replaceChildren();
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+            div.className =
+                "sin-datos";
+
+            div.textContent =
+                "No fue posible obtener la producción desde Supabase.";
+
+            grid.appendChild(div);
+
+            estado.textContent =
+                "Error de conexión con Supabase";
+
+            estado.style.color =
+                "#a02a2a";
+        }
+    }
+
+    document.getElementById(
+        "fecha-generacion"
+    ).textContent =
+        fechaISOHoy();
+
+    actualizarFechaFooter();
+    actualizarReporte();
+
+    // Refresco automático cada 60 segundos.
+    window.setInterval(
+        actualizarReporte,
+        60000
+    );
+
+})();
+</script>
+
 <div class="espacio-footer"></div>
 
 <footer>
@@ -636,6 +955,6 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 11/09/2026 15:53:04
+        Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
     </p>
 </footer>
