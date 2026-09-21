@@ -338,13 +338,15 @@
     <main class="reporte-produccion">
 
         <h1 class="titulo-reporte">
-            Reporte de Producción - Darmax
+            Reporte de Producción - <span id="proyecto-titulo">Darmax</span>
         </h1>
 
         <p class="subtitulo-reporte">
-            Proyecto: Darmax
-            &nbsp; | &nbsp;
-            Generado: 2026-09-11
+            Proyecto: <span id="proyecto-nombre">Darmax</span>
+             &nbsp; | &nbsp;
+             Generado: <span id="fecha-generacion">--</span>
+             &nbsp; | &nbsp;
+             <span id="estado-supabase">Conectando con Supabase...</span>
         </p>
 
         <div class="cards-produccion">
@@ -352,25 +354,17 @@
             <section class="card-produccion">
                 <h2>En Fabricación</h2>
 
-                <div class="valor-produccion">
-                    0
-                </div>
+                <div class="valor-produccion"><span id="valor-fabricacion">--</span></div>
 
-                <div class="fecha-produccion">
-                    2026-05-21
-                </div>
+                <div class="fecha-produccion"><span id="fecha-fabricacion">--</span></div>
             </section>
 
             <section class="card-produccion">
                 <h2>Listas para enviar</h2>
 
-                <div class="valor-produccion">
-                    5
-                </div>
+                <div class="valor-produccion"><span id="valor-enviar">--</span></div>
 
-                <div class="fecha-produccion">
-                    2026-09-07
-                </div>
+                <div class="fecha-produccion"><span id="fecha-disponible">--</span></div>
             </section>
 
         </div>
@@ -426,6 +420,348 @@
     }
 </style>
 
+
+
+<script>
+(function () {
+    "use strict";
+
+    const PROYECTO = "Darmax";
+
+    const SUPABASE_URL =
+        "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const TABLA = "gs_secuencias";
+    const LOTE = 1000;
+
+    function texto(valor) {
+        return valor === null || valor === undefined
+            ? ""
+            : String(valor);
+    }
+
+    function numero(valor) {
+        const n = Number(valor);
+        return Number.isFinite(n) ? n : 0;
+    }
+
+    function mostrarNumero(valor) {
+        const n = numero(valor);
+
+        return Number.isInteger(n)
+            ? String(n)
+            : String(Number(n.toFixed(6)));
+    }
+
+    function fechaMayor(...fechas) {
+        const validas = fechas
+            .map(f => texto(f).trim().slice(0, 10))
+            .filter(f => /^\d{4}-\d{2}-\d{2}$/.test(f))
+            .sort();
+
+        return validas.length
+            ? validas[validas.length - 1]
+            : "";
+    }
+
+    function fechaISOHoy() {
+        const ahora = new Date();
+
+        const y = ahora.getFullYear();
+        const m = String(
+            ahora.getMonth() + 1
+        ).padStart(2, "0");
+        const d = String(
+            ahora.getDate()
+        ).padStart(2, "0");
+
+        return `${y}-${m}-${d}`;
+    }
+
+    function actualizarFechaFooter() {
+        const destino =
+            document.getElementById("fecha-hora-dinamica");
+
+        if (!destino) return;
+
+        const ahora = new Date();
+
+        const fecha = ahora.toLocaleDateString(
+            "es-MX",
+            {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric"
+            }
+        );
+
+        const hora = ahora.toLocaleTimeString(
+            "es-MX",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false
+            }
+        );
+
+        destino.textContent = `${fecha} ${hora}`;
+    }
+
+    async function leerProduccion() {
+        const todos = [];
+        let offset = 0;
+
+        while (true) {
+            const params = new URLSearchParams({
+                select: [
+                    "gs_id",
+                    "gs_proceso",
+                    "gs_proyecto",
+                    "gs_lote",
+                    "gs_fecha",
+                    "gs_ctda"
+                ].join(","),
+                gs_proyecto: `eq.${PROYECTO}`,
+                gs_proceso:
+                    "in.(Fabricacion-Entrada,Fabricacion-Salida,Venta-Concretada)",
+                order: "gs_fecha.asc,gs_id.asc",
+                limit: String(LOTE),
+                offset: String(offset)
+            });
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${TABLA}?` +
+                params.toString();
+
+            const respuesta = await fetch(
+                url,
+                {
+                    method: "GET",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization":
+                            `Bearer ${SUPABASE_ANON_KEY}`,
+                        "Accept": "application/json"
+                    },
+                    cache: "no-store"
+                }
+            );
+
+            if (!respuesta.ok) {
+                const detalle = await respuesta.text();
+
+                throw new Error(
+                    `HTTP ${respuesta.status}: ${detalle}`
+                );
+            }
+
+            const datos = await respuesta.json();
+
+            if (!Array.isArray(datos)) {
+                throw new Error(
+                    "Supabase no devolvió una lista."
+                );
+            }
+
+            todos.push(...datos);
+
+            if (datos.length < LOTE) {
+                break;
+            }
+
+            offset += LOTE;
+        }
+
+        return todos;
+    }
+
+    function resumir(filas) {
+        let entrada = 0;
+        let salida = 0;
+        let venta = 0;
+
+        let fechaEntrada = "";
+        let fechaSalida = "";
+        let fechaVenta = "";
+
+        for (const fila of filas) {
+            const proceso =
+                texto(fila.gs_proceso).trim();
+
+            const cantidad =
+                numero(fila.gs_ctda);
+
+            const fecha =
+                texto(fila.gs_fecha)
+                    .trim()
+                    .slice(0, 10);
+
+            if (proceso === "Fabricacion-Entrada") {
+                entrada += cantidad;
+                fechaEntrada =
+                    fechaMayor(fechaEntrada, fecha);
+            }
+
+            else if (proceso === "Fabricacion-Salida") {
+                salida += cantidad;
+                fechaSalida =
+                    fechaMayor(fechaSalida, fecha);
+            }
+
+            else if (proceso === "Venta-Concretada") {
+                venta += cantidad;
+                fechaVenta =
+                    fechaMayor(fechaVenta, fecha);
+            }
+        }
+
+        return {
+            enFabricacion:
+                entrada - salida,
+
+            listasEnviar:
+                salida - venta,
+
+            fechaFabricacion:
+                fechaMayor(
+                    fechaEntrada,
+                    fechaSalida
+                ),
+
+            fechaDisponible:
+                fechaMayor(
+                    fechaSalida,
+                    fechaVenta
+                )
+        };
+    }
+
+    async function actualizarReporte() {
+        const estado =
+            document.getElementById("estado-supabase");
+
+        estado.textContent =
+            "Actualizando desde Supabase...";
+
+        estado.style.color = "";
+
+        try {
+            const filas =
+                await leerProduccion();
+
+            const resumen =
+                resumir(filas);
+
+            document.getElementById(
+                "valor-fabricacion"
+            ).textContent =
+                mostrarNumero(
+                    resumen.enFabricacion
+                );
+
+            document.getElementById(
+                "fecha-fabricacion"
+            ).textContent =
+                resumen.fechaFabricacion || "—";
+
+            document.getElementById(
+                "valor-enviar"
+            ).textContent =
+                mostrarNumero(
+                    resumen.listasEnviar
+                );
+
+            document.getElementById(
+                "fecha-disponible"
+            ).textContent =
+                resumen.fechaDisponible || "—";
+
+            document.getElementById(
+                "proyecto-titulo"
+            ).textContent = PROYECTO;
+
+            document.getElementById(
+                "proyecto-nombre"
+            ).textContent = PROYECTO;
+
+            document.getElementById(
+                "fecha-generacion"
+            ).textContent =
+                fechaISOHoy();
+
+            actualizarFechaFooter();
+
+            const ahora =
+                new Date().toLocaleTimeString(
+                    "es-MX",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit"
+                    }
+                );
+
+            estado.textContent =
+                `Supabase conectado · ` +
+                `${filas.length} registros · ` +
+                `${ahora}`;
+
+        } catch (error) {
+            console.error(error);
+
+            document.getElementById(
+                "valor-fabricacion"
+            ).textContent = "ERROR";
+
+            document.getElementById(
+                "valor-enviar"
+            ).textContent = "ERROR";
+
+            document.getElementById(
+                "fecha-fabricacion"
+            ).textContent = "—";
+
+            document.getElementById(
+                "fecha-disponible"
+            ).textContent = "—";
+
+            document.getElementById(
+                "fecha-generacion"
+            ).textContent =
+                fechaISOHoy();
+
+            estado.textContent =
+                "Error de conexión con Supabase";
+
+            estado.style.color =
+                "#a02a2a";
+
+            actualizarFechaFooter();
+        }
+    }
+
+    document.getElementById(
+        "fecha-generacion"
+    ).textContent =
+        fechaISOHoy();
+
+    actualizarFechaFooter();
+    actualizarReporte();
+
+    window.setInterval(
+        actualizarReporte,
+        60000
+    );
+
+})();
+</script>
+
 <div class="espacio-footer"></div>
 
 <footer>
@@ -434,6 +770,6 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 11/09/2026 15:40:52
+        Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
     </p>
 </footer>
