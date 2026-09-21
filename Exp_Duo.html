@@ -780,6 +780,14 @@
         <header class="hero">
            <h1>Expediente:  DUO ver1.0</h1>
         </header>
+
+        <p id="estado-supabase" style="
+            text-align:center;
+            color:#657786;
+            margin:-10px 0 18px;
+            font-size:14px;
+        ">Conectando con Supabase...</p>
+
     
         <section class="seccion">
             <h2>Disponibilidad de Placas</h2>
@@ -802,17 +810,7 @@
                             <th class="fecha-centro">Fecha</th>
                         </tr>
                     </thead>
-                    <tbody>
-    
-                        <tr>
-                            <td data-label="Proyecto">DUO ver1.0</td>
-                            <td data-label="En fabricación" class="numero">15</td>
-                            <td data-label="Fecha fabricación" class="fecha-centro">Viernes 2026-09-04</td>
-                            <td data-label="Listas para enviar" class="numero-grande">9</td>
-                            <td data-label="Fecha disponible" class="fecha-centro">Jueves 2026-08-06</td>
-                        </tr>
-        
-                    </tbody>
+                    <tbody id="disponibilidad-body"><tr><td colspan="20">Cargando desde Supabase...</td></tr></tbody>
                 </table>
             </div>
         </section>
@@ -837,20 +835,7 @@
                             <th>Cantidad</th>
                         </tr>
                     </thead>
-                    <tbody>
-    
-                        <tr class="fila-pendiente">
-                            <td data-label="Proceso">Fabricacion-Entrada</td>
-                            <td data-label="Fecha" class="fecha-centro">Viernes 2026-09-04</td>
-                            <td data-label="Prioridad" class="numero">3</td>
-                            <td data-label="Estado"><span class="estado-pendiente">Pendiente</span></td>
-                            <td data-label="Descripción" style="font-weight:700;">
-                                15 Placas Virgenes: Pendiente por Montaje
-                            </td>
-                            <td data-label="Cantidad" class="numero">12</td>
-                        </tr>
-                
-                    </tbody>
+                    <tbody id="secuencias-body"><tr><td colspan="20">Cargando desde Supabase...</td></tr></tbody>
                 </table>
             </div>
         </section>
@@ -870,352 +855,37 @@
                             <th>Existencia</th>
                         </tr>
                     </thead>
-                    <tbody>
-    
-                        <tr>
-                            <td data-label="idE">195</td>
-                            <td data-label="Descripción">PANTALLA - 5&#x27;&#x27; - No Touch - DMG80480C050_09WN </td>
-                            <td data-label="Existencia" class="numero-grande">28</td>
-                        </tr>
-                
-                    </tbody>
+                    <tbody id="especificos-body"><tr><td colspan="20">Cargando desde Supabase...</td></tr></tbody>
                 </table>
             </div>
         </section>
     
-        <section class="seccion componentes-criticos">
-            <h2>Componentes Críticos para 15 Placas</h2>
+        
+        <section class="seccion">
+            <h2>Componentes del Proyecto</h2>
             <p class="subtitulo">
-                Comparación entre los materiales requeridos para producir
-                15 placas y la existencia actual en STOCK.
-                La condición CRÍTICO se determina por el Tipo del componente:
-                R_Normal es crítico con Existencia &lt;= 0; R_Costoso,
-                S_Costoso, T_Costoso, S_Normal, T_Normal, Pantalla,
-                Gastable, Cables y Otros son críticos cuando
-                Existencia &lt; Ctdad. Crítica.
-                En celular se muestran únicamente los componentes críticos.
-                Si los componentes han sido Reservados la cantidad necesaria ya esta retirada del STOCK.
+                Componentes asociados al proyecto y existencia actual en STOCK.
             </p>
 
             <div class="tabla-wrap">
-                <table class="tabla-criticos">
+                <table>
                     <thead>
                         <tr>
                             <th>idE</th>
                             <th>Descripción</th>
-                            <th>Tipo</th>
-                            <th>Ctdad. Crítica</th>
-                            <th>Ctdad. Unitaria</th>
-                            <th>Ctdad. Proyecto</th>
-                            <th>Stock</th>
-                            <th>Diferencia<br>Proyecto</th>
-                            <th>Observaciones</th>
+                            <th>Ctdad Proy</th>
+                            <th>Ctdad Stock</th>
                         </tr>
                     </thead>
-                    <tbody>
-    
-                        <tr class="fila-ok">
-                            <td data-label="idE">10</td>
-                            <td data-label="Descripción">CAPACITOR - 470 uf Electrolitico 10V SMD</td>
-                            <td data-label="Tipo">R_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">0</td>
-                            <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">30</td>
-                            <td data-label="Stock" class="numero-grande">1</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-29</td>
-                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
+                    <tbody id="proyecto-body">
+                        <tr>
+                            <td colspan="4">Cargando desde Supabase...</td>
                         </tr>
-                
-                        <tr class="fila-alerta">
-                            <td data-label="idE">105</td>
-                            <td data-label="Descripción">CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
-                            <td data-label="Tipo">R_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">200</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">-229</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-244</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">5</td>
-                            <td data-label="Descripción">DIODO - SS34 - MS</td>
-                            <td data-label="Tipo">R_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">1</td>
-                            <td data-label="Ctdad. unitaria" class="numero">3</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">45</td>
-                            <td data-label="Stock" class="numero-grande">1</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-44</td>
-                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">22</td>
-                            <td data-label="Descripción">MOSFET - AOD4184A-VB</td>
-                            <td data-label="Tipo">R_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">0</td>
-                            <td data-label="Ctdad. unitaria" class="numero">3</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">45</td>
-                            <td data-label="Stock" class="numero-grande">20</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-25</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">40</td>
-                            <td data-label="Descripción">MOSFET - BT138-800CW</td>
-                            <td data-label="Tipo">R_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">1</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">1</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-14</td>
-                            <td data-label="Observaciones">Compra 02/06/2026</td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">45</td>
-                            <td data-label="Descripción">OPTOACOPLADOR - MOC 3063</td>
-                            <td data-label="Tipo">R_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">0</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">970</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">955</td>
-                            <td data-label="Observaciones">Compra 02/06/2026</td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">8</td>
-                            <td data-label="Descripción">SWITCH - Tactil Push Bottom</td>
-                            <td data-label="Tipo">R_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">1</td>
-                            <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">30</td>
-                            <td data-label="Stock" class="numero-grande">1</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">-29</td>
-                            <td data-label="Observaciones">Ajuste Inicial</td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">7</td>
-                            <td data-label="Descripción">Regulador de Voltaje Linear 7805-C21706</td>
-                            <td data-label="Tipo">S_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">100</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">240</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">225</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">48</td>
-                            <td data-label="Descripción">ARDUINO - MP3-TF-16P v3.0</td>
-                            <td data-label="Tipo">T_Costoso</td>
-                            <td data-label="Ctdad. crítica" class="numero">0</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">78</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">63</td>
-                            <td data-label="Observaciones">inventario</td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">71</td>
-                            <td data-label="Descripción">MICRO - PAM86</td>
-                            <td data-label="Tipo">T_Costoso</td>
-                            <td data-label="Ctdad. crítica" class="numero">0</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">78</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">63</td>
-                            <td data-label="Observaciones">inventario</td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">118</td>
-                            <td data-label="Descripción">Modulo Control Inalambrico ESP32-WROOM-32U-N4</td>
-                            <td data-label="Tipo">T_Costoso</td>
-                            <td data-label="Ctdad. crítica" class="numero">0</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">80</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">65</td>
-                            <td data-label="Observaciones">compra</td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">175</td>
-                            <td data-label="Descripción">REGULADOR Voltaje - AMS1117</td>
-                            <td data-label="Tipo">T_Costoso</td>
-                            <td data-label="Ctdad. crítica" class="numero">0</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">100</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">85</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">107</td>
-                            <td data-label="Descripción">CAPACITOR - 220 uF Electrolytic 35V</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">250</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">410</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">395</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">41</td>
-                            <td data-label="Descripción">Capacitor 630 - AJC MPP 104J630V</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">200</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">843</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">828</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">205</td>
-                            <td data-label="Descripción">CONECTOR - CACHIMBA - 4P HEMBRA - 3.81</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">50</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">288</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">273</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">165</td>
-                            <td data-label="Descripción">CONECTOR - CACHIMBA - 4P HEMBRA - 5.08</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">50</td>
-                            <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">30</td>
-                            <td data-label="Stock" class="numero-grande">96</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">66</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-alerta">
-                            <td data-label="idE">204</td>
-                            <td data-label="Descripción">CONECTOR - CACHIMBA - 4P MACHO - 3.81 - Recto - Pequeño</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">200</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">40</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">25</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">164</td>
-                            <td data-label="Descripción">CONECTOR - CACHIMBA - 4P MACHO - 5.08 - Recto - Grande</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">100</td>
-                            <td data-label="Ctdad. unitaria" class="numero">2</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">30</td>
-                            <td data-label="Stock" class="numero-grande">143</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">113</td>
-                            <td data-label="Observaciones">Ajuste - Reiniciar</td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">200</td>
-                            <td data-label="Descripción">CONECTOR - CACHIMBA - 5P HEMBRA 5.08</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">23</td>
-                            <td data-label="Ctdad. unitaria" class="numero">3</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">45</td>
-                            <td data-label="Stock" class="numero-grande">56</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">11</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">203</td>
-                            <td data-label="Descripción">CONECTOR - CACHIMBA - 5P MACHO - 90 grados</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">20</td>
-                            <td data-label="Ctdad. unitaria" class="numero">3</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">45</td>
-                            <td data-label="Stock" class="numero-grande">60</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">15</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">176</td>
-                            <td data-label="Descripción">CONECTOR - CACHIMBA - 6P HEMBRA</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">10</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">130</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">115</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">202</td>
-                            <td data-label="Descripción">CONECTOR - CACHIMBA - 6P MACHO - 90 grados</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">20</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">154</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">139</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">23</td>
-                            <td data-label="Descripción">CONECTOR - DCJack C130239</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">300</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">690</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">675</td>
-                            <td data-label="Observaciones"></td>
-                        </tr>
-                
-                        <tr class="fila-ok">
-                            <td data-label="idE">104</td>
-                            <td data-label="Descripción">CONECTOR - HEADER SMD R/A 6POS 2mm</td>
-                            <td data-label="Tipo">T_Normal</td>
-                            <td data-label="Ctdad. crítica" class="numero">0</td>
-                            <td data-label="Ctdad. unitaria" class="numero">1</td>
-                            <td data-label="Ctdad. proyecto" class="numero-grande">15</td>
-                            <td data-label="Stock" class="numero-grande">1001</td>
-                            <td data-label="Diferencia proyecto" class="numero-grande">986</td>
-                            <td data-label="Observaciones">compra</td>
-                        </tr>
-                
                     </tbody>
                 </table>
             </div>
-
-            <div class="nota">
-                <strong>Resumen:</strong>
-                2 componente(s) están en condición CRÍTICA
-                según las reglas definidas por Tipo.
-                La cantidad de proyecto continúa calculándose para
-                15 placas como referencia de producción.
-                La existencia indicada corresponde al momento en que se generó
-                esta página.
-            </div>
         </section>
+
     
           <section class="seccion">
               <h2>Imagen e Información Técnica de la Placa</h2>
@@ -1315,6 +985,844 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 12/09/2026 11:40:50
+        Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
     </p>
 </footer>
+
+
+<script>
+(function () {
+    "use strict";
+
+    const PROYECTO = 'DUO ver1.0';
+    const COMPONENTES_ESPECIFICOS = new Set(['195']);
+
+    const SUPABASE_URL =
+        "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const PAGE_SIZE = 1000;
+
+    function texto(v) {
+        return v === null || v === undefined ? "" : String(v);
+    }
+
+    function numero(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 0;
+    }
+
+    function numeroVisible(v) {
+        const n = numero(v);
+
+        return Number.isInteger(n)
+            ? String(n)
+            : String(Number(n.toFixed(6)));
+    }
+
+    function fechaISO(v) {
+        return texto(v).trim().slice(0, 10);
+    }
+
+    function fechaMayor(...fechas) {
+        const validas = fechas
+            .map(fechaISO)
+            .filter(f => /^\d{4}-\d{2}-\d{2}$/.test(f))
+            .sort();
+
+        return validas.length
+            ? validas[validas.length - 1]
+            : "";
+    }
+
+    function fechaConDia(v) {
+        const iso = fechaISO(v);
+
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) {
+            return "";
+        }
+
+        const [y, m, d] = iso.split("-").map(Number);
+        const fecha = new Date(y, m - 1, d);
+
+        const dias = [
+            "Domingo",
+            "Lunes",
+            "Martes",
+            "Miércoles",
+            "Jueves",
+            "Viernes",
+            "Sábado"
+        ];
+
+        return `${dias[fecha.getDay()]} ${iso}`;
+    }
+
+    function actualizarFooter() {
+        const el =
+            document.getElementById("fecha-hora-dinamica");
+
+        if (!el) return;
+
+        const ahora = new Date();
+
+        const fecha =
+            ahora.toLocaleDateString(
+                "es-MX",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                }
+            );
+
+        const hora =
+            ahora.toLocaleTimeString(
+                "es-MX",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false
+                }
+            );
+
+        el.textContent =
+            `${fecha} ${hora}`;
+    }
+
+    async function fetchTabla(tabla, select, filtros = {}) {
+        const acumulado = [];
+        let offset = 0;
+
+        while (true) {
+            const params =
+                new URLSearchParams({
+                    select: select,
+                    limit: String(PAGE_SIZE),
+                    offset: String(offset)
+                });
+
+            for (const [k, v] of Object.entries(filtros)) {
+                params.set(k, v);
+            }
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${tabla}?${params.toString()}`;
+
+            const respuesta =
+                await fetch(
+                    url,
+                    {
+                        method: "GET",
+                        headers: {
+                            "apikey": SUPABASE_ANON_KEY,
+                            "Authorization":
+                                `Bearer ${SUPABASE_ANON_KEY}`,
+                            "Accept": "application/json"
+                        },
+                        cache: "no-store"
+                    }
+                );
+
+            if (!respuesta.ok) {
+                const detalle =
+                    await respuesta.text();
+
+                throw new Error(
+                    `${tabla}: HTTP ${respuesta.status}: ${detalle}`
+                );
+            }
+
+            const datos =
+                await respuesta.json();
+
+            if (!Array.isArray(datos)) {
+                throw new Error(
+                    `${tabla}: respuesta inválida`
+                );
+            }
+
+            acumulado.push(...datos);
+
+            if (datos.length < PAGE_SIZE) {
+                break;
+            }
+
+            offset += PAGE_SIZE;
+        }
+
+        return acumulado;
+    }
+
+    function td(valor, clase = "", label = "") {
+        const celda =
+            document.createElement("td");
+
+        celda.textContent =
+            texto(valor);
+
+        if (clase) {
+            celda.className =
+                clase;
+        }
+
+        if (label) {
+            celda.dataset.label =
+                label;
+        }
+
+        return celda;
+    }
+
+    function renderDisponibilidad(secuencias) {
+        let entrada = 0;
+        let salida = 0;
+        let venta = 0;
+        let ventaPreparada = 0;
+
+        let fechaEntrada = "";
+        let fechaSalida = "";
+        let fechaVenta = "";
+
+        for (const r of secuencias) {
+            const proceso =
+                texto(r.gs_proceso).trim();
+
+            const cantidad =
+                numero(r.gs_ctda);
+
+            const fecha =
+                fechaISO(r.gs_fecha);
+
+            if (proceso === "Fabricacion-Entrada") {
+                entrada += cantidad;
+                fechaEntrada =
+                    fechaMayor(fechaEntrada, fecha);
+            }
+
+            else if (proceso === "Fabricacion-Salida") {
+                salida += cantidad;
+                fechaSalida =
+                    fechaMayor(fechaSalida, fecha);
+            }
+
+            else if (proceso === "Venta-Concretada") {
+                venta += cantidad;
+                fechaVenta =
+                    fechaMayor(fechaVenta, fecha);
+            }
+
+            else if (proceso === "Venta-Preparada") {
+                ventaPreparada += cantidad;
+            }
+        }
+
+        const enFabricacion =
+            entrada - salida;
+
+        // Se conserva la lógica usada en estos expedientes.
+        const listasEnviar =
+            salida - venta - ventaPreparada;
+
+        const fechaFabricacion =
+            fechaMayor(
+                fechaEntrada,
+                fechaSalida
+            );
+
+        const fechaDisponible =
+            fechaMayor(
+                fechaSalida,
+                fechaVenta
+            );
+
+        const tbody =
+            document.getElementById(
+                "disponibilidad-body"
+            );
+
+        tbody.replaceChildren();
+
+        const tr =
+            document.createElement("tr");
+
+        tr.appendChild(
+            td(PROYECTO, "", "Proyecto")
+        );
+
+        tr.appendChild(
+            td(
+                numeroVisible(enFabricacion),
+                "numero",
+                "En fabricación"
+            )
+        );
+
+        tr.appendChild(
+            td(
+                fechaConDia(fechaFabricacion),
+                "fecha-centro",
+                "Fecha fabricación"
+            )
+        );
+
+        tr.appendChild(
+            td(
+                numeroVisible(listasEnviar),
+                "numero-grande",
+                "Listas para enviar"
+            )
+        );
+
+        tr.appendChild(
+            td(
+                fechaConDia(fechaDisponible),
+                "fecha-centro",
+                "Fecha disponible"
+            )
+        );
+
+        tbody.appendChild(tr);
+    }
+
+    function prioridad(v) {
+        const n =
+            Number(v);
+
+        return Number.isFinite(n)
+            ? n
+            : 999;
+    }
+
+    function claseProceso(proceso) {
+        proceso =
+            texto(proceso).trim();
+
+        if (proceso === "Venta-Estimada") {
+            return "fila-alerta";
+        }
+
+        if (proceso === "Venta-Concretada") {
+            return "fila-venta";
+        }
+
+        return "";
+    }
+
+    function renderSecuencias(secuencias) {
+        const tbody =
+            document.getElementById(
+                "secuencias-body"
+            );
+
+        tbody.replaceChildren();
+
+        const filas =
+            secuencias
+                .filter(
+                    r =>
+                        texto(r.gs_ver)
+                            .trim()
+                            .toUpperCase() !== "N"
+                )
+                .sort((a, b) => {
+                    const ap =
+                        texto(a.gs_estado)
+                            .trim()
+                            .toLowerCase() === "pendiente";
+
+                    const bp =
+                        texto(b.gs_estado)
+                            .trim()
+                            .toLowerCase() === "pendiente";
+
+                    if (ap !== bp) {
+                        return ap ? -1 : 1;
+                    }
+
+                    if (ap && bp) {
+                        const d =
+                            prioridad(a.gs_prior) -
+                            prioridad(b.gs_prior);
+
+                        if (d !== 0) {
+                            return d;
+                        }
+                    }
+
+                    const fa =
+                        fechaISO(a.gs_fecha);
+
+                    const fb =
+                        fechaISO(b.gs_fecha);
+
+                    if (fa !== fb) {
+                        return fb.localeCompare(fa);
+                    }
+
+                    return (
+                        numero(b.gs_id) -
+                        numero(a.gs_id)
+                    );
+                });
+
+        if (!filas.length) {
+            const tr =
+                document.createElement("tr");
+
+            const c =
+                td(
+                    "Sin secuencias registradas.",
+                    "",
+                    "Información"
+                );
+
+            c.colSpan = 6;
+
+            tr.appendChild(c);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const tr =
+                document.createElement("tr");
+
+            const esPendiente =
+                texto(r.gs_estado)
+                    .trim()
+                    .toLowerCase() === "pendiente";
+
+            tr.className =
+                esPendiente
+                    ? "fila-pendiente"
+                    : claseProceso(r.gs_proceso);
+
+            tr.appendChild(
+                td(
+                    r.gs_proceso,
+                    "",
+                    "Proceso"
+                )
+            );
+
+            tr.appendChild(
+                td(
+                    fechaConDia(r.gs_fecha),
+                    "fecha-centro",
+                    "Fecha"
+                )
+            );
+
+            tr.appendChild(
+                td(
+                    r.gs_prior,
+                    "numero",
+                    "Prioridad"
+                )
+            );
+
+            const estado =
+                document.createElement("td");
+
+            estado.dataset.label =
+                "Estado";
+
+            if (esPendiente) {
+                const span =
+                    document.createElement("span");
+
+                span.className =
+                    "estado-pendiente";
+
+                span.textContent =
+                    "Pendiente";
+
+                estado.appendChild(span);
+            }
+
+            else {
+                estado.textContent =
+                    texto(r.gs_estado);
+            }
+
+            tr.appendChild(estado);
+
+            const descripcion =
+                td(
+                    r.gs_desc,
+                    "",
+                    "Descripción"
+                );
+
+            descripcion.style.fontWeight =
+                "700";
+
+            tr.appendChild(descripcion);
+
+            tr.appendChild(
+                td(
+                    numeroVisible(r.gs_ctda),
+                    "numero",
+                    "Cantidad"
+                )
+            );
+
+            tbody.appendChild(tr);
+        }
+    }
+
+    function stockMap(rows) {
+        const mapa =
+            new Map();
+
+        for (const r of rows) {
+            mapa.set(
+                texto(r.idE)
+                    .trim()
+                    .replace(/\.0$/, ""),
+                r
+            );
+        }
+
+        return mapa;
+    }
+
+    function renderEspecificos(stockRows) {
+        const tbody =
+            document.getElementById(
+                "especificos-body"
+            );
+
+        tbody.replaceChildren();
+
+        const mapa =
+            stockMap(stockRows);
+
+        const filas =
+            [...COMPONENTES_ESPECIFICOS]
+                .map(id => mapa.get(id))
+                .filter(Boolean);
+
+        if (!filas.length) {
+            const tr =
+                document.createElement("tr");
+
+            const c =
+                td(
+                    "Sin componentes específicos.",
+                    "",
+                    "Información"
+                );
+
+            c.colSpan = 3;
+
+            tr.appendChild(c);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const tr =
+                document.createElement("tr");
+
+            tr.appendChild(
+                td(
+                    texto(r.idE)
+                        .replace(/\.0$/, ""),
+                    "",
+                    "idE"
+                )
+            );
+
+            tr.appendChild(
+                td(
+                    r.cs_desc,
+                    "",
+                    "Descripción"
+                )
+            );
+
+            tr.appendChild(
+                td(
+                    numeroVisible(r.cs_ctda),
+                    "numero-grande",
+                    "Existencia"
+                )
+            );
+
+            tbody.appendChild(tr);
+        }
+    }
+
+    function renderProyecto(proyectoRows, stockRows) {
+        const tbody =
+            document.getElementById(
+                "proyecto-body"
+            );
+
+        tbody.replaceChildren();
+
+        const stock =
+            stockMap(stockRows);
+
+        const agrupado =
+            new Map();
+
+        for (const r of proyectoRows) {
+            const id =
+                texto(r.cp_idE)
+                    .trim()
+                    .replace(/\.0$/, "");
+
+            if (!id) {
+                continue;
+            }
+
+            if (!agrupado.has(id)) {
+                agrupado.set(
+                    id,
+                    {
+                        idE: id,
+                        descripcion:
+                            texto(r.cp_desc),
+                        cantidad: 0
+                    }
+                );
+            }
+
+            const item =
+                agrupado.get(id);
+
+            item.cantidad +=
+                numero(r.cp_ctda);
+
+            if (
+                !item.descripcion &&
+                r.cp_desc
+            ) {
+                item.descripcion =
+                    texto(r.cp_desc);
+            }
+        }
+
+        const filas =
+            [...agrupado.values()]
+                .sort(
+                    (a, b) =>
+                        texto(a.descripcion)
+                            .localeCompare(
+                                texto(b.descripcion),
+                                "es",
+                                {
+                                    sensitivity: "base"
+                                }
+                            )
+                );
+
+        if (!filas.length) {
+            const tr =
+                document.createElement("tr");
+
+            const c =
+                td(
+                    "Sin componentes del proyecto.",
+                    "",
+                    "Información"
+                );
+
+            c.colSpan = 4;
+
+            tr.appendChild(c);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const s =
+                stock.get(r.idE);
+
+            const descripcion =
+                s &&
+                texto(s.cs_desc).trim()
+                    ? s.cs_desc
+                    : r.descripcion;
+
+            const existencia =
+                s
+                    ? numero(s.cs_ctda)
+                    : 0;
+
+            const tr =
+                document.createElement("tr");
+
+            tr.appendChild(
+                td(
+                    r.idE,
+                    "",
+                    "idE"
+                )
+            );
+
+            tr.appendChild(
+                td(
+                    descripcion,
+                    "",
+                    "Descripción"
+                )
+            );
+
+            tr.appendChild(
+                td(
+                    numeroVisible(r.cantidad),
+                    "numero-grande",
+                    "Ctdad Proy"
+                )
+            );
+
+            tr.appendChild(
+                td(
+                    numeroVisible(existencia),
+                    "numero-grande",
+                    "Ctdad Stock"
+                )
+            );
+
+            tbody.appendChild(tr);
+        }
+    }
+
+    async function actualizarTodo() {
+        const estado =
+            document.getElementById(
+                "estado-supabase"
+            );
+
+        estado.textContent =
+            "Actualizando datos desde Supabase...";
+
+        estado.style.color =
+            "#657786";
+
+        try {
+            const [
+                secuencias,
+                proyectoRows,
+                stockRows
+            ] = await Promise.all([
+                fetchTabla(
+                    "gs_secuencias",
+                    [
+                        "gs_id",
+                        "gs_proceso",
+                        "gs_subproceso",
+                        "gs_proyecto",
+                        "gs_lote",
+                        "gs_prior",
+                        "gs_fecha",
+                        "gs_desc",
+                        "gs_ctda",
+                        "gs_estado",
+                        "gs_ver",
+                        "gs_fecha_cum"
+                    ].join(","),
+                    {
+                        gs_proyecto:
+                            `eq.${PROYECTO}`
+                    }
+                ),
+
+                fetchTabla(
+                    "cp_proyectos",
+                    [
+                        "cp_id",
+                        "cp_proyecto",
+                        "cp_idE",
+                        "cp_desc",
+                        "cp_ctda"
+                    ].join(","),
+                    {
+                        cp_proyecto:
+                            `eq.${PROYECTO}`
+                    }
+                ),
+
+                fetchTabla(
+                    "cs_stock",
+                    [
+                        "idE",
+                        "cs_desc",
+                        "cs_ctda",
+                        "cs_ctmi",
+                        "cs_tipo",
+                        "cs_observe"
+                    ].join(",")
+                )
+            ]);
+
+            renderDisponibilidad(
+                secuencias
+            );
+
+            renderSecuencias(
+                secuencias
+            );
+
+            renderEspecificos(
+                stockRows
+            );
+
+            renderProyecto(
+                proyectoRows,
+                stockRows
+            );
+
+            actualizarFooter();
+
+            const hora =
+                new Date()
+                    .toLocaleTimeString(
+                        "es-MX",
+                        {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit"
+                        }
+                    );
+
+            estado.textContent =
+                `Supabase conectado · ` +
+                `${secuencias.length} secuencias · ` +
+                `${proyectoRows.length} registros BOM · ` +
+                `${hora}`;
+        }
+
+        catch (error) {
+            console.error(error);
+
+            estado.textContent =
+                "Error al obtener datos desde Supabase";
+
+            estado.style.color =
+                "#a02a2a";
+
+            actualizarFooter();
+        }
+    }
+
+    actualizarFooter();
+    actualizarTodo();
+
+    window.setInterval(
+        actualizarTodo,
+        60000
+    );
+
+})();
+</script>
+
