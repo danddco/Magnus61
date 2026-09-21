@@ -338,13 +338,15 @@
     <main class="reporte-produccion">
 
         <h1 class="titulo-reporte">
-            Reporte de Producción - Purimatic v2.2
+            Reporte de Producción - <span id="proyecto-titulo">Purimatic v2.2</span>
         </h1>
 
         <p class="subtitulo-reporte">
-            Proyecto: Purimatic v2.2
-            &nbsp; | &nbsp;
-            Generado: 2026-09-15
+            Proyecto: <span id="proyecto-nombre">Purimatic v2.2</span>
+             &nbsp; | &nbsp;
+             Generado: <span id="fecha-generacion">--</span>
+             &nbsp; | &nbsp;
+             <span id="estado-supabase">Conectando con Supabase...</span>
         </p>
 
         <div class="cards-produccion">
@@ -352,25 +354,17 @@
             <section class="card-produccion">
                 <h2>En Fabricación</h2>
 
-                <div class="valor-produccion">
-                    0
-                </div>
+                <div class="valor-produccion"><span id="valor-fabricacion">--</span></div>
 
-                <div class="fecha-produccion">
-                    2026-09-04
-                </div>
+                <div class="fecha-produccion"><span id="fecha-fabricacion">--</span></div>
             </section>
 
             <section class="card-produccion">
                 <h2>Listas para enviar</h2>
 
-                <div class="valor-produccion">
-                    10
-                </div>
+                <div class="valor-produccion"><span id="valor-enviar">--</span></div>
 
-                <div class="fecha-produccion">
-                    2026-09-04
-                </div>
+                <div class="fecha-produccion"><span id="fecha-disponible">--</span></div>
             </section>
 
         </div>
@@ -426,6 +420,402 @@
     }
 </style>
 
+
+
+<script>
+(function () {
+    "use strict";
+
+    const PROYECTO = "Purimatic v2.2";
+
+    const SUPABASE_URL =
+        "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const TABLA = "gs_secuencias";
+    const LOTE = 1000;
+
+    const procesosValidos = new Set([
+        "Fabricacion-Entrada",
+        "Fabricacion-Salida",
+        "Venta-Concretada"
+    ]);
+
+    const valorFabricacion =
+        document.getElementById("valor-fabricacion");
+
+    const fechaFabricacion =
+        document.getElementById("fecha-fabricacion");
+
+    const valorEnviar =
+        document.getElementById("valor-enviar");
+
+    const fechaDisponible =
+        document.getElementById("fecha-disponible");
+
+    const estado =
+        document.getElementById("estado-supabase");
+
+    const fechaGeneracion =
+        document.getElementById("fecha-generacion");
+
+    function texto(valor) {
+        return valor === null || valor === undefined
+            ? ""
+            : String(valor);
+    }
+
+    function numero(valor) {
+        if (
+            valor === null ||
+            valor === undefined ||
+            texto(valor).trim() === ""
+        ) {
+            return 0;
+        }
+
+        const n = Number(valor);
+
+        return Number.isFinite(n)
+            ? n
+            : 0;
+    }
+
+    function mostrarNumero(valor) {
+        const n = numero(valor);
+
+        if (Number.isInteger(n)) {
+            return String(n);
+        }
+
+        return String(Number(n.toFixed(6)));
+    }
+
+    function fechaISOHoy() {
+        const ahora = new Date();
+
+        const y = ahora.getFullYear();
+
+        const m = String(
+            ahora.getMonth() + 1
+        ).padStart(2, "0");
+
+        const d = String(
+            ahora.getDate()
+        ).padStart(2, "0");
+
+        return `${y}-${m}-${d}`;
+    }
+
+    function fechaMayor(...fechas) {
+        const validas =
+            fechas
+                .map(
+                    f => texto(f)
+                        .trim()
+                        .slice(0, 10)
+                )
+                .filter(
+                    f => /^\d{4}-\d{2}-\d{2}$/.test(f)
+                );
+
+        if (!validas.length) {
+            return "";
+        }
+
+        validas.sort();
+
+        return validas[
+            validas.length - 1
+        ];
+    }
+
+    function actualizarFechaFooter() {
+        const destino =
+            document.getElementById(
+                "fecha-hora-dinamica"
+            );
+
+        if (!destino) {
+            return;
+        }
+
+        const ahora = new Date();
+
+        const fecha =
+            ahora.toLocaleDateString(
+                "es-MX",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                }
+            );
+
+        const hora =
+            ahora.toLocaleTimeString(
+                "es-MX",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false
+                }
+            );
+
+        destino.textContent =
+            `${fecha} ${hora}`;
+    }
+
+    async function leerProduccion() {
+        const todos = [];
+        let offset = 0;
+
+        while (true) {
+            const params =
+                new URLSearchParams({
+                    select: [
+                        "gs_id",
+                        "gs_proceso",
+                        "gs_proyecto",
+                        "gs_lote",
+                        "gs_fecha",
+                        "gs_ctda"
+                    ].join(","),
+                    gs_proyecto:
+                        `eq.${PROYECTO}`,
+                    gs_proceso:
+                        "in.(Fabricacion-Entrada,Fabricacion-Salida,Venta-Concretada)",
+                    order:
+                        "gs_fecha.asc,gs_id.asc",
+                    limit:
+                        String(LOTE),
+                    offset:
+                        String(offset)
+                });
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${TABLA}?` +
+                params.toString();
+
+            const respuesta =
+                await fetch(
+                    url,
+                    {
+                        method: "GET",
+                        headers: {
+                            "apikey":
+                                SUPABASE_ANON_KEY,
+                            "Authorization":
+                                `Bearer ${SUPABASE_ANON_KEY}`,
+                            "Accept":
+                                "application/json"
+                        },
+                        cache: "no-store"
+                    }
+                );
+
+            if (!respuesta.ok) {
+                const detalle =
+                    await respuesta.text();
+
+                throw new Error(
+                    `HTTP ${respuesta.status}: ${detalle}`
+                );
+            }
+
+            const datos =
+                await respuesta.json();
+
+            if (!Array.isArray(datos)) {
+                throw new Error(
+                    "Supabase no devolvió una lista."
+                );
+            }
+
+            todos.push(...datos);
+
+            if (datos.length < LOTE) {
+                break;
+            }
+
+            offset += LOTE;
+        }
+
+        return todos;
+    }
+
+    function resumir(filas) {
+        const cantidades = {
+            "Fabricacion-Entrada": 0,
+            "Fabricacion-Salida": 0,
+            "Venta-Concretada": 0
+        };
+
+        const fechas = {
+            "Fabricacion-Entrada": "",
+            "Fabricacion-Salida": "",
+            "Venta-Concretada": ""
+        };
+
+        for (const fila of filas) {
+            const proceso =
+                texto(fila.gs_proceso).trim();
+
+            if (!procesosValidos.has(proceso)) {
+                continue;
+            }
+
+            cantidades[proceso] +=
+                numero(fila.gs_ctda);
+
+            const fecha =
+                texto(fila.gs_fecha)
+                    .trim()
+                    .slice(0, 10);
+
+            if (
+                fecha &&
+                (
+                    !fechas[proceso] ||
+                    fecha > fechas[proceso]
+                )
+            ) {
+                fechas[proceso] =
+                    fecha;
+            }
+        }
+
+        const entrada =
+            cantidades["Fabricacion-Entrada"];
+
+        const salida =
+            cantidades["Fabricacion-Salida"];
+
+        const venta =
+            cantidades["Venta-Concretada"];
+
+        return {
+            enFabricacion:
+                entrada - salida,
+
+            listasEnviar:
+                salida - venta,
+
+            fechaFabricacion:
+                fechaMayor(
+                    fechas["Fabricacion-Entrada"],
+                    fechas["Fabricacion-Salida"]
+                ),
+
+            fechaDisponible:
+                fechaMayor(
+                    fechas["Fabricacion-Salida"],
+                    fechas["Venta-Concretada"]
+                )
+        };
+    }
+
+    async function actualizarReporte() {
+        estado.textContent =
+            "Actualizando desde Supabase...";
+
+        estado.style.color = "";
+
+        try {
+            const filas =
+                await leerProduccion();
+
+            const resumen =
+                resumir(filas);
+
+            valorFabricacion.textContent =
+                mostrarNumero(
+                    resumen.enFabricacion
+                );
+
+            fechaFabricacion.textContent =
+                resumen.fechaFabricacion || "—";
+
+            valorEnviar.textContent =
+                mostrarNumero(
+                    resumen.listasEnviar
+                );
+
+            fechaDisponible.textContent =
+                resumen.fechaDisponible || "—";
+
+            fechaGeneracion.textContent =
+                fechaISOHoy();
+
+            actualizarFechaFooter();
+
+            const ahora =
+                new Date()
+                    .toLocaleTimeString(
+                        "es-MX",
+                        {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit"
+                        }
+                    );
+
+            estado.textContent =
+                `Supabase conectado · ` +
+                `${filas.length} registros · ` +
+                `${ahora}`;
+
+        } catch (error) {
+            console.error(error);
+
+            valorFabricacion.textContent =
+                "ERROR";
+
+            valorEnviar.textContent =
+                "ERROR";
+
+            fechaFabricacion.textContent =
+                "—";
+
+            fechaDisponible.textContent =
+                "—";
+
+            estado.textContent =
+                "Error de conexión con Supabase";
+
+            estado.style.color =
+                "#a02a2a";
+        }
+    }
+
+    document.getElementById(
+        "proyecto-titulo"
+    ).textContent = PROYECTO;
+
+    document.getElementById(
+        "proyecto-nombre"
+    ).textContent = PROYECTO;
+
+    fechaGeneracion.textContent =
+        fechaISOHoy();
+
+    actualizarFechaFooter();
+    actualizarReporte();
+
+    // Refresco automático cada 60 segundos.
+    window.setInterval(
+        actualizarReporte,
+        60000
+    );
+
+})();
+</script>
+
 <div class="espacio-footer"></div>
 
 <footer>
@@ -434,6 +824,6 @@
     </p>
 
     <p class="fecha-hora">
-        Fecha y hora: 15/09/2026 09:29:39
+        Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
     </p>
 </footer>
