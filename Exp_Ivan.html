@@ -1363,6 +1363,255 @@ td.numero-derecha {
         font-size: 13px !important;
     }
 }
+</style><style>
+/* ============================================================
+   VISTA MOVIL REAL EN TARJETAS
+   PC (>700px) queda sin cambios.
+   ============================================================ */
+@media (max-width: 700px) {
+
+    body {
+        overflow-x: hidden !important;
+    }
+
+    main {
+        width: 100% !important;
+        padding: 4px 7px 24px !important;
+    }
+
+    h1.seccion-principal {
+        font-size: 23px !important;
+        margin: 8px 0 14px !important;
+    }
+
+    h2 {
+        font-size: 20px !important;
+        margin: 14px 0 10px !important;
+    }
+
+    .separador {
+        margin: 15px 0 6px !important;
+        letter-spacing: 1px !important;
+    }
+
+    /* El contenedor ya no genera una tabla ancha con scroll */
+    .tabla-wrap {
+        width: 100% !important;
+        overflow: visible !important;
+        margin-bottom: 14px !important;
+    }
+
+    /* Las cuatro tablas se transforman en tarjetas */
+    #tabla-disponibilidad,
+    #tabla-secuencias,
+    #tabla-especificos,
+    #tabla-proyecto {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        table-layout: auto !important;
+        margin: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border-collapse: separate !important;
+        font-size: 16px !important;
+    }
+
+    #tabla-disponibilidad thead,
+    #tabla-secuencias thead,
+    #tabla-especificos thead,
+    #tabla-proyecto thead {
+        display: none !important;
+    }
+
+    #tabla-disponibilidad tbody,
+    #tabla-secuencias tbody,
+    #tabla-especificos tbody,
+    #tabla-proyecto tbody {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    #tabla-disponibilidad tbody tr,
+    #tabla-secuencias tbody tr,
+    #tabla-especificos tbody tr,
+    #tabla-proyecto tbody tr {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 0 12px !important;
+        padding: 3px 0 !important;
+        border: 1px solid #d8dee5 !important;
+        border-radius: 10px !important;
+        background: #fff;
+        overflow: hidden !important;
+        box-shadow: 0 1px 5px rgba(0,0,0,.06) !important;
+    }
+
+    #tabla-disponibilidad tbody td,
+    #tabla-secuencias tbody td,
+    #tabla-especificos tbody td,
+    #tabla-proyecto tbody td {
+        display: grid !important;
+        grid-template-columns: minmax(108px, 37%) minmax(0, 63%) !important;
+        align-items: center !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding: 9px 10px !important;
+        border: 0 !important;
+        border-bottom: 1px solid #e1e6eb !important;
+        font-size: 16px !important;
+        line-height: 1.35 !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+        text-align: left !important;
+        background: transparent !important;
+    }
+
+    #tabla-disponibilidad tbody td:last-child,
+    #tabla-secuencias tbody td:last-child,
+    #tabla-especificos tbody td:last-child,
+    #tabla-proyecto tbody td:last-child {
+        border-bottom: 0 !important;
+    }
+
+    /* Etiquetas de cada campo */
+    #tabla-disponibilidad tbody td::before,
+    #tabla-secuencias tbody td::before,
+    #tabla-especificos tbody td::before,
+    #tabla-proyecto tbody td::before {
+        display: block !important;
+        padding-right: 8px !important;
+        color: #30485d !important;
+        font-size: 14px !important;
+        font-weight: 800 !important;
+        line-height: 1.2 !important;
+        text-align: left !important;
+    }
+
+    /* Balance de disponibilidad */
+    #tabla-disponibilidad tbody td:nth-child(1)::before { content: "Proyecto"; }
+    #tabla-disponibilidad tbody td:nth-child(2)::before { content: "Componente"; }
+    #tabla-disponibilidad tbody td:nth-child(3)::before { content: "En fabricación"; }
+    #tabla-disponibilidad tbody td:nth-child(4)::before { content: "Fecha fabricación"; }
+    #tabla-disponibilidad tbody td:nth-child(5)::before { content: "Lista para enviar"; }
+    #tabla-disponibilidad tbody td:nth-child(6)::before { content: "Fecha disponible"; }
+
+    /* Secuencias */
+    #tabla-secuencias tbody td:nth-child(1)::before { content: "Proceso"; }
+    #tabla-secuencias tbody td:nth-child(2)::before { content: "Fecha"; }
+    #tabla-secuencias tbody td:nth-child(3)::before { content: "Estado"; }
+    #tabla-secuencias tbody td:nth-child(4)::before { content: "Descripción"; }
+
+    /* Componentes específicos */
+    #tabla-especificos tbody td:nth-child(1)::before { content: "idE"; }
+    #tabla-especificos tbody td:nth-child(2)::before { content: "Descripción"; }
+    #tabla-especificos tbody td:nth-child(3)::before { content: "Existencia"; }
+
+    /* Componentes del proyecto */
+    #tabla-proyecto tbody td:nth-child(1)::before { content: "idE"; }
+    #tabla-proyecto tbody td:nth-child(2)::before { content: "Descripción"; }
+    #tabla-proyecto tbody td:nth-child(3)::before { content: "Ctdad Proy"; }
+    #tabla-proyecto tbody td:nth-child(4)::before { content: "Ctdad Stock"; }
+
+    /* Valores numéricos siguen a la derecha */
+    #tabla-disponibilidad td.numero-derecha,
+    #tabla-especificos td.numero-derecha,
+    #tabla-proyecto td.numero-derecha {
+        text-align: right !important;
+    }
+
+    /* La descripción siempre a la izquierda */
+    #tabla-secuencias tbody td:nth-child(4),
+    #tabla-especificos tbody td:nth-child(2),
+    #tabla-proyecto tbody td:nth-child(2) {
+        text-align: left !important;
+    }
+
+    /* Mantener color de toda la tarjeta según estado */
+    #tabla-secuencias tbody tr.seq-pendiente {
+        background: #f8d7da !important;
+        color: #721c24 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-resuelto {
+        background: #dff3e4 !important;
+        color: #1f6334 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-proceso {
+        background: #fff3cd !important;
+        color: #6f5900 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-neutral {
+        background: #eef1f4 !important;
+        color: #48545f !important;
+    }
+
+    /* Supabase status compacto */
+    #estado-supabase {
+        max-width: calc(100% - 10px) !important;
+        margin: -4px auto 12px !important;
+        padding: 6px 8px !important;
+        font-size: 12px !important;
+    }
+
+    /* Sección técnica mantiene presentación móvil */
+    .seccion-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 18px 0 0 !important;
+        padding: 13px 8px !important;
+    }
+
+    .seccion-tecnica .grid-tecnico {
+        display: grid !important;
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .seccion-tecnica .tarjeta-tecnica,
+    .seccion-tecnica .nota-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .seccion-tecnica .imagen-placa {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 14px 0 4px !important;
+    }
+
+    .seccion-tecnica .imagen-placa img {
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 420px) {
+    #tabla-disponibilidad tbody td,
+    #tabla-secuencias tbody td,
+    #tabla-especificos tbody td,
+    #tabla-proyecto tbody td {
+        grid-template-columns: minmax(100px, 36%) minmax(0, 64%) !important;
+        padding: 8px !important;
+        font-size: 15px !important;
+    }
+
+    #tabla-disponibilidad tbody td::before,
+    #tabla-secuencias tbody td::before,
+    #tabla-especificos tbody td::before,
+    #tabla-proyecto tbody td::before {
+        font-size: 13px !important;
+    }
+}
 </style></head>
 <body>
 <header id="cabecera">
