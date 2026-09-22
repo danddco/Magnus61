@@ -759,6 +759,229 @@ td.descripcion-celda {
         min-width: 250px !important;
     }
 }
+</style><style>
+/* ============================================================
+   AJUSTE FINAL DE TABLAS AL CONTENIDO - EXP_IVAN
+   ============================================================ */
+
+/* Página: conservar 90% de la pantalla en escritorio */
+@media (min-width: 1000px) {
+    main {
+        width: 90% !important;
+        max-width: none !important;
+    }
+}
+
+/* Contenedores centrados */
+.tabla-wrap {
+    width: 100% !important;
+    overflow-x: auto !important;
+    text-align: center;
+}
+
+/* Todas las tablas se ajustan al contenido real */
+#tabla-disponibilidad,
+#tabla-secuencias,
+#tabla-especificos,
+#tabla-proyecto {
+    width: max-content !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Todas las celdas calculan su ancho según contenido */
+#tabla-disponibilidad th,
+#tabla-disponibilidad td,
+#tabla-secuencias th,
+#tabla-secuencias td,
+#tabla-especificos th,
+#tabla-especificos td,
+#tabla-proyecto th,
+#tabla-proyecto td {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+}
+
+/* ------------------------------------------------------------
+   BALANCE DE DISPONIBILIDAD DE PLACAS
+   Todo compacto al contenido
+   ------------------------------------------------------------ */
+#tabla-disponibilidad th,
+#tabla-disponibilidad td {
+    white-space: nowrap !important;
+}
+
+/* ------------------------------------------------------------
+   SECUENCIAS DE TRABAJO
+   Proceso / Fecha / Estado compactos
+   Descripción usa únicamente el espacio que necesita,
+   pero puede envolver en textos largos.
+   ------------------------------------------------------------ */
+#tabla-secuencias th:nth-child(1),
+#tabla-secuencias td:nth-child(1),
+#tabla-secuencias th:nth-child(2),
+#tabla-secuencias td:nth-child(2),
+#tabla-secuencias th:nth-child(3),
+#tabla-secuencias td:nth-child(3) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+
+#tabla-secuencias th:nth-child(4),
+#tabla-secuencias td:nth-child(4) {
+    width: auto !important;
+    text-align: left !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+}
+
+/* ------------------------------------------------------------
+   COMPONENTES ESPECIFICOS
+   ID y Existencia compactos, descripción según contenido
+   ------------------------------------------------------------ */
+#tabla-especificos th:nth-child(1),
+#tabla-especificos td:nth-child(1),
+#tabla-especificos th:nth-child(3),
+#tabla-especificos td:nth-child(3) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+
+#tabla-especificos th:nth-child(2),
+#tabla-especificos td:nth-child(2) {
+    width: auto !important;
+    white-space: normal !important;
+}
+
+/* ------------------------------------------------------------
+   COMPONENTES DEL PROYECTO
+   ID y cantidades compactos, descripción según contenido
+   ------------------------------------------------------------ */
+#tabla-proyecto th:nth-child(1),
+#tabla-proyecto td:nth-child(1),
+#tabla-proyecto th:nth-child(3),
+#tabla-proyecto td:nth-child(3),
+#tabla-proyecto th:nth-child(4),
+#tabla-proyecto td:nth-child(4) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+
+#tabla-proyecto th:nth-child(2),
+#tabla-proyecto td:nth-child(2) {
+    width: auto !important;
+    white-space: normal !important;
+}
+
+/* Números siempre a la derecha */
+td.numero-derecha {
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap !important;
+}
+
+/* En móvil, permitir scroll solo si realmente hace falta */
+@media (max-width: 700px) {
+    #tabla-disponibilidad,
+    #tabla-secuencias,
+    #tabla-especificos,
+    #tabla-proyecto {
+        width: max-content !important;
+        max-width: none !important;
+        min-width: 100% !important;
+    }
+
+    #tabla-secuencias th:nth-child(4),
+    #tabla-secuencias td:nth-child(4),
+    #tabla-especificos th:nth-child(2),
+    #tabla-especificos td:nth-child(2),
+    #tabla-proyecto th:nth-child(2),
+    #tabla-proyecto td:nth-child(2) {
+        max-width: 520px !important;
+    }
+}
+</style><style>
+/* ============================================================
+   AJUSTE AL CONTENIDO - INFORMACION TECNICA
+   ============================================================ */
+
+.seccion-tecnica {
+    width: max-content !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Título y subtítulo centrados dentro del ancho real de la sección */
+.seccion-tecnica h2,
+.seccion-tecnica .subtitulo-tecnico {
+    width: auto !important;
+    max-width: 100% !important;
+}
+
+/* Imagen: usar su ancho natural sin deformar ni forzar 100% */
+.seccion-tecnica .imagen-placa {
+    width: max-content !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.seccion-tecnica .imagen-placa img {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+}
+
+/* Tarjetas técnicas: sólo el ancho que requiera su contenido */
+.seccion-tecnica .grid-tecnico {
+    width: max-content !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    grid-template-columns: repeat(2, max-content) !important;
+    justify-content: center !important;
+}
+
+.seccion-tecnica .tarjeta-tecnica {
+    width: max-content !important;
+    max-width: min(520px, 100%) !important;
+}
+
+/* Nota importante también ajustada al contenido */
+.seccion-tecnica .nota-tecnica {
+    width: max-content !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Móvil: una sola columna y sin desbordar */
+@media (max-width: 900px) {
+    .seccion-tecnica {
+        width: 100% !important;
+    }
+
+    .seccion-tecnica .grid-tecnico {
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+    }
+
+    .seccion-tecnica .tarjeta-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .seccion-tecnica .imagen-placa {
+        width: 100% !important;
+    }
+}
 </style></head>
 <body>
 <header id="cabecera">
@@ -1074,7 +1297,6 @@ td.descripcion-celda {
             Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
 </p>
 </footer>
-
 <script>
 (function () {
     "use strict";
