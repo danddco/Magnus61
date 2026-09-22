@@ -486,6 +486,18 @@ td.id-b {
         return p;
     }
 
+    function estaResuelto(registro) {
+        return texto(registro.gs_estado).trim().toLowerCase() === "resuelto";
+    }
+
+    function fechaRegistro(registro) {
+        if (estaResuelto(registro)) {
+            return texto(registro.gs_fecha_cum).trim() || texto(registro.gs_fecha).trim();
+        }
+
+        return texto(registro.gs_fecha).trim();
+    }
+
     function fechaNumero(valor) {
         const s = texto(valor).slice(0, 10);
         const partes = s.split("-");
@@ -537,6 +549,7 @@ td.id-b {
         const pendienteA = estadoA === "pendiente";
         const pendienteB = estadoB === "pendiente";
 
+        // Los pendientes siempre se muestran primero.
         if (pendienteA !== pendienteB) {
             return pendienteA ? -1 : 1;
         }
@@ -544,9 +557,8 @@ td.id-b {
         const idA = Number(a.gs_id) || 0;
         const idB = Number(b.gs_id) || 0;
 
-        const fechaA = fechaNumero(a.gs_fecha);
-        const fechaB = fechaNumero(b.gs_fecha);
-
+        // Entre pendientes conservamos el orden por prioridad,
+        // después por gs_fecha descendente.
         if (pendienteA && pendienteB) {
             let prioridadA = Number(texto(a.gs_prior).trim());
             let prioridadB = Number(texto(b.gs_prior).trim());
@@ -558,12 +570,22 @@ td.id-b {
                 return prioridadA - prioridadB;
             }
 
+            const fechaA = fechaNumero(a.gs_fecha);
+            const fechaB = fechaNumero(b.gs_fecha);
+
             if (fechaA !== fechaB) {
                 return fechaB - fechaA;
             }
 
             return idB - idA;
         }
+
+        // Después de los pendientes:
+        // - Resuelto: gs_fecha_cum
+        // - No resuelto: gs_fecha
+        // Orden descendente por la fecha correspondiente.
+        const fechaA = fechaNumero(fechaRegistro(a));
+        const fechaB = fechaNumero(fechaRegistro(b));
 
         if (fechaA !== fechaB) {
             return fechaB - fechaA;
@@ -652,7 +674,7 @@ td.id-b {
             tr.appendChild(
                 crearCelda(
                     "Fecha",
-                    formatearFecha(registro.gs_fecha),
+                    formatearFecha(fechaRegistro(registro)),
                     "fecha",
                     false
                 )
