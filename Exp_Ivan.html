@@ -1893,6 +1893,29 @@ td.numero-derecha {
         font-size: 14px !important;
     }
 }
+</style><style>
+/* Corrección móvil - etiqueta Estado completa */
+@media (max-width: 900px) {
+    #tabla-secuencias tbody td:nth-child(3)::before {
+        content: attr(data-label) !important;
+        display: block !important;
+        white-space: nowrap !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+    }
+
+    #tabla-secuencias tbody td:nth-child(3) {
+        grid-template-columns: minmax(112px, 38%) minmax(0, 62%) !important;
+        white-space: normal !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #tabla-secuencias tbody td:nth-child(3)::before {
+        content: attr(data-label) !important;
+        white-space: nowrap !important;
+    }
+}
 </style></head>
 <body>
 <header id="cabecera">
@@ -2410,7 +2433,16 @@ td.numero-derecha {
             tr.className = claseEstado(r.gs_estado);
             tr.appendChild(celda(r.gs_proceso));
             tr.appendChild(celda(fechaConDia(r.gs_fecha), "fecha-celda"));
-            tr.appendChild(celda(r.gs_estado));
+            const estadoTexto = texto(r.gs_estado).trim();
+            let estadoVisible = estadoTexto;
+
+            if (estadoTexto.toLowerCase() === "pendiente") {
+                estadoVisible = "Pendiente";
+            } else if (estadoTexto.toLowerCase() === "resuelto") {
+                estadoVisible = "Resuelto";
+            }
+
+            tr.appendChild(celda(estadoVisible));
             tr.appendChild(celda(r.gs_desc, "descripcion-celda"));
             tbody.appendChild(tr);
         }
