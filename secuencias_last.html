@@ -1,12 +1,12 @@
 
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-        <title>CircuitDesignMX</title>
+<!DOCTYPE html>
 
-        <style>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
+<title>CircuitDesignMX</title>
+<style>
             * {
                 margin: 0;
                 padding: 0;
@@ -149,29 +149,36 @@
                 }
             }
         </style>
-    </head>
+<style>
+/* Columna ID de bitácora */
+th:first-child,
+td.id-b {
+    width: 1%;
+    white-space: nowrap;
+}
 
-    <body>
-        <header id="cabecera">
-            <div class="logo-contenedor">
-                <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
-            </div>
+td.id-b {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+</style></head>
+<body>
+<header id="cabecera">
+<div class="logo-contenedor">
+<img alt="Logo CircuitDesignMX" class="logo" src="Logo-Circuit-MX.jpg"/>
+</div>
+<h1 id="titulo">CircuitDesignMX</h1>
+<a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html" title="Ir a la página inicial">Inicio</a>
+</header>
+<!DOCTYPE html>
 
-            <h1 id="titulo">CircuitDesignMX</h1>
-
-            <a class="home-link"
-               href="https://danddco.github.io/Magnus61/San25Fco.html"
-               title="Ir a la página inicial">Inicio</a>
-        </header>
-    
-    <!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-        <title>Últimas Secuencias</title>
-
-        <style>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
+<title>Últimas Secuencias</title>
+<style>
             :root {
                 --borde: #cfd6dc;
                 --texto: #26333f;
@@ -414,13 +421,10 @@
                 }
             }
         </style>
-    </head>
-
-    <body>
-        <h2>Bitacora</h2>
-
-        <div id="estado-supabase"
-             style="
+</head>
+<body>
+<h2>Bitacora</h2>
+<div id="estado-supabase" style="
                 width:96%;
                 margin:-12px auto 14px;
                 text-align:right;
@@ -429,29 +433,27 @@
              ">
             Conectando con Supabase...
         </div>
-
-        <div class="tabla-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Proyecto</th>
-                        <th>Proceso</th>
-                        <th>Fecha</th>
-                        <th>Descripción</th>
-                        <th>Prioridad</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody id="secuencias-body">
-                    <tr>
-                        <td colspan="6" style="text-align:center; padding:24px;">
+<div class="tabla-wrap">
+<table>
+<thead>
+<tr><th>id_B</th>
+<th>Proyecto</th>
+<th>Proceso</th>
+<th>Fecha</th>
+<th>Descripción</th>
+<th>Prioridad</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody id="secuencias-body">
+<tr>
+<td colspan="7" style="text-align:center; padding:24px;">
                             Cargando datos directamente desde Supabase...
                         </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    
+</tr>
+</tbody>
+</table>
+</div>
 <script>
 (function () {
     "use strict";
@@ -605,7 +607,7 @@
             const tr = document.createElement("tr");
             const td = document.createElement("td");
 
-            td.colSpan = 6;
+            td.colSpan = 7;
             td.style.textAlign = "center";
             td.style.padding = "24px";
             td.textContent = "No hay secuencias para mostrar.";
@@ -618,6 +620,15 @@
         for (const registro of registros) {
             const tr = document.createElement("tr");
             tr.className = claseRegistro(registro);
+
+            tr.appendChild(
+                crearCelda(
+                    "id_B",
+                    registro.gs_id,
+                    "id-b",
+                    false
+                )
+            );
 
             const proyecto = crearCelda(
                 "Proyecto",
@@ -812,7 +823,7 @@
             const tr = document.createElement("tr");
             const td = document.createElement("td");
 
-            td.colSpan = 6;
+            td.colSpan = 7;
             td.style.textAlign = "center";
             td.style.padding = "24px";
             td.style.color = "#a02a2a";
@@ -838,10 +849,8 @@
     );
 })();
 </script>
-
 </body>
-    </html>
-    
+</html>
 <style>
     .espacio-footer {
         height: 28px;
@@ -890,15 +899,13 @@
         }
     }
 </style>
-
 <div class="espacio-footer"></div>
-
 <footer>
-    <p class="copyright">
-        &copy; 2026 CircuitDesignMX. Todos los derechos reservados.
+<p class="copyright">
+        © 2026 CircuitDesignMX. Todos los derechos reservados.
     </p>
-
-    <p class="fecha-hora">
+<p class="fecha-hora">
         Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
-    </p>
+</p>
 </footer>
+</body></html>
