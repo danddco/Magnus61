@@ -982,6 +982,387 @@ td.numero-derecha {
         width: 100% !important;
     }
 }
+</style><style>
+/* ============================================================
+   VERSION FINAL
+   ESCRITORIO: tablas/sección ajustadas al contenido
+   MOVIL: conservar entorno gráfico responsivo original
+   ============================================================ */
+
+/* -------------------- ESCRITORIO -------------------- */
+@media (min-width: 901px) {
+
+    main {
+        width: 90% !important;
+        max-width: none !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .tabla-wrap {
+        width: 100% !important;
+        overflow-x: auto !important;
+        text-align: center !important;
+    }
+
+    #tabla-disponibilidad,
+    #tabla-secuencias,
+    #tabla-especificos,
+    #tabla-proyecto {
+        width: max-content !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        table-layout: auto !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    #tabla-disponibilidad th,
+    #tabla-disponibilidad td,
+    #tabla-secuencias th,
+    #tabla-secuencias td,
+    #tabla-especificos th,
+    #tabla-especificos td,
+    #tabla-proyecto th,
+    #tabla-proyecto td {
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+    }
+
+    /* Disponibilidad: compacto */
+    #tabla-disponibilidad th,
+    #tabla-disponibilidad td {
+        white-space: nowrap !important;
+    }
+
+    /* Secuencias: columnas compactas y descripción a la izquierda */
+    #tabla-secuencias th:nth-child(1),
+    #tabla-secuencias td:nth-child(1),
+    #tabla-secuencias th:nth-child(2),
+    #tabla-secuencias td:nth-child(2),
+    #tabla-secuencias th:nth-child(3),
+    #tabla-secuencias td:nth-child(3) {
+        width: 1% !important;
+        white-space: nowrap !important;
+    }
+
+    #tabla-secuencias th:nth-child(4),
+    #tabla-secuencias td:nth-child(4) {
+        width: auto !important;
+        text-align: left !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    /* Componentes específicos */
+    #tabla-especificos th:nth-child(1),
+    #tabla-especificos td:nth-child(1),
+    #tabla-especificos th:nth-child(3),
+    #tabla-especificos td:nth-child(3) {
+        width: 1% !important;
+        white-space: nowrap !important;
+    }
+
+    #tabla-especificos th:nth-child(2),
+    #tabla-especificos td:nth-child(2) {
+        width: auto !important;
+        white-space: normal !important;
+    }
+
+    /* Componentes del proyecto */
+    #tabla-proyecto th:nth-child(1),
+    #tabla-proyecto td:nth-child(1),
+    #tabla-proyecto th:nth-child(3),
+    #tabla-proyecto td:nth-child(3),
+    #tabla-proyecto th:nth-child(4),
+    #tabla-proyecto td:nth-child(4) {
+        width: 1% !important;
+        white-space: nowrap !important;
+    }
+
+    #tabla-proyecto th:nth-child(2),
+    #tabla-proyecto td:nth-child(2) {
+        width: auto !important;
+        white-space: normal !important;
+    }
+
+    td.numero-derecha {
+        text-align: right !important;
+        white-space: nowrap !important;
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* Sección técnica ajustada al contenido en PC */
+    .seccion-tecnica {
+        width: max-content !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .seccion-tecnica .imagen-placa {
+        width: max-content !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .seccion-tecnica .imagen-placa img {
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        object-fit: contain !important;
+    }
+
+    .seccion-tecnica .grid-tecnico {
+        width: max-content !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        grid-template-columns: repeat(2, max-content) !important;
+        justify-content: center !important;
+    }
+
+    .seccion-tecnica .tarjeta-tecnica {
+        width: max-content !important;
+        max-width: 520px !important;
+    }
+
+    .seccion-tecnica .nota-tecnica {
+        width: max-content !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+
+/* -------------------- TABLET / CELULAR -------------------- */
+/* Restaurar el entorno gráfico responsivo de Exp_Ivan */
+@media (max-width: 900px) {
+
+    .grid-tecnico {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+    }
+
+    .seccion-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 13px 8px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .seccion-tecnica h2 {
+        font-size: 24px !important;
+        line-height: 1.2 !important;
+    }
+
+    .subtitulo-tecnico {
+        font-size: 16px !important;
+        line-height: 1.4 !important;
+    }
+
+    .tarjeta-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .tarjeta-tecnica h3 {
+        font-size: 20px !important;
+    }
+
+    .tarjeta-tecnica p,
+    .nota-tecnica {
+        font-size: 17px !important;
+        line-height: 1.5 !important;
+    }
+
+    .nota-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .imagen-placa {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .imagen-placa img {
+        width: auto !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+@media (max-width: 700px) {
+
+    #cabecera {
+        min-height: 60px !important;
+        padding: 6px 8px !important;
+        margin-bottom: 14px !important;
+        grid-template-columns: auto 1fr auto !important;
+        gap: 7px !important;
+    }
+
+    .logo-contenedor {
+        padding: 3px 5px !important;
+        border-radius: 6px !important;
+    }
+
+    .logo {
+        height: 40px !important;
+        max-width: 92px !important;
+    }
+
+    #titulo {
+        font-size: 20px !important;
+        text-align: left !important;
+        line-height: 1.1 !important;
+    }
+
+    .home-link {
+        min-width: 68px !important;
+        min-height: 38px !important;
+        padding: 7px 9px !important;
+        border-radius: 7px !important;
+        font-size: 14px !important;
+    }
+
+    main {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 4px 6px 20px !important;
+    }
+
+    h1.seccion-principal {
+        font-size: 23px !important;
+    }
+
+    h2 {
+        font-size: 20px !important;
+    }
+
+    .tabla-wrap {
+        width: 100% !important;
+        overflow-x: auto !important;
+        text-align: initial !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Restaurar tablas móviles originales: ancho completo + scroll */
+    #tabla-disponibilidad,
+    #tabla-secuencias,
+    #tabla-especificos,
+    #tabla-proyecto {
+        display: table !important;
+        width: 100% !important;
+        min-width: 650px !important;
+        max-width: none !important;
+        margin: auto !important;
+        table-layout: auto !important;
+        font-size: 15px !important;
+    }
+
+    #tabla-disponibilidad thead,
+    #tabla-secuencias thead,
+    #tabla-especificos thead,
+    #tabla-proyecto thead {
+        display: table-header-group !important;
+    }
+
+    #tabla-disponibilidad tbody,
+    #tabla-secuencias tbody,
+    #tabla-especificos tbody,
+    #tabla-proyecto tbody {
+        display: table-row-group !important;
+    }
+
+    #tabla-disponibilidad tr,
+    #tabla-secuencias tr,
+    #tabla-especificos tr,
+    #tabla-proyecto tr {
+        display: table-row !important;
+    }
+
+    #tabla-disponibilidad th,
+    #tabla-disponibilidad td,
+    #tabla-secuencias th,
+    #tabla-secuencias td,
+    #tabla-especificos th,
+    #tabla-especificos td,
+    #tabla-proyecto th,
+    #tabla-proyecto td {
+        display: table-cell !important;
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        padding: 7px !important;
+        font-size: 15px !important;
+        line-height: normal !important;
+        border: 1px solid #d8dee5 !important;
+        vertical-align: middle !important;
+    }
+
+    /* Quitar pseudoetiquetas de estilos de tarjeta si alguna regla heredada las activa */
+    #tabla-disponibilidad td::before,
+    #tabla-secuencias td::before,
+    #tabla-especificos td::before,
+    #tabla-proyecto td::before {
+        content: none !important;
+        display: none !important;
+    }
+
+    /* Descripción sigue alineada a la izquierda */
+    #tabla-secuencias th:nth-child(4),
+    #tabla-secuencias td:nth-child(4) {
+        text-align: left !important;
+        white-space: normal !important;
+        min-width: 260px !important;
+    }
+
+    td.numero-derecha {
+        text-align: right !important;
+    }
+
+    footer {
+        padding: 12px 10px !important;
+    }
+
+    footer .copyright {
+        font-size: 13px !important;
+    }
+
+    footer .fecha-hora {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 420px) {
+
+    #cabecera {
+        gap: 5px !important;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
+    .logo {
+        height: 36px !important;
+        max-width: 78px !important;
+    }
+
+    #titulo {
+        font-size: 17px !important;
+    }
+
+    .home-link {
+        min-width: 60px !important;
+        padding: 6px 8px !important;
+        font-size: 13px !important;
+    }
+}
 </style></head>
 <body>
 <header id="cabecera">
