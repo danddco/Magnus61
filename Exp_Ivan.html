@@ -623,6 +623,142 @@ main table:not(#tabla-secuencias) td.numero-derecha {
         min-width: 240px !important;
     }
 }
+</style><style>
+/* ============================================================
+   AJUSTE FINAL: 90% PANTALLA + COLUMNAS AUTOMATICAS
+   ============================================================ */
+@media (min-width: 1000px) {
+    main {
+        width: 90% !important;
+        max-width: none !important;
+    }
+}
+
+.tabla-wrap {
+    width: 100% !important;
+    overflow-x: auto;
+}
+
+table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+th, td {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+}
+
+/* Números a la derecha */
+td.numero-derecha {
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* Fechas completas sin invadir la celda vecina */
+td.fecha-celda,
+th.fecha-celda {
+    white-space: nowrap !important;
+}
+
+/* Descripciones pueden aprovechar el espacio restante */
+td.descripcion-celda {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Secuencias */
+#tabla-secuencias {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+}
+
+/* Proceso, Fecha y Estado se ajustan al contenido */
+#tabla-secuencias th:nth-child(1),
+#tabla-secuencias td:nth-child(1),
+#tabla-secuencias th:nth-child(2),
+#tabla-secuencias td:nth-child(2),
+#tabla-secuencias th:nth-child(3),
+#tabla-secuencias td:nth-child(3) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+
+/* Descripción toma el espacio sobrante */
+#tabla-secuencias th:nth-child(4),
+#tabla-secuencias td:nth-child(4) {
+    width: auto !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+}
+
+/* Color de TODA la fila según estado */
+#tabla-secuencias tbody tr.seq-pendiente {
+    background: #f8d7da !important;
+    color: #721c24;
+}
+#tabla-secuencias tbody tr.seq-resuelto {
+    background: #dff3e4 !important;
+    color: #1f6334;
+}
+#tabla-secuencias tbody tr.seq-proceso {
+    background: #fff3cd !important;
+    color: #6f5900;
+}
+#tabla-secuencias tbody tr.seq-neutral {
+    background: #eef1f4 !important;
+    color: #48545f;
+}
+#tabla-secuencias tbody tr:hover {
+    filter: brightness(.975);
+}
+#tabla-secuencias td:nth-child(3) {
+    font-weight: 800;
+}
+
+/* Indicador visible de Supabase */
+#estado-supabase {
+    width: fit-content;
+    max-width: 95%;
+    margin: -8px auto 18px;
+    padding: 7px 12px;
+    border: 1px solid #cdd8e2;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #657786;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+
+@media (max-width: 700px) {
+    main {
+        width: 100% !important;
+    }
+
+    table {
+        width: max-content !important;
+        min-width: 100% !important;
+    }
+
+    #tabla-secuencias {
+        width: max-content !important;
+        min-width: 100% !important;
+    }
+
+    #tabla-secuencias td:nth-child(4),
+    #tabla-secuencias th:nth-child(4) {
+        min-width: 250px !important;
+    }
+}
 </style></head>
 <body>
 <header id="cabecera">
@@ -633,11 +769,11 @@ main table:not(#tabla-secuencias) td.numero-derecha {
 <a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html" title="Ir a la página inicial">Inicio</a>
 </header>
 <main>
-<h1 class="seccion-principal">Expediente Fashident v1.0</h1>
+<h1 class="seccion-principal">Expediente Fashident v1.0</h1><p id="estado-supabase">Conectando con Supabase...</p>
 <div class="separador">-------------------------</div>
 <h2>Balance de Disponibilidad de Placas</h2>
 <div class="tabla-wrap">
-<table>
+<table id="tabla-disponibilidad">
 <thead>
 <tr>
 <th rowspan="2">Proyecto</th>
@@ -652,7 +788,7 @@ main table:not(#tabla-secuencias) td.numero-derecha {
 <th>fecha</th>
 </tr>
 </thead>
-<tbody>
+<tbody id="disponibilidad-body">
 <tr>
 <td>Fashident v1.0</td>
 <td>Placas</td>
@@ -670,20 +806,19 @@ main table:not(#tabla-secuencias) td.numero-derecha {
 <table id="tabla-secuencias">
 <thead>
 <tr>
-<th>gs_id</th>
 <th>Proceso</th>
-<th>Fecha</th>
+<th class="fecha-celda">Fecha</th>
 <th>Estado</th>
 <th>Descripcion</th>
 </tr>
 </thead>
-<tbody id="secuencias-body"><tr class="seq-pendiente"><td>—</td><td>Fabricacion-Diagnostico</td><td>Jueves 2026-09-17</td><td>Pendiente</td><td>Placas: 60 Virgenes</td></tr><tr class="seq-pendiente"><td>—</td><td>Fabricacion-Diagnostico</td><td>Jueves 2026-09-17</td><td>Pendiente</td><td>Placas: Montadas 100 con smd</td></tr><tr class="seq-resuelto"><td>—</td><td>Fabricacion-Proceso</td><td>Viernes 2026-09-04</td><td>Resuelto</td><td>Cables: Poner Terminales a 50 Cables</td></tr><tr class="seq-resuelto"><td>—</td><td>Fabricacion-Diagnostico</td><td>Lunes 2026-08-31</td><td>Resuelto</td><td>Placa: 6 Placas por rechequear</td></tr><tr class="seq-resuelto"><td>—</td><td>Venta-Concretada</td><td>Viernes 2026-08-28</td><td>Resuelto</td><td>60 Placas, 20 cables, 20 pantallas,  2 SD con interfase Blanca y Negra</td></tr></tbody>
+<tbody id="secuencias-body"><tr class="seq-pendiente"><td>Fabricacion-Diagnostico</td><td class="fecha-celda">Jueves 2026-09-17</td><td>Pendiente</td><td class="descripcion-celda">Placas: 60 Virgenes</td></tr><tr class="seq-pendiente"><td>Fabricacion-Diagnostico</td><td class="fecha-celda">Jueves 2026-09-17</td><td>Pendiente</td><td class="descripcion-celda">Placas: Montadas 100 con smd</td></tr><tr class="seq-resuelto"><td>Fabricacion-Proceso</td><td class="fecha-celda">Viernes 2026-09-04</td><td>Resuelto</td><td class="descripcion-celda">Cables: Poner Terminales a 50 Cables</td></tr><tr class="seq-resuelto"><td>Fabricacion-Diagnostico</td><td class="fecha-celda">Lunes 2026-08-31</td><td>Resuelto</td><td class="descripcion-celda">Placa: 6 Placas por rechequear</td></tr><tr class="seq-resuelto"><td>Venta-Concretada</td><td class="fecha-celda">Viernes 2026-08-28</td><td>Resuelto</td><td class="descripcion-celda">60 Placas, 20 cables, 20 pantallas,  2 SD con interfase Blanca y Negra</td></tr></tbody>
 </table>
 </div>
 <div class="separador">-------------------------</div>
 <h2>Componentes Especificos</h2>
 <div class="tabla-wrap">
-<table>
+<table id="tabla-especificos">
 <thead>
 <tr>
 <th>idE</th>
@@ -691,7 +826,7 @@ main table:not(#tabla-secuencias) td.numero-derecha {
 <th>Existencia</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody id="especificos-body"><tr>
 <td class="numero-derecha">80</td>
 <td>CABLE - 4 Largo (Iva)</td>
 <td class="numero-derecha">70</td>
@@ -721,7 +856,7 @@ main table:not(#tabla-secuencias) td.numero-derecha {
 <div class="separador">-------------------------</div>
 <h2>Componentes del Proyecto</h2>
 <div class="tabla-wrap">
-<table>
+<table id="tabla-proyecto">
 <thead>
 <tr>
 <th>idE</th>
@@ -730,7 +865,7 @@ main table:not(#tabla-secuencias) td.numero-derecha {
 <th>Ctdad Stock</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody id="proyecto-body"><tr>
 <td class="numero-derecha">36</td>
 <td>RESISTENCIAg - 47K0</td>
 <td class="numero-derecha">1</td>
@@ -939,31 +1074,17 @@ main table:not(#tabla-secuencias) td.numero-derecha {
             Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
 </p>
 </footer>
-<script>
-    (function () {
-        function actualizarFooter() {
-            const el = document.getElementById("fecha-hora-dinamica");
-            if (!el) return;
-            const ahora = new Date();
-            const fecha = ahora.toLocaleDateString("es-MX", {
-                day: "2-digit", month: "2-digit", year: "numeric"
-            });
-            const hora = ahora.toLocaleTimeString("es-MX", {
-                hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
-            });
-            el.textContent = `${fecha} ${hora}`;
-        }
-        actualizarFooter();
-        setInterval(actualizarFooter, 1000);
-    })();
-    </script>
+
 <script>
 (function () {
     "use strict";
 
-    const SEQ_PROYECTO = "Fashident v1.0";
-    const SEQ_SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
-    const SEQ_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
+    const PROYECTO = "Fashident v1.0";
+    const COMPONENTES_ESPECIFICOS = new Set(["80","28","72","33","36"]);
+
+    const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
+    const PAGE_SIZE = 1000;
 
     function texto(v) {
         return v === null || v === undefined ? "" : String(v);
@@ -974,23 +1095,135 @@ main table:not(#tabla-secuencias) td.numero-derecha {
         return Number.isFinite(n) ? n : 0;
     }
 
-    function fechaISO(v) {
-        const s = texto(v);
-        const m = s.match(/\d{4}-\d{2}-\d{2}/);
-        if (!m) return s;
-
-        const fecha = m[0];
-        const partes = fecha.split("-").map(Number);
-        const d = new Date(partes[0], partes[1] - 1, partes[2]);
-        const dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-
-        return dias[d.getDay()] + " " + fecha;
+    function numeroVisible(v) {
+        const n = numero(v);
+        return Number.isInteger(n) ? String(n) : String(Number(n.toFixed(6)));
     }
 
-    function fechaOrden(v) {
+    function fechaBase(v) {
         const s = texto(v);
         const m = s.match(/\d{4}-\d{2}-\d{2}/);
-        return m ? m[0] : s;
+        return m ? m[0] : "";
+    }
+
+    function fechaConDia(v) {
+        const fecha = fechaBase(v);
+        if (!fecha) return texto(v);
+
+        const [y, m, d] = fecha.split("-").map(Number);
+        const f = new Date(y, m - 1, d);
+        const dias = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+        return dias[f.getDay()] + " " + fecha;
+    }
+
+    function fechaMayor(...valores) {
+        const fechas = valores.map(fechaBase).filter(Boolean).sort();
+        return fechas.length ? fechas[fechas.length - 1] : "";
+    }
+
+    function actualizarFooter() {
+        const el = document.getElementById("fecha-hora-dinamica");
+        if (!el) return;
+        const ahora = new Date();
+        const fecha = ahora.toLocaleDateString("es-MX", {
+            day: "2-digit", month: "2-digit", year: "numeric"
+        });
+        const hora = ahora.toLocaleTimeString("es-MX", {
+            hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
+        });
+        el.textContent = `${fecha} ${hora}`;
+    }
+
+    async function fetchTabla(tabla, select, filtros = {}) {
+        const total = [];
+        let offset = 0;
+
+        while (true) {
+            const p = new URLSearchParams({
+                select,
+                limit: String(PAGE_SIZE),
+                offset: String(offset)
+            });
+
+            for (const [k, v] of Object.entries(filtros)) p.set(k, v);
+
+            const url = `${SUPABASE_URL}/rest/v1/${tabla}?${p.toString()}`;
+
+            const r = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_ANON_KEY,
+                    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                    "Accept": "application/json"
+                },
+                cache: "no-store"
+            });
+
+            if (!r.ok) {
+                const detalle = await r.text();
+                throw new Error(`${tabla}: HTTP ${r.status}: ${detalle}`);
+            }
+
+            const datos = await r.json();
+            if (!Array.isArray(datos)) throw new Error(`${tabla}: respuesta inválida`);
+
+            total.push(...datos);
+            if (datos.length < PAGE_SIZE) break;
+            offset += PAGE_SIZE;
+        }
+
+        return total;
+    }
+
+    function celda(valor, clase = "") {
+        const td = document.createElement("td");
+        td.textContent = texto(valor);
+        if (clase) td.className = clase;
+        return td;
+    }
+
+    function celdaNumero(valor) {
+        return celda(numeroVisible(valor), "numero-derecha");
+    }
+
+    function renderDisponibilidad(secuencias) {
+        let entrada = 0, salida = 0, venta = 0, ventaPreparada = 0;
+        let fechaEntrada = "", fechaSalida = "";
+
+        for (const r of secuencias) {
+            const proc = texto(r.gs_proceso).trim();
+            const cant = numero(r.gs_ctda);
+            const fecha = fechaBase(r.gs_fecha);
+
+            if (proc === "Fabricacion-Entrada") {
+                entrada += cant;
+                fechaEntrada = fechaMayor(fechaEntrada, fecha);
+            } else if (proc === "Fabricacion-Salida") {
+                salida += cant;
+                fechaSalida = fechaMayor(fechaSalida, fecha);
+            } else if (proc === "Venta-Concretada") {
+                venta += cant;
+            } else if (proc === "Venta-Preparada") {
+                ventaPreparada += cant;
+            }
+        }
+
+        const enFabricacion = entrada - salida;
+        const listasEnviar = salida - venta - ventaPreparada;
+        const fechaFabricacion = fechaMayor(fechaEntrada, fechaSalida);
+        const fechaDisponible = salida > 0 ? fechaSalida : "";
+
+        const tbody = document.getElementById("disponibilidad-body");
+        tbody.replaceChildren();
+
+        const tr = document.createElement("tr");
+        tr.appendChild(celda(PROYECTO));
+        tr.appendChild(celda("Placas"));
+        tr.appendChild(celdaNumero(enFabricacion));
+        tr.appendChild(celda(fechaConDia(fechaFabricacion), "fecha-celda"));
+        tr.appendChild(celdaNumero(listasEnviar));
+        tr.appendChild(celda(fechaConDia(fechaDisponible), "fecha-celda"));
+        tbody.appendChild(tr);
     }
 
     function prioridadNumerica(v) {
@@ -1000,33 +1233,17 @@ main table:not(#tabla-secuencias) td.numero-derecha {
 
     function claseEstado(estado) {
         const s = texto(estado).trim().toLowerCase();
-
-        if (["resuelto","cumplido","completado","terminado"].includes(s)) {
-            return "seq-resuelto";
-        }
-
-        if (["pendiente","no cumplido","incumplido"].includes(s)) {
-            return "seq-pendiente";
-        }
-
-        if (s.includes("proceso") || ["en curso","activo"].includes(s)) {
-            return "seq-proceso";
-        }
-
+        if (["resuelto","cumplido","completado","terminado"].includes(s)) return "seq-resuelto";
+        if (["pendiente","no cumplido","incumplido"].includes(s)) return "seq-pendiente";
+        if (s.includes("proceso") || ["en curso","activo"].includes(s)) return "seq-proceso";
         return "seq-neutral";
     }
 
-    function celda(valor) {
-        const td = document.createElement("td");
-        td.textContent = texto(valor);
-        return td;
-    }
-
-    function renderSecuencias(rows) {
+    function renderSecuencias(secuencias) {
         const tbody = document.getElementById("secuencias-body");
-        if (!tbody) return;
+        tbody.replaceChildren();
 
-        const filas = rows
+        const filas = secuencias
             .filter(r => texto(r.gs_ver).trim().toUpperCase() !== "N")
             .sort((a, b) => {
                 const aPend = texto(a.gs_estado).trim().toLowerCase() === "pendiente";
@@ -1039,71 +1256,177 @@ main table:not(#tabla-secuencias) td.numero-derecha {
                     if (dp !== 0) return dp;
                 }
 
-                const fa = fechaOrden(a.gs_fecha);
-                const fb = fechaOrden(b.gs_fecha);
+                const fa = fechaBase(a.gs_fecha);
+                const fb = fechaBase(b.gs_fecha);
                 if (fa !== fb) return fb.localeCompare(fa);
 
                 return numero(b.gs_id) - numero(a.gs_id);
             });
 
-        if (!filas.length) return;
-
-        tbody.replaceChildren();
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin secuencias registradas.");
+            td.colSpan = 4;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
 
         for (const r of filas) {
             const tr = document.createElement("tr");
             tr.className = claseEstado(r.gs_estado);
-
-            tr.appendChild(celda(r.gs_id));
             tr.appendChild(celda(r.gs_proceso));
-            tr.appendChild(celda(fechaISO(r.gs_fecha)));
+            tr.appendChild(celda(fechaConDia(r.gs_fecha), "fecha-celda"));
             tr.appendChild(celda(r.gs_estado));
-            tr.appendChild(celda(r.gs_desc));
-
+            tr.appendChild(celda(r.gs_desc, "descripcion-celda"));
             tbody.appendChild(tr);
         }
     }
 
-    async function actualizarSecuencias() {
-        try {
-            const params = new URLSearchParams();
-            params.set(
-                "select",
-                [
-                    "gs_id",
-                    "gs_proceso",
-                    "gs_prior",
-                    "gs_fecha",
-                    "gs_desc",
-                    "gs_estado",
-                    "gs_ver"
-                ].join(",")
-            );
-            params.set("gs_proyecto", "eq." + SEQ_PROYECTO);
+    function mapaStock(stockRows) {
+        const mapa = new Map();
+        for (const r of stockRows) {
+            mapa.set(texto(r.idE).trim().replace(/\.0$/, ""), r);
+        }
+        return mapa;
+    }
 
-            const url = SEQ_SUPABASE_URL + "/rest/v1/gs_secuencias?" + params.toString();
+    function renderEspecificos(stockRows) {
+        const tbody = document.getElementById("especificos-body");
+        tbody.replaceChildren();
 
-            const resp = await fetch(url, {
-                headers: {
-                    "apikey": SEQ_SUPABASE_ANON_KEY,
-                    "Authorization": "Bearer " + SEQ_SUPABASE_ANON_KEY
-                }
-            });
+        const mapa = mapaStock(stockRows);
+        const filas = [...COMPONENTES_ESPECIFICOS]
+            .map(id => mapa.get(id))
+            .filter(Boolean);
 
-            if (!resp.ok) throw new Error("HTTP " + resp.status);
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin componentes específicos.");
+            td.colSpan = 3;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
 
-            const data = await resp.json();
-            if (Array.isArray(data) && data.length) {
-                renderSecuencias(data);
-            }
-        } catch (err) {
-            // Si no hay internet o Supabase no responde,
-            // se conserva la tabla de respaldo ya incluida en el HTML.
-            console.warn("No fue posible actualizar Secuencias:", err);
+        for (const r of filas) {
+            const tr = document.createElement("tr");
+            tr.appendChild(celda(texto(r.idE).replace(/\.0$/, "")));
+            tr.appendChild(celda(r.cs_desc, "descripcion-celda"));
+            tr.appendChild(celdaNumero(r.cs_ctda));
+            tbody.appendChild(tr);
         }
     }
 
-    actualizarSecuencias();
+    function renderComponentesProyecto(proyectoRows, stockRows) {
+        const tbody = document.getElementById("proyecto-body");
+        tbody.replaceChildren();
+
+        const stock = mapaStock(stockRows);
+        const agrupado = new Map();
+
+        for (const r of proyectoRows) {
+            const id = texto(r.cp_idE).trim().replace(/\.0$/, "");
+            if (!id) continue;
+
+            if (!agrupado.has(id)) {
+                agrupado.set(id, {
+                    idE: id,
+                    descripcion: texto(r.cp_desc),
+                    cantidad: 0
+                });
+            }
+
+            const item = agrupado.get(id);
+            item.cantidad += numero(r.cp_ctda);
+
+            if (!item.descripcion && r.cp_desc) item.descripcion = texto(r.cp_desc);
+        }
+
+        const filas = [...agrupado.values()].sort((a, b) =>
+            texto(a.descripcion).localeCompare(texto(b.descripcion), "es", { sensitivity: "base" })
+        );
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin componentes del proyecto.");
+            td.colSpan = 4;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const s = stock.get(r.idE);
+            const descripcion = s && texto(s.cs_desc).trim() ? s.cs_desc : r.descripcion;
+            const existencia = s ? numero(s.cs_ctda) : 0;
+
+            const tr = document.createElement("tr");
+            tr.appendChild(celda(r.idE));
+            tr.appendChild(celda(descripcion, "descripcion-celda"));
+            tr.appendChild(celdaNumero(r.cantidad));
+            tr.appendChild(celdaNumero(existencia));
+            tbody.appendChild(tr);
+        }
+    }
+
+    async function actualizarTodo() {
+        const estado = document.getElementById("estado-supabase");
+        estado.textContent = "Actualizando datos desde Supabase...";
+        estado.style.color = "#657786";
+        estado.style.borderColor = "#cdd8e2";
+        estado.style.background = "#ffffff";
+
+        try {
+            const [secuencias, proyectoRows, stockRows] = await Promise.all([
+                fetchTabla(
+                    "gs_secuencias",
+                    [
+                        "gs_id","gs_proceso","gs_subproceso","gs_proyecto","gs_lote",
+                        "gs_prior","gs_fecha","gs_desc","gs_ctda","gs_estado","gs_ver","gs_fecha_cum"
+                    ].join(","),
+                    { gs_proyecto: `eq.${PROYECTO}` }
+                ),
+                fetchTabla(
+                    "cp_proyectos",
+                    ["cp_id","cp_proyecto","cp_idE","cp_desc","cp_ctda"].join(","),
+                    { cp_proyecto: `eq.${PROYECTO}` }
+                ),
+                fetchTabla(
+                    "cs_stock",
+                    ["idE","cs_desc","cs_ctda","cs_ctmi","cs_tipo","cs_observe"].join(",")
+                )
+            ]);
+
+            renderDisponibilidad(secuencias);
+            renderSecuencias(secuencias);
+            renderEspecificos(stockRows);
+            renderComponentesProyecto(proyectoRows, stockRows);
+            actualizarFooter();
+
+            const hora = new Date().toLocaleTimeString("es-MX", {
+                hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
+            });
+
+            estado.textContent =
+                `Supabase conectado · ${secuencias.length} secuencias · ` +
+                `${proyectoRows.length} registros BOM · ${hora}`;
+            estado.style.color = "#1f6334";
+            estado.style.borderColor = "#b9ddc3";
+            estado.style.background = "#eef9f1";
+
+        } catch (error) {
+            console.error(error);
+            estado.textContent = "Error al obtener datos desde Supabase";
+            estado.style.color = "#a02a2a";
+            estado.style.borderColor = "#e5b8b8";
+            estado.style.background = "#fff1f1";
+        }
+    }
+
+    actualizarFooter();
+    actualizarTodo();
+    window.setInterval(actualizarTodo, 60000);
 })();
 </script></body>
 </html>
