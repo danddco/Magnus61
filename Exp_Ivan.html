@@ -1612,6 +1612,287 @@ td.numero-derecha {
         font-size: 13px !important;
     }
 }
+</style><style>
+/* ============================================================
+   MOVIL / TABLET - ESTILO STOCK_LAST
+   Escritorio queda exactamente igual.
+   ============================================================ */
+@media (max-width: 900px) {
+
+    body {
+        padding: 7px !important;
+        font-size: 17px !important;
+        overflow-x: hidden !important;
+    }
+
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 4px 0 28px !important;
+        margin: 0 auto !important;
+    }
+
+    h1.seccion-principal {
+        font-size: 25px !important;
+        line-height: 1.2 !important;
+        margin: 8px 0 14px !important;
+    }
+
+    h2 {
+        font-size: 22px !important;
+        line-height: 1.2 !important;
+        margin: 13px 0 10px !important;
+    }
+
+    .separador {
+        margin: 14px 0 6px !important;
+    }
+
+    #estado-supabase {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: -5px auto 12px !important;
+        padding: 7px 9px !important;
+        font-size: 13px !important;
+    }
+
+    /* Igual que Stock_Last: el contenedor deja de ser una tabla ancha */
+    .tabla-wrap {
+        width: 100% !important;
+        overflow: visible !important;
+        border: 0 !important;
+        background: transparent !important;
+        margin-bottom: 14px !important;
+    }
+
+    #tabla-disponibilidad,
+    #tabla-secuencias,
+    #tabla-especificos,
+    #tabla-proyecto {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border-collapse: separate !important;
+        table-layout: auto !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        font-size: 17px !important;
+    }
+
+    #tabla-disponibilidad thead,
+    #tabla-secuencias thead,
+    #tabla-especificos thead,
+    #tabla-proyecto thead {
+        display: none !important;
+    }
+
+    #tabla-disponibilidad tbody,
+    #tabla-secuencias tbody,
+    #tabla-especificos tbody,
+    #tabla-proyecto tbody {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* Tarjetas verticales, igual a Stock_Last */
+    #tabla-disponibilidad tbody tr,
+    #tabla-secuencias tbody tr,
+    #tabla-especificos tbody tr,
+    #tabla-proyecto tbody tr {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 0 12px !important;
+        padding: 5px 0 !important;
+        border: 1px solid #d8dee5 !important;
+        border-radius: 9px !important;
+        background: white !important;
+        overflow: hidden !important;
+        box-shadow: 0 1px 4px rgba(0,0,0,.05) !important;
+    }
+
+    /* Mantener color de estado para Secuencias */
+    #tabla-secuencias tbody tr.seq-pendiente {
+        background: #f8d7da !important;
+        color: #721c24 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-resuelto {
+        background: #dff3e4 !important;
+        color: #1f6334 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-proceso {
+        background: #fff3cd !important;
+        color: #6f5900 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-neutral {
+        background: #eef1f4 !important;
+        color: #48545f !important;
+    }
+
+    /* 38% etiqueta / 62% valor, como Stock_Last */
+    #tabla-disponibilidad tbody td,
+    #tabla-secuencias tbody td,
+    #tabla-especificos tbody td,
+    #tabla-proyecto tbody td {
+        display: grid !important;
+        grid-template-columns: minmax(112px, 38%) minmax(0, 62%) !important;
+        align-items: center !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding: 9px 10px !important;
+        border: 0 !important;
+        border-bottom: 1px solid #d8dee5 !important;
+        font-size: 17px !important;
+        line-height: 1.35 !important;
+        text-align: left !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+        background: transparent !important;
+    }
+
+    #tabla-disponibilidad tbody td:last-child,
+    #tabla-secuencias tbody td:last-child,
+    #tabla-especificos tbody td:last-child,
+    #tabla-proyecto tbody td:last-child {
+        border-bottom: 0 !important;
+    }
+
+    /* Etiqueta generada desde data-label, igual a Stock_Last */
+    #tabla-disponibilidad tbody td::before,
+    #tabla-secuencias tbody td::before,
+    #tabla-especificos tbody td::before,
+    #tabla-proyecto tbody td::before {
+        content: attr(data-label) !important;
+        display: block !important;
+        padding-right: 8px !important;
+        color: #30485d !important;
+        font-weight: 800 !important;
+        font-size: 15px !important;
+        line-height: 1.25 !important;
+        text-align: left !important;
+    }
+
+    /* En tarjetas coloreadas, conservar etiqueta legible */
+    #tabla-secuencias tbody tr.seq-pendiente td::before {
+        color: #721c24 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-resuelto td::before {
+        color: #1f6334 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-proceso td::before {
+        color: #6f5900 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-neutral td::before {
+        color: #48545f !important;
+    }
+
+    /* Jerarquía similar a Stock_Last */
+    #tabla-disponibilidad tbody td,
+    #tabla-secuencias tbody td,
+    #tabla-especificos tbody td,
+    #tabla-proyecto tbody td {
+        font-size: 18px !important;
+    }
+
+    #tabla-secuencias tbody td:nth-child(4),
+    #tabla-especificos tbody td:nth-child(2),
+    #tabla-proyecto tbody td:nth-child(2) {
+        font-weight: 800 !important;
+        text-align: left !important;
+    }
+
+    #tabla-disponibilidad td.numero-derecha,
+    #tabla-especificos td.numero-derecha,
+    #tabla-proyecto td.numero-derecha {
+        text-align: left !important;
+        font-weight: 800 !important;
+    }
+
+    /* Técnica: misma lógica de una sola columna */
+    .seccion-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 18px 0 0 !important;
+        padding: 13px 8px !important;
+    }
+
+    .seccion-tecnica h2 {
+        font-size: 24px !important;
+        line-height: 1.2 !important;
+    }
+
+    .subtitulo-tecnico {
+        font-size: 16px !important;
+        line-height: 1.4 !important;
+    }
+
+    .seccion-tecnica .grid-tecnico {
+        display: grid !important;
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .seccion-tecnica .tarjeta-tecnica,
+    .seccion-tecnica .nota-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .seccion-tecnica .imagen-placa {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 14px 0 4px !important;
+    }
+
+    .seccion-tecnica .imagen-placa img {
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 5px !important;
+    }
+
+    h1.seccion-principal {
+        font-size: 22px !important;
+    }
+
+    h2 {
+        font-size: 20px !important;
+    }
+
+    #tabla-disponibilidad tbody td,
+    #tabla-secuencias tbody td,
+    #tabla-especificos tbody td,
+    #tabla-proyecto tbody td {
+        grid-template-columns: minmax(102px, 36%) minmax(0, 64%) !important;
+        padding: 9px 8px !important;
+        font-size: 17px !important;
+    }
+
+    #tabla-disponibilidad tbody td::before,
+    #tabla-secuencias tbody td::before,
+    #tabla-especificos tbody td::before,
+    #tabla-proyecto tbody td::before {
+        font-size: 14px !important;
+    }
+}
 </style></head>
 <body>
 <header id="cabecera">
@@ -1643,12 +1924,12 @@ td.numero-derecha {
 </thead>
 <tbody id="disponibilidad-body">
 <tr>
-<td>Fashident v1.0</td>
-<td>Placas</td>
-<td class="numero-derecha">160</td>
-<td>Jueves 2026-09-10</td>
-<td class="numero-derecha">50</td>
-<td>Lunes 2026-08-03</td>
+<td data-label="Proyecto">Fashident v1.0</td>
+<td data-label="Componente">Placas</td>
+<td class="numero-derecha" data-label="En fabricación">160</td>
+<td data-label="Fecha fabricación">Jueves 2026-09-10</td>
+<td class="numero-derecha" data-label="Lista para enviar">50</td>
+<td data-label="Fecha disponible">Lunes 2026-08-03</td>
 </tr>
 </tbody>
 </table>
@@ -1665,7 +1946,7 @@ td.numero-derecha {
 <th>Descripcion</th>
 </tr>
 </thead>
-<tbody id="secuencias-body"><tr class="seq-pendiente"><td>Fabricacion-Diagnostico</td><td class="fecha-celda">Jueves 2026-09-17</td><td>Pendiente</td><td class="descripcion-celda">Placas: 60 Virgenes</td></tr><tr class="seq-pendiente"><td>Fabricacion-Diagnostico</td><td class="fecha-celda">Jueves 2026-09-17</td><td>Pendiente</td><td class="descripcion-celda">Placas: Montadas 100 con smd</td></tr><tr class="seq-resuelto"><td>Fabricacion-Proceso</td><td class="fecha-celda">Viernes 2026-09-04</td><td>Resuelto</td><td class="descripcion-celda">Cables: Poner Terminales a 50 Cables</td></tr><tr class="seq-resuelto"><td>Fabricacion-Diagnostico</td><td class="fecha-celda">Lunes 2026-08-31</td><td>Resuelto</td><td class="descripcion-celda">Placa: 6 Placas por rechequear</td></tr><tr class="seq-resuelto"><td>Venta-Concretada</td><td class="fecha-celda">Viernes 2026-08-28</td><td>Resuelto</td><td class="descripcion-celda">60 Placas, 20 cables, 20 pantallas,  2 SD con interfase Blanca y Negra</td></tr></tbody>
+<tbody id="secuencias-body"><tr class="seq-pendiente"><td data-label="Proceso">Fabricacion-Diagnostico</td><td class="fecha-celda" data-label="Fecha">Jueves 2026-09-17</td><td data-label="Estado">Pendiente</td><td class="descripcion-celda" data-label="Descripción">Placas: 60 Virgenes</td></tr><tr class="seq-pendiente"><td data-label="Proceso">Fabricacion-Diagnostico</td><td class="fecha-celda" data-label="Fecha">Jueves 2026-09-17</td><td data-label="Estado">Pendiente</td><td class="descripcion-celda" data-label="Descripción">Placas: Montadas 100 con smd</td></tr><tr class="seq-resuelto"><td data-label="Proceso">Fabricacion-Proceso</td><td class="fecha-celda" data-label="Fecha">Viernes 2026-09-04</td><td data-label="Estado">Resuelto</td><td class="descripcion-celda" data-label="Descripción">Cables: Poner Terminales a 50 Cables</td></tr><tr class="seq-resuelto"><td data-label="Proceso">Fabricacion-Diagnostico</td><td class="fecha-celda" data-label="Fecha">Lunes 2026-08-31</td><td data-label="Estado">Resuelto</td><td class="descripcion-celda" data-label="Descripción">Placa: 6 Placas por rechequear</td></tr><tr class="seq-resuelto"><td data-label="Proceso">Venta-Concretada</td><td class="fecha-celda" data-label="Fecha">Viernes 2026-08-28</td><td data-label="Estado">Resuelto</td><td class="descripcion-celda" data-label="Descripción">60 Placas, 20 cables, 20 pantallas,  2 SD con interfase Blanca y Negra</td></tr></tbody>
 </table>
 </div>
 <div class="separador">-------------------------</div>
@@ -1680,29 +1961,29 @@ td.numero-derecha {
 </tr>
 </thead>
 <tbody id="especificos-body"><tr>
-<td class="numero-derecha">80</td>
-<td>CABLE - 4 Largo (Iva)</td>
-<td class="numero-derecha">70</td>
+<td class="numero-derecha" data-label="idE">80</td>
+<td data-label="Descripción">CABLE - 4 Largo (Iva)</td>
+<td class="numero-derecha" data-label="Existencia">70</td>
 </tr>
 <tr>
-<td class="numero-derecha">28</td>
-<td>MICRO - ATMEGA 328pAU</td>
-<td class="numero-derecha">382</td>
+<td class="numero-derecha" data-label="idE">28</td>
+<td data-label="Descripción">MICRO - ATMEGA 328pAU</td>
+<td class="numero-derecha" data-label="Existencia">382</td>
 </tr>
 <tr>
-<td class="numero-derecha">72</td>
-<td>PANTALLA - 5'' - Capacitiva - DMG80480C050_09WTC</td>
-<td class="numero-derecha">19</td>
+<td class="numero-derecha" data-label="idE">72</td>
+<td data-label="Descripción">PANTALLA - 5'' - Capacitiva - DMG80480C050_09WTC</td>
+<td class="numero-derecha" data-label="Existencia">19</td>
 </tr>
 <tr>
-<td class="numero-derecha">33</td>
-<td>REGULADOR Voltaje - LM2596</td>
-<td class="numero-derecha">640</td>
+<td class="numero-derecha" data-label="idE">33</td>
+<td data-label="Descripción">REGULADOR Voltaje - LM2596</td>
+<td class="numero-derecha" data-label="Existencia">640</td>
 </tr>
 <tr>
-<td class="numero-derecha">36</td>
-<td>RESISTENCIAg - 47K0</td>
-<td class="numero-derecha">100</td>
+<td class="numero-derecha" data-label="idE">36</td>
+<td data-label="Descripción">RESISTENCIAg - 47K0</td>
+<td class="numero-derecha" data-label="Existencia">100</td>
 </tr></tbody>
 </table>
 </div>
@@ -1719,178 +2000,178 @@ td.numero-derecha {
 </tr>
 </thead>
 <tbody id="proyecto-body"><tr>
-<td class="numero-derecha">36</td>
-<td>RESISTENCIAg - 47K0</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">100</td>
+<td class="numero-derecha" data-label="idE">36</td>
+<td data-label="Descripción">RESISTENCIAg - 47K0</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">100</td>
 </tr>
 <tr>
-<td class="numero-derecha">4</td>
-<td>CAPACITOR - 10 uf Tantalum 16V SA-3216</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">4</td>
+<td data-label="Descripción">CAPACITOR - 10 uf Tantalum 16V SA-3216</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">11</td>
-<td>CAPACITOR - 22 pF 0805</td>
-<td class="numero-derecha">2</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">11</td>
+<td data-label="Descripción">CAPACITOR - 22 pF 0805</td>
+<td class="numero-derecha" data-label="Ctdad Proy">2</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">10</td>
-<td>CAPACITOR - 470 uf Electrolitico 10V SMD</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">10</td>
+<td data-label="Descripción">CAPACITOR - 470 uf Electrolitico 10V SMD</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">31</td>
-<td>Capacitor 10 nf</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">3950</td>
+<td class="numero-derecha" data-label="idE">31</td>
+<td data-label="Descripción">Capacitor 10 nf</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">3950</td>
 </tr>
 <tr>
-<td class="numero-derecha">9</td>
-<td>Capacitor 100 nf Ceramico 16V 0805</td>
-<td class="numero-derecha">11</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">9</td>
+<td data-label="Descripción">Capacitor 100 nf Ceramico 16V 0805</td>
+<td class="numero-derecha" data-label="Ctdad Proy">11</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">105</td>
-<td>CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">-229</td>
+<td class="numero-derecha" data-label="idE">105</td>
+<td data-label="Descripción">CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">-229</td>
 </tr>
 <tr>
-<td class="numero-derecha">5</td>
-<td>DIODO - SS34 - MS</td>
-<td class="numero-derecha">12</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">5</td>
+<td data-label="Descripción">DIODO - SS34 - MS</td>
+<td class="numero-derecha" data-label="Ctdad Proy">12</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">34</td>
-<td>INDUCTOR - 470MT - FIXED 47uH 2.5A 100mΩ</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">0</td>
+<td class="numero-derecha" data-label="idE">34</td>
+<td data-label="Descripción">INDUCTOR - 470MT - FIXED 47uH 2.5A 100mΩ</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">0</td>
 </tr>
 <tr>
-<td class="numero-derecha">52</td>
-<td>LED BLUE 0805</td>
-<td class="numero-derecha">2</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">52</td>
+<td data-label="Descripción">LED BLUE 0805</td>
+<td class="numero-derecha" data-label="Ctdad Proy">2</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">17</td>
-<td>LED GREEN 0805</td>
-<td class="numero-derecha">2</td>
-<td class="numero-derecha">3</td>
+<td class="numero-derecha" data-label="idE">17</td>
+<td data-label="Descripción">LED GREEN 0805</td>
+<td class="numero-derecha" data-label="Ctdad Proy">2</td>
+<td class="numero-derecha" data-label="Ctdad Stock">3</td>
 </tr>
 <tr>
-<td class="numero-derecha">18</td>
-<td>LED RED 0805</td>
-<td class="numero-derecha">5</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">18</td>
+<td data-label="Descripción">LED RED 0805</td>
+<td class="numero-derecha" data-label="Ctdad Proy">5</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">22</td>
-<td>MOSFET - AOD4184A-VB</td>
-<td class="numero-derecha">7</td>
-<td class="numero-derecha">20</td>
+<td class="numero-derecha" data-label="idE">22</td>
+<td data-label="Descripción">MOSFET - AOD4184A-VB</td>
+<td class="numero-derecha" data-label="Ctdad Proy">7</td>
+<td class="numero-derecha" data-label="Ctdad Stock">20</td>
 </tr>
 <tr>
-<td class="numero-derecha">29</td>
-<td>RESISTENCIA - 5K1</td>
-<td class="numero-derecha">11</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">29</td>
+<td data-label="Descripción">RESISTENCIA - 5K1</td>
+<td class="numero-derecha" data-label="Ctdad Proy">11</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">133</td>
-<td>Resistencia 383</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">-50</td>
+<td class="numero-derecha" data-label="idE">133</td>
+<td data-label="Descripción">Resistencia 383</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">-50</td>
 </tr>
 <tr>
-<td class="numero-derecha">13</td>
-<td>RESISTENCIAa - 3.4</td>
-<td class="numero-derecha">7</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">13</td>
+<td data-label="Descripción">RESISTENCIAa - 3.4</td>
+<td class="numero-derecha" data-label="Ctdad Proy">7</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">55</td>
-<td>RESISTENCIAe - 4K7</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">55</td>
+<td data-label="Descripción">RESISTENCIAe - 4K7</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">21</td>
-<td>RESISTENCIAf - 10K0</td>
-<td class="numero-derecha">14</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">21</td>
+<td data-label="Descripción">RESISTENCIAf - 10K0</td>
+<td class="numero-derecha" data-label="Ctdad Proy">14</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">8</td>
-<td>SWITCH - Tactil Push Bottom</td>
-<td class="numero-derecha">7</td>
-<td class="numero-derecha">0</td>
+<td class="numero-derecha" data-label="idE">8</td>
+<td data-label="Descripción">SWITCH - Tactil Push Bottom</td>
+<td class="numero-derecha" data-label="Ctdad Proy">7</td>
+<td class="numero-derecha" data-label="Ctdad Stock">0</td>
 </tr>
 <tr>
-<td class="numero-derecha">15</td>
-<td>Switching Diode SMD 1N4004</td>
-<td class="numero-derecha">4</td>
-<td class="numero-derecha">2610</td>
+<td class="numero-derecha" data-label="idE">15</td>
+<td data-label="Descripción">Switching Diode SMD 1N4004</td>
+<td class="numero-derecha" data-label="Ctdad Proy">4</td>
+<td class="numero-derecha" data-label="Ctdad Stock">2610</td>
 </tr>
 <tr>
-<td class="numero-derecha">35</td>
-<td>TRANSISTOR - J3Y Bipolar</td>
-<td class="numero-derecha">3</td>
-<td class="numero-derecha">1</td>
+<td class="numero-derecha" data-label="idE">35</td>
+<td data-label="Descripción">TRANSISTOR - J3Y Bipolar</td>
+<td class="numero-derecha" data-label="Ctdad Proy">3</td>
+<td class="numero-derecha" data-label="Ctdad Stock">1</td>
 </tr>
 <tr>
-<td class="numero-derecha">28</td>
-<td>MICRO - ATMEGA 328pAU</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">382</td>
+<td class="numero-derecha" data-label="idE">28</td>
+<td data-label="Descripción">MICRO - ATMEGA 328pAU</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">382</td>
 </tr>
 <tr>
-<td class="numero-derecha">33</td>
-<td>REGULADOR Voltaje - LM2596</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">640</td>
+<td class="numero-derecha" data-label="idE">33</td>
+<td data-label="Descripción">REGULADOR Voltaje - LM2596</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">640</td>
 </tr>
 <tr>
-<td class="numero-derecha">109</td>
-<td>Pin Header 1x3 Single Macho</td>
-<td class="numero-derecha">2</td>
-<td class="numero-derecha">270</td>
+<td class="numero-derecha" data-label="idE">109</td>
+<td data-label="Descripción">Pin Header 1x3 Single Macho</td>
+<td class="numero-derecha" data-label="Ctdad Proy">2</td>
+<td class="numero-derecha" data-label="Ctdad Stock">270</td>
 </tr>
 <tr>
-<td class="numero-derecha">7</td>
-<td>Regulador de Voltaje Linear 7805-C21706</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">240</td>
+<td class="numero-derecha" data-label="idE">7</td>
+<td data-label="Descripción">Regulador de Voltaje Linear 7805-C21706</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">240</td>
 </tr>
 <tr>
-<td class="numero-derecha">107</td>
-<td>CAPACITOR - 220 uF Electrolytic 35V</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">910</td>
+<td class="numero-derecha" data-label="idE">107</td>
+<td data-label="Descripción">CAPACITOR - 220 uF Electrolytic 35V</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">910</td>
 </tr>
 <tr>
-<td class="numero-derecha">54</td>
-<td>CONECTOR - Terminal de Barrera</td>
-<td class="numero-derecha">1</td>
-<td class="numero-derecha">3096</td>
+<td class="numero-derecha" data-label="idE">54</td>
+<td data-label="Descripción">CONECTOR - Terminal de Barrera</td>
+<td class="numero-derecha" data-label="Ctdad Proy">1</td>
+<td class="numero-derecha" data-label="Ctdad Stock">3096</td>
 </tr>
 <tr>
-<td class="numero-derecha">56</td>
-<td>RELAY - 12V - 2US / 10 A</td>
-<td class="numero-derecha">3</td>
-<td class="numero-derecha">3230</td>
+<td class="numero-derecha" data-label="idE">56</td>
+<td data-label="Descripción">RELAY - 12V - 2US / 10 A</td>
+<td class="numero-derecha" data-label="Ctdad Proy">3</td>
+<td class="numero-derecha" data-label="Ctdad Stock">3230</td>
 </tr>
 <tr>
-<td class="numero-derecha">27</td>
-<td>TERMINAL BLOCK 2P</td>
-<td class="numero-derecha">10</td>
-<td class="numero-derecha">3200</td>
+<td class="numero-derecha" data-label="idE">27</td>
+<td data-label="Descripción">TERMINAL BLOCK 2P</td>
+<td class="numero-derecha" data-label="Ctdad Proy">10</td>
+<td class="numero-derecha" data-label="Ctdad Stock">3200</td>
 </tr></tbody>
 </table>
 </div>
@@ -2279,6 +2560,74 @@ td.numero-derecha {
     actualizarFooter();
     actualizarTodo();
     window.setInterval(actualizarTodo, 60000);
+})();
+</script><script>
+(function () {
+    "use strict";
+
+    const etiquetasMoviles = {
+        "tabla-disponibilidad": [
+            "Proyecto",
+            "Componente",
+            "En fabricación",
+            "Fecha fabricación",
+            "Lista para enviar",
+            "Fecha disponible"
+        ],
+        "tabla-secuencias": [
+            "Proceso",
+            "Fecha",
+            "Estado",
+            "Descripción"
+        ],
+        "tabla-especificos": [
+            "idE",
+            "Descripción",
+            "Existencia"
+        ],
+        "tabla-proyecto": [
+            "idE",
+            "Descripción",
+            "Ctdad Proy",
+            "Ctdad Stock"
+        ]
+    };
+
+    function aplicarEtiquetasMoviles() {
+        for (const [id, etiquetas] of Object.entries(etiquetasMoviles)) {
+            const tabla = document.getElementById(id);
+            if (!tabla) continue;
+
+            const filas = tabla.querySelectorAll("tbody tr");
+            for (const fila of filas) {
+                const celdas = fila.querySelectorAll(":scope > td");
+                celdas.forEach((td, i) => {
+                    if (etiquetas[i]) {
+                        td.dataset.label = etiquetas[i];
+                    }
+                });
+            }
+        }
+    }
+
+    aplicarEtiquetasMoviles();
+
+    const objetivos = [
+        "disponibilidad-body",
+        "secuencias-body",
+        "especificos-body",
+        "proyecto-body"
+    ];
+
+    for (const id of objetivos) {
+        const nodo = document.getElementById(id);
+        if (!nodo) continue;
+
+        const observer = new MutationObserver(aplicarEtiquetasMoviles);
+        observer.observe(nodo, { childList: true, subtree: true });
+    }
+
+    window.addEventListener("resize", aplicarEtiquetasMoviles);
 })();
 </script></body>
 </html>
