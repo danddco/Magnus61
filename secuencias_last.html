@@ -162,6 +162,36 @@ td.id-b {
     font-variant-numeric: tabular-nums;
     font-weight: 700;
 }
+</style><style>
+/* ============================================================
+   CORRECCION MOVIL: id_B HORIZONTAL
+   ============================================================ */
+@media (max-width: 900px) {
+
+    tbody td.id-b {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        white-space: nowrap !important;
+        overflow-wrap: normal !important;
+        word-break: keep-all !important;
+        text-align: left !important;
+    }
+
+    tbody td.id-b::before {
+        white-space: nowrap !important;
+        overflow-wrap: normal !important;
+        word-break: keep-all !important;
+    }
+}
+
+@media (max-width: 480px) {
+    tbody td.id-b {
+        white-space: nowrap !important;
+        overflow-wrap: normal !important;
+        word-break: keep-all !important;
+    }
+}
 </style></head>
 <body>
 <header id="cabecera">
