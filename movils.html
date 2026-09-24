@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width,initial-scale=1.0,maximum-scale=5.0" name="viewport"/>
-<title>Administrar Secuencias - Seguro</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Administrar Secuencias</title>
 <style>
-:root{
-  --azul:#1f4e78;--azul2:#346b98;--fondo:#f4f6f8;--texto:#26333f;
-  --borde:#d8dee5;--verde:#1f6334;--rojo:#a02a2a;
+:root {
+  --azul:#1f4e78; --azul2:#346b98; --fondo:#f4f6f8; --texto:#26333f;
+  --borde:#d8dee5; --verde:#1f6334; --rojo:#a02a2a;
 }
 *{box-sizing:border-box}
 body{margin:0;font-family:Arial,sans-serif;background:var(--fondo);color:var(--texto)}
-header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;padding:14px 16px}
+header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:white;padding:14px 16px}
 header h1{margin:0;font-size:22px}
 header p{margin:5px 0 0;font-size:13px;opacity:.9}
 main{width:min(1100px,96%);margin:14px auto 40px}
 .panel{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 5px rgba(0,0,0,.05)}
 .hidden{display:none!important}
+.notice{border-left:5px solid #d18b00;background:#fff8e6}
 label{display:block;font-weight:700;margin:10px 0 5px}
 input,select,textarea{width:100%;padding:10px;border:1px solid #bcc7d1;border-radius:7px;font:inherit;background:#fff}
-textarea{min-height:85px;resize:vertical}
+textarea{min-height:90px;resize:vertical}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 .actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 button{border:0;border-radius:7px;padding:10px 14px;font-weight:800;cursor:pointer;min-height:42px}
@@ -41,346 +41,500 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .card.pendiente .k{color:#721c24}
 .card.resuelto .k{color:#1f6334}
 .v{overflow-wrap:anywhere}
-.card-actions{display:flex;gap:8px;padding:10px;background:rgba(255,255,255,.6)}
-.idnum{font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap}
+.card-actions{display:flex;gap:8px;padding:10px;background:rgba(255,255,255,.58)}
+.idb{font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap}
 .badge{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:800;background:#fff}
 .error{color:#a02a2a!important}
 .ok{color:#1f6334!important}
-.auth-box{max-width:520px;margin:18px auto}
-.auth-info{font-size:13px;color:#657786;margin-top:8px}
-.userbar{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-.userbar .email{font-weight:700;color:#30485d;overflow-wrap:anywhere}
 @media(max-width:700px){
   main{width:100%;padding:0 7px}
   .grid{grid-template-columns:1fr}
   .toolbar{align-items:stretch;flex-direction:column}
-  .row{grid-template-columns:minmax(105px,35%) minmax(0,65%)}
 }
 </style>
+
+<style>
+.auth-wrap{max-width:520px;margin:24px auto}
+.auth-title{margin:0 0 6px;font-size:21px;color:#123b5d}
+.auth-sub{margin:0 0 14px;color:#657786;font-size:13px;line-height:1.45}
+.auth-error{margin-top:10px;color:#a02a2a;font-weight:700;white-space:pre-wrap}
+.auth-ok{margin-top:10px;color:#1f6334;font-weight:700}
+.sessionbar{display:flex;justify-content:space-between;align-items:center;gap:10px;
+  border-left:5px solid #287a42;background:#edf8f0}
+.session-user{font-weight:800;overflow-wrap:anywhere}
+@media(max-width:700px){
+  .sessionbar{align-items:stretch;flex-direction:column}
+  .auth-wrap{margin:14px auto}
+}
+</style>
+
 </head>
 <body>
+
 <header>
-<h1>Administrar gs_secuencias</h1>
-<p>Acceso protegido · crear · editar · eliminar</p>
+  <h1>Administrar gs_secuencias</h1>
+  <p>Alta · edición · eliminación desde celular</p>
 </header>
+
 <main>
-<section class="panel auth-box" id="loginPanel">
-<h2>Acceso de administrador</h2>
-<label>Correo</label>
-<input autocomplete="username" id="email" type="email"/>
-<label>Contraseña</label>
-<input autocomplete="current-password" id="password" type="password"/><div style="margin-top:8px;display:flex;align-items:center;gap:8px;"><input id="mostrarPassword" style="width:auto;min-width:18px;height:18px;margin:0;" type="checkbox"/><label for="mostrarPassword" style="margin:0;font-weight:700;cursor:pointer;">Mostrar contraseña</label></div>
-<div class="actions">
-<button class="primary" id="loginBtn" type="button">Entrar</button>
-</div>
-<div class="auth-info" id="loginMsg"></div>
+  
+<section id="authPanel" class="panel auth-wrap">
+  <h2 class="auth-title">Acceso autorizado</h2>
+  <p class="auth-sub">
+    Inicia sesión con tu usuario de Supabase para consultar y modificar información.
+  </p>
+  <form id="loginForm">
+    <label>Correo</label>
+    <input id="authEmail" type="email" autocomplete="username" required>
+    <label>Contraseña</label>
+    <input id="authPassword" type="password" autocomplete="current-password" required>
+    <div class="actions">
+      <button id="loginBtn" type="submit" class="primary">Iniciar sesión</button>
+    </div>
+    <div id="authEstado"></div>
+  </form>
 </section>
-<section class="hidden" id="appPanel">
-<section class="panel">
-<div class="userbar">
-<div>Usuario: <span class="email" id="usuarioEmail"></span></div>
-<button class="secondary" id="logoutBtn" type="button">Cerrar sesión</button>
+
+<div id="appContent" class="hidden">
+  <section class="panel sessionbar">
+    <div>
+      <div style="font-size:12px;color:#657786">Sesión autenticada</div>
+      <div id="authUsuario" class="session-user"></div>
+    </div>
+    <button id="logoutBtn" type="button" class="secondary">Cerrar sesión</button>
+  </section>
+
+
+  <section class="panel">
+    <div class="toolbar">
+      <div>
+        <h2>Secuencias</h2>
+        <div id="estado">Iniciando...</div>
+      </div>
+      <div class="actions" style="margin-top:0">
+        <button id="newBtn" type="button" class="success">+ Nuevo</button>
+        <button id="refreshBtn" type="button" class="secondary">Actualizar</button>
+      </div>
+    </div>
+    <input id="search" placeholder="Buscar proyecto, proceso, descripción, estado o id_B...">
+  </section>
+
+  <section id="formPanel" class="panel hidden">
+    <h2 id="formTitle">Nuevo registro</h2>
+    <input id="editId" type="hidden">
+
+    <div class="grid">
+      <div>
+        <label>Proyecto</label>
+        <input id="gs_proyecto">
+      </div>
+      <div>
+        <label>Proceso</label>
+        <input id="gs_proceso">
+      </div>
+      <div>
+        <label>Fecha</label>
+        <input id="gs_fecha" type="date">
+      </div>
+      <div>
+        <label>Prioridad</label>
+        <select id="gs_prior">
+          <option value="">Sin prioridad</option>
+          <option value="1">Alta</option>
+          <option value="2">Media</option>
+          <option value="3">Baja</option>
+        </select>
+      </div>
+      <div>
+        <label>Estado</label>
+        <select id="gs_estado">
+          <option value="Pendiente">Pendiente</option>
+          <option value="Resuelto">Resuelto</option>
+        </select>
+      </div>
+      <div>
+        <label>Fecha cumplimiento</label>
+        <input id="gs_fecha_cum" type="date">
+      </div>
+      <div>
+        <label>Lote</label>
+        <input id="gs_lote">
+      </div>
+      <div>
+        <label>Cantidad</label>
+        <input id="gs_ctda" type="number" step="any">
+      </div>
+      <div>
+        <label>Visible</label>
+        <select id="gs_ver">
+          <option value="S">Sí</option>
+          <option value="N">No</option>
+        </select>
+      </div>
+    </div>
+
+    <label>Descripción</label>
+    <textarea id="gs_desc"></textarea>
+
+    <div class="actions">
+      <button id="saveBtn" type="button" class="primary">Guardar</button>
+      <button id="cancelBtn" type="button" class="secondary">Cancelar</button>
+    </div>
+  </section>
+
+  <section id="list"></section>
 </div>
-</section>
-<section class="panel">
-<div class="toolbar">
-<div>
-<h2>Secuencias</h2>
-<div id="estado">Conectando...</div>
-</div>
-<div class="actions" style="margin-top:0">
-<button class="success" id="newBtn" type="button">+ Nuevo</button>
-<button class="secondary" id="refreshBtn" type="button">Actualizar</button>
-</div>
-</div>
-<input id="search" placeholder="Buscar proyecto, proceso, descripción, estado o id_B..."/>
-</section>
-<section class="panel hidden" id="formPanel">
-<h2 id="formTitle">Nuevo registro</h2>
-<input id="editId" type="hidden"/>
-<div class="grid">
-<div><label>Proyecto</label><input id="gs_proyecto"/></div>
-<div><label>Proceso</label><input id="gs_proceso"/></div>
-<div><label>Fecha</label><input id="gs_fecha" type="date"/></div>
-<div>
-<label>Prioridad</label>
-<select id="gs_prior">
-<option value="">Sin prioridad</option>
-<option value="1">Alta</option>
-<option value="2">Media</option>
-<option value="3">Baja</option>
-</select>
-</div>
-<div>
-<label>Estado</label>
-<select id="gs_estado">
-<option value="Pendiente">Pendiente</option>
-<option value="Resuelto">Resuelto</option>
-</select>
-</div>
-<div><label>Fecha cumplimiento</label><input id="gs_fecha_cum" type="date"/></div>
-<div><label>Lote</label><input id="gs_lote"/></div>
-<div><label>Cantidad</label><input id="gs_ctda" step="any" type="number"/></div>
-<div>
-<label>Visible</label>
-<select id="gs_ver">
-<option value="S">Sí</option>
-<option value="N">No</option>
-</select>
-</div>
-</div>
-<label>Descripción</label>
-<textarea id="gs_desc"></textarea>
-<div class="actions">
-<button class="primary" id="saveBtn" type="button">Guardar</button>
-<button class="secondary" id="cancelBtn" type="button">Cancelar</button>
-</div>
-</section>
-<section id="list"></section>
-</section>
 </main>
+
 <script>
+(function() {
+"use strict";
 
 const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
+const TABLA = "gs_secuencias";
 
-const SESSION_KEY = "circuit_admin_session_v1";
+const $ = id => document.getElementById(id);
 
-function guardarSesion(s) {
-  sessionStorage.setItem(SESSION_KEY, JSON.stringify({
-    access_token: s.access_token,
-    refresh_token: s.refresh_token,
-    expires_at: s.expires_at || null,
-    user: s.user || null
-  }));
+const AUTH_STORAGE_KEY = "circuitdesignmx_supabase_session";
+let authSession = null;
+
+function authSetEstado(msg, tipo="") {
+  const el = $("authEstado");
+  if (!el) return;
+  el.textContent = msg || "";
+  el.className = tipo === "ok" ? "auth-ok" : (tipo === "error" ? "auth-error" : "");
 }
 
-function leerSesion() {
-  try {
-    return JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
-  } catch {
-    return null;
+function guardarSesion(sesion) {
+  authSession = sesion || null;
+  if (authSession) {
+    sessionStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authSession));
+  } else {
+    sessionStorage.removeItem(AUTH_STORAGE_KEY);
   }
 }
 
-function borrarSesion() {
-  sessionStorage.removeItem(SESSION_KEY);
+function cargarSesionGuardada() {
+  try {
+    const raw = sessionStorage.getItem(AUTH_STORAGE_KEY);
+    authSession = raw ? JSON.parse(raw) : null;
+  } catch {
+    authSession = null;
+    sessionStorage.removeItem(AUTH_STORAGE_KEY);
+  }
+  return authSession;
 }
 
-async function loginAuth(email, password) {
+function mostrarLogin() {
+  $("authPanel").classList.remove("hidden");
+  $("appContent").classList.add("hidden");
+  authSetEstado("");
+  setTimeout(() => $("authEmail").focus(), 0);
+}
+
+function mostrarAplicacion() {
+  $("authPanel").classList.add("hidden");
+  $("appContent").classList.remove("hidden");
+  const correo =
+    authSession?.user?.email ||
+    authSession?.email ||
+    "Usuario autenticado";
+  $("authUsuario").textContent = correo;
+}
+
+async function authRequest(grantType, body) {
   const res = await fetch(
-    `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+    `${SUPABASE_URL}/auth/v1/token?grant_type=${encodeURIComponent(grantType)}`,
     {
       method: "POST",
       headers: {
         "apikey": SUPABASE_ANON_KEY,
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Accept": "application/json"
       },
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify(body),
+      cache: "no-store"
     }
   );
 
-  const data = await res.json().catch(() => ({}));
+  const raw = await res.text();
+  let data = null;
 
-  if (!res.ok) {
-    throw new Error(data.msg || data.message || data.error_description || "No fue posible iniciar sesión.");
+  if (raw) {
+    try { data = JSON.parse(raw); }
+    catch { data = raw; }
   }
 
-  guardarSesion(data);
+  if (!res.ok) {
+    const detalle =
+      (typeof data === "object" && data)
+        ? (data.msg || data.message || data.error_description || JSON.stringify(data))
+        : raw;
+    throw new Error(detalle || `HTTP ${res.status}`);
+  }
+
+  const now = Math.floor(Date.now() / 1000);
+  data.expires_at = data.expires_at || (now + Number(data.expires_in || 3600));
   return data;
+}
+
+async function iniciarSesion(email, password) {
+  const sesion = await authRequest("password", {email, password});
+  guardarSesion(sesion);
+  return sesion;
 }
 
 async function refrescarSesion() {
-  const s = leerSesion();
-  if (!s?.refresh_token) throw new Error("Sesión vencida.");
-
-  const res = await fetch(
-    `${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`,
-    {
-      method: "POST",
-      headers: {
-        "apikey": SUPABASE_ANON_KEY,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ refresh_token: s.refresh_token })
-    }
-  );
-
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    borrarSesion();
-    throw new Error("La sesión venció. Inicia sesión nuevamente.");
+  if (!authSession?.refresh_token) {
+    throw new Error("La sesión terminó. Inicia sesión nuevamente.");
   }
 
-  guardarSesion(data);
-  return data;
+  const sesion = await authRequest(
+    "refresh_token",
+    {refresh_token: authSession.refresh_token}
+  );
+
+  guardarSesion(sesion);
+  return sesion;
 }
 
-async function validarSesion() {
-  const s = leerSesion();
-  if (!s?.access_token) return null;
+async function asegurarSesion() {
+  if (!authSession?.access_token) {
+    throw new Error("No hay una sesión autenticada.");
+  }
 
-  let res = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
-    headers: {
-      "apikey": SUPABASE_ANON_KEY,
-      "Authorization": `Bearer ${s.access_token}`
-    },
+  const ahora = Math.floor(Date.now() / 1000);
+  const expira = Number(authSession.expires_at || 0);
+
+  if (!expira || expira <= ahora + 60) {
+    await refrescarSesion();
+  }
+
+  return authSession.access_token;
+}
+
+async function fetchAutenticado(url, opciones={}, reintentar=true) {
+  const token = await asegurarSesion();
+
+  const headersActuales = new Headers(opciones.headers || {});
+  headersActuales.set("apikey", SUPABASE_ANON_KEY);
+  headersActuales.set("Authorization", `Bearer ${token}`);
+
+  const res = await fetch(url, {
+    ...opciones,
+    headers: headersActuales,
     cache: "no-store"
   });
 
-  if (res.status === 401) {
-    try {
-      await refrescarSesion();
-      const s2 = leerSesion();
-      res = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
-        headers: {
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${s2.access_token}`
-        },
-        cache: "no-store"
-      });
-    } catch {
-      return null;
-    }
-  }
-
-  if (!res.ok) return null;
-  return await res.json();
-}
-
-async function logoutAuth() {
-  const s = leerSesion();
-  if (s?.access_token) {
-    try {
-      await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
-        method: "POST",
-        headers: {
-          "apikey": SUPABASE_ANON_KEY,
-          "Authorization": `Bearer ${s.access_token}`
-        }
-      });
-    } catch {}
-  }
-  borrarSesion();
-}
-
-async function fetchSeguro(url, options={}, reintentar=true) {
-  let s = leerSesion();
-  if (!s?.access_token) throw new Error("No hay sesión iniciada.");
-
-  const opts = {
-    ...options,
-    headers: {
-      ...(options.headers || {}),
-      "apikey": SUPABASE_ANON_KEY,
-      "Authorization": `Bearer ${s.access_token}`
-    }
-  };
-
-  let res = await fetch(url, opts);
-
-  if (res.status === 401 && reintentar) {
+  if (res.status === 401 && reintentar && authSession?.refresh_token) {
     await refrescarSesion();
-    s = leerSesion();
-    opts.headers["Authorization"] = `Bearer ${s.access_token}`;
-    res = await fetch(url, opts);
+    return fetchAutenticado(url, opciones, false);
   }
 
   return res;
 }
 
-(function() {
-"use strict";
+async function cerrarSesion() {
+  const token = authSession?.access_token;
 
-const TABLA = "gs_secuencias";
-const $ = id => document.getElementById(id);
+  if (token) {
+    try {
+      await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
+        method: "POST",
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${token}`
+        }
+      });
+    } catch (e) {
+      console.warn("No se pudo notificar logout remoto:", e);
+    }
+  }
+
+  guardarSesion(null);
+  mostrarLogin();
+}
+
+async function iniciarAutenticacion(cargarApp) {
+  cargarSesionGuardada();
+
+  if (authSession?.access_token) {
+    try {
+      await asegurarSesion();
+      mostrarAplicacion();
+      await cargarApp();
+      return;
+    } catch (e) {
+      console.warn("Sesión guardada no válida:", e);
+      guardarSesion(null);
+    }
+  }
+
+  mostrarLogin();
+}
+
+$("loginForm").addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const btn = $("loginBtn");
+  const email = $("authEmail").value.trim();
+  const password = $("authPassword").value;
+
+  btn.disabled = true;
+  btn.textContent = "Entrando...";
+  authSetEstado("Autenticando...");
+
+  try {
+    await iniciarSesion(email, password);
+    $("authPassword").value = "";
+    authSetEstado("Acceso correcto.", "ok");
+    mostrarAplicacion();
+    await cargarAplicacionAutenticada();
+  } catch (e) {
+    console.error(e);
+    guardarSesion(null);
+    authSetEstado("No fue posible iniciar sesión:\n" + e.message, "error");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Iniciar sesión";
+  }
+});
+
+$("logoutBtn").addEventListener("click", cerrarSesion);
+
 let registros = [];
 
-function texto(v) { return v == null ? "" : String(v); }
+function texto(v) {
+  return v === null || v === undefined ? "" : String(v);
+}
+
+function setEstado(msg, tipo="") {
+  const el = $("estado");
+  el.textContent = msg;
+  el.className = tipo;
+}
+
 function esc(s) {
-  return texto(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+  return texto(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
 }
-function setEstado(msg,tipo="") { $("estado").textContent=msg; $("estado").className=tipo; }
+
 function prioridadTexto(v) {
-  if(texto(v)==="1") return "Alta";
-  if(texto(v)==="2") return "Media";
-  if(texto(v)==="3") return "Baja";
-  return texto(v);
+  const s = texto(v);
+  if (s === "1") return "Alta";
+  if (s === "2") return "Media";
+  if (s === "3") return "Baja";
+  return s;
 }
+
 function estadoClase(v) {
-  const s=texto(v).trim().toLowerCase();
-  if(s==="pendiente") return "pendiente";
-  if(s==="resuelto") return "resuelto";
+  const s = texto(v).trim().toLowerCase();
+  if (s === "pendiente") return "pendiente";
+  if (s === "resuelto") return "resuelto";
   return "";
 }
+
 function fechaVisible(r) {
-  const resuelto=texto(r.gs_estado).trim().toLowerCase()==="resuelto";
-  return resuelto ? (r.gs_fecha_cum||r.gs_fecha||"") : (r.gs_fecha||"");
+  const resuelto = texto(r.gs_estado).trim().toLowerCase() === "resuelto";
+  if (resuelto) return r.gs_fecha_cum || r.gs_fecha || "";
+  return r.gs_fecha || "";
 }
 
-async function api(method,query="",body=undefined,prefer="") {
-  const url=`${SUPABASE_URL}/rest/v1/${TABLA}${query}`;
-  const options={
-    method,
-    cache:"no-store",
-    headers:{
-      "Content-Type":"application/json",
-      "Accept":"application/json"
-    }
+function headers(extra={}) {
+  return {
+    "apikey": SUPABASE_ANON_KEY,
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    ...extra
   };
-  if(prefer) options.headers["Prefer"]=prefer;
-  if(body!==undefined) options.body=JSON.stringify(body);
+}
 
-  const res=await fetchSeguro(url,options);
-  const raw=await res.text();
-  let data=null;
-  if(raw) { try{data=JSON.parse(raw)}catch{data=raw} }
+async function api(method, query="", body=undefined, prefer="") {
+  const url = `${SUPABASE_URL}/rest/v1/${TABLA}${query}`;
+  const opts = {
+    method,
+    headers: headers(prefer ? {"Prefer": prefer} : {}),
+    cache: "no-store"
+  };
+  if (body !== undefined) opts.body = JSON.stringify(body);
 
-  if(!res.ok) {
-    const detalle=typeof data==="object"&&data ? (data.message||data.details||JSON.stringify(data)) : raw;
-    throw new Error(`HTTP ${res.status} · ${detalle||"Error Supabase"}`);
+  const res = await fetchAutenticado(url, opts);
+  const raw = await res.text();
+
+  let data = null;
+  if (raw) {
+    try { data = JSON.parse(raw); }
+    catch { data = raw; }
   }
+
+  if (!res.ok) {
+    let detalle = typeof data === "object" && data
+      ? (data.message || data.details || JSON.stringify(data))
+      : raw;
+    throw new Error(`HTTP ${res.status} · ${detalle || "Error Supabase"}`);
+  }
+
   return data;
 }
 
 function ordenar() {
-  registros.sort((a,b)=>{
-    const ap=texto(a.gs_estado).trim().toLowerCase()==="pendiente";
-    const bp=texto(b.gs_estado).trim().toLowerCase()==="pendiente";
-    if(ap!==bp) return ap?-1:1;
-    if(ap&&bp) {
-      const pa=Number(a.gs_prior)||999,pb=Number(b.gs_prior)||999;
-      if(pa!==pb) return pa-pb;
+  registros.sort((a,b) => {
+    const ap = texto(a.gs_estado).trim().toLowerCase() === "pendiente";
+    const bp = texto(b.gs_estado).trim().toLowerCase() === "pendiente";
+
+    if (ap !== bp) return ap ? -1 : 1;
+
+    if (ap && bp) {
+      const pa = Number(a.gs_prior) || 999;
+      const pb = Number(b.gs_prior) || 999;
+      if (pa !== pb) return pa - pb;
     }
+
     return texto(fechaVisible(b)).localeCompare(texto(fechaVisible(a))) ||
-      ((Number(b.gs_id)||0)-(Number(a.gs_id)||0));
+           ((Number(b.gs_id)||0) - (Number(a.gs_id)||0));
   });
 }
 
 async function cargar() {
   try {
     setEstado("Actualizando...");
-    const select=encodeURIComponent("gs_id,gs_proceso,gs_proyecto,gs_lote,gs_fecha,gs_desc,gs_ctda,gs_prior,gs_estado,gs_ver,gs_fecha_cum");
-    const data=await api("GET",`?select=${select}&order=gs_id.desc&limit=300`);
-    registros=Array.isArray(data)?data:[];
-    ordenar(); render();
-    setEstado(`Supabase conectado · ${registros.length} registros`,"ok");
-  } catch(e) {
+    const select = encodeURIComponent(
+      "gs_id,gs_proceso,gs_proyecto,gs_lote,gs_fecha,gs_desc,gs_ctda,gs_prior,gs_estado,gs_ver,gs_fecha_cum"
+    );
+
+    const data = await api(
+      "GET",
+      `?select=${select}&order=gs_id.desc&limit=300`
+    );
+
+    registros = Array.isArray(data) ? data : [];
+    ordenar();
+    render();
+    setEstado(`Supabase conectado · ${registros.length} registros`, "ok");
+  } catch (e) {
     console.error(e);
-    setEstado("Error: "+e.message,"error");
+    setEstado("Error de lectura: " + e.message, "error");
+    $("list").innerHTML = `<div class="panel error">${esc(e.message)}</div>`;
   }
 }
 
 function render() {
-  const q=$("search").value.trim().toLowerCase();
-  const visibles=registros.filter(r=>{
-    const blob=[r.gs_id,r.gs_proyecto,r.gs_proceso,r.gs_desc,r.gs_estado].map(texto).join(" ").toLowerCase();
-    return !q||blob.includes(q);
+  const q = $("search").value.trim().toLowerCase();
+
+  const visibles = registros.filter(r => {
+    const blob = [
+      r.gs_id, r.gs_proyecto, r.gs_proceso,
+      r.gs_desc, r.gs_estado
+    ].map(texto).join(" ").toLowerCase();
+
+    return !q || blob.includes(q);
   });
 
-  $("list").innerHTML=visibles.map(r=>`
+  $("list").innerHTML = visibles.map(r => `
     <article class="card ${estadoClase(r.gs_estado)}">
-      <div class="row"><div class="k">id_B</div><div class="v idnum">${esc(r.gs_id)}</div></div>
+      <div class="row"><div class="k">id_B</div><div class="v idb">${esc(r.gs_id)}</div></div>
       <div class="row"><div class="k">Proyecto</div><div class="v">${esc(r.gs_proyecto)}</div></div>
       <div class="row"><div class="k">Proceso</div><div class="v">${esc(r.gs_proceso)}</div></div>
       <div class="row"><div class="k">Fecha</div><div class="v">${esc(fechaVisible(r))}</div></div>
@@ -391,135 +545,151 @@ function render() {
         <button type="button" class="primary" data-edit="${esc(r.gs_id)}">Editar</button>
         <button type="button" class="danger" data-delete="${esc(r.gs_id)}">Eliminar</button>
       </div>
-    </article>`).join("");
+    </article>
+  `).join("");
 
-  document.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editar(Number(b.dataset.edit)));
-  document.querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>eliminar(Number(b.dataset.delete)));
+  document.querySelectorAll("[data-edit]").forEach(btn => {
+    btn.addEventListener("click", () => editar(Number(btn.dataset.edit)));
+  });
+
+  document.querySelectorAll("[data-delete]").forEach(btn => {
+    btn.addEventListener("click", () => eliminar(Number(btn.dataset.delete)));
+  });
 }
 
-function limpiar() {
-  $("editId").value="";
-  ["gs_proyecto","gs_proceso","gs_lote","gs_fecha","gs_desc","gs_ctda","gs_fecha_cum"].forEach(id=>$(id).value="");
-  $("gs_prior").value="";
-  $("gs_estado").value="Pendiente";
-  $("gs_ver").value="S";
+function limpiarFormulario() {
+  $("editId").value = "";
+  ["gs_proyecto","gs_proceso","gs_lote","gs_fecha","gs_desc","gs_ctda","gs_fecha_cum"]
+    .forEach(id => $(id).value = "");
+  $("gs_prior").value = "";
+  $("gs_estado").value = "Pendiente";
+  $("gs_ver").value = "S";
 }
 
 function nuevo() {
-  limpiar();
-  $("formTitle").textContent="Nuevo registro";
+  limpiarFormulario();
+  $("formTitle").textContent = "Nuevo registro";
   $("formPanel").classList.remove("hidden");
   $("gs_proyecto").focus();
-  window.scrollTo({top:0,behavior:"smooth"});
+  window.scrollTo({top:0, behavior:"smooth"});
 }
 
 function editar(id) {
-  const r=registros.find(x=>Number(x.gs_id)===Number(id));
-  if(!r) return;
-  $("formTitle").textContent="Editar id_B "+id;
-  $("editId").value=id;
-  $("gs_proyecto").value=texto(r.gs_proyecto);
-  $("gs_proceso").value=texto(r.gs_proceso);
-  $("gs_lote").value=texto(r.gs_lote);
-  $("gs_fecha").value=texto(r.gs_fecha).slice(0,10);
-  $("gs_desc").value=texto(r.gs_desc);
-  $("gs_ctda").value=texto(r.gs_ctda);
-  $("gs_prior").value=texto(r.gs_prior);
-  $("gs_estado").value=texto(r.gs_estado)||"Pendiente";
-  $("gs_ver").value=texto(r.gs_ver)||"S";
-  $("gs_fecha_cum").value=texto(r.gs_fecha_cum).slice(0,10);
+  const r = registros.find(x => Number(x.gs_id) === Number(id));
+  if (!r) {
+    alert("No se encontró el registro.");
+    return;
+  }
+
+  $("formTitle").textContent = "Editar id_B " + id;
+  $("editId").value = id;
+  $("gs_proyecto").value = texto(r.gs_proyecto);
+  $("gs_proceso").value = texto(r.gs_proceso);
+  $("gs_lote").value = texto(r.gs_lote);
+  $("gs_fecha").value = texto(r.gs_fecha).slice(0,10);
+  $("gs_desc").value = texto(r.gs_desc);
+  $("gs_ctda").value = texto(r.gs_ctda);
+  $("gs_prior").value = texto(r.gs_prior);
+  $("gs_estado").value = texto(r.gs_estado) || "Pendiente";
+  $("gs_ver").value = texto(r.gs_ver) || "S";
+  $("gs_fecha_cum").value = texto(r.gs_fecha_cum).slice(0,10);
+
   $("formPanel").classList.remove("hidden");
-  window.scrollTo({top:0,behavior:"smooth"});
+  window.scrollTo({top:0, behavior:"smooth"});
 }
 
 function payload() {
-  const estado=$("gs_estado").value;
+  const estado = $("gs_estado").value;
+
   return {
-    gs_proyecto:$("gs_proyecto").value.trim()||null,
-    gs_proceso:$("gs_proceso").value.trim()||null,
-    gs_lote:$("gs_lote").value.trim()||null,
-    gs_fecha:$("gs_fecha").value||null,
-    gs_desc:$("gs_desc").value.trim()||null,
-    gs_ctda:$("gs_ctda").value===""?null:Number($("gs_ctda").value),
-    gs_prior:$("gs_prior").value||null,
-    gs_estado:estado,
-    gs_ver:$("gs_ver").value||"S",
-    gs_fecha_cum:estado==="Resuelto"?($("gs_fecha_cum").value||null):null
+    gs_proyecto: $("gs_proyecto").value.trim() || null,
+    gs_proceso: $("gs_proceso").value.trim() || null,
+    gs_lote: $("gs_lote").value.trim() || null,
+    gs_fecha: $("gs_fecha").value || null,
+    gs_desc: $("gs_desc").value.trim() || null,
+    gs_ctda: $("gs_ctda").value === "" ? null : Number($("gs_ctda").value),
+    gs_prior: $("gs_prior").value || null,
+    gs_estado: estado,
+    gs_ver: $("gs_ver").value || "S",
+    gs_fecha_cum: estado === "Resuelto"
+      ? ($("gs_fecha_cum").value || null)
+      : null
   };
 }
 
 async function guardar() {
-  const id=$("editId").value;
-  const btn=$("saveBtn");
-  btn.disabled=true; btn.textContent="Guardando...";
+  const btn = $("saveBtn");
+  const id = $("editId").value;
+
+  btn.disabled = true;
+  btn.textContent = "Guardando...";
+
   try {
-    if(id) await api("PATCH",`?gs_id=eq.${encodeURIComponent(id)}`,payload(),"return=representation");
-    else await api("POST","",payload(),"return=representation");
+    if (id) {
+      await api(
+        "PATCH",
+        `?gs_id=eq.${encodeURIComponent(id)}`,
+        payload(),
+        "return=representation"
+      );
+    } else {
+      await api(
+        "POST",
+        "",
+        payload(),
+        "return=representation"
+      );
+    }
+
     $("formPanel").classList.add("hidden");
+    setEstado(id ? "Registro actualizado correctamente." : "Registro creado correctamente.", "ok");
     await cargar();
-  } catch(e) {
-    alert("No fue posible guardar:\n\n"+e.message);
+
+  } catch (e) {
+    console.error(e);
+    alert("No fue posible guardar:\n\n" + e.message +
+          "\n\nSi el error menciona RLS o permisos, revisa las políticas para el rol authenticated.");
+    setEstado("Error al guardar: " + e.message, "error");
   } finally {
-    btn.disabled=false; btn.textContent="Guardar";
+    btn.disabled = false;
+    btn.textContent = "Guardar";
   }
 }
 
 async function eliminar(id) {
-  if(!confirm("¿Eliminar definitivamente el registro id_B "+id+"?")) return;
+  if (!confirm("¿Eliminar definitivamente el registro id_B " + id + "?")) return;
+
   try {
-    await api("DELETE",`?gs_id=eq.${encodeURIComponent(id)}`,undefined,"return=representation");
+    setEstado("Eliminando id_B " + id + "...");
+    await api(
+      "DELETE",
+      `?gs_id=eq.${encodeURIComponent(id)}`,
+      undefined,
+      "return=representation"
+    );
+
+    setEstado("Registro eliminado correctamente.", "ok");
     await cargar();
-  } catch(e) {
-    alert("No fue posible eliminar:\n\n"+e.message);
+
+  } catch (e) {
+    console.error(e);
+    alert("No fue posible eliminar:\n\n" + e.message +
+          "\n\nSi el error menciona RLS o permisos, revisa las políticas para el rol authenticated.");
+    setEstado("Error al eliminar: " + e.message, "error");
   }
 }
 
-async function entrar() {
-  const btn=$("loginBtn");
-  btn.disabled=true; btn.textContent="Entrando...";
-  $("loginMsg").textContent="";
-  try {
-    const s=await loginAuth($("email").value.trim(),$("password").value);
-    mostrarApp(s.user);
-  } catch(e) {
-    $("loginMsg").textContent=e.message;
-    $("loginMsg").className="auth-info error";
-  } finally {
-    btn.disabled=false; btn.textContent="Entrar";
-  }
-}
+$("newBtn").addEventListener("click", nuevo);
+$("refreshBtn").addEventListener("click", cargar);
+$("cancelBtn").addEventListener("click", () => $("formPanel").classList.add("hidden"));
+$("saveBtn").addEventListener("click", guardar);
+$("search").addEventListener("input", render);
 
-async function mostrarApp(user) {
-  $("loginPanel").classList.add("hidden");
-  $("appPanel").classList.remove("hidden");
-  $("usuarioEmail").textContent=user?.email||"Usuario autenticado";
+async function cargarAplicacionAutenticada() {
   await cargar();
 }
 
-async function salir() {
-  await logoutAuth();
-  $("appPanel").classList.add("hidden");
-  $("loginPanel").classList.remove("hidden");
-  $("password").value="";
-}
-
-$("loginBtn").onclick=entrar;
-$("mostrarPassword").addEventListener("change", () => {
-  $("password").type = $("mostrarPassword").checked ? "text" : "password";
-});
-
-$("password").addEventListener("keydown",e=>{if(e.key==="Enter")entrar();});
-$("logoutBtn").onclick=salir;
-$("newBtn").onclick=nuevo;
-$("refreshBtn").onclick=cargar;
-$("cancelBtn").onclick=()=>$("formPanel").classList.add("hidden");
-$("saveBtn").onclick=guardar;
-$("search").addEventListener("input",render);
-
-(async()=>{
-  const user=await validarSesion();
-  if(user) mostrarApp(user);
-})();
+iniciarAutenticacion(cargarAplicacionAutenticada);
 
 })();
 </script>
