@@ -317,9 +317,15 @@ td.num, th.num { text-align:right; }
     .tabla-semanal tr.fila-semana td:first-child::before {
         content:"Semana";
     }
-    .tabla-semanal tr.detalle-row,
-    .tabla-semanal tr.detalle-row.visible,
-    .tabla-semanal tr.detalle-row td {
+    .tabla-semanal tr.detalle-row {
+        display:none;
+        width:100%;
+    }
+    .tabla-semanal tr.detalle-row.visible {
+        display:block;
+        width:100%;
+    }
+    .tabla-semanal tr.detalle-row.visible td {
         display:block;
         width:100%;
     }
@@ -340,6 +346,23 @@ td.num, th.num { text-align:right; }
     .seccion-titulo { align-items:flex-start; flex-direction:column; }
 }
 </style>
+
+<style>
+/* Corrección expandir/contraer en móvil */
+@media (max-width:900px){
+    .tabla-semanal tr.detalle-row{
+        display:none !important;
+    }
+    .tabla-semanal tr.detalle-row.visible{
+        display:block !important;
+    }
+    .tabla-semanal tr.detalle-row.visible > td{
+        display:block !important;
+        width:100% !important;
+    }
+}
+</style>
+
 </head>
 <body>
 <header>
