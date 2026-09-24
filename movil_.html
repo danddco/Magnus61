@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Administrar Registros</title>
+<style>
+:root {
+  --azul:#1f4e78; --azul2:#346b98; --fondo:#f4f6f8; --texto:#26333f;
+  --borde:#d8dee5; --verde:#1f6334; --rojo:#a02a2a; --amarillo:#fff3cd;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--fondo);color:var(--texto)}
+header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:white;padding:14px 16px}
+header h1{margin:0;font-size:22px}
+header p{margin:5px 0 0;font-size:13px;opacity:.9}
+main{width:min(1100px,96%);margin:14px auto 40px}
+.panel{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 5px rgba(0,0,0,.05)}
+.hidden{display:none!important}
+.notice{border-left:5px solid #d18b00;background:#fff8e6}
+label{display:block;font-weight:700;margin:10px 0 5px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #bcc7d1;border-radius:7px;font:inherit;background:#fff}
+textarea{min-height:80px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+button{border:0;border-radius:7px;padding:10px 14px;font-weight:800;cursor:pointer;min-height:42px}
+button:disabled{opacity:.55;cursor:not-allowed}
+.primary{background:var(--azul);color:#fff}
+.secondary{background:#e9eef2;color:#30485d}
+.danger{background:#b42318;color:#fff}
+.success{background:#287a42;color:#fff}
+#estado{font-size:13px;font-weight:700;margin:8px 0}
+.toolbar{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.toolbar h2{margin:0;font-size:20px}
+.card{background:#fff;border:1px solid var(--borde);border-radius:10px;margin:0 0 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.row{display:grid;grid-template-columns:minmax(110px,35%) minmax(0,65%);padding:8px 10px;border-bottom:1px solid var(--borde);align-items:center}
+.row:last-child{border-bottom:0}
+.k{font-weight:800;color:#30485d;padding-right:8px}
+.v{overflow-wrap:anywhere}
+.card-actions{display:flex;gap:8px;padding:10px;background:#f8fafb}
+.idr{font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap}
+.qty{font-weight:800}
+.error{color:#a02a2a!important}
+.ok{color:#1f6334!important}
+@media(max-width:700px){
+  main{width:100%;padding:0 7px}
+  .grid{grid-template-columns:1fr}
+  .toolbar{align-items:stretch;flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Administrar Registros</h1>
+  <p>Tabla cr_registros · alta · edición · eliminación</p>
+</header>
+
+<main>
+  <section class="panel notice">
+    <strong>MODO PRUEBA SIN LOGIN</strong><br>
+    Acceso directo para pruebas. La escritura requiere políticas RLS temporales para <code>anon</code>.
+  </section>
+
+  <section class="panel">
+    <div class="toolbar">
+      <div>
+        <h2>Registros</h2>
+        <div id="estado">Iniciando...</div>
+      </div>
+      <div class="actions" style="margin-top:0">
+        <button id="newBtn" type="button" class="success">+ Nuevo</button>
+        <button id="refreshBtn" type="button" class="secondary">Actualizar</button>
+      </div>
+    </div>
+    <input id="search" placeholder="Buscar id, proyecto, idE, descripción, tipo...">
+  </section>
+
+  <section id="formPanel" class="panel hidden">
+    <h2 id="formTitle">Nuevo registro</h2>
+    <input id="editId" type="hidden">
+
+    <div class="grid">
+      <div>
+        <label>Proyecto</label>
+        <input id="cr_proyecto">
+      </div>
+      <div>
+        <label>Lote</label>
+        <input id="cr_lote">
+      </div>
+      <div>
+        <label>Fecha</label>
+        <input id="cr_fecha" type="date">
+      </div>
+      <div>
+        <label>idE</label>
+        <input id="cr_idE">
+      </div>
+      <div>
+        <label>LCSC</label>
+        <input id="cr_lcsc">
+      </div>
+      <div>
+        <label>Cantidad</label>
+        <input id="cr_ctda" type="number" step="any">
+      </div>
+      <div>
+        <label>MXN</label>
+        <input id="cr_mxn" type="number" step="any">
+      </div>
+      <div>
+        <label>Tipo</label>
+        <input id="cr_tipo">
+      </div>
+      <div>
+        <label>CAN</label>
+        <input id="cr_can">
+      </div>
+      <div>
+        <label>Acción</label>
+        <input id="cr_accion">
+      </div>
+    </div>
+
+    <label>Descripción</label>
+    <textarea id="cr_desc"></textarea>
+
+    <label>Observaciones</label>
+    <textarea id="cr_observe"></textarea>
+
+    <div class="actions">
+      <button id="saveBtn" type="button" class="primary">Guardar</button>
+      <button id="cancelBtn" type="button" class="secondary">Cancelar</button>
+    </div>
+  </section>
+
+  <section id="list"></section>
+</main>
+
+<script>
+(function() {
+"use strict";
+
+const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
+const TABLA = "cr_registros";
+
+const $ = id => document.getElementById(id);
+let registros = [];
+
+function texto(v) {
+  return v === null || v === undefined ? "" : String(v);
+}
+
+function setEstado(msg, tipo="") {
+  const el = $("estado");
+  el.textContent = msg;
+  el.className = tipo;
+}
+
+function esc(s) {
+  return texto(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+  }[c]));
+}
+
+function mostrarNumero(v) {
+  if (v === null || v === undefined || texto(v).trim() === "") return "";
+  const n = Number(v);
+  if (!Number.isFinite(n)) return texto(v);
+  return Number.isInteger(n) ? String(n) : String(Number(n.toFixed(6)));
+}
+
+function headers(extra={}) {
+  return {
+    "apikey": SUPABASE_ANON_KEY,
+    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    ...extra
+  };
+}
+
+async function api(method, query="", body=undefined, prefer="") {
+  const url = `${SUPABASE_URL}/rest/v1/${TABLA}${query}`;
+  const opts = {
+    method,
+    headers: headers(prefer ? {"Prefer": prefer} : {}),
+    cache: "no-store"
+  };
+
+  if (body !== undefined) opts.body = JSON.stringify(body);
+
+  const res = await fetch(url, opts);
+  const raw = await res.text();
+
+  let data = null;
+  if (raw) {
+    try { data = JSON.parse(raw); }
+    catch { data = raw; }
+  }
+
+  if (!res.ok) {
+    const detalle = typeof data === "object" && data
+      ? (data.message || data.details || JSON.stringify(data))
+      : raw;
+    throw new Error(`HTTP ${res.status} · ${detalle || "Error Supabase"}`);
+  }
+
+  return data;
+}
+
+async function cargar() {
+  try {
+    setEstado("Actualizando...");
+
+    const select = encodeURIComponent(
+      "cr_id,cr_proyecto,cr_lote,cr_fecha,cr_idE,cr_desc,cr_lcsc,cr_ctda,cr_mxn,cr_tipo,cr_observe,cr_can,cr_accion"
+    );
+
+    const data = await api(
+      "GET",
+      `?select=${select}&order=cr_fecha.desc,cr_id.desc&limit=300`
+    );
+
+    registros = Array.isArray(data) ? data : [];
+    render();
+
+    setEstado(`Supabase conectado · ${registros.length} registros`, "ok");
+
+  } catch (e) {
+    console.error(e);
+    setEstado("Error de lectura: " + e.message, "error");
+    $("list").innerHTML = `<div class="panel error">${esc(e.message)}</div>`;
+  }
+}
+
+function render() {
+  const q = $("search").value.trim().toLowerCase();
+
+  const visibles = registros.filter(r => {
+    const blob = [
+      r.cr_id, r.cr_proyecto, r.cr_lote, r.cr_fecha,
+      r.cr_idE, r.cr_desc, r.cr_lcsc, r.cr_tipo,
+      r.cr_observe, r.cr_accion
+    ].map(texto).join(" ").toLowerCase();
+
+    return !q || blob.includes(q);
+  });
+
+  $("list").innerHTML = visibles.map(r => `
+    <article class="card">
+      <div class="row"><div class="k">id_R</div><div class="v idr">${esc(r.cr_id)}</div></div>
+      <div class="row"><div class="k">Fecha</div><div class="v">${esc(texto(r.cr_fecha).slice(0,10))}</div></div>
+      <div class="row"><div class="k">Proyecto</div><div class="v">${esc(r.cr_proyecto)}</div></div>
+      <div class="row"><div class="k">Lote</div><div class="v">${esc(r.cr_lote)}</div></div>
+      <div class="row"><div class="k">idE</div><div class="v">${esc(r.cr_idE)}</div></div>
+      <div class="row"><div class="k">Descripción</div><div class="v">${esc(r.cr_desc)}</div></div>
+      <div class="row"><div class="k">LCSC</div><div class="v">${esc(r.cr_lcsc)}</div></div>
+      <div class="row"><div class="k">Cantidad</div><div class="v qty">${esc(mostrarNumero(r.cr_ctda))}</div></div>
+      <div class="row"><div class="k">MXN</div><div class="v">${esc(mostrarNumero(r.cr_mxn))}</div></div>
+      <div class="row"><div class="k">Tipo</div><div class="v">${esc(r.cr_tipo)}</div></div>
+      <div class="row"><div class="k">Observaciones</div><div class="v">${esc(r.cr_observe)}</div></div>
+      <div class="row"><div class="k">CAN</div><div class="v">${esc(r.cr_can)}</div></div>
+      <div class="row"><div class="k">Acción</div><div class="v">${esc(r.cr_accion)}</div></div>
+
+      <div class="card-actions">
+        <button type="button" class="primary" data-edit="${esc(r.cr_id)}">Editar</button>
+        <button type="button" class="danger" data-delete="${esc(r.cr_id)}">Eliminar</button>
+      </div>
+    </article>
+  `).join("");
+
+  document.querySelectorAll("[data-edit]").forEach(btn => {
+    btn.addEventListener("click", () => editar(Number(btn.dataset.edit)));
+  });
+
+  document.querySelectorAll("[data-delete]").forEach(btn => {
+    btn.addEventListener("click", () => eliminar(Number(btn.dataset.delete)));
+  });
+}
+
+function limpiarFormulario() {
+  $("editId").value = "";
+  [
+    "cr_proyecto","cr_lote","cr_fecha","cr_idE","cr_desc","cr_lcsc",
+    "cr_ctda","cr_mxn","cr_tipo","cr_observe","cr_can","cr_accion"
+  ].forEach(id => $(id).value = "");
+}
+
+function nuevo() {
+  limpiarFormulario();
+  $("formTitle").textContent = "Nuevo registro";
+  $("formPanel").classList.remove("hidden");
+
+  // Fecha de hoy por comodidad
+  const hoy = new Date();
+  const y = hoy.getFullYear();
+  const m = String(hoy.getMonth()+1).padStart(2,"0");
+  const d = String(hoy.getDate()).padStart(2,"0");
+  $("cr_fecha").value = `${y}-${m}-${d}`;
+
+  $("cr_proyecto").focus();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function editar(id) {
+  const r = registros.find(x => Number(x.cr_id) === Number(id));
+
+  if (!r) {
+    alert("No se encontró el registro.");
+    return;
+  }
+
+  $("formTitle").textContent = "Editar id_R " + id;
+  $("editId").value = id;
+
+  $("cr_proyecto").value = texto(r.cr_proyecto);
+  $("cr_lote").value = texto(r.cr_lote);
+  $("cr_fecha").value = texto(r.cr_fecha).slice(0,10);
+  $("cr_idE").value = texto(r.cr_idE);
+  $("cr_desc").value = texto(r.cr_desc);
+  $("cr_lcsc").value = texto(r.cr_lcsc);
+  $("cr_ctda").value = texto(r.cr_ctda);
+  $("cr_mxn").value = texto(r.cr_mxn);
+  $("cr_tipo").value = texto(r.cr_tipo);
+  $("cr_observe").value = texto(r.cr_observe);
+  $("cr_can").value = texto(r.cr_can);
+  $("cr_accion").value = texto(r.cr_accion);
+
+  $("formPanel").classList.remove("hidden");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function numeroONull(id) {
+  const raw = $(id).value.trim();
+  if (raw === "") return null;
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : null;
+}
+
+function payload() {
+  return {
+    cr_proyecto: $("cr_proyecto").value.trim() || null,
+    cr_lote: $("cr_lote").value.trim() || null,
+    cr_fecha: $("cr_fecha").value || null,
+    cr_idE: $("cr_idE").value.trim() || null,
+    cr_desc: $("cr_desc").value.trim() || null,
+    cr_lcsc: $("cr_lcsc").value.trim() || null,
+    cr_ctda: numeroONull("cr_ctda"),
+    cr_mxn: numeroONull("cr_mxn"),
+    cr_tipo: $("cr_tipo").value.trim() || null,
+    cr_observe: $("cr_observe").value.trim() || null,
+    cr_can: $("cr_can").value.trim() || null,
+    cr_accion: $("cr_accion").value.trim() || null
+  };
+}
+
+async function guardar() {
+  const btn = $("saveBtn");
+  const id = $("editId").value;
+
+  btn.disabled = true;
+  btn.textContent = "Guardando...";
+
+  try {
+    if (id) {
+      await api(
+        "PATCH",
+        `?cr_id=eq.${encodeURIComponent(id)}`,
+        payload(),
+        "return=representation"
+      );
+    } else {
+      await api(
+        "POST",
+        "",
+        payload(),
+        "return=representation"
+      );
+    }
+
+    $("formPanel").classList.add("hidden");
+    setEstado(id ? "Registro actualizado correctamente." : "Registro creado correctamente.", "ok");
+    await cargar();
+
+  } catch (e) {
+    console.error(e);
+    alert(
+      "No fue posible guardar:\n\n" + e.message +
+      "\n\nSi el error menciona RLS o permisos, ejecuta el SQL de prueba para cr_registros."
+    );
+    setEstado("Error al guardar: " + e.message, "error");
+
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Guardar";
+  }
+}
+
+async function eliminar(id) {
+  if (!confirm("¿Eliminar definitivamente el registro id_R " + id + "?")) return;
+
+  try {
+    setEstado("Eliminando id_R " + id + "...");
+
+    await api(
+      "DELETE",
+      `?cr_id=eq.${encodeURIComponent(id)}`,
+      undefined,
+      "return=representation"
+    );
+
+    setEstado("Registro eliminado correctamente.", "ok");
+    await cargar();
+
+  } catch (e) {
+    console.error(e);
+    alert(
+      "No fue posible eliminar:\n\n" + e.message +
+      "\n\nSi el error menciona RLS o permisos, ejecuta el SQL de prueba para cr_registros."
+    );
+    setEstado("Error al eliminar: " + e.message, "error");
+  }
+}
+
+$("newBtn").addEventListener("click", nuevo);
+$("refreshBtn").addEventListener("click", cargar);
+$("cancelBtn").addEventListener("click", () => $("formPanel").classList.add("hidden"));
+$("saveBtn").addEventListener("click", guardar);
+$("search").addEventListener("input", render);
+
+cargar();
+
+})();
+</script>
+</body>
+</html>
