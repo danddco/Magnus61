@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=5.0" name="viewport"/>
 <title>Administrar Registros - Seguro</title>
 <style>
 :root{
@@ -61,81 +62,73 @@ button:disabled{opacity:.55;cursor:not-allowed}
 </head>
 <body>
 <header>
-  <h1>Administrar Registros</h1>
-  <p>cr_registros · acceso protegido</p>
+<h1>Administrar Registros</h1>
+<p>cr_registros · acceso protegido</p>
 </header>
-
 <main>
-  <section id="loginPanel" class="panel auth-box">
-    <h2>Acceso de administrador</h2>
-    <label>Correo</label>
-    <input id="email" type="email" autocomplete="username">
-    <label>Contraseña</label>
-    <input id="password" type="password" autocomplete="current-password">
-    <div class="actions">
-      <button id="loginBtn" type="button" class="primary">Entrar</button>
-    </div>
-    <div id="loginMsg" class="auth-info"></div>
-  </section>
-
-  <section id="appPanel" class="hidden">
-    <section class="panel">
-      <div class="userbar">
-        <div>Usuario: <span id="usuarioEmail" class="email"></span></div>
-        <button id="logoutBtn" type="button" class="secondary">Cerrar sesión</button>
-      </div>
-    </section>
-
-    <section class="panel">
-      <div class="toolbar">
-        <div>
-          <h2>Registros</h2>
-          <div id="estado">Conectando...</div>
-        </div>
-        <div class="actions" style="margin-top:0">
-          <button id="newBtn" type="button" class="success">+ Nuevo</button>
-          <button id="refreshBtn" type="button" class="secondary">Actualizar</button>
-        </div>
-      </div>
-      <input id="search" placeholder="Buscar id, fecha, idE, descripción o acción...">
-    </section>
-
-    <section id="formPanel" class="panel hidden">
-      <h2 id="formTitle">Nuevo registro</h2>
-      <input id="editId" type="hidden">
-
-      <div class="grid">
-        <div><label>Fecha</label><input id="cr_fecha" type="date"></div>
-        <div>
-          <label>idE</label>
-          <input id="cr_idE" list="lista-idE" autocomplete="off" placeholder="Escribe o selecciona un idE...">
-          <datalist id="lista-idE"></datalist>
-        </div>
-        <div>
-          <label>Descripción</label>
-          <select id="cr_desc">
-            <option value="">Selecciona una descripción...</option>
-          </select>
-          <div id="estado-stock" class="auth-info">Cargando catálogo cs_stock...</div>
-        </div>
-        <div><label>Cantidad</label><input id="cr_ctda" type="number" step="any"></div>
-        <div>
-          <label>Acción</label>
-          <input id="cr_accion" list="lista-accion" autocomplete="off" placeholder="Escribe o selecciona una acción...">
-          <datalist id="lista-accion"></datalist>
-        </div>
-      </div>
-
-      <div class="actions">
-        <button id="saveBtn" type="button" class="primary">Guardar</button>
-        <button id="cancelBtn" type="button" class="secondary">Cancelar</button>
-      </div>
-    </section>
-
-    <section id="list"></section>
-  </section>
+<section class="panel auth-box" id="loginPanel">
+<h2>Acceso de administrador</h2>
+<label>Correo</label>
+<input autocomplete="username" id="email" type="email"/>
+<label>Contraseña</label>
+<input autocomplete="current-password" id="password" type="password"/><div style="margin-top:8px;display:flex;align-items:center;gap:8px;"><input id="mostrarPassword" style="width:auto;min-width:18px;height:18px;margin:0;" type="checkbox"/><label for="mostrarPassword" style="margin:0;font-weight:700;cursor:pointer;">Mostrar contraseña</label></div>
+<div class="actions">
+<button class="primary" id="loginBtn" type="button">Entrar</button>
+</div>
+<div class="auth-info" id="loginMsg"></div>
+</section>
+<section class="hidden" id="appPanel">
+<section class="panel">
+<div class="userbar">
+<div>Usuario: <span class="email" id="usuarioEmail"></span></div>
+<button class="secondary" id="logoutBtn" type="button">Cerrar sesión</button>
+</div>
+</section>
+<section class="panel">
+<div class="toolbar">
+<div>
+<h2>Registros</h2>
+<div id="estado">Conectando...</div>
+</div>
+<div class="actions" style="margin-top:0">
+<button class="success" id="newBtn" type="button">+ Nuevo</button>
+<button class="secondary" id="refreshBtn" type="button">Actualizar</button>
+</div>
+</div>
+<input id="search" placeholder="Buscar id, fecha, idE, descripción o acción..."/>
+</section>
+<section class="panel hidden" id="formPanel">
+<h2 id="formTitle">Nuevo registro</h2>
+<input id="editId" type="hidden"/>
+<div class="grid">
+<div><label>Fecha</label><input id="cr_fecha" type="date"/></div>
+<div>
+<label>idE</label>
+<input autocomplete="off" id="cr_idE" list="lista-idE" placeholder="Escribe o selecciona un idE..."/>
+<datalist id="lista-idE"></datalist>
+</div>
+<div>
+<label>Descripción</label>
+<select id="cr_desc">
+<option value="">Selecciona una descripción...</option>
+</select>
+<div class="auth-info" id="estado-stock">Cargando catálogo cs_stock...</div>
+</div>
+<div><label>Cantidad</label><input id="cr_ctda" step="any" type="number"/></div>
+<div>
+<label>Acción</label>
+<input autocomplete="off" id="cr_accion" list="lista-accion" placeholder="Escribe o selecciona una acción..."/>
+<datalist id="lista-accion"></datalist>
+</div>
+</div>
+<div class="actions">
+<button class="primary" id="saveBtn" type="button">Guardar</button>
+<button class="secondary" id="cancelBtn" type="button">Cancelar</button>
+</div>
+</section>
+<section id="list"></section>
+</section>
 </main>
-
 <script>
 
 const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
@@ -533,6 +526,10 @@ async function salir() {
 }
 
 $("loginBtn").onclick=entrar;
+$("mostrarPassword").addEventListener("change", () => {
+  $("password").type = $("mostrarPassword").checked ? "text" : "password";
+});
+
 $("password").addEventListener("keydown",e=>{if(e.key==="Enter")entrar();});
 $("logoutBtn").onclick=salir;
 $("newBtn").onclick=nuevo;

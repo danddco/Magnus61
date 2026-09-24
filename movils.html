@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=5.0" name="viewport"/>
 <title>Administrar Secuencias - Seguro</title>
 <style>
 :root{
@@ -59,94 +60,85 @@ button:disabled{opacity:.55;cursor:not-allowed}
 </head>
 <body>
 <header>
-  <h1>Administrar gs_secuencias</h1>
-  <p>Acceso protegido · crear · editar · eliminar</p>
+<h1>Administrar gs_secuencias</h1>
+<p>Acceso protegido · crear · editar · eliminar</p>
 </header>
-
 <main>
-  <section id="loginPanel" class="panel auth-box">
-    <h2>Acceso de administrador</h2>
-    <label>Correo</label>
-    <input id="email" type="email" autocomplete="username">
-    <label>Contraseña</label>
-    <input id="password" type="password" autocomplete="current-password">
-    <div class="actions">
-      <button id="loginBtn" type="button" class="primary">Entrar</button>
-    </div>
-    <div id="loginMsg" class="auth-info"></div>
-  </section>
-
-  <section id="appPanel" class="hidden">
-    <section class="panel">
-      <div class="userbar">
-        <div>Usuario: <span id="usuarioEmail" class="email"></span></div>
-        <button id="logoutBtn" type="button" class="secondary">Cerrar sesión</button>
-      </div>
-    </section>
-
-    <section class="panel">
-      <div class="toolbar">
-        <div>
-          <h2>Secuencias</h2>
-          <div id="estado">Conectando...</div>
-        </div>
-        <div class="actions" style="margin-top:0">
-          <button id="newBtn" type="button" class="success">+ Nuevo</button>
-          <button id="refreshBtn" type="button" class="secondary">Actualizar</button>
-        </div>
-      </div>
-      <input id="search" placeholder="Buscar proyecto, proceso, descripción, estado o id_B...">
-    </section>
-
-    <section id="formPanel" class="panel hidden">
-      <h2 id="formTitle">Nuevo registro</h2>
-      <input id="editId" type="hidden">
-
-      <div class="grid">
-        <div><label>Proyecto</label><input id="gs_proyecto"></div>
-        <div><label>Proceso</label><input id="gs_proceso"></div>
-        <div><label>Fecha</label><input id="gs_fecha" type="date"></div>
-        <div>
-          <label>Prioridad</label>
-          <select id="gs_prior">
-            <option value="">Sin prioridad</option>
-            <option value="1">Alta</option>
-            <option value="2">Media</option>
-            <option value="3">Baja</option>
-          </select>
-        </div>
-        <div>
-          <label>Estado</label>
-          <select id="gs_estado">
-            <option value="Pendiente">Pendiente</option>
-            <option value="Resuelto">Resuelto</option>
-          </select>
-        </div>
-        <div><label>Fecha cumplimiento</label><input id="gs_fecha_cum" type="date"></div>
-        <div><label>Lote</label><input id="gs_lote"></div>
-        <div><label>Cantidad</label><input id="gs_ctda" type="number" step="any"></div>
-        <div>
-          <label>Visible</label>
-          <select id="gs_ver">
-            <option value="S">Sí</option>
-            <option value="N">No</option>
-          </select>
-        </div>
-      </div>
-
-      <label>Descripción</label>
-      <textarea id="gs_desc"></textarea>
-
-      <div class="actions">
-        <button id="saveBtn" type="button" class="primary">Guardar</button>
-        <button id="cancelBtn" type="button" class="secondary">Cancelar</button>
-      </div>
-    </section>
-
-    <section id="list"></section>
-  </section>
+<section class="panel auth-box" id="loginPanel">
+<h2>Acceso de administrador</h2>
+<label>Correo</label>
+<input autocomplete="username" id="email" type="email"/>
+<label>Contraseña</label>
+<input autocomplete="current-password" id="password" type="password"/><div style="margin-top:8px;display:flex;align-items:center;gap:8px;"><input id="mostrarPassword" style="width:auto;min-width:18px;height:18px;margin:0;" type="checkbox"/><label for="mostrarPassword" style="margin:0;font-weight:700;cursor:pointer;">Mostrar contraseña</label></div>
+<div class="actions">
+<button class="primary" id="loginBtn" type="button">Entrar</button>
+</div>
+<div class="auth-info" id="loginMsg"></div>
+</section>
+<section class="hidden" id="appPanel">
+<section class="panel">
+<div class="userbar">
+<div>Usuario: <span class="email" id="usuarioEmail"></span></div>
+<button class="secondary" id="logoutBtn" type="button">Cerrar sesión</button>
+</div>
+</section>
+<section class="panel">
+<div class="toolbar">
+<div>
+<h2>Secuencias</h2>
+<div id="estado">Conectando...</div>
+</div>
+<div class="actions" style="margin-top:0">
+<button class="success" id="newBtn" type="button">+ Nuevo</button>
+<button class="secondary" id="refreshBtn" type="button">Actualizar</button>
+</div>
+</div>
+<input id="search" placeholder="Buscar proyecto, proceso, descripción, estado o id_B..."/>
+</section>
+<section class="panel hidden" id="formPanel">
+<h2 id="formTitle">Nuevo registro</h2>
+<input id="editId" type="hidden"/>
+<div class="grid">
+<div><label>Proyecto</label><input id="gs_proyecto"/></div>
+<div><label>Proceso</label><input id="gs_proceso"/></div>
+<div><label>Fecha</label><input id="gs_fecha" type="date"/></div>
+<div>
+<label>Prioridad</label>
+<select id="gs_prior">
+<option value="">Sin prioridad</option>
+<option value="1">Alta</option>
+<option value="2">Media</option>
+<option value="3">Baja</option>
+</select>
+</div>
+<div>
+<label>Estado</label>
+<select id="gs_estado">
+<option value="Pendiente">Pendiente</option>
+<option value="Resuelto">Resuelto</option>
+</select>
+</div>
+<div><label>Fecha cumplimiento</label><input id="gs_fecha_cum" type="date"/></div>
+<div><label>Lote</label><input id="gs_lote"/></div>
+<div><label>Cantidad</label><input id="gs_ctda" step="any" type="number"/></div>
+<div>
+<label>Visible</label>
+<select id="gs_ver">
+<option value="S">Sí</option>
+<option value="N">No</option>
+</select>
+</div>
+</div>
+<label>Descripción</label>
+<textarea id="gs_desc"></textarea>
+<div class="actions">
+<button class="primary" id="saveBtn" type="button">Guardar</button>
+<button class="secondary" id="cancelBtn" type="button">Cancelar</button>
+</div>
+</section>
+<section id="list"></section>
+</section>
 </main>
-
 <script>
 
 const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
@@ -512,6 +504,10 @@ async function salir() {
 }
 
 $("loginBtn").onclick=entrar;
+$("mostrarPassword").addEventListener("change", () => {
+  $("password").type = $("mostrarPassword").checked ? "text" : "password";
+});
+
 $("password").addEventListener("keydown",e=>{if(e.key==="Enter")entrar();});
 $("logoutBtn").onclick=salir;
 $("newBtn").onclick=nuevo;
