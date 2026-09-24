@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<title>Administrar Registros - Seguro</title>
+<style>
+:root{
+  --azul:#1f4e78;--azul2:#346b98;--fondo:#f4f6f8;--texto:#26333f;
+  --borde:#d8dee5;--verde:#1f6334;--rojo:#a02a2a;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--fondo);color:var(--texto)}
+header{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;padding:14px 16px}
+header h1{margin:0;font-size:22px}
+header p{margin:5px 0 0;font-size:13px;opacity:.9}
+main{width:min(1100px,96%);margin:14px auto 40px}
+.panel{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:14px;margin-bottom:14px;box-shadow:0 1px 5px rgba(0,0,0,.05)}
+.hidden{display:none!important}
+label{display:block;font-weight:700;margin:10px 0 5px}
+input,select,textarea{width:100%;padding:10px;border:1px solid #bcc7d1;border-radius:7px;font:inherit;background:#fff}
+textarea{min-height:85px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+button{border:0;border-radius:7px;padding:10px 14px;font-weight:800;cursor:pointer;min-height:42px}
+button:disabled{opacity:.55;cursor:not-allowed}
+.primary{background:var(--azul);color:#fff}
+.secondary{background:#e9eef2;color:#30485d}
+.danger{background:#b42318;color:#fff}
+.success{background:#287a42;color:#fff}
+#estado{font-size:13px;font-weight:700;margin:8px 0}
+.toolbar{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.toolbar h2{margin:0;font-size:20px}
+.card{background:#fff;border:1px solid var(--borde);border-radius:10px;margin:0 0 10px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.card.pendiente{background:#f8d7da;color:#721c24}
+.card.resuelto{background:#dff3e4;color:#1f6334}
+.row{display:grid;grid-template-columns:minmax(110px,35%) minmax(0,65%);padding:8px 10px;border-bottom:1px solid var(--borde);align-items:center}
+.row:last-child{border-bottom:0}
+.k{font-weight:800;color:#30485d;padding-right:8px}
+.card.pendiente .k{color:#721c24}
+.card.resuelto .k{color:#1f6334}
+.v{overflow-wrap:anywhere}
+.card-actions{display:flex;gap:8px;padding:10px;background:rgba(255,255,255,.6)}
+.idnum{font-variant-numeric:tabular-nums;font-weight:800;white-space:nowrap}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:800;background:#fff}
+.error{color:#a02a2a!important}
+.ok{color:#1f6334!important}
+.auth-box{max-width:520px;margin:18px auto}
+.auth-info{font-size:13px;color:#657786;margin-top:8px}
+.userbar{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.userbar .email{font-weight:700;color:#30485d;overflow-wrap:anywhere}
+@media(max-width:700px){
+  main{width:100%;padding:0 7px}
+  .grid{grid-template-columns:1fr}
+  .toolbar{align-items:stretch;flex-direction:column}
+  .row{grid-template-columns:minmax(105px,35%) minmax(0,65%)}
+}
+
+#cr_desc,#cr_idE,#cr_accion{min-height:44px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Administrar Registros</h1>
+  <p>cr_registros · acceso protegido</p>
+</header>
+
+<main>
+  <section id="loginPanel" class="panel auth-box">
+    <h2>Acceso de administrador</h2>
+    <label>Correo</label>
+    <input id="email" type="email" autocomplete="username">
+    <label>Contraseña</label>
+    <input id="password" type="password" autocomplete="current-password">
+    <div class="actions">
+      <button id="loginBtn" type="button" class="primary">Entrar</button>
+    </div>
+    <div id="loginMsg" class="auth-info"></div>
+  </section>
+
+  <section id="appPanel" class="hidden">
+    <section class="panel">
+      <div class="userbar">
+        <div>Usuario: <span id="usuarioEmail" class="email"></span></div>
+        <button id="logoutBtn" type="button" class="secondary">Cerrar sesión</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar">
+        <div>
+          <h2>Registros</h2>
+          <div id="estado">Conectando...</div>
+        </div>
+        <div class="actions" style="margin-top:0">
+          <button id="newBtn" type="button" class="success">+ Nuevo</button>
+          <button id="refreshBtn" type="button" class="secondary">Actualizar</button>
+        </div>
+      </div>
+      <input id="search" placeholder="Buscar id, fecha, idE, descripción o acción...">
+    </section>
+
+    <section id="formPanel" class="panel hidden">
+      <h2 id="formTitle">Nuevo registro</h2>
+      <input id="editId" type="hidden">
+
+      <div class="grid">
+        <div><label>Fecha</label><input id="cr_fecha" type="date"></div>
+        <div>
+          <label>idE</label>
+          <input id="cr_idE" list="lista-idE" autocomplete="off" placeholder="Escribe o selecciona un idE...">
+          <datalist id="lista-idE"></datalist>
+        </div>
+        <div>
+          <label>Descripción</label>
+          <select id="cr_desc">
+            <option value="">Selecciona una descripción...</option>
+          </select>
+          <div id="estado-stock" class="auth-info">Cargando catálogo cs_stock...</div>
+        </div>
+        <div><label>Cantidad</label><input id="cr_ctda" type="number" step="any"></div>
+        <div>
+          <label>Acción</label>
+          <input id="cr_accion" list="lista-accion" autocomplete="off" placeholder="Escribe o selecciona una acción...">
+          <datalist id="lista-accion"></datalist>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="saveBtn" type="button" class="primary">Guardar</button>
+        <button id="cancelBtn" type="button" class="secondary">Cancelar</button>
+      </div>
+    </section>
+
+    <section id="list"></section>
+  </section>
+</main>
+
+<script>
+
+const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
+
+const SESSION_KEY = "circuit_admin_session_v1";
+
+function guardarSesion(s) {
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+    access_token: s.access_token,
+    refresh_token: s.refresh_token,
+    expires_at: s.expires_at || null,
+    user: s.user || null
+  }));
+}
+
+function leerSesion() {
+  try {
+    return JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
+  } catch {
+    return null;
+  }
+}
+
+function borrarSesion() {
+  sessionStorage.removeItem(SESSION_KEY);
+}
+
+async function loginAuth(email, password) {
+  const res = await fetch(
+    `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+    {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ email, password })
+    }
+  );
+
+  const data = await res.json().catch(() => ({}));
+
+  if (!res.ok) {
+    throw new Error(data.msg || data.message || data.error_description || "No fue posible iniciar sesión.");
+  }
+
+  guardarSesion(data);
+  return data;
+}
+
+async function refrescarSesion() {
+  const s = leerSesion();
+  if (!s?.refresh_token) throw new Error("Sesión vencida.");
+
+  const res = await fetch(
+    `${SUPABASE_URL}/auth/v1/token?grant_type=refresh_token`,
+    {
+      method: "POST",
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ refresh_token: s.refresh_token })
+    }
+  );
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    borrarSesion();
+    throw new Error("La sesión venció. Inicia sesión nuevamente.");
+  }
+
+  guardarSesion(data);
+  return data;
+}
+
+async function validarSesion() {
+  const s = leerSesion();
+  if (!s?.access_token) return null;
+
+  let res = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+    headers: {
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": `Bearer ${s.access_token}`
+    },
+    cache: "no-store"
+  });
+
+  if (res.status === 401) {
+    try {
+      await refrescarSesion();
+      const s2 = leerSesion();
+      res = await fetch(`${SUPABASE_URL}/auth/v1/user`, {
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${s2.access_token}`
+        },
+        cache: "no-store"
+      });
+    } catch {
+      return null;
+    }
+  }
+
+  if (!res.ok) return null;
+  return await res.json();
+}
+
+async function logoutAuth() {
+  const s = leerSesion();
+  if (s?.access_token) {
+    try {
+      await fetch(`${SUPABASE_URL}/auth/v1/logout`, {
+        method: "POST",
+        headers: {
+          "apikey": SUPABASE_ANON_KEY,
+          "Authorization": `Bearer ${s.access_token}`
+        }
+      });
+    } catch {}
+  }
+  borrarSesion();
+}
+
+async function fetchSeguro(url, options={}, reintentar=true) {
+  let s = leerSesion();
+  if (!s?.access_token) throw new Error("No hay sesión iniciada.");
+
+  const opts = {
+    ...options,
+    headers: {
+      ...(options.headers || {}),
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": `Bearer ${s.access_token}`
+    }
+  };
+
+  let res = await fetch(url, opts);
+
+  if (res.status === 401 && reintentar) {
+    await refrescarSesion();
+    s = leerSesion();
+    opts.headers["Authorization"] = `Bearer ${s.access_token}`;
+    res = await fetch(url, opts);
+  }
+
+  return res;
+}
+
+(function() {
+"use strict";
+
+const TABLA="cr_registros";
+const $=id=>document.getElementById(id);
+let registros=[];
+let stockCatalogo=[];
+let stockPorIdE=new Map();
+let stockPorDesc=new Map();
+
+function texto(v){return v==null?"":String(v)}
+function esc(s){return texto(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function setEstado(msg,tipo=""){$("estado").textContent=msg;$("estado").className=tipo}
+function mostrarNumero(v){if(v==null||texto(v).trim()==="")return"";const n=Number(v);return Number.isFinite(n)?(Number.isInteger(n)?String(n):String(Number(n.toFixed(6)))):texto(v)}
+function normalizarClave(v){return texto(v).trim().toLowerCase()}
+
+async function apiTablaSegura(tabla,method,query="",body=undefined,prefer="") {
+  const url=`${SUPABASE_URL}/rest/v1/${tabla}${query}`;
+  const options={
+    method,cache:"no-store",
+    headers:{"Content-Type":"application/json","Accept":"application/json"}
+  };
+  if(prefer) options.headers["Prefer"]=prefer;
+  if(body!==undefined) options.body=JSON.stringify(body);
+
+  const res=await fetchSeguro(url,options);
+  const raw=await res.text();
+  let data=null;
+  if(raw){try{data=JSON.parse(raw)}catch{data=raw}}
+  if(!res.ok){
+    const d=typeof data==="object"&&data?(data.message||data.details||JSON.stringify(data)):raw;
+    throw new Error(`HTTP ${res.status} · ${d||"Error Supabase"}`);
+  }
+  return data;
+}
+
+async function api(method,query="",body=undefined,prefer="") {
+  return apiTablaSegura(TABLA,method,query,body,prefer);
+}
+
+async function apiPublica(tabla,query="") {
+  const res=await fetch(`${SUPABASE_URL}/rest/v1/${tabla}${query}`,{
+    headers:{
+      "apikey":SUPABASE_ANON_KEY,
+      "Authorization":`Bearer ${SUPABASE_ANON_KEY}`,
+      "Accept":"application/json"
+    },
+    cache:"no-store"
+  });
+  const raw=await res.text();
+  let data=null;
+  if(raw){try{data=JSON.parse(raw)}catch{data=raw}}
+  if(!res.ok)throw new Error(`HTTP ${res.status} · ${raw||"Error"}`);
+  return data;
+}
+
+function completarDesdeIdE() {
+  const item=stockPorIdE.get(texto($("cr_idE").value).trim());
+  if(item)$("cr_desc").value=texto(item.cs_desc);
+}
+function completarDesdeDescripcion() {
+  const item=stockPorDesc.get(normalizarClave($("cr_desc").value));
+  if(item)$("cr_idE").value=texto(item.idE);
+}
+
+async function cargarCatalogoStock() {
+  try {
+    $("estado-stock").textContent="Cargando catálogo cs_stock...";
+    const select=encodeURIComponent("idE,cs_desc");
+    const data=await apiPublica("cs_stock",`?select=${select}&order=idE.asc&limit=5000`);
+    stockCatalogo=Array.isArray(data)?data.filter(x=>texto(x.idE).trim()&&texto(x.cs_desc).trim()):[];
+    stockPorIdE=new Map(); stockPorDesc=new Map();
+
+    const listaIdE=$("lista-idE");
+    const selectDesc=$("cr_desc");
+    listaIdE.replaceChildren();
+    selectDesc.innerHTML='<option value="">Selecciona una descripción...</option>';
+
+    for(const item of stockCatalogo){
+      const id=texto(item.idE).trim(), desc=texto(item.cs_desc).trim();
+      stockPorIdE.set(id,item);
+      if(!stockPorDesc.has(normalizarClave(desc)))stockPorDesc.set(normalizarClave(desc),item);
+
+      const oi=document.createElement("option");
+      oi.value=id; oi.label=desc; listaIdE.appendChild(oi);
+
+      const od=document.createElement("option");
+      od.value=desc; od.textContent=`${desc} · idE ${id}`; selectDesc.appendChild(od);
+    }
+    $("estado-stock").textContent=`cs_stock cargado · ${stockCatalogo.length} componentes`;
+  } catch(e) {
+    $("estado-stock").textContent="No fue posible cargar cs_stock: "+e.message;
+    $("estado-stock").className="auth-info error";
+  }
+}
+
+function actualizarListaAcciones() {
+  const lista=$("lista-accion");
+  const acciones=[...new Set(registros.map(r=>texto(r.cr_accion).trim()).filter(Boolean))]
+    .sort((a,b)=>a.localeCompare(b,"es",{sensitivity:"base"}));
+  lista.replaceChildren();
+  for(const a of acciones){const o=document.createElement("option");o.value=a;lista.appendChild(o)}
+}
+
+async function cargar() {
+  try {
+    setEstado("Actualizando...");
+    const select=encodeURIComponent("cr_id,cr_fecha,cr_idE,cr_desc,cr_ctda,cr_accion");
+    const data=await api("GET",`?select=${select}&order=cr_fecha.desc,cr_id.desc&limit=300`);
+    registros=Array.isArray(data)?data:[];
+    actualizarListaAcciones();render();
+    setEstado(`Supabase conectado · ${registros.length} registros`,"ok");
+  } catch(e) {
+    setEstado("Error: "+e.message,"error");
+  }
+}
+
+function render() {
+  const q=$("search").value.trim().toLowerCase();
+  const visibles=registros.filter(r=>{
+    const blob=[r.cr_id,r.cr_fecha,r.cr_idE,r.cr_desc,r.cr_accion].map(texto).join(" ").toLowerCase();
+    return !q||blob.includes(q);
+  });
+
+  $("list").innerHTML=visibles.map(r=>`
+    <article class="card">
+      <div class="row"><div class="k">id_R</div><div class="v idnum">${esc(r.cr_id)}</div></div>
+      <div class="row"><div class="k">Fecha</div><div class="v">${esc(texto(r.cr_fecha).slice(0,10))}</div></div>
+      <div class="row"><div class="k">idE</div><div class="v">${esc(r.cr_idE)}</div></div>
+      <div class="row"><div class="k">Descripción</div><div class="v">${esc(r.cr_desc)}</div></div>
+      <div class="row"><div class="k">Cantidad</div><div class="v">${esc(mostrarNumero(r.cr_ctda))}</div></div>
+      <div class="row"><div class="k">Acción</div><div class="v">${esc(r.cr_accion)}</div></div>
+      <div class="card-actions">
+        <button type="button" class="primary" data-edit="${esc(r.cr_id)}">Editar</button>
+        <button type="button" class="danger" data-delete="${esc(r.cr_id)}">Eliminar</button>
+      </div>
+    </article>`).join("");
+
+  document.querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editar(Number(b.dataset.edit)));
+  document.querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>eliminar(Number(b.dataset.delete)));
+}
+
+function limpiar() {
+  $("editId").value="";
+  ["cr_fecha","cr_idE","cr_ctda","cr_accion"].forEach(id=>$(id).value="");
+  $("cr_desc").value="";
+}
+
+function nuevo() {
+  limpiar();
+  $("formTitle").textContent="Nuevo registro";
+  const hoy=new Date();
+  $("cr_fecha").value=`${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,"0")}-${String(hoy.getDate()).padStart(2,"0")}`;
+  $("formPanel").classList.remove("hidden");
+  $("cr_idE").focus();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function editar(id) {
+  const r=registros.find(x=>Number(x.cr_id)===Number(id));
+  if(!r)return;
+  $("formTitle").textContent="Editar id_R "+id;
+  $("editId").value=id;
+  $("cr_fecha").value=texto(r.cr_fecha).slice(0,10);
+  $("cr_idE").value=texto(r.cr_idE);
+  $("cr_ctda").value=texto(r.cr_ctda);
+  $("cr_accion").value=texto(r.cr_accion);
+
+  const descActual=texto(r.cr_desc).trim();
+  if(descActual&&!Array.from($("cr_desc").options).some(op=>op.value===descActual)){
+    const op=document.createElement("option");
+    op.value=descActual;op.textContent=descActual+" · valor actual";$("cr_desc").appendChild(op);
+  }
+  $("cr_desc").value=descActual;
+  $("formPanel").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function numeroONull(id) {
+  const raw=$(id).value.trim();
+  if(raw==="")return null;
+  const n=Number(raw);return Number.isFinite(n)?n:null;
+}
+
+function payload() {
+  return {
+    cr_fecha:$("cr_fecha").value||null,
+    cr_idE:$("cr_idE").value.trim()||null,
+    cr_desc:$("cr_desc").value.trim()||null,
+    cr_ctda:numeroONull("cr_ctda"),
+    cr_accion:$("cr_accion").value.trim()||null
+  };
+}
+
+async function guardar() {
+  const id=$("editId").value,btn=$("saveBtn");
+  btn.disabled=true;btn.textContent="Guardando...";
+  try {
+    if(id)await api("PATCH",`?cr_id=eq.${encodeURIComponent(id)}`,payload(),"return=representation");
+    else await api("POST","",payload(),"return=representation");
+    $("formPanel").classList.add("hidden");
+    await cargar();
+  } catch(e) {
+    alert("No fue posible guardar:\n\n"+e.message);
+  } finally {
+    btn.disabled=false;btn.textContent="Guardar";
+  }
+}
+
+async function eliminar(id) {
+  if(!confirm("¿Eliminar definitivamente el registro id_R "+id+"?"))return;
+  try {
+    await api("DELETE",`?cr_id=eq.${encodeURIComponent(id)}`,undefined,"return=representation");
+    await cargar();
+  } catch(e) {
+    alert("No fue posible eliminar:\n\n"+e.message);
+  }
+}
+
+async function entrar() {
+  const btn=$("loginBtn");
+  btn.disabled=true;btn.textContent="Entrando...";$("loginMsg").textContent="";
+  try {
+    const s=await loginAuth($("email").value.trim(),$("password").value);
+    mostrarApp(s.user);
+  } catch(e) {
+    $("loginMsg").textContent=e.message;$("loginMsg").className="auth-info error";
+  } finally {
+    btn.disabled=false;btn.textContent="Entrar";
+  }
+}
+
+async function mostrarApp(user) {
+  $("loginPanel").classList.add("hidden");
+  $("appPanel").classList.remove("hidden");
+  $("usuarioEmail").textContent=user?.email||"Usuario autenticado";
+  await Promise.all([cargarCatalogoStock(),cargar()]);
+}
+
+async function salir() {
+  await logoutAuth();
+  $("appPanel").classList.add("hidden");
+  $("loginPanel").classList.remove("hidden");
+  $("password").value="";
+}
+
+$("loginBtn").onclick=entrar;
+$("password").addEventListener("keydown",e=>{if(e.key==="Enter")entrar();});
+$("logoutBtn").onclick=salir;
+$("newBtn").onclick=nuevo;
+$("refreshBtn").onclick=()=>Promise.all([cargarCatalogoStock(),cargar()]);
+$("cancelBtn").onclick=()=>$("formPanel").classList.add("hidden");
+$("saveBtn").onclick=guardar;
+$("search").addEventListener("input",render);
+$("cr_idE").addEventListener("input",completarDesdeIdE);
+$("cr_idE").addEventListener("change",completarDesdeIdE);
+$("cr_desc").addEventListener("change",completarDesdeDescripcion);
+
+(async()=>{
+  const user=await validarSesion();
+  if(user)mostrarApp(user);
+})();
+
+})();
+</script>
+</body>
+</html>
