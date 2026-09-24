@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estadística de Salidas de Componentes | CircuitDesignMX</title>
+<style>
+:root {
+    --azul:#184F78;
+    --azul-oscuro:#123B5D;
+    --azul-claro:#EAF2F8;
+    --fondo:#F3F6F9;
+    --panel:#FFFFFF;
+    --borde:#D7E0E7;
+    --texto:#263746;
+    --muted:#657786;
+    --verde:#2E7D32;
+    --verde-claro:#E7F4EA;
+    --rojo:#A33A2B;
+    --rojo-claro:#FDECEC;
+    --sombra:0 5px 18px rgba(18,59,93,.08);
+}
+*{box-sizing:border-box}
+body{
+    margin:0;background:var(--fondo);color:var(--texto);
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+header{
+    background:linear-gradient(135deg,var(--azul-oscuro),var(--azul));
+    color:#fff;padding:22px 24px;box-shadow:0 4px 14px rgba(0,0,0,.12);
+}
+.header-inner{
+    max-width:1380px;margin:auto;display:flex;
+    align-items:center;justify-content:space-between;gap:18px;
+}
+header h1{margin:0;font-size:28px;line-height:1.15}
+header p{margin:7px 0 0;color:#DDEAF3;font-size:14px}
+.badge{
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.22);
+    padding:8px 12px;border-radius:999px;white-space:nowrap;
+    font-size:13px;font-weight:700;
+}
+main{max-width:1380px;margin:0 auto;padding:18px}
+.panel{
+    background:#fff;border:1px solid var(--borde);border-radius:14px;
+    box-shadow:var(--sombra);padding:16px;margin-bottom:14px;
+}
+.config-title{
+    margin:0 0 5px;font-size:19px;color:var(--azul-oscuro);
+}
+.config-sub{
+    margin:0 0 14px;font-size:13px;color:var(--muted);line-height:1.45;
+}
+.selector-grid{
+    display:grid;
+    grid-template-columns:minmax(150px,220px) minmax(240px,1fr) auto;
+    gap:9px;align-items:end;
+}
+.campo label{
+    display:block;font-size:12px;font-weight:800;
+    color:var(--muted);margin-bottom:5px;
+}
+input,select,button{
+    width:100%;height:40px;border-radius:9px;
+    border:1px solid var(--borde);background:#fff;
+    color:var(--texto);font:inherit;padding:0 10px;
+}
+button{
+    cursor:pointer;background:var(--azul);border-color:var(--azul);
+    color:#fff;font-weight:800;padding:0 17px;
+}
+button:hover{background:var(--azul-oscuro)}
+button.secundario{
+    background:#fff;color:var(--azul);border-color:var(--azul);
+}
+button.peligro{
+    background:#fff;color:var(--rojo);border-color:#E9B9B4;
+}
+.chips{
+    display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;min-height:34px;
+}
+.chip{
+    display:flex;align-items:center;gap:7px;
+    padding:6px 8px 6px 10px;border-radius:999px;
+    background:var(--azul-claro);border:1px solid #C7DDEA;
+    color:var(--azul-oscuro);font-size:12px;font-weight:700;
+}
+.chip button{
+    width:24px;height:24px;padding:0;border-radius:50%;
+    background:#fff;color:var(--rojo);border:1px solid #E5C5C1;
+    line-height:20px;font-size:14px;
+}
+.acciones-config{
+    display:flex;gap:8px;margin-top:10px;justify-content:flex-end;
+}
+.filtros{
+    display:grid;grid-template-columns:1fr 1fr auto;
+    gap:10px;align-items:end;
+}
+.cards{
+    display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;
+}
+.card{
+    background:#fff;border:1px solid var(--borde);border-radius:13px;
+    padding:14px 16px;box-shadow:var(--sombra);
+}
+.card .titulo{color:var(--muted);font-size:12px;font-weight:800;margin-bottom:6px}
+.card .valor{color:var(--azul-oscuro);font-size:25px;font-weight:800}
+.card .nota{margin-top:4px;color:var(--muted);font-size:12px}
+.seccion-titulo{
+    display:flex;align-items:center;justify-content:space-between;
+    gap:10px;margin:0 0 10px;
+}
+.seccion-titulo h2{margin:0;font-size:20px;color:var(--azul-oscuro)}
+.estado{
+    padding:7px 10px;border-radius:8px;background:var(--azul-claro);
+    color:var(--azul);font-size:12px;font-weight:800;
+}
+.estado.error{background:var(--rojo-claro);color:#8A1C1C}
+.tabla-wrap{overflow:auto;border-radius:10px}
+table{
+    width:100%;border-collapse:separate;border-spacing:0;min-width:860px;
+}
+th{
+    background:#E7EEF4;color:#213746;font-size:12px;text-transform:uppercase;
+    letter-spacing:.02em;padding:10px 9px;border-bottom:1px solid var(--borde);
+    text-align:left;position:sticky;top:0;z-index:1;
+}
+td{padding:11px 9px;border-bottom:1px solid #E8EDF1;vertical-align:top}
+td.num,th.num{text-align:right}
+.fila-semana{cursor:pointer;transition:.12s ease}
+.fila-semana:hover{background:#F5F9FC}
+.fila-semana.abierta{background:var(--azul-claro);font-weight:700}
+.chevron{display:inline-block;width:20px;color:var(--azul);font-weight:900}
+.barra{
+    height:8px;background:#E6EDF2;border-radius:999px;overflow:hidden;min-width:100px;
+}
+.barra>span{
+    display:block;height:100%;background:linear-gradient(90deg,var(--azul),#2F79AA);
+    border-radius:999px;
+}
+.detalle-row{display:none}
+.detalle-row.visible{display:table-row}
+.detalle-cell{background:#F8FBFD;padding:14px 18px 18px}
+.detalle-titulo{
+    font-size:14px;font-weight:800;color:var(--azul-oscuro);margin-bottom:8px;
+}
+.tabla-diaria{min-width:760px;background:#fff;border:1px solid var(--borde)}
+.tabla-diaria th{position:static;background:#F0F5F8}
+.pill{
+    display:inline-block;padding:3px 7px;border-radius:999px;
+    background:var(--verde-claro);color:var(--verde);font-size:11px;font-weight:800;
+}
+.proyectos{color:var(--muted);font-size:12px;line-height:1.45}
+.sin-datos{text-align:center;padding:30px 12px;color:var(--muted)}
+.oculto{display:none!important}
+.footer{text-align:center;color:var(--muted);font-size:12px;padding:8px 0 22px}
+
+@media(max-width:900px){
+    header{padding:16px 12px}
+    header h1{font-size:23px}
+    .header-inner{align-items:flex-start}
+    main{padding:10px 7px 18px}
+    .panel{padding:11px 8px;border-radius:10px}
+    .selector-grid{grid-template-columns:1fr}
+    .filtros{grid-template-columns:1fr 1fr}
+    .filtros button{grid-column:1/-1}
+    .cards{grid-template-columns:1fr 1fr;gap:8px}
+    .card{padding:11px}
+    .card .valor{font-size:22px}
+    table.tabla-semanal{min-width:0}
+    .tabla-semanal thead{display:none}
+    .tabla-semanal tbody,
+    .tabla-semanal tr.fila-semana,
+    .tabla-semanal tr.fila-semana td{
+        display:block;width:100%;
+    }
+    .tabla-semanal tr.fila-semana{
+        margin:0 0 10px;border:1px solid var(--borde);
+        border-radius:10px;overflow:hidden;background:#fff;
+    }
+    .tabla-semanal tr.fila-semana td{
+        display:grid;grid-template-columns:minmax(115px,36%) minmax(0,64%);
+        gap:8px;padding:8px 10px;border-bottom:1px solid #EEF2F5;
+        text-align:left!important;
+    }
+    .tabla-semanal tr.fila-semana td::before{
+        content:attr(data-label);font-size:12px;font-weight:800;color:var(--muted);
+    }
+    .tabla-semanal tr.detalle-row,
+    .tabla-semanal tr.detalle-row.visible,
+    .tabla-semanal tr.detalle-row td{
+        display:block;width:100%;
+    }
+    .detalle-cell{padding:5px 0 16px!important;background:transparent}
+}
+@media(max-width:520px){
+    .header-inner{display:block}
+    .badge{display:inline-block;margin-top:10px}
+    .filtros{grid-template-columns:1fr}
+    .cards{grid-template-columns:1fr 1fr}
+    .acciones-config{flex-direction:column}
+    .seccion-titulo{align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>Estadística de Salidas de Componentes</h1>
+      <p>Resumen semanal con apertura diaria · Registros de almacén</p>
+    </div>
+    <div class="badge">CircuitDesignMX</div>
+  </div>
+</header>
+
+<main>
+  <section class="panel">
+    <h2 class="config-title">Componentes a analizar</h2>
+    <p class="config-sub">
+      Agrega los idE que deseas vigilar. La selección se guarda solamente en este navegador.
+      La estadística considera exclusivamente registros cuya acción sea <strong>Salida</strong>.
+    </p>
+
+    <div class="selector-grid">
+      <div class="campo">
+        <label for="idEInput">idE</label>
+        <input id="idEInput" inputmode="numeric" placeholder="Ej. 195">
+      </div>
+      <div class="campo">
+        <label for="catalogoComponentes">Buscar componente</label>
+        <select id="catalogoComponentes">
+          <option value="">Cargando catálogo...</option>
+        </select>
+      </div>
+      <button id="btnAgregar" type="button">Agregar componente</button>
+    </div>
+
+    <div id="chips" class="chips"></div>
+
+    <div class="acciones-config">
+      <button id="btnGuardar" class="secundario" type="button">Guardar selección</button>
+      <button id="btnLimpiar" class="peligro" type="button">Quitar todos</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="filtros">
+      <div class="campo">
+        <label for="filtroAnio">Año</label>
+        <select id="filtroAnio"></select>
+      </div>
+      <div class="campo">
+        <label for="filtroPeriodo">Periodo</label>
+        <select id="filtroPeriodo">
+          <option value="12">Últimas 12 semanas</option>
+          <option value="26">Últimas 26 semanas</option>
+          <option value="52">Últimas 52 semanas</option>
+          <option value="all">Todas las semanas</option>
+        </select>
+      </div>
+      <button id="btnActualizar" type="button">Actualizar</button>
+    </div>
+  </section>
+
+  <section class="cards">
+    <div class="card">
+      <div class="titulo">Componentes utilizados</div>
+      <div id="kpiCantidad" class="valor">0</div>
+      <div class="nota">Suma absoluta de las Salidas</div>
+    </div>
+    <div class="card">
+      <div class="titulo">Movimientos de salida</div>
+      <div id="kpiMovimientos" class="valor">0</div>
+      <div class="nota">Registros encontrados</div>
+    </div>
+    <div class="card">
+      <div class="titulo">Promedio semanal</div>
+      <div id="kpiPromedio" class="valor">0</div>
+      <div class="nota">Cantidad / semanas con movimientos</div>
+    </div>
+    <div class="card">
+      <div class="titulo">Componentes vigilados</div>
+      <div id="kpiComponentes" class="valor">0</div>
+      <div class="nota">idE seleccionados</div>
+    </div>
+  </section>
+
+  <section class="panel" style="margin-top:14px">
+    <div class="seccion-titulo">
+      <h2>Salidas por semana</h2>
+      <div id="estado" class="estado">Cargando...</div>
+    </div>
+
+    <div class="tabla-wrap">
+      <table class="tabla-semanal">
+        <thead>
+          <tr>
+            <th>Semana</th>
+            <th>Periodo</th>
+            <th class="num">Cantidad</th>
+            <th class="num">Movimientos</th>
+            <th>Componentes</th>
+            <th>Comparativo</th>
+          </tr>
+        </thead>
+        <tbody id="tablaSemanas"></tbody>
+      </table>
+    </div>
+
+    <div id="sinDatos" class="sin-datos oculto">
+      Agrega al menos un componente para generar la estadística.
+    </div>
+  </section>
+
+  <div class="footer">
+    Fuente: cr_registros · Acción: Salida · Cantidades mostradas en valor absoluto
+  </div>
+</main>
+
+<script>
+const SUPABASE_URL = "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+const STORAGE_KEY = "circuit_estadistica_salidas_componentes_v1";
+
+let registrosSalida = [];
+let catalogo = new Map();
+let seleccionados = [];
+
+const fmtNumero = new Intl.NumberFormat("es-MX", {maximumFractionDigits:2});
+const fmtFecha = new Intl.DateTimeFormat("es-MX", {
+  weekday:"short", day:"2-digit", month:"short", year:"numeric"
+});
+
+function escapar(s) {
+  return String(s ?? "")
+    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
+
+function numero(v) {
+  const n = Number(v);
+  return Number.isFinite(n) ? n : 0;
+}
+
+function cantidadSalida(v) {
+  return Math.abs(numero(v));
+}
+
+function parseFecha(v) {
+  if (!v) return null;
+  const s = String(v).slice(0,10);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return null;
+  const [y,m,d] = s.split("-").map(Number);
+  const f = new Date(y,m-1,d);
+  return Number.isNaN(f.getTime()) ? null : f;
+}
+
+function isoFecha(f) {
+  return `${f.getFullYear()}-${String(f.getMonth()+1).padStart(2,"0")}-${String(f.getDate()).padStart(2,"0")}`;
+}
+
+function lunesDeSemana(fecha) {
+  const f = new Date(fecha.getFullYear(),fecha.getMonth(),fecha.getDate());
+  const dia = f.getDay();
+  f.setDate(f.getDate() + (dia === 0 ? -6 : 1-dia));
+  return f;
+}
+
+function domingoDeSemana(lunes) {
+  const f = new Date(lunes); f.setDate(f.getDate()+6); return f;
+}
+
+function numeroSemanaISO(fecha) {
+  const d = new Date(Date.UTC(fecha.getFullYear(),fecha.getMonth(),fecha.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate()+4-dayNum);
+  const inicio = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+  return Math.ceil((((d-inicio)/86400000)+1)/7);
+}
+
+function anioSemanaISO(fecha) {
+  const d = new Date(Date.UTC(fecha.getFullYear(),fecha.getMonth(),fecha.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate()+4-dayNum);
+  return d.getUTCFullYear();
+}
+
+function etiquetaSemana(lunes) {
+  return `Semana ${String(numeroSemanaISO(lunes)).padStart(2,"0")} · ${anioSemanaISO(lunes)}`;
+}
+
+async function traerTabla(tabla, select, filtros="") {
+  let offset = 0;
+  const bloque = 1000;
+  let todos = [];
+
+  while (true) {
+    const url = `${SUPABASE_URL}/rest/v1/${tabla}?select=${encodeURIComponent(select)}${filtros}&order=cr_fecha.desc,cr_id.desc`;
+    const resp = await fetch(url, {
+      headers:{
+        apikey:SUPABASE_ANON_KEY,
+        Authorization:`Bearer ${SUPABASE_ANON_KEY}`,
+        Range:`${offset}-${offset+bloque-1}`
+      }
+    });
+
+    if (!resp.ok) throw new Error(`Supabase HTTP ${resp.status}: ${await resp.text()}`);
+    const pagina = await resp.json();
+    todos = todos.concat(pagina);
+    if (pagina.length < bloque) break;
+    offset += bloque;
+  }
+  return todos;
+}
+
+async function cargarDatos() {
+  const estado = document.getElementById("estado");
+  estado.classList.remove("error");
+  estado.textContent = "Consultando Registros...";
+
+  const rows = await traerTabla(
+    "cr_registros",
+    "cr_id,cr_proyecto,cr_fecha,cr_idE,cr_desc,cr_lcsc,cr_ctda,cr_accion",
+    "&cr_accion=eq.Salida"
+  );
+
+  registrosSalida = rows
+    .map(r => ({...r,_fecha:parseFecha(r.cr_fecha)}))
+    .filter(r => r._fecha);
+
+  construirCatalogo(rows);
+  cargarSeleccionLocal();
+  cargarFiltroAnio();
+  renderTodo();
+
+  estado.textContent = `Actualizado · ${registrosSalida.length} salidas`;
+}
+
+function construirCatalogo(rows) {
+  catalogo = new Map();
+
+  for (const r of rows) {
+    const id = String(r.cr_idE ?? "").trim();
+    if (!id) continue;
+    const desc = String(r.cr_desc ?? "").trim();
+    const lcsc = String(r.cr_lcsc ?? "").trim();
+
+    if (!catalogo.has(id) || desc) {
+      catalogo.set(id, {id, desc, lcsc});
+    }
+  }
+
+  const sel = document.getElementById("catalogoComponentes");
+  const opciones = [...catalogo.values()].sort((a,b) => {
+    const da = a.desc || a.id, db = b.desc || b.id;
+    return da.localeCompare(db,"es");
+  });
+
+  sel.innerHTML = '<option value="">Seleccionar del catálogo...</option>' +
+    opciones.map(c => `
+      <option value="${escapar(c.id)}">
+        idE ${escapar(c.id)} · ${escapar(c.desc || "Sin descripción")}
+      </option>
+    `).join("");
+}
+
+function cargarSeleccionLocal() {
+  try {
+    const guardado = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+    if (Array.isArray(guardado)) {
+      seleccionados = [...new Set(guardado.map(String).map(s=>s.trim()).filter(Boolean))];
+    }
+  } catch {
+    seleccionados = [];
+  }
+  renderChips();
+}
+
+function guardarSeleccion() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(seleccionados));
+  renderTodo();
+  document.getElementById("estado").textContent =
+    `Selección guardada · ${seleccionados.length} componente(s)`;
+}
+
+function agregarComponente() {
+  const input = document.getElementById("idEInput");
+  const select = document.getElementById("catalogoComponentes");
+  const id = String(input.value || select.value || "").trim();
+
+  if (!id) return;
+
+  if (!seleccionados.includes(id)) seleccionados.push(id);
+
+  input.value = "";
+  select.value = "";
+  renderChips();
+  guardarSeleccion();
+}
+
+function quitarComponente(id) {
+  seleccionados = seleccionados.filter(x => x !== String(id));
+  renderChips();
+  guardarSeleccion();
+}
+
+function renderChips() {
+  const div = document.getElementById("chips");
+
+  if (!seleccionados.length) {
+    div.innerHTML = '<span class="proyectos">No hay componentes seleccionados.</span>';
+    return;
+  }
+
+  div.innerHTML = seleccionados.map(id => {
+    const c = catalogo.get(id);
+    const nombre = c?.desc ? ` · ${c.desc}` : "";
+    return `
+      <span class="chip">
+        idE ${escapar(id)}${escapar(nombre)}
+        <button type="button" title="Quitar" data-id="${escapar(id)}">×</button>
+      </span>
+    `;
+  }).join("");
+
+  div.querySelectorAll("button[data-id]").forEach(btn => {
+    btn.addEventListener("click", () => quitarComponente(btn.dataset.id));
+  });
+}
+
+function cargarFiltroAnio() {
+  const sel = document.getElementById("filtroAnio");
+  const actual = sel.value;
+  const anios = [...new Set(registrosSalida.map(r=>r._fecha.getFullYear()))].sort((a,b)=>b-a);
+  const hoy = new Date().getFullYear();
+
+  sel.innerHTML = '<option value="">Todos los años</option>' +
+    anios.map(a=>`<option value="${a}">${a}</option>`).join("");
+
+  if (actual && anios.includes(Number(actual))) sel.value=actual;
+  else if (anios.includes(hoy)) sel.value=String(hoy);
+}
+
+function registrosSeleccionados() {
+  if (!seleccionados.length) return [];
+
+  const ids = new Set(seleccionados.map(String));
+  const anio = document.getElementById("filtroAnio").value;
+
+  return registrosSalida.filter(r => {
+    if (!ids.has(String(r.cr_idE ?? "").trim())) return false;
+    if (anio && r._fecha.getFullYear() !== Number(anio)) return false;
+    return true;
+  });
+}
+
+function agruparSemanas(registros) {
+  const mapa = new Map();
+
+  for (const r of registros) {
+    const lunes = lunesDeSemana(r._fecha);
+    const key = isoFecha(lunes);
+
+    if (!mapa.has(key)) {
+      mapa.set(key,{
+        key,lunes,domingo:domingoDeSemana(lunes),
+        cantidad:0,movimientos:0,componentes:new Map(),registros:[]
+      });
+    }
+
+    const w = mapa.get(key);
+    const q = cantidadSalida(r.cr_ctda);
+    const id = String(r.cr_idE ?? "").trim();
+    const desc = String(r.cr_desc ?? "").trim();
+
+    w.cantidad += q;
+    w.movimientos += 1;
+    if (!w.componentes.has(id)) w.componentes.set(id,{id,desc,cantidad:0,movimientos:0});
+    const c = w.componentes.get(id);
+    c.cantidad += q;
+    c.movimientos += 1;
+    w.registros.push(r);
+  }
+
+  return [...mapa.values()].sort((a,b)=>b.lunes-a.lunes);
+}
+
+function agruparDias(registros) {
+  const mapa = new Map();
+
+  for (const r of registros) {
+    const key = isoFecha(r._fecha);
+    if (!mapa.has(key)) {
+      mapa.set(key,{fecha:new Date(r._fecha),cantidad:0,movimientos:0,componentes:new Map(),registros:[]});
+    }
+
+    const d = mapa.get(key);
+    const q = cantidadSalida(r.cr_ctda);
+    const id = String(r.cr_idE ?? "").trim();
+    const desc = String(r.cr_desc ?? "").trim();
+
+    d.cantidad += q;
+    d.movimientos += 1;
+    if (!d.componentes.has(id)) d.componentes.set(id,{id,desc,cantidad:0,movimientos:0});
+    const c = d.componentes.get(id);
+    c.cantidad += q;
+    c.movimientos += 1;
+    d.registros.push(r);
+  }
+
+  return [...mapa.values()].sort((a,b)=>a.fecha-b.fecha);
+}
+
+function renderTodo() {
+  const periodo = document.getElementById("filtroPeriodo").value;
+  const regs = registrosSeleccionados();
+  let semanas = agruparSemanas(regs);
+
+  if (periodo !== "all") semanas = semanas.slice(0,Number(periodo));
+
+  const visibles = semanas.flatMap(s=>s.registros);
+
+  document.getElementById("kpiCantidad").textContent =
+    fmtNumero.format(visibles.reduce((a,r)=>a+cantidadSalida(r.cr_ctda),0));
+  document.getElementById("kpiMovimientos").textContent =
+    fmtNumero.format(visibles.length);
+  document.getElementById("kpiPromedio").textContent =
+    fmtNumero.format(semanas.length
+      ? visibles.reduce((a,r)=>a+cantidadSalida(r.cr_ctda),0)/semanas.length
+      : 0);
+  document.getElementById("kpiComponentes").textContent =
+    fmtNumero.format(seleccionados.length);
+
+  renderSemanas(semanas);
+}
+
+function componentesResumen(mapa) {
+  return [...mapa.values()]
+    .sort((a,b)=>b.cantidad-a.cantidad)
+    .map(c=>`idE ${escapar(c.id)} · ${escapar(c.desc || "Sin descripción")}: <strong>${fmtNumero.format(c.cantidad)}</strong>`)
+    .join("<br>");
+}
+
+function renderSemanas(semanas) {
+  const tbody = document.getElementById("tablaSemanas");
+  const sin = document.getElementById("sinDatos");
+  tbody.innerHTML = "";
+
+  if (!seleccionados.length) {
+    sin.textContent = "Agrega al menos un componente para generar la estadística.";
+    sin.classList.remove("oculto");
+    return;
+  }
+
+  if (!semanas.length) {
+    sin.textContent = "No hay Salidas para los componentes y filtros seleccionados.";
+    sin.classList.remove("oculto");
+    return;
+  }
+
+  sin.classList.add("oculto");
+  const max = Math.max(...semanas.map(s=>s.cantidad),1);
+
+  semanas.forEach((w,i) => {
+    const tr = document.createElement("tr");
+    tr.className="fila-semana";
+    const pct=Math.max(2,Math.round((w.cantidad/max)*100));
+
+    tr.innerHTML=`
+      <td data-label="Semana">
+        <span class="chevron">▶</span>
+        <strong>${escapar(etiquetaSemana(w.lunes))}</strong>
+      </td>
+      <td data-label="Periodo">
+        ${escapar(fmtFecha.format(w.lunes))}
+        <br><span class="proyectos">al ${escapar(fmtFecha.format(w.domingo))}</span>
+      </td>
+      <td data-label="Cantidad" class="num"><strong>${fmtNumero.format(w.cantidad)}</strong></td>
+      <td data-label="Movimientos" class="num">${fmtNumero.format(w.movimientos)}</td>
+      <td data-label="Componentes">
+        <span class="pill">${w.componentes.size}</span>
+        <div class="proyectos">${componentesResumen(w.componentes)}</div>
+      </td>
+      <td data-label="Comparativo"><div class="barra"><span style="width:${pct}%"></span></div></td>
+    `;
+
+    const detalle=document.createElement("tr");
+    detalle.className="detalle-row";
+    detalle.innerHTML=`<td colspan="6" class="detalle-cell">${htmlDetalleDias(agruparDias(w.registros))}</td>`;
+
+    tr.addEventListener("click",()=>{
+      const abierto=detalle.classList.toggle("visible");
+      tr.classList.toggle("abierta",abierto);
+      tr.querySelector(".chevron").textContent=abierto?"▼":"▶";
+    });
+
+    tbody.appendChild(tr);
+    tbody.appendChild(detalle);
+  });
+}
+
+function htmlDetalleDias(dias) {
+  const filas=dias.map(d=>{
+    const componentes=componentesResumen(d.componentes);
+    const proyectos=[...new Set(d.registros.map(r=>String(r.cr_proyecto||"").trim()).filter(Boolean))]
+      .sort((a,b)=>a.localeCompare(b,"es"));
+
+    const movs=[...d.registros]
+      .sort((a,b)=>String(a.cr_idE).localeCompare(String(b.cr_idE),"es"))
+      .map(r=>{
+        const q=cantidadSalida(r.cr_ctda);
+        return `<div>
+          idE ${escapar(r.cr_idE)} · ${escapar(r.cr_desc||"")} ·
+          <strong>${fmtNumero.format(q)}</strong>
+          ${r.cr_proyecto ? " · "+escapar(r.cr_proyecto) : ""}
+        </div>`;
+      }).join("");
+
+    return `
+      <tr>
+        <td><strong>${escapar(fmtFecha.format(d.fecha))}</strong></td>
+        <td class="num"><strong>${fmtNumero.format(d.cantidad)}</strong></td>
+        <td class="num">${fmtNumero.format(d.movimientos)}</td>
+        <td class="proyectos">${componentes}</td>
+        <td class="proyectos">${escapar(proyectos.join(", ")||"—")}</td>
+        <td class="proyectos">${movs}</td>
+      </tr>`;
+  }).join("");
+
+  return `
+    <div class="detalle-titulo">Detalle diario</div>
+    <div class="tabla-wrap">
+      <table class="tabla-diaria">
+        <thead>
+          <tr>
+            <th>Día</th>
+            <th class="num">Cantidad</th>
+            <th class="num">Movimientos</th>
+            <th>Componentes</th>
+            <th>Proyectos</th>
+            <th>Registros</th>
+          </tr>
+        </thead>
+        <tbody>${filas}</tbody>
+      </table>
+    </div>`;
+}
+
+document.getElementById("btnAgregar").addEventListener("click",agregarComponente);
+document.getElementById("idEInput").addEventListener("keydown",e=>{
+  if(e.key==="Enter"){e.preventDefault();agregarComponente();}
+});
+document.getElementById("catalogoComponentes").addEventListener("change",e=>{
+  if(e.target.value) document.getElementById("idEInput").value=e.target.value;
+});
+document.getElementById("btnGuardar").addEventListener("click",guardarSeleccion);
+document.getElementById("btnLimpiar").addEventListener("click",()=>{
+  seleccionados=[];
+  localStorage.removeItem(STORAGE_KEY);
+  renderChips();
+  renderTodo();
+});
+document.getElementById("filtroAnio").addEventListener("change",renderTodo);
+document.getElementById("filtroPeriodo").addEventListener("change",renderTodo);
+document.getElementById("btnActualizar").addEventListener("click",async()=>{
+  try{await cargarDatos();}
+  catch(err){
+    const estado=document.getElementById("estado");
+    estado.classList.add("error");
+    estado.textContent="Error al consultar Supabase";
+    console.error(err);
+  }
+});
+
+(async()=>{
+  try{await cargarDatos();}
+  catch(err){
+    const estado=document.getElementById("estado");
+    estado.classList.add("error");
+    estado.textContent="Error al consultar Supabase";
+    document.getElementById("sinDatos").classList.remove("oculto");
+    document.getElementById("sinDatos").textContent="No fue posible cargar los datos. "+err.message;
+    console.error(err);
+  }
+})();
+</script>
+</body>
+</html>

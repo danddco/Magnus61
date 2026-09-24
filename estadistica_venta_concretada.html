@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estadística de Ventas | CircuitDesignMX</title>
+<style>
+:root {
+    --azul:#184F78;
+    --azul-oscuro:#123B5D;
+    --azul-claro:#EAF2F8;
+    --fondo:#F3F6F9;
+    --panel:#FFFFFF;
+    --borde:#D7E0E7;
+    --texto:#263746;
+    --muted:#657786;
+    --verde:#2E7D32;
+    --verde-claro:#E7F4EA;
+    --amarillo:#B26A00;
+    --rojo:#A33A2B;
+    --sombra:0 5px 18px rgba(18,59,93,.08);
+}
+* { box-sizing:border-box; }
+body {
+    margin:0;
+    background:var(--fondo);
+    color:var(--texto);
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+header {
+    background:linear-gradient(135deg,var(--azul-oscuro),var(--azul));
+    color:#fff;
+    padding:22px 24px;
+    box-shadow:0 4px 14px rgba(0,0,0,.12);
+}
+.header-inner {
+    max-width:1380px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+}
+header h1 {
+    margin:0;
+    font-size:28px;
+    line-height:1.15;
+}
+header p {
+    margin:7px 0 0;
+    color:#DDEAF3;
+    font-size:14px;
+}
+.badge {
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.22);
+    padding:8px 12px;
+    border-radius:999px;
+    white-space:nowrap;
+    font-size:13px;
+    font-weight:700;
+}
+main {
+    max-width:1380px;
+    margin:0 auto;
+    padding:18px;
+}
+.panel {
+    background:var(--panel);
+    border:1px solid var(--borde);
+    border-radius:14px;
+    box-shadow:var(--sombra);
+    padding:16px;
+    margin-bottom:14px;
+}
+.toolbar {
+    display:grid;
+    grid-template-columns:1.2fr 1fr 1fr auto;
+    gap:10px;
+    align-items:end;
+}
+.campo label {
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color:var(--muted);
+    margin-bottom:5px;
+}
+select,button {
+    width:100%;
+    height:40px;
+    border-radius:9px;
+    border:1px solid var(--borde);
+    background:#fff;
+    color:var(--texto);
+    font:inherit;
+    padding:0 10px;
+}
+button {
+    cursor:pointer;
+    background:var(--azul);
+    border-color:var(--azul);
+    color:#fff;
+    font-weight:700;
+    padding:0 18px;
+}
+button:hover { background:var(--azul-oscuro); }
+.cards {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:12px;
+}
+.card {
+    background:#fff;
+    border:1px solid var(--borde);
+    border-radius:13px;
+    padding:14px 16px;
+    box-shadow:var(--sombra);
+}
+.card .titulo {
+    color:var(--muted);
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+.card .valor {
+    color:var(--azul-oscuro);
+    font-size:25px;
+    font-weight:800;
+}
+.card .nota {
+    margin-top:4px;
+    color:var(--muted);
+    font-size:12px;
+}
+.seccion-titulo {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin:0 0 10px;
+}
+.seccion-titulo h2 {
+    margin:0;
+    font-size:20px;
+    color:var(--azul-oscuro);
+}
+.estado {
+    padding:7px 10px;
+    border-radius:8px;
+    background:var(--azul-claro);
+    color:var(--azul);
+    font-size:12px;
+    font-weight:700;
+}
+.tabla-wrap { overflow:auto; border-radius:10px; }
+table {
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    min-width:760px;
+}
+th {
+    background:#E7EEF4;
+    color:#213746;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.02em;
+    padding:10px 9px;
+    border-bottom:1px solid var(--borde);
+    text-align:left;
+    position:sticky;
+    top:0;
+    z-index:1;
+}
+td {
+    padding:11px 9px;
+    border-bottom:1px solid #E8EDF1;
+    vertical-align:middle;
+}
+td.num, th.num { text-align:right; }
+.fila-semana {
+    cursor:pointer;
+    transition:.12s ease;
+}
+.fila-semana:hover { background:#F5F9FC; }
+.fila-semana.abierta {
+    background:var(--azul-claro);
+    font-weight:700;
+}
+.chevron {
+    display:inline-block;
+    width:20px;
+    color:var(--azul);
+    font-weight:900;
+}
+.barra {
+    height:8px;
+    background:#E6EDF2;
+    border-radius:999px;
+    overflow:hidden;
+    min-width:100px;
+}
+.barra > span {
+    display:block;
+    height:100%;
+    background:linear-gradient(90deg,var(--azul),#2F79AA);
+    border-radius:999px;
+}
+.detalle-row { display:none; }
+.detalle-row.visible { display:table-row; }
+.detalle-cell {
+    background:#F8FBFD;
+    padding:14px 18px 18px;
+}
+.detalle-grid {
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:12px;
+}
+.detalle-titulo {
+    font-size:14px;
+    font-weight:800;
+    color:var(--azul-oscuro);
+    margin-bottom:8px;
+}
+.tabla-diaria {
+    min-width:640px;
+    background:#fff;
+    border:1px solid var(--borde);
+    border-radius:9px;
+    overflow:hidden;
+}
+.tabla-diaria th {
+    position:static;
+    background:#F0F5F8;
+}
+.dia-con-ventas td:first-child {
+    font-weight:800;
+    color:var(--azul-oscuro);
+}
+.sin-datos {
+    text-align:center;
+    padding:32px 12px;
+    color:var(--muted);
+}
+.proyectos {
+    color:var(--muted);
+    font-size:12px;
+}
+.pill {
+    display:inline-block;
+    padding:3px 7px;
+    border-radius:999px;
+    background:var(--verde-claro);
+    color:var(--verde);
+    font-size:11px;
+    font-weight:800;
+}
+.error {
+    background:#FDECEC;
+    color:#8A1C1C;
+}
+.oculto { display:none !important; }
+.footer {
+    text-align:center;
+    color:var(--muted);
+    font-size:12px;
+    padding:8px 0 22px;
+}
+
+@media (max-width:900px) {
+    header { padding:16px 12px; }
+    .header-inner { align-items:flex-start; }
+    header h1 { font-size:23px; }
+    .badge { font-size:11px; }
+    main { padding:10px 7px 18px; }
+    .panel { padding:11px 8px; border-radius:10px; }
+    .toolbar { grid-template-columns:1fr 1fr; }
+    .cards { grid-template-columns:1fr 1fr; gap:8px; }
+    .card { padding:11px; }
+    .card .valor { font-size:22px; }
+
+    table.tabla-semanal {
+        min-width:0;
+    }
+    .tabla-semanal thead {
+        display:none;
+    }
+    .tabla-semanal tbody,
+    .tabla-semanal tr.fila-semana,
+    .tabla-semanal tr.fila-semana td {
+        display:block;
+        width:100%;
+    }
+    .tabla-semanal tr.fila-semana {
+        margin:0 0 10px;
+        border:1px solid var(--borde);
+        border-radius:10px;
+        overflow:hidden;
+        background:#fff;
+    }
+    .tabla-semanal tr.fila-semana td {
+        display:grid;
+        grid-template-columns:minmax(120px,38%) minmax(0,62%);
+        gap:8px;
+        padding:8px 10px;
+        border-bottom:1px solid #EEF2F5;
+        text-align:left !important;
+    }
+    .tabla-semanal tr.fila-semana td::before {
+        content:attr(data-label);
+        font-size:12px;
+        font-weight:800;
+        color:var(--muted);
+    }
+    .tabla-semanal tr.fila-semana td:first-child::before {
+        content:"Semana";
+    }
+    .tabla-semanal tr.detalle-row,
+    .tabla-semanal tr.detalle-row.visible,
+    .tabla-semanal tr.detalle-row td {
+        display:block;
+        width:100%;
+    }
+    .detalle-cell {
+        padding:6px 0 16px !important;
+        background:transparent;
+    }
+    .tabla-diaria {
+        min-width:620px;
+    }
+}
+
+@media (max-width:520px) {
+    .header-inner { display:block; }
+    .badge { display:inline-block; margin-top:10px; }
+    .toolbar { grid-template-columns:1fr; }
+    .cards { grid-template-columns:1fr 1fr; }
+    .seccion-titulo { align-items:flex-start; flex-direction:column; }
+}
+</style>
+</head>
+<body>
+<header>
+    <div class="header-inner">
+        <div>
+            <h1>Estadística de Venta-Concretada</h1>
+            <p>Resumen semanal con apertura a detalle diario · Secuencias de trabajo</p>
+        </div>
+        <div class="badge">CircuitDesignMX</div>
+    </div>
+</header>
+
+<main>
+    <section class="panel">
+        <div class="toolbar">
+            <div class="campo">
+                <label for="filtroProyecto">Proyecto</label>
+                <select id="filtroProyecto">
+                    <option value="">Todos los proyectos</option>
+                </select>
+            </div>
+            <div class="campo">
+                <label for="filtroAnio">Año</label>
+                <select id="filtroAnio"></select>
+            </div>
+            <div class="campo">
+                <label for="filtroPeriodo">Periodo</label>
+                <select id="filtroPeriodo">
+                    <option value="12">Últimas 12 semanas</option>
+                    <option value="26">Últimas 26 semanas</option>
+                    <option value="52">Últimas 52 semanas</option>
+                    <option value="all">Todas las semanas</option>
+                </select>
+            </div>
+            <button id="btnActualizar" type="button">Actualizar</button>
+        </div>
+    </section>
+
+    <section class="cards">
+        <div class="card">
+            <div class="titulo">Cantidad vendida</div>
+            <div class="valor" id="kpiCantidad">0</div>
+            <div class="nota">Suma de gs_ctda</div>
+        </div>
+        <div class="card">
+            <div class="titulo">Ventas registradas</div>
+            <div class="valor" id="kpiVentas">0</div>
+            <div class="nota">Registros Venta-Concretada</div>
+        </div>
+        <div class="card">
+            <div class="titulo">Promedio semanal</div>
+            <div class="valor" id="kpiPromedio">0</div>
+            <div class="nota">Cantidad / semanas con venta</div>
+        </div>
+        <div class="card">
+            <div class="titulo">Proyectos</div>
+            <div class="valor" id="kpiProyectos">0</div>
+            <div class="nota">Con Venta-Concretada</div>
+        </div>
+    </section>
+
+    <section class="panel" style="margin-top:14px;">
+        <div class="seccion-titulo">
+            <h2>Ventas por semana</h2>
+            <div id="estado" class="estado">Cargando...</div>
+        </div>
+
+        <div class="tabla-wrap">
+            <table class="tabla-semanal">
+                <thead>
+                    <tr>
+                        <th>Semana</th>
+                        <th>Periodo</th>
+                        <th class="num">Cantidad</th>
+                        <th class="num">Ventas</th>
+                        <th>Proyectos</th>
+                        <th>Comparativo</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaSemanas"></tbody>
+            </table>
+        </div>
+
+        <div id="sinDatos" class="sin-datos oculto">
+            No hay registros Venta-Concretada para los filtros seleccionados.
+        </div>
+    </section>
+
+    <div class="footer">
+        Fuente: gs_secuencias · Proceso: Venta-Concretada
+    </div>
+</main>
+
+<script>
+const SUPABASE_URL = "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+let datosOriginales = [];
+let datosFiltrados = [];
+
+const fmtNumero = new Intl.NumberFormat("es-MX", {
+    maximumFractionDigits: 2
+});
+
+const fmtFecha = new Intl.DateTimeFormat("es-MX", {
+    weekday: "short",
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+});
+
+function escapar(texto) {
+    return String(texto ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+function numero(valor) {
+    const n = Number(valor);
+    return Number.isFinite(n) ? n : 0;
+}
+
+function parseFecha(valor) {
+    if (!valor) return null;
+    const s = String(valor).slice(0,10);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return null;
+    const [y,m,d] = s.split("-").map(Number);
+    const f = new Date(y, m-1, d);
+    return Number.isNaN(f.getTime()) ? null : f;
+}
+
+function isoFecha(fecha) {
+    const y = fecha.getFullYear();
+    const m = String(fecha.getMonth()+1).padStart(2,"0");
+    const d = String(fecha.getDate()).padStart(2,"0");
+    return `${y}-${m}-${d}`;
+}
+
+function lunesDeSemana(fecha) {
+    const f = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+    const dia = f.getDay(); // 0 domingo
+    const delta = dia === 0 ? -6 : 1 - dia;
+    f.setDate(f.getDate() + delta);
+    return f;
+}
+
+function domingoDeSemana(lunes) {
+    const f = new Date(lunes);
+    f.setDate(f.getDate()+6);
+    return f;
+}
+
+function numeroSemanaISO(fecha) {
+    const d = new Date(Date.UTC(fecha.getFullYear(), fecha.getMonth(), fecha.getDate()));
+    const dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    const yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+}
+
+function anioSemanaISO(fecha) {
+    const d = new Date(Date.UTC(fecha.getFullYear(), fecha.getMonth(), fecha.getDate()));
+    const dayNum = d.getUTCDay() || 7;
+    d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+    return d.getUTCFullYear();
+}
+
+function claveSemana(fecha) {
+    const lunes = lunesDeSemana(fecha);
+    return isoFecha(lunes);
+}
+
+function etiquetaSemana(lunes) {
+    const num = numeroSemanaISO(lunes);
+    const anio = anioSemanaISO(lunes);
+    return `Semana ${String(num).padStart(2,"0")} · ${anio}`;
+}
+
+async function traerPagina(desde, hasta) {
+    const params = new URLSearchParams({
+        select: "gs_id,gs_proyecto,gs_fecha,gs_ctda,gs_desc,gs_estado",
+        gs_proceso: "eq.Venta-Concretada",
+        order: "gs_fecha.desc,gs_id.desc"
+    });
+
+    const resp = await fetch(`${SUPABASE_URL}/rest/v1/gs_secuencias?${params}`, {
+        headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            Range: `${desde}-${hasta}`,
+            Prefer: "count=exact"
+        }
+    });
+
+    if (!resp.ok) {
+        throw new Error(`Supabase HTTP ${resp.status}: ${await resp.text()}`);
+    }
+
+    return await resp.json();
+}
+
+async function cargarSupabase() {
+    const estado = document.getElementById("estado");
+    estado.classList.remove("error");
+    estado.textContent = "Consultando Supabase...";
+
+    const bloque = 1000;
+    let offset = 0;
+    let todos = [];
+
+    while (true) {
+        const pagina = await traerPagina(offset, offset + bloque - 1);
+        todos = todos.concat(pagina);
+        if (pagina.length < bloque) break;
+        offset += bloque;
+    }
+
+    datosOriginales = todos
+        .map(r => ({...r, _fecha: parseFecha(r.gs_fecha)}))
+        .filter(r => r._fecha);
+
+    cargarFiltros();
+    aplicarFiltros();
+    estado.textContent = `Actualizado · ${datosOriginales.length} registros Venta-Concretada`;
+}
+
+function cargarFiltros() {
+    const proyectoSel = document.getElementById("filtroProyecto");
+    const actualProyecto = proyectoSel.value;
+
+    const proyectos = [...new Set(
+        datosOriginales
+            .map(r => String(r.gs_proyecto || "").trim())
+            .filter(Boolean)
+    )].sort((a,b) => a.localeCompare(b,"es"));
+
+    proyectoSel.innerHTML =
+        '<option value="">Todos los proyectos</option>' +
+        proyectos.map(p => `<option value="${escapar(p)}">${escapar(p)}</option>`).join("");
+
+    if (proyectos.includes(actualProyecto)) proyectoSel.value = actualProyecto;
+
+    const anioSel = document.getElementById("filtroAnio");
+    const actualAnio = anioSel.value;
+    const anios = [...new Set(datosOriginales.map(r => r._fecha.getFullYear()))]
+        .sort((a,b)=>b-a);
+
+    const anioActual = new Date().getFullYear();
+    anioSel.innerHTML =
+        '<option value="">Todos los años</option>' +
+        anios.map(a => `<option value="${a}">${a}</option>`).join("");
+
+    if (actualAnio && anios.includes(Number(actualAnio))) {
+        anioSel.value = actualAnio;
+    } else if (anios.includes(anioActual)) {
+        anioSel.value = String(anioActual);
+    }
+}
+
+function aplicarFiltros() {
+    const proyecto = document.getElementById("filtroProyecto").value;
+    const anio = document.getElementById("filtroAnio").value;
+    const periodo = document.getElementById("filtroPeriodo").value;
+
+    let registros = datosOriginales.filter(r => {
+        if (proyecto && String(r.gs_proyecto || "").trim() !== proyecto) return false;
+        if (anio && r._fecha.getFullYear() !== Number(anio)) return false;
+        return true;
+    });
+
+    // El límite de semanas se aplica DESPUÉS del agrupado,
+    // para no cortar una semana por registros individuales.
+    datosFiltrados = registros;
+    render(periodo);
+}
+
+function agruparSemanas(registros) {
+    const mapa = new Map();
+
+    for (const r of registros) {
+        const lunes = lunesDeSemana(r._fecha);
+        const key = isoFecha(lunes);
+
+        if (!mapa.has(key)) {
+            mapa.set(key, {
+                key,
+                lunes,
+                domingo: domingoDeSemana(lunes),
+                cantidad: 0,
+                ventas: 0,
+                proyectos: new Set(),
+                registros: []
+            });
+        }
+
+        const w = mapa.get(key);
+        w.cantidad += numero(r.gs_ctda);
+        w.ventas += 1;
+        if (String(r.gs_proyecto || "").trim()) {
+            w.proyectos.add(String(r.gs_proyecto).trim());
+        }
+        w.registros.push(r);
+    }
+
+    return [...mapa.values()].sort((a,b) => b.lunes - a.lunes);
+}
+
+function agruparDias(registros) {
+    const mapa = new Map();
+
+    for (const r of registros) {
+        const key = isoFecha(r._fecha);
+        if (!mapa.has(key)) {
+            mapa.set(key, {
+                fecha: new Date(r._fecha),
+                cantidad:0,
+                ventas:0,
+                proyectos:new Set(),
+                registros:[]
+            });
+        }
+        const d = mapa.get(key);
+        d.cantidad += numero(r.gs_ctda);
+        d.ventas += 1;
+        if (String(r.gs_proyecto || "").trim()) {
+            d.proyectos.add(String(r.gs_proyecto).trim());
+        }
+        d.registros.push(r);
+    }
+
+    return [...mapa.values()].sort((a,b)=>a.fecha-b.fecha);
+}
+
+function render(periodo) {
+    let semanas = agruparSemanas(datosFiltrados);
+
+    if (periodo !== "all") {
+        semanas = semanas.slice(0, Number(periodo));
+    }
+
+    const registrosVisibles = semanas.flatMap(s => s.registros);
+    actualizarKPIs(semanas, registrosVisibles);
+    renderSemanas(semanas);
+}
+
+function actualizarKPIs(semanas, registros) {
+    const totalCantidad = registros.reduce((a,r)=>a+numero(r.gs_ctda),0);
+    const ventas = registros.length;
+    const proyectos = new Set(
+        registros.map(r=>String(r.gs_proyecto||"").trim()).filter(Boolean)
+    ).size;
+    const promedio = semanas.length ? totalCantidad / semanas.length : 0;
+
+    document.getElementById("kpiCantidad").textContent = fmtNumero.format(totalCantidad);
+    document.getElementById("kpiVentas").textContent = fmtNumero.format(ventas);
+    document.getElementById("kpiPromedio").textContent = fmtNumero.format(promedio);
+    document.getElementById("kpiProyectos").textContent = fmtNumero.format(proyectos);
+}
+
+function renderSemanas(semanas) {
+    const tbody = document.getElementById("tablaSemanas");
+    const sinDatos = document.getElementById("sinDatos");
+
+    tbody.innerHTML = "";
+    sinDatos.classList.toggle("oculto", semanas.length !== 0);
+
+    if (!semanas.length) return;
+
+    const maxCantidad = Math.max(...semanas.map(s=>s.cantidad),1);
+
+    semanas.forEach((semana, idx) => {
+        const tr = document.createElement("tr");
+        tr.className = "fila-semana";
+        tr.dataset.detalle = `detalle-${idx}`;
+
+        const proyectos = [...semana.proyectos].sort((a,b)=>a.localeCompare(b,"es"));
+        const pct = Math.max(2, Math.round((semana.cantidad/maxCantidad)*100));
+
+        tr.innerHTML = `
+            <td data-label="Semana">
+                <span class="chevron">▶</span>
+                <strong>${escapar(etiquetaSemana(semana.lunes))}</strong>
+            </td>
+            <td data-label="Periodo">
+                ${escapar(fmtFecha.format(semana.lunes))}
+                <br><span class="proyectos">al ${escapar(fmtFecha.format(semana.domingo))}</span>
+            </td>
+            <td data-label="Cantidad" class="num">
+                <strong>${fmtNumero.format(semana.cantidad)}</strong>
+            </td>
+            <td data-label="Ventas" class="num">
+                ${fmtNumero.format(semana.ventas)}
+            </td>
+            <td data-label="Proyectos">
+                <span class="pill">${proyectos.length}</span>
+                <div class="proyectos">${escapar(proyectos.join(", ") || "—")}</div>
+            </td>
+            <td data-label="Comparativo">
+                <div class="barra"><span style="width:${pct}%"></span></div>
+            </td>
+        `;
+
+        const detalle = document.createElement("tr");
+        detalle.id = `detalle-${idx}`;
+        detalle.className = "detalle-row";
+
+        const dias = agruparDias(semana.registros);
+        detalle.innerHTML = `
+            <td colspan="6" class="detalle-cell">
+                ${htmlDetalleDias(dias)}
+            </td>
+        `;
+
+        tr.addEventListener("click", () => {
+            const abierto = detalle.classList.toggle("visible");
+            tr.classList.toggle("abierta", abierto);
+            tr.querySelector(".chevron").textContent = abierto ? "▼" : "▶";
+        });
+
+        tbody.appendChild(tr);
+        tbody.appendChild(detalle);
+    });
+}
+
+function htmlDetalleDias(dias) {
+    const filas = dias.map(d => {
+        const proyectos = [...d.proyectos].sort((a,b)=>a.localeCompare(b,"es"));
+        const regs = [...d.registros].sort((a,b) =>
+            String(a.gs_proyecto||"").localeCompare(String(b.gs_proyecto||""),"es")
+        );
+
+        const detalles = regs.map(r => {
+            const desc = String(r.gs_desc || "").trim();
+            const qty = fmtNumero.format(numero(r.gs_ctda));
+            return `<div>${escapar(r.gs_proyecto || "—")} · ${qty}${desc ? " · " + escapar(desc) : ""}</div>`;
+        }).join("");
+
+        return `
+            <tr class="dia-con-ventas">
+                <td>${escapar(fmtFecha.format(d.fecha))}</td>
+                <td class="num"><strong>${fmtNumero.format(d.cantidad)}</strong></td>
+                <td class="num">${fmtNumero.format(d.ventas)}</td>
+                <td>
+                    ${escapar(proyectos.join(", ") || "—")}
+                </td>
+                <td class="proyectos">${detalles}</td>
+            </tr>
+        `;
+    }).join("");
+
+    return `
+        <div class="detalle-grid">
+            <div>
+                <div class="detalle-titulo">Detalle diario</div>
+                <div class="tabla-wrap">
+                    <table class="tabla-diaria">
+                        <thead>
+                            <tr>
+                                <th>Día</th>
+                                <th class="num">Cantidad</th>
+                                <th class="num">Ventas</th>
+                                <th>Proyectos</th>
+                                <th>Registros</th>
+                            </tr>
+                        </thead>
+                        <tbody>${filas}</tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+async function actualizar() {
+    try {
+        await cargarSupabase();
+    } catch (err) {
+        const estado = document.getElementById("estado");
+        estado.classList.add("error");
+        estado.textContent = "Error al consultar Supabase";
+        document.getElementById("tablaSemanas").innerHTML = "";
+        document.getElementById("sinDatos").classList.remove("oculto");
+        document.getElementById("sinDatos").textContent =
+            "No fue posible cargar los datos. " + err.message;
+        console.error(err);
+    }
+}
+
+document.getElementById("filtroProyecto").addEventListener("change", aplicarFiltros);
+document.getElementById("filtroAnio").addEventListener("change", aplicarFiltros);
+document.getElementById("filtroPeriodo").addEventListener("change", aplicarFiltros);
+document.getElementById("btnActualizar").addEventListener("click", actualizar);
+
+actualizar();
+</script>
+</body>
+</html>
