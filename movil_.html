@@ -1,8 +1,9 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
 <title>Administrar Registros</title>
 <style>
 :root {
@@ -48,96 +49,99 @@ button:disabled{opacity:.55;cursor:not-allowed}
   .toolbar{align-items:stretch;flex-direction:column}
 }
 </style>
-</head>
+<style>
+#cr_idE,
+#cr_desc {
+    background-color: #fff;
+}
+
+#estado-stock {
+    line-height: 1.35;
+}
+
+@media (max-width:700px) {
+    #cr_idE,
+    #cr_desc {
+        font-size: 17px;
+        min-height: 44px;
+    }
+}
+</style><style>
+#cr_accion {
+    background-color: #fff;
+}
+
+@media (max-width:700px) {
+    #cr_accion {
+        font-size: 17px;
+        min-height: 44px;
+    }
+}
+</style><style>
+#cr_desc {
+    background-color: #fff;
+}
+
+@media (max-width:700px) {
+    #cr_desc {
+        font-size: 17px;
+        min-height: 46px;
+    }
+}
+</style></head>
 <body>
-
 <header>
-  <h1>Administrar Registros</h1>
-  <p>Tabla cr_registros · alta · edición · eliminación</p>
+<h1>Administrar Registros</h1>
+<p>Tabla cr_registros · versión móvil simplificada</p>
 </header>
-
 <main>
-  <section class="panel notice">
-    <strong>MODO PRUEBA SIN LOGIN</strong><br>
+<section class="panel notice">
+<strong>MODO PRUEBA SIN LOGIN</strong><br/>
     Acceso directo para pruebas. La escritura requiere políticas RLS temporales para <code>anon</code>.
   </section>
-
-  <section class="panel">
-    <div class="toolbar">
-      <div>
-        <h2>Registros</h2>
-        <div id="estado">Iniciando...</div>
-      </div>
-      <div class="actions" style="margin-top:0">
-        <button id="newBtn" type="button" class="success">+ Nuevo</button>
-        <button id="refreshBtn" type="button" class="secondary">Actualizar</button>
-      </div>
-    </div>
-    <input id="search" placeholder="Buscar id, proyecto, idE, descripción, tipo...">
-  </section>
-
-  <section id="formPanel" class="panel hidden">
-    <h2 id="formTitle">Nuevo registro</h2>
-    <input id="editId" type="hidden">
-
-    <div class="grid">
-      <div>
-        <label>Proyecto</label>
-        <input id="cr_proyecto">
-      </div>
-      <div>
-        <label>Lote</label>
-        <input id="cr_lote">
-      </div>
-      <div>
-        <label>Fecha</label>
-        <input id="cr_fecha" type="date">
-      </div>
-      <div>
-        <label>idE</label>
-        <input id="cr_idE">
-      </div>
-      <div>
-        <label>LCSC</label>
-        <input id="cr_lcsc">
-      </div>
-      <div>
-        <label>Cantidad</label>
-        <input id="cr_ctda" type="number" step="any">
-      </div>
-      <div>
-        <label>MXN</label>
-        <input id="cr_mxn" type="number" step="any">
-      </div>
-      <div>
-        <label>Tipo</label>
-        <input id="cr_tipo">
-      </div>
-      <div>
-        <label>CAN</label>
-        <input id="cr_can">
-      </div>
-      <div>
-        <label>Acción</label>
-        <input id="cr_accion">
-      </div>
-    </div>
-
-    <label>Descripción</label>
-    <textarea id="cr_desc"></textarea>
-
-    <label>Observaciones</label>
-    <textarea id="cr_observe"></textarea>
-
-    <div class="actions">
-      <button id="saveBtn" type="button" class="primary">Guardar</button>
-      <button id="cancelBtn" type="button" class="secondary">Cancelar</button>
-    </div>
-  </section>
-
-  <section id="list"></section>
+<section class="panel">
+<div class="toolbar">
+<div>
+<h2>Registros</h2>
+<div id="estado">Iniciando...</div>
+</div>
+<div class="actions" style="margin-top:0">
+<button class="success" id="newBtn" type="button">+ Nuevo</button>
+<button class="secondary" id="refreshBtn" type="button">Actualizar</button>
+</div>
+</div>
+<input id="search" placeholder="Buscar id, fecha, idE, descripción o acción..."/>
+</section>
+<section class="panel hidden" id="formPanel">
+<h2 id="formTitle">Nuevo registro</h2>
+<input id="editId" type="hidden"/>
+<div class="grid">
+<div>
+<label>Fecha</label>
+<input id="cr_fecha" type="date"/>
+</div>
+<div>
+<label>idE</label>
+<input autocomplete="off" id="cr_idE" list="lista-idE" placeholder="Escribe o selecciona un idE..."/><datalist id="lista-idE"></datalist>
+</div>
+<div>
+<label>Cantidad</label>
+<input id="cr_ctda" step="any" type="number"/>
+</div>
+<div>
+<label>Acción</label>
+<input autocomplete="off" id="cr_accion" list="lista-accion" placeholder="Escribe o selecciona una acción..."/><datalist id="lista-accion"></datalist>
+</div>
+</div>
+<label>Descripción</label>
+<select id="cr_desc"><option value="">Selecciona una descripción...</option></select><div id="estado-stock" style="margin-top:6px;font:600 12px Arial,sans-serif;color:#657786;">Cargando catálogo cs_stock...</div>
+<div class="actions">
+<button class="primary" id="saveBtn" type="button">Guardar</button>
+<button class="secondary" id="cancelBtn" type="button">Cancelar</button>
+</div>
+</section>
+<section id="list"></section>
 </main>
-
 <script>
 (function() {
 "use strict";
@@ -148,6 +152,9 @@ const TABLA = "cr_registros";
 
 const $ = id => document.getElementById(id);
 let registros = [];
+let stockCatalogo = [];
+let stockPorIdE = new Map();
+let stockPorDesc = new Map();
 
 function texto(v) {
   return v === null || v === undefined ? "" : String(v);
@@ -182,8 +189,8 @@ function headers(extra={}) {
   };
 }
 
-async function api(method, query="", body=undefined, prefer="") {
-  const url = `${SUPABASE_URL}/rest/v1/${TABLA}${query}`;
+async function apiTabla(tabla, method, query="", body=undefined, prefer="") {
+  const url = `${SUPABASE_URL}/rest/v1/${tabla}${query}`;
   const opts = {
     method,
     headers: headers(prefer ? {"Prefer": prefer} : {}),
@@ -211,12 +218,126 @@ async function api(method, query="", body=undefined, prefer="") {
   return data;
 }
 
+async function api(method, query="", body=undefined, prefer="") {
+  return apiTabla(TABLA, method, query, body, prefer);
+}
+
+
+function normalizarClave(v) {
+  return texto(v).trim().toLowerCase();
+}
+
+function completarDesdeIdE() {
+  const id = texto($("cr_idE").value).trim();
+  if (!id) return;
+
+  const item = stockPorIdE.get(id);
+  if (item) {
+    $("cr_desc").value = texto(item.cs_desc);
+  }
+}
+
+function completarDesdeDescripcion() {
+  const desc = texto($("cr_desc").value).trim();
+  if (!desc) return;
+
+  const item = stockPorDesc.get(normalizarClave(desc));
+  if (item) {
+    $("cr_idE").value = texto(item.idE);
+  }
+}
+
+async function cargarCatalogoStock() {
+  const status = $("estado-stock");
+
+  try {
+    status.textContent = "Cargando catálogo cs_stock...";
+
+    const select = encodeURIComponent("idE,cs_desc");
+    const data = await apiTabla(
+      "cs_stock",
+      "GET",
+      `?select=${select}&order=idE.asc&limit=5000`
+    );
+
+    stockCatalogo = Array.isArray(data)
+      ? data.filter(x =>
+          texto(x.idE).trim() !== "" &&
+          texto(x.cs_desc).trim() !== ""
+        )
+      : [];
+
+    stockPorIdE = new Map();
+    stockPorDesc = new Map();
+
+    const listaIdE = $("lista-idE");
+    const selectDesc = $("cr_desc");
+
+    listaIdE.replaceChildren();
+
+    // Conservar la primera opción del select.
+    selectDesc.innerHTML = '<option value="">Selecciona una descripción...</option>';
+
+    for (const item of stockCatalogo) {
+      const id = texto(item.idE).trim();
+      const desc = texto(item.cs_desc).trim();
+
+      stockPorIdE.set(id, item);
+
+      // Para descripciones repetidas se conserva la primera coincidencia.
+      const claveDesc = normalizarClave(desc);
+      if (!stockPorDesc.has(claveDesc)) {
+        stockPorDesc.set(claveDesc, item);
+      }
+
+      const opId = document.createElement("option");
+      opId.value = id;
+      opId.label = desc;
+      listaIdE.appendChild(opId);
+
+      const opDesc = document.createElement("option");
+      opDesc.value = desc;
+      opDesc.textContent = `${desc} · idE ${id}`;
+      selectDesc.appendChild(opDesc);
+    }
+
+    status.textContent =
+      `cs_stock cargado · ${stockCatalogo.length} componentes`;
+
+  } catch (e) {
+    console.error(e);
+    status.textContent =
+      "No fue posible cargar cs_stock: " + e.message;
+    status.style.color = "#a02a2a";
+  }
+}
+
+
+function actualizarListaAcciones() {
+  const lista = $("lista-accion");
+  if (!lista) return;
+
+  const acciones = [...new Set(
+    registros
+      .map(r => texto(r.cr_accion).trim())
+      .filter(Boolean)
+  )].sort((a,b) => a.localeCompare(b, "es", { sensitivity: "base" }));
+
+  lista.replaceChildren();
+
+  for (const accion of acciones) {
+    const option = document.createElement("option");
+    option.value = accion;
+    lista.appendChild(option);
+  }
+}
+
 async function cargar() {
   try {
     setEstado("Actualizando...");
 
     const select = encodeURIComponent(
-      "cr_id,cr_proyecto,cr_lote,cr_fecha,cr_idE,cr_desc,cr_lcsc,cr_ctda,cr_mxn,cr_tipo,cr_observe,cr_can,cr_accion"
+      "cr_id,cr_fecha,cr_idE,cr_desc,cr_ctda,cr_accion"
     );
 
     const data = await api(
@@ -225,6 +346,7 @@ async function cargar() {
     );
 
     registros = Array.isArray(data) ? data : [];
+    actualizarListaAcciones();
     render();
 
     setEstado(`Supabase conectado · ${registros.length} registros`, "ok");
@@ -241,9 +363,7 @@ function render() {
 
   const visibles = registros.filter(r => {
     const blob = [
-      r.cr_id, r.cr_proyecto, r.cr_lote, r.cr_fecha,
-      r.cr_idE, r.cr_desc, r.cr_lcsc, r.cr_tipo,
-      r.cr_observe, r.cr_accion
+      r.cr_id, r.cr_fecha, r.cr_idE, r.cr_desc, r.cr_accion
     ].map(texto).join(" ").toLowerCase();
 
     return !q || blob.includes(q);
@@ -253,16 +373,9 @@ function render() {
     <article class="card">
       <div class="row"><div class="k">id_R</div><div class="v idr">${esc(r.cr_id)}</div></div>
       <div class="row"><div class="k">Fecha</div><div class="v">${esc(texto(r.cr_fecha).slice(0,10))}</div></div>
-      <div class="row"><div class="k">Proyecto</div><div class="v">${esc(r.cr_proyecto)}</div></div>
-      <div class="row"><div class="k">Lote</div><div class="v">${esc(r.cr_lote)}</div></div>
       <div class="row"><div class="k">idE</div><div class="v">${esc(r.cr_idE)}</div></div>
       <div class="row"><div class="k">Descripción</div><div class="v">${esc(r.cr_desc)}</div></div>
-      <div class="row"><div class="k">LCSC</div><div class="v">${esc(r.cr_lcsc)}</div></div>
       <div class="row"><div class="k">Cantidad</div><div class="v qty">${esc(mostrarNumero(r.cr_ctda))}</div></div>
-      <div class="row"><div class="k">MXN</div><div class="v">${esc(mostrarNumero(r.cr_mxn))}</div></div>
-      <div class="row"><div class="k">Tipo</div><div class="v">${esc(r.cr_tipo)}</div></div>
-      <div class="row"><div class="k">Observaciones</div><div class="v">${esc(r.cr_observe)}</div></div>
-      <div class="row"><div class="k">CAN</div><div class="v">${esc(r.cr_can)}</div></div>
       <div class="row"><div class="k">Acción</div><div class="v">${esc(r.cr_accion)}</div></div>
 
       <div class="card-actions">
@@ -284,8 +397,7 @@ function render() {
 function limpiarFormulario() {
   $("editId").value = "";
   [
-    "cr_proyecto","cr_lote","cr_fecha","cr_idE","cr_desc","cr_lcsc",
-    "cr_ctda","cr_mxn","cr_tipo","cr_observe","cr_can","cr_accion"
+    "cr_fecha","cr_idE","cr_desc","cr_ctda","cr_accion"
   ].forEach(id => $(id).value = "");
 }
 
@@ -301,7 +413,7 @@ function nuevo() {
   const d = String(hoy.getDate()).padStart(2,"0");
   $("cr_fecha").value = `${y}-${m}-${d}`;
 
-  $("cr_proyecto").focus();
+  $("cr_idE").focus();
   window.scrollTo({top:0, behavior:"smooth"});
 }
 
@@ -316,17 +428,22 @@ function editar(id) {
   $("formTitle").textContent = "Editar id_R " + id;
   $("editId").value = id;
 
-  $("cr_proyecto").value = texto(r.cr_proyecto);
-  $("cr_lote").value = texto(r.cr_lote);
   $("cr_fecha").value = texto(r.cr_fecha).slice(0,10);
   $("cr_idE").value = texto(r.cr_idE);
-  $("cr_desc").value = texto(r.cr_desc);
-  $("cr_lcsc").value = texto(r.cr_lcsc);
+  const descActual = texto(r.cr_desc).trim();
+  if (descActual) {
+    const existe = Array.from($("cr_desc").options)
+      .some(op => op.value === descActual);
+
+    if (!existe) {
+      const op = document.createElement("option");
+      op.value = descActual;
+      op.textContent = descActual + " · valor actual";
+      $("cr_desc").appendChild(op);
+    }
+  }
+  $("cr_desc").value = descActual;
   $("cr_ctda").value = texto(r.cr_ctda);
-  $("cr_mxn").value = texto(r.cr_mxn);
-  $("cr_tipo").value = texto(r.cr_tipo);
-  $("cr_observe").value = texto(r.cr_observe);
-  $("cr_can").value = texto(r.cr_can);
   $("cr_accion").value = texto(r.cr_accion);
 
   $("formPanel").classList.remove("hidden");
@@ -342,17 +459,10 @@ function numeroONull(id) {
 
 function payload() {
   return {
-    cr_proyecto: $("cr_proyecto").value.trim() || null,
-    cr_lote: $("cr_lote").value.trim() || null,
     cr_fecha: $("cr_fecha").value || null,
     cr_idE: $("cr_idE").value.trim() || null,
     cr_desc: $("cr_desc").value.trim() || null,
-    cr_lcsc: $("cr_lcsc").value.trim() || null,
     cr_ctda: numeroONull("cr_ctda"),
-    cr_mxn: numeroONull("cr_mxn"),
-    cr_tipo: $("cr_tipo").value.trim() || null,
-    cr_observe: $("cr_observe").value.trim() || null,
-    cr_can: $("cr_can").value.trim() || null,
     cr_accion: $("cr_accion").value.trim() || null
   };
 }
@@ -426,12 +536,22 @@ async function eliminar(id) {
 }
 
 $("newBtn").addEventListener("click", nuevo);
-$("refreshBtn").addEventListener("click", cargar);
+$("refreshBtn").addEventListener("click", async () => {
+  await Promise.all([cargarCatalogoStock(), cargar()]);
+});
 $("cancelBtn").addEventListener("click", () => $("formPanel").classList.add("hidden"));
 $("saveBtn").addEventListener("click", guardar);
 $("search").addEventListener("input", render);
 
-cargar();
+/* Autocompletado bidireccional desde cs_stock */
+$("cr_idE").addEventListener("input", completarDesdeIdE);
+$("cr_idE").addEventListener("change", completarDesdeIdE);
+$("cr_desc").addEventListener("change", completarDesdeDescripcion);
+
+Promise.all([
+  cargarCatalogoStock(),
+  cargar()
+]);
 
 })();
 </script>
