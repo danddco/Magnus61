@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHM-551 · Mapa de Feeders</title>
+<style>
+:root {
+  --fondo:#f3f6f9;
+  --panel:#ffffff;
+  --borde:#cfd8e2;
+  --texto:#263746;
+  --muted:#697b8c;
+  --azul:#1f4e78;
+  --azul2:#346b98;
+  --libre:#eff7f0;
+  --ocupado:#fff3cd;
+  --principal:#e7f0f7;
+  --sombra:0 4px 16px rgba(28,55,77,.08);
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--fondo);
+  color:var(--texto);
+  font-family:Arial,Segoe UI,sans-serif;
+}
+header {
+  background:linear-gradient(135deg,var(--azul),var(--azul2));
+  color:white;
+  padding:18px 22px;
+  box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+header h1 { margin:0 0 5px; font-size:25px; }
+header p { margin:0; color:#e8f1f8; }
+main { width:min(1500px,97%); margin:18px auto 35px; }
+.toolbar {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  background:var(--panel);
+  padding:12px 14px;
+  border:1px solid var(--borde);
+  border-radius:10px;
+  box-shadow:var(--sombra);
+  margin-bottom:15px;
+}
+.estado { font-weight:700; }
+.meta { color:var(--muted); font-size:14px; }
+button {
+  border:0;
+  border-radius:7px;
+  padding:9px 15px;
+  background:var(--azul);
+  color:white;
+  font-weight:700;
+  cursor:pointer;
+}
+.summary {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(140px,1fr));
+  gap:10px;
+  margin-bottom:15px;
+}
+.card {
+  background:white;
+  border:1px solid var(--borde);
+  border-radius:10px;
+  padding:12px 14px;
+  box-shadow:var(--sombra);
+}
+.card .n { font-size:26px; font-weight:800; color:var(--azul); }
+.card .t { color:var(--muted); font-size:13px; margin-top:3px; }
+.bancos {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.banco {
+  background:white;
+  border:1px solid var(--borde);
+  border-radius:11px;
+  overflow:hidden;
+  box-shadow:var(--sombra);
+}
+.banco h2 {
+  margin:0;
+  padding:12px 15px;
+  background:#e7eef4;
+  color:#27465f;
+  font-size:18px;
+}
+.tabla-wrap { overflow:auto; }
+table { width:100%; border-collapse:collapse; min-width:690px; }
+th {
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:#f2f5f8;
+  color:#3d566b;
+  text-align:left;
+  font-size:12px;
+  padding:9px 8px;
+  border-bottom:1px solid var(--borde);
+}
+td {
+  padding:9px 8px;
+  border-bottom:1px solid #e3e8ed;
+  font-size:14px;
+  vertical-align:top;
+}
+td.canal { width:58px; text-align:center; font-weight:800; }
+td.id { width:65px; text-align:right; font-weight:700; }
+td.stock { width:80px; text-align:right; }
+td.feeder { width:85px; text-align:center; }
+tr.principal { background:var(--principal); }
+tr.bloqueado { background:var(--ocupado); color:#6d5a16; }
+tr.libre { background:var(--libre); color:#53705a; }
+.badge {
+  display:inline-block;
+  border-radius:999px;
+  padding:3px 8px;
+  font-size:12px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.badge.libre { background:#dcefe0; color:#305d37; }
+.badge.usado { background:#dbeaf6; color:#244d70; }
+.badge.bloq { background:#f8e7ad; color:#6b5710; }
+.error {
+  color:#9a2424;
+  font-weight:700;
+}
+.sin-mapa {
+  background:#fff4d6;
+  color:#6f5700;
+}
+.sin-mapa td {
+  text-align:center;
+  padding:22px 10px;
+  font-weight:800;
+}
+footer {
+  text-align:center;
+  color:#70808d;
+  font-size:13px;
+  padding:15px;
+}
+@media(max-width:900px) {
+  .summary { grid-template-columns:repeat(2,1fr); }
+  .bancos { grid-template-columns:1fr; }
+}
+@media(max-width:520px) {
+  header h1 { font-size:21px; }
+  main { width:98%; }
+  .summary { grid-template-columns:1fr 1fr; gap:7px; }
+  .card .n { font-size:22px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>CHM-551 · Mapa de Feeders</h1>
+  <p>Vista de solo lectura · CircuitDesignMX</p>
+</header>
+
+<main>
+  <section class="toolbar">
+    <div>
+      <div id="estado" class="estado">Conectando con Supabase...</div>
+      <div id="actualizado" class="meta">--</div>
+    </div>
+    <button type="button" onclick="cargarTodo()">Actualizar</button>
+  </section>
+
+  <section class="summary">
+    <div class="card"><div id="k-usados" class="n">--</div><div class="t">Feeders instalados</div></div>
+    <div class="card"><div id="k-libres" class="n">--</div><div class="t">Canales libres</div></div>
+    <div class="card"><div id="k-bloqueados" class="n">--</div><div class="t">Canales ocupados por feeders anchos</div></div>
+    <div class="card"><div id="k-stock" class="n">--</div><div class="t">Componentes con stock disponible</div></div>
+  </section>
+
+  <section class="bancos">
+    <article class="banco">
+      <h2>BANCO A · Canales 1–25</h2>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr>
+            <th>Canal</th><th>idE</th><th>Componente</th>
+            <th>Stock</th><th>Feeder</th><th>Estado</th><th>Notas</th>
+          </tr></thead>
+          <tbody id="body-A"></tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="banco">
+      <h2>BANCO B · Canales 1–25</h2>
+      <div class="tabla-wrap">
+        <table>
+          <thead><tr>
+            <th>Canal</th><th>idE</th><th>Componente</th>
+            <th>Stock</th><th>Feeder</th><th>Estado</th><th>Notas</th>
+          </tr></thead>
+          <tbody id="body-B"></tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+</main>
+
+<footer>
+  Datos leídos directamente desde Supabase · Esta página no modifica información.
+</footer>
+
+<script>
+"use strict";
+
+const SUPABASE_URL = "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+const MAP_TABLE = "cm_chm551_feedermap";
+
+function esc(v) {
+  return String(v ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+async function getRows(table, select, extra="") {
+  const url =
+    `${SUPABASE_URL}/rest/v1/${table}?select=${encodeURIComponent(select)}${extra}`;
+
+  const res = await fetch(url, {
+    headers: {
+      "apikey": SUPABASE_ANON_KEY,
+      "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+      "Accept": "application/json"
+    },
+    cache: "no-store"
+  });
+
+  if (!res.ok) {
+    throw new Error(`${table} HTTP ${res.status}: ${await res.text()}`);
+  }
+
+  return await res.json();
+}
+
+function blockedBy(rows, bank, channel) {
+  for (const row of rows) {
+    if (row.bank !== bank) continue;
+    const origin = Number(row.channel);
+    const count = Math.max(1, Number(row.occupied || 1));
+    if (row.component_desc && origin < channel && channel < origin + count) {
+      return origin;
+    }
+  }
+  return null;
+}
+
+function renderBank(bank, mapRows, stockById) {
+  const tbody = document.getElementById(`body-${bank}`);
+  let html = "";
+
+  for (let ch = 1; ch <= 25; ch++) {
+    const blocker = blockedBy(mapRows, bank, ch);
+
+    if (blocker !== null) {
+      html += `
+        <tr class="bloqueado">
+          <td class="canal">${String(ch).padStart(2,"0")}</td>
+          <td class="id"></td>
+          <td>Ocupado por feeder del canal ${String(blocker).padStart(2,"0")}</td>
+          <td class="stock"></td>
+          <td class="feeder"></td>
+          <td><span class="badge bloq">OCUPADO</span></td>
+          <td></td>
+        </tr>`;
+      continue;
+    }
+
+    const row = mapRows.find(
+      r => r.bank === bank && Number(r.channel) === ch
+    );
+
+    const comp = row?.component_desc || "";
+    const ide = row?.component_id ?? "";
+    const stock = ide !== "" ? stockById.get(String(ide)) : null;
+
+    if (!comp) {
+      html += `
+        <tr class="libre">
+          <td class="canal">${String(ch).padStart(2,"0")}</td>
+          <td class="id"></td>
+          <td>LIBRE</td>
+          <td class="stock"></td>
+          <td class="feeder"></td>
+          <td><span class="badge libre">LIBRE</span></td>
+          <td>${esc(row?.notes || "")}</td>
+        </tr>`;
+      continue;
+    }
+
+    html += `
+      <tr class="principal">
+        <td class="canal">${String(ch).padStart(2,"0")}</td>
+        <td class="id">${esc(ide)}</td>
+        <td>${esc(comp)}</td>
+        <td class="stock">${stock == null ? "—" : esc(stock)}</td>
+        <td class="feeder">${esc(row?.width || "")}</td>
+        <td><span class="badge usado">${Math.max(1,Number(row?.occupied||1))} canal(es)</span></td>
+        <td>${esc(row?.notes || "")}</td>
+      </tr>`;
+  }
+
+  tbody.innerHTML = html;
+}
+
+async function cargarTodo() {
+  const estado = document.getElementById("estado");
+  estado.className = "estado";
+  estado.textContent = "Conectando con Supabase...";
+
+  try {
+    const [mapRows, stockRows] = await Promise.all([
+      getRows(
+        MAP_TABLE,
+        "machine,bank,channel,component_id,component_desc,width,occupied,notes,updated_at",
+        "&machine=eq.CHM-551&order=bank.asc,channel.asc"
+      ),
+      getRows(
+        "cs_stock",
+        "idE,cs_ctda",
+        "&order=idE.asc"
+      )
+    ]);
+
+    const stockById = new Map(
+      stockRows.map(r => [String(r.idE), r.cs_ctda])
+    );
+
+    if (mapRows.length === 0) {
+      const mensaje = `
+        <tr class="sin-mapa">
+          <td colspan="7">
+            SIN MAPA PUBLICADO EN SUPABASE<br>
+            <span style="font-weight:400">
+              Abra el programa CHM-551 y pulse “Publicar mapa Web”.
+            </span>
+          </td>
+        </tr>`;
+
+      document.getElementById("body-A").innerHTML = mensaje;
+      document.getElementById("body-B").innerHTML = mensaje;
+
+      document.getElementById("k-usados").textContent = "—";
+      document.getElementById("k-libres").textContent = "—";
+      document.getElementById("k-bloqueados").textContent = "—";
+      document.getElementById("k-stock").textContent = "—";
+
+      estado.textContent = "Conectado · todavía no hay mapa publicado";
+      document.getElementById("actualizado").textContent =
+        "La tabla cm_chm551_feedermap existe, pero no contiene registros.";
+
+      return;
+    }
+
+    renderBank("A", mapRows, stockById);
+    renderBank("B", mapRows, stockById);
+
+    let usados = 0;
+    let bloqueados = 0;
+    let stockDisponible = 0;
+
+    for (const bank of ["A","B"]) {
+      for (let ch=1; ch<=25; ch++) {
+        const blocker = blockedBy(mapRows, bank, ch);
+        if (blocker !== null) {
+          bloqueados++;
+          continue;
+        }
+
+        const row = mapRows.find(
+          r => r.bank === bank && Number(r.channel) === ch
+        );
+
+        if (row?.component_desc) {
+          usados++;
+          const st = stockById.get(String(row.component_id));
+          if (Number(st) > 0) stockDisponible++;
+        }
+      }
+    }
+
+    const libres = 50 - usados - bloqueados;
+
+    document.getElementById("k-usados").textContent = usados;
+    document.getElementById("k-libres").textContent = libres;
+    document.getElementById("k-bloqueados").textContent = bloqueados;
+    document.getElementById("k-stock").textContent = stockDisponible;
+
+    let ultima = "";
+    for (const r of mapRows) {
+      if (r.updated_at && r.updated_at > ultima) ultima = r.updated_at;
+    }
+
+    estado.textContent = "Conectado · Mapa CHM-551 actualizado";
+    document.getElementById("actualizado").textContent =
+      ultima
+        ? "Última sincronización: " + new Date(ultima).toLocaleString("es-MX")
+        : "Sin registros todavía en el mapa.";
+
+  } catch (err) {
+    estado.className = "estado error";
+    estado.textContent = "Error al leer Supabase";
+    document.getElementById("actualizado").textContent = String(err);
+  }
+}
+
+cargarTodo();
+
+// Actualización automática de la vista.
+// La página continúa siendo 100% solo lectura.
+setInterval(cargarTodo, 15000);
+</script>
+</body>
+</html>
