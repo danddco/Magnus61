@@ -1980,7 +1980,99 @@ td.numero-derecha {
         font-size: 17px !important;
     }
 }
-</style></head>
+</style>
+<style>
+/* ============================================================
+   SECUENCIAS - PRIORIDAD + ORDEN POR CUMPLIMIENTO
+   ============================================================ */
+
+@media (min-width: 901px) {
+    /* Proceso, Prioridad, Fecha y Estado compactos */
+    #tabla-secuencias th:nth-child(1),
+    #tabla-secuencias td:nth-child(1),
+    #tabla-secuencias th:nth-child(2),
+    #tabla-secuencias td:nth-child(2),
+    #tabla-secuencias th:nth-child(3),
+    #tabla-secuencias td:nth-child(3),
+    #tabla-secuencias th:nth-child(4),
+    #tabla-secuencias td:nth-child(4) {
+        width: 1% !important;
+        white-space: nowrap !important;
+    }
+
+    /* Prioridad centrada */
+    #tabla-secuencias th:nth-child(2),
+    #tabla-secuencias td:nth-child(2) {
+        text-align: center !important;
+        min-width: 82px !important;
+    }
+
+    /* Estado */
+    #tabla-secuencias th:nth-child(4),
+    #tabla-secuencias td:nth-child(4) {
+        text-align: center !important;
+    }
+
+    /* Descripción ocupa espacio restante */
+    #tabla-secuencias th:nth-child(5),
+    #tabla-secuencias td:nth-child(5) {
+        width: auto !important;
+        min-width: 280px !important;
+        text-align: left !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+    }
+}
+
+@media (max-width: 900px) {
+    /* Descripción nueva columna 5 */
+    #tabla-secuencias tbody td:nth-child(5) {
+        font-weight: 800 !important;
+        text-align: left !important;
+    }
+
+    /* Prioridad visible y compacta en tarjeta */
+    #tabla-secuencias tbody td:nth-child(2) {
+        font-weight: 800 !important;
+    }
+}
+</style>
+
+
+<style>
+/* ============================================================
+   AJUSTE FINAL - BALANCE SIN COMPONENTE
+   ============================================================ */
+
+/* Balance:
+   1 Proyecto
+   2 En fabricación cantidad
+   3 En fabricación fecha
+   4 Lista para enviar cantidad
+   5 Lista para enviar fecha
+*/
+@media (min-width: 901px) {
+    #tabla-disponibilidad th,
+    #tabla-disponibilidad td {
+        white-space: nowrap !important;
+    }
+
+    #tabla-disponibilidad td:nth-child(2),
+    #tabla-disponibilidad td:nth-child(4) {
+        text-align: right !important;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+/* Prioridad más legible */
+#tabla-secuencias td.prioridad-celda {
+    font-weight: 800 !important;
+    text-align: center !important;
+}
+</style>
+
+</head>
 <body>
 <header id="cabecera">
 <div class="logo-contenedor">
@@ -1998,7 +2090,6 @@ td.numero-derecha {
 <thead>
 <tr>
 <th rowspan="2">Proyecto</th>
-<th rowspan="2">Componente</th>
 <th colspan="2">En Fabricacion</th>
 <th colspan="2">Lista para Enviar</th>
 </tr>
@@ -2019,6 +2110,7 @@ td.numero-derecha {
 <thead>
 <tr>
 <th>Proceso</th>
+<th>Prioridad</th>
 <th class="fecha-celda">Fecha</th>
 <th>Estado</th>
 <th>Descripcion</th>
@@ -2264,7 +2356,6 @@ td.numero-derecha {
 
         const tr = document.createElement("tr");
         tr.appendChild(celda(PROYECTO));
-        tr.appendChild(celda("Placas"));
         tr.appendChild(celdaNumero(enFabricacion));
         tr.appendChild(celda(fechaConDia(fechaFabricacion), "fecha-celda"));
         tr.appendChild(celdaNumero(listasEnviar));
@@ -2275,6 +2366,16 @@ td.numero-derecha {
     function prioridadNumerica(v) {
         const n = Number(v);
         return Number.isFinite(n) ? n : 999;
+    }
+
+    function prioridadVisible(v) {
+        const n = Number(v);
+
+        if (n === 1) return "Alta";
+        if (n === 2) return "Media";
+        if (n === 3) return "Baja";
+
+        return texto(v).trim();
     }
 
     function claseEstado(estado) {
@@ -2292,18 +2393,42 @@ td.numero-derecha {
         const filas = secuencias
             .filter(r => texto(r.gs_ver).trim().toUpperCase() !== "N")
             .sort((a, b) => {
-                const aPend = texto(a.gs_estado).trim().toLowerCase() === "pendiente";
-                const bPend = texto(b.gs_estado).trim().toLowerCase() === "pendiente";
+                const aPend =
+                    texto(a.gs_estado).trim().toLowerCase() === "pendiente";
+                const bPend =
+                    texto(b.gs_estado).trim().toLowerCase() === "pendiente";
 
+                // 1. Pendientes siempre primero.
                 if (aPend !== bPend) return aPend ? -1 : 1;
 
+                // 2. Entre pendientes:
+                //    Prioridad 1 -> 2 -> 3 y luego fecha más reciente.
                 if (aPend && bPend) {
-                    const dp = prioridadNumerica(a.gs_prior) - prioridadNumerica(b.gs_prior);
+                    const dp =
+                        prioridadNumerica(a.gs_prior)
+                        - prioridadNumerica(b.gs_prior);
+
                     if (dp !== 0) return dp;
+
+                    const fa = fechaBase(a.gs_fecha);
+                    const fb = fechaBase(b.gs_fecha);
+
+                    if (fa !== fb) return fb.localeCompare(fa);
+
+                    return numero(b.gs_id) - numero(a.gs_id);
                 }
 
-                const fa = fechaBase(a.gs_fecha);
-                const fb = fechaBase(b.gs_fecha);
+                // 3. No pendientes:
+                //    fecha de cumplimiento DESC.
+                //    Si no existe, usar fecha normal como respaldo.
+                const fa =
+                    fechaBase(a.gs_fecha_cum)
+                    || fechaBase(a.gs_fecha);
+
+                const fb =
+                    fechaBase(b.gs_fecha_cum)
+                    || fechaBase(b.gs_fecha);
+
                 if (fa !== fb) return fb.localeCompare(fa);
 
                 return numero(b.gs_id) - numero(a.gs_id);
@@ -2312,7 +2437,7 @@ td.numero-derecha {
         if (!filas.length) {
             const tr = document.createElement("tr");
             const td = celda("Sin secuencias registradas.");
-            td.colSpan = 4;
+            td.colSpan = 5;
             tr.appendChild(td);
             tbody.appendChild(tr);
             return;
@@ -2322,6 +2447,12 @@ td.numero-derecha {
             const tr = document.createElement("tr");
             tr.className = claseEstado(r.gs_estado);
             tr.appendChild(celda(r.gs_proceso));
+            tr.appendChild(
+                celda(
+                    prioridadVisible(r.gs_prior),
+                    "prioridad-celda"
+                )
+            );
             tr.appendChild(celda(fechaConDia(r.gs_fecha), "fecha-celda"));
             const estadoTd = document.createElement("td");
             estadoTd.className = "estado-celda";
@@ -2504,7 +2635,6 @@ td.numero-derecha {
     const etiquetasMoviles = {
         "tabla-disponibilidad": [
             "Proyecto",
-            "Componente",
             "En fabricación",
             "Fecha fabricación",
             "Lista para enviar",
@@ -2512,6 +2642,7 @@ td.numero-derecha {
         ],
         "tabla-secuencias": [
             "Proceso",
+            "Prioridad",
             "Fecha",
             "Estado",
             "Descripción"
