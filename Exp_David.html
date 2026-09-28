@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>CircuitDesignMX</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
+<title>CircuitDesignMX</title>
+<style>
 
         * {
             margin: 0;
@@ -387,7 +388,6 @@
 
 
     </style>
-
 <style>
 /* ===== AJUSTE EXP_DAVID BASADO EN EXP_IVAN ===== */
 
@@ -673,435 +673,863 @@
     }
 }
 </style>
+<style>
+/* ===== SUPABASE / ESTADOS - MISMA LOGICA QUE EXP_IVAN ===== */
 
-</head>
+#estado-supabase {
+    width: fit-content;
+    max-width: 95%;
+    margin: -8px auto 18px;
+    padding: 7px 12px;
+    border: 1px solid #cdd8e2;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #657786;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+
+#tabla-secuencias tbody tr.seq-pendiente {
+    background: #f8d7da !important;
+    color: #721c24 !important;
+}
+
+#tabla-secuencias tbody tr.seq-resuelto {
+    background: #dff3e4 !important;
+    color: #1f6334 !important;
+}
+
+#tabla-secuencias tbody tr.seq-proceso {
+    background: #fff3cd !important;
+    color: #6f5900 !important;
+}
+
+#tabla-secuencias tbody tr.seq-neutral {
+    background: #eef1f4 !important;
+    color: #48545f !important;
+}
+
+#tabla-secuencias tbody tr:hover {
+    filter: brightness(.975);
+}
+
+.estado-celda {
+    font-weight: 800;
+}
+
+.estado-etiqueta {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    #estado-supabase {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: -5px auto 12px !important;
+        padding: 7px 9px !important;
+        font-size: 13px !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-pendiente td::before {
+        color: #721c24 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-resuelto td::before {
+        color: #1f6334 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-proceso td::before {
+        color: #6f5900 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-neutral td::before {
+        color: #48545f !important;
+    }
+}
+</style></head>
 <body>
-    <header id="cabecera">
-        <div class="logo-contenedor">
-            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
-        </div>
-        <h1 id="titulo">CircuitDesignMX</h1>
-        <a class="home-link"
-           href="https://danddco.github.io/Magnus61/San25Fco.html"
-           title="Ir a la página inicial">Inicio</a>
-    </header>
-
-    <main>
-        <h1 class="seccion-principal">Expediente David</h1>
-
-        <div class="separador">-------------------------</div>
-        <h2>Balance de Disponibilidad de Placas</h2>
-        <div class="tabla-wrap">
-            <table id="tabla-disponibilidad">
-                <thead>
-                    <tr>
-                        <th rowspan="2">Proyecto</th>
-                        <th rowspan="2">Componente</th>
-                        <th colspan="2">En Fabricacion</th>
-                        <th colspan="2">Lista para Enviar</th>
-                    </tr>
-                    <tr>
-                        <th>cantidad</th>
-                        <th>fecha</th>
-                        <th>cantidad</th>
-                        <th>fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
+<header id="cabecera">
+<div class="logo-contenedor">
+<img alt="Logo CircuitDesignMX" class="logo" src="Logo-Circuit-MX.jpg"/>
+</div>
+<h1 id="titulo">CircuitDesignMX</h1>
+<a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html" title="Ir a la página inicial">Inicio</a>
+</header>
+<main>
+<h1 class="seccion-principal">Expediente David</h1><p id="estado-supabase">Conectando con Supabase...</p>
+<div class="separador">-------------------------</div>
+<h2>Balance de Disponibilidad de Placas</h2>
+<div class="tabla-wrap">
+<table id="tabla-disponibilidad">
+<thead>
 <tr>
-    <td>David</td>
-    <td>Placas</td>
-    <td>40</td>
-    <td>2026-09-10</td>
-    <td>0</td>
-    <td>2026-05-06</td>
+<th rowspan="2">Proyecto</th>
+<th rowspan="2">Componente</th>
+<th colspan="2">En Fabricacion</th>
+<th colspan="2">Lista para Enviar</th>
 </tr>
-</tbody>
-            </table>
-        </div>
-
-        <div class="separador">-------------------------</div>
-        <h2>Secuencias de Trabajo</h2>
-        <div class="tabla-wrap">
-            <table id="tabla-secuencias">
-                <thead>
-                    <tr>
-                        <th>Proyecto</th>
-                        <th>Lote</th>
-                        <th>Fecha</th>
-                        <th>Descripcion</th>
-                        <th>Cantidad</th>
-                    </tr>
-                </thead>
-                <tbody><tr>
-        <td>Fabricacion-Entrada</td>
-        <td></td>
-        <td>2026-09-10</td>
-        <td>En Camino</td>
-        <td>40</td>
-    </tr>
 <tr>
-        <td>Venta-Concretada</td>
-        <td></td>
-        <td>2026-06-17</td>
-        <td>Enviada 15 Placas + 1 Reparada</td>
-        <td>15</td>
-    </tr>
+<th>cantidad</th>
+<th>fecha</th>
+<th>cantidad</th>
+<th>fecha</th>
+</tr>
+</thead>
+<tbody id="disponibilidad-body"></tbody>
+</table>
+</div>
+<div class="separador">-------------------------</div>
+<h2>Secuencias de Trabajo</h2>
+<div class="tabla-wrap">
+<table id="tabla-secuencias">
+<thead><tr><th>Proceso</th><th class="fecha-celda">Fecha</th><th>Estado</th><th>Descripcion</th></tr></thead>
+<tbody id="secuencias-body"></tbody>
+</table>
+</div>
+<div class="separador">-------------------------</div>
+<h2>Componentes Especificos</h2>
+<div class="tabla-wrap">
+<table id="tabla-especificos">
+<thead>
 <tr>
-        <td>Venta-Concretada</td>
-        <td></td>
-        <td>2026-06-01</td>
-        <td></td>
-        <td>15</td>
-    </tr></tbody>
-            </table>
-        </div>
-
-        <div class="separador">-------------------------</div>
-        <h2>Componentes Especificos</h2>
-        <div class="tabla-wrap">
-            <table id="tabla-especificos">
-                <thead>
-                    <tr>
-                        <th>idE</th>
-                        <th>Descripcion</th>
-                        <th>Existencia</th>
-                    </tr>
-                </thead>
-                <tbody><tr>
-        <td>66</td>
-        <td>ACRILICO Pantalla LCD</td>
-        <td>36</td>
-    </tr>
+<th>idE</th>
+<th>Descripcion</th>
+<th>Existencia</th>
+</tr>
+</thead>
+<tbody id="especificos-body"></tbody>
+</table>
+</div>
+<div class="separador">-------------------------</div>
+<h2>Componentes del Proyecto</h2>
+<div class="tabla-wrap">
+<table id="tabla-proyecto">
+<thead>
 <tr>
-        <td>61</td>
-        <td>CABLE - 4 Corto (Zen)</td>
-        <td>36</td>
-    </tr>
-<tr>
-        <td>65</td>
-        <td>PANTALLA - LCD - 20x04 Modulo Completo</td>
-        <td>19</td>
-    </tr></tbody>
-            </table>
-        </div>
-
-        <div class="separador">-------------------------</div>
-        <h2>Componentes del Proyecto</h2>
-        <div class="tabla-wrap">
-            <table id="tabla-proyecto">
-                <thead>
-                    <tr>
-                        <th>idE</th>
-                        <th>Descripcion</th>
-                        <th>Ctdad Proy</th>
-                        <th>Ctdad Stock</th>
-                    </tr>
-                </thead>
-                <tbody><tr>
-        <td>105</td>
-        <td>CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
-        <td>1</td>
-        <td>-229</td>
-    </tr>
-<tr>
-        <td>4</td>
-        <td>CAPACITOR - 10 uf Tantalum 16V SA-3216</td>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>11</td>
-        <td>CAPACITOR - 22 pF 0805</td>
-        <td>2</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>10</td>
-        <td>CAPACITOR - 470 uf Electrolitico 10V SMD</td>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>9</td>
-        <td>Capacitor 100 nf Ceramico 16V 0805</td>
-        <td>13</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>5</td>
-        <td>DIODO - SS34 - MS</td>
-        <td>3</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>17</td>
-        <td>LED GREEN 0805</td>
-        <td>1</td>
-        <td>3</td>
-    </tr>
-<tr>
-        <td>18</td>
-        <td>LED RED 0805</td>
-        <td>2</td>
-        <td>2</td>
-    </tr>
-<tr>
-        <td>40</td>
-        <td>MOSFET - BT138-800CW</td>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>45</td>
-        <td>OPTOACOPLADOR - MOC 3063</td>
-        <td>1</td>
-        <td>970</td>
-    </tr>
-<tr>
-        <td>29</td>
-        <td>RESISTENCIA - 5K1</td>
-        <td>6</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>20</td>
-        <td>RESISTENCIAb - 240</td>
-        <td>2</td>
-        <td>0</td>
-    </tr>
-<tr>
-        <td>38</td>
-        <td>RESISTENCIAb - 330</td>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>19</td>
-        <td>RESISTENCIAd - 1K0</td>
-        <td>4</td>
-        <td>2</td>
-    </tr>
-<tr>
-        <td>21</td>
-        <td>RESISTENCIAf - 10K0</td>
-        <td>2</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>8</td>
-        <td>SWITCH - Tactil Push Bottom</td>
-        <td>2</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>15</td>
-        <td>Switching Diode SMD 1N4004</td>
-        <td>7</td>
-        <td>2610</td>
-    </tr>
-<tr>
-        <td>35</td>
-        <td>TRANSISTOR - J3Y Bipolar</td>
-        <td>6</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>28</td>
-        <td>MICRO - ATMEGA 328pAU</td>
-        <td>1</td>
-        <td>132</td>
-    </tr>
-<tr>
-        <td>109</td>
-        <td>Pin Header 1x3 Single Macho</td>
-        <td>2</td>
-        <td>270</td>
-    </tr>
-<tr>
-        <td>44</td>
-        <td>Pinheader 2p -Jumper</td>
-        <td>1</td>
-        <td>396</td>
-    </tr>
-<tr>
-        <td>7</td>
-        <td>Regulador de Voltaje Linear 7805-C21706</td>
-        <td>1</td>
-        <td>240</td>
-    </tr>
-<tr>
-        <td>107</td>
-        <td>CAPACITOR - 220 uF Electrolytic 35V</td>
-        <td>1</td>
-        <td>410</td>
-    </tr>
-<tr>
-        <td>41</td>
-        <td>Capacitor 630 - AJC MPP 104J630V</td>
-        <td>1</td>
-        <td>843</td>
-    </tr>
-<tr>
-        <td>23</td>
-        <td>CONECTOR - DCJack C130239</td>
-        <td>1</td>
-        <td>190</td>
-    </tr>
-<tr>
-        <td>12</td>
-        <td>Pin Header 1x2 Single Macho</td>
-        <td>1</td>
-        <td>960</td>
-    </tr>
-<tr>
-        <td>114</td>
-        <td>Pin Header 1x6 Single Macho</td>
-        <td>2</td>
-        <td>48</td>
-    </tr>
-<tr>
-        <td>56</td>
-        <td>RELAY - 12V - 2US / 10 A</td>
-        <td>2</td>
-        <td>3230</td>
-    </tr>
-<tr>
-        <td>46</td>
-        <td>RESISTENCIA - FR2512J101 TS - 100 ohms</td>
-        <td>1</td>
-        <td>-30</td>
-    </tr>
-<tr>
-        <td>16</td>
-        <td>Resistencia Potenciometro POT 10kΩ</td>
-        <td>1</td>
-        <td>415</td>
-    </tr>
-<tr>
-        <td>51</td>
-        <td>Terminal Block KF128-5.0-2P Standard</td>
-        <td>16</td>
-        <td>8480</td>
-    </tr></tbody>
-            </table>
-        </div>
-
-        <section class="seccion-tecnica">
-            <h2>Imagen e Información Técnica de la Placa</h2>
-            <p class="subtitulo-tecnico">
+<th>idE</th>
+<th>Descripcion</th>
+<th>Ctdad Proy</th>
+<th>Ctdad Stock</th>
+</tr>
+</thead>
+<tbody id="proyecto-body"></tbody>
+</table>
+</div>
+<section class="seccion-tecnica">
+<h2>Imagen e Información Técnica de la Placa</h2>
+<p class="subtitulo-tecnico">
                 Referencia visual y procedimiento básico de inspección.
             </p>
-
-            
-    <figure class="imagen-placa">
-        <img src="imagenes/david.jpeg" alt="David" loading="lazy" decoding="async">
-        <figcaption class="pie">Imagen de referencia de David</figcaption>
-    </figure>
-    
-
-            <div class="grid-tecnico">
-                
-    <article class="tarjeta-tecnica">
-        <h3>Detalles Tecnicos.</h3>
-        
-    </article>
-    
-    <article class="tarjeta-tecnica">
-        <h3>Observaciones</h3>
-        
-    </article>
-    
-            </div>
-
-            <div class="nota-tecnica">
-                <strong>Importante:</strong> 
-            </div>
-        </section>
-    </main>
-
-    <div class="espacio-footer"></div>
-
-    <footer>
-        <p class="copyright">
-            &copy; 2026 CircuitDesignMX. Todos los derechos reservados.
+<figure class="imagen-placa">
+<img alt="David" decoding="async" loading="lazy" src="imagenes/david.jpeg"/>
+<figcaption class="pie">Imagen de referencia de David</figcaption>
+</figure>
+<div class="grid-tecnico">
+<article class="tarjeta-tecnica">
+<h3>Detalles Tecnicos.</h3>
+</article>
+<article class="tarjeta-tecnica">
+<h3>Observaciones</h3>
+</article>
+</div>
+<div class="nota-tecnica">
+<strong>Importante:</strong>
+</div>
+</section>
+</main>
+<div class="espacio-footer"></div>
+<footer>
+<p class="copyright">
+            © 2026 CircuitDesignMX. Todos los derechos reservados.
         </p>
-        <p class="fecha-hora">
+<p class="fecha-hora">
             Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
-        </p>
-    </footer>
+</p>
+</footer>
 
-    <script>
-    (function () {
-        function actualizarFooter() {
-            const el = document.getElementById("fecha-hora-dinamica");
-            if (!el) return;
-            const ahora = new Date();
-            const fecha = ahora.toLocaleDateString("es-MX", {
-                day: "2-digit", month: "2-digit", year: "numeric"
-            });
-            const hora = ahora.toLocaleTimeString("es-MX", {
-                hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
-            });
-            el.textContent = `${fecha} ${hora}`;
-        }
-        actualizarFooter();
-        setInterval(actualizarFooter, 1000);
-    })();
-    </script>
 
 <script>
 (function () {
     "use strict";
 
-    const etiquetasMoviles = {
-        "tabla-disponibilidad": [
-            "Proyecto",
-            "Componente",
-            "En fabricación",
-            "Fecha fabricación",
-            "Lista para enviar",
-            "Fecha disponible"
-        ],
-        "tabla-secuencias": [
-            "Proyecto",
-            "Lote",
-            "Fecha",
-            "Descripción",
-            "Cantidad"
-        ],
-        "tabla-especificos": [
-            "idE",
-            "Descripción",
-            "Existencia"
-        ],
-        "tabla-proyecto": [
-            "idE",
-            "Descripción",
-            "Ctdad Proy",
-            "Ctdad Stock"
-        ]
-    };
+    const PROYECTO = "David";
+    const COMPONENTES_ESPECIFICOS = new Set(["66","61","65"]);
 
-    function aplicarEtiquetasMoviles() {
-        Object.entries(etiquetasMoviles).forEach(([id, etiquetas]) => {
-            const tabla = document.getElementById(id);
-            if (!tabla) return;
+    const SUPABASE_URL = "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+    const PAGE_SIZE = 1000;
 
-            tabla.querySelectorAll("tbody tr").forEach(fila => {
-                fila.querySelectorAll(":scope > td").forEach((td, i) => {
-                    if (etiquetas[i]) {
-                        td.dataset.label = etiquetas[i];
-                    }
-                });
-            });
-        });
+    function texto(v) {
+        return v === null || v === undefined ? "" : String(v);
     }
 
-    aplicarEtiquetasMoviles();
-    window.addEventListener("resize", aplicarEtiquetasMoviles);
-})();
-</script>
+    function numero(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 0;
+    }
 
-</body>
+    function numeroVisible(v) {
+        const n = numero(v);
+        return Number.isInteger(n) ? String(n) : String(Number(n.toFixed(6)));
+    }
+
+    function fechaBase(v) {
+        const s = texto(v);
+        const m = s.match(/\d{4}-\d{2}-\d{2}/);
+        return m ? m[0] : "";
+    }
+
+    function fechaConDia(v) {
+        const fecha = fechaBase(v);
+        if (!fecha) return texto(v);
+
+        const [y, m, d] = fecha.split("-").map(Number);
+        const f = new Date(y, m - 1, d);
+        const dias = [
+            "Domingo","Lunes","Martes","Miércoles",
+            "Jueves","Viernes","Sábado"
+        ];
+        return dias[f.getDay()] + " " + fecha;
+    }
+
+    function fechaMayor(...valores) {
+        const fechas = valores.map(fechaBase).filter(Boolean).sort();
+        return fechas.length ? fechas[fechas.length - 1] : "";
+    }
+
+    function actualizarFooter() {
+        const el = document.getElementById("fecha-hora-dinamica");
+        if (!el) return;
+
+        const ahora = new Date();
+        const fecha = ahora.toLocaleDateString("es-MX", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        });
+        const hora = ahora.toLocaleTimeString("es-MX", {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false
+        });
+
+        el.textContent = `${fecha} ${hora}`;
+    }
+
+    async function fetchTabla(tabla, select, filtros = {}) {
+        const total = [];
+        let offset = 0;
+
+        while (true) {
+            const p = new URLSearchParams({
+                select,
+                limit: String(PAGE_SIZE),
+                offset: String(offset)
+            });
+
+            for (const [k, v] of Object.entries(filtros)) {
+                p.set(k, v);
+            }
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${tabla}?${p.toString()}`;
+
+            const r = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_ANON_KEY,
+                    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                    "Accept": "application/json"
+                },
+                cache: "no-store"
+            });
+
+            if (!r.ok) {
+                const detalle = await r.text();
+                throw new Error(
+                    `${tabla}: HTTP ${r.status}: ${detalle}`
+                );
+            }
+
+            const datos = await r.json();
+
+            if (!Array.isArray(datos)) {
+                throw new Error(`${tabla}: respuesta inválida`);
+            }
+
+            total.push(...datos);
+
+            if (datos.length < PAGE_SIZE) break;
+            offset += PAGE_SIZE;
+        }
+
+        return total;
+    }
+
+    function celda(valor, clase = "") {
+        const td = document.createElement("td");
+        td.textContent = texto(valor);
+        if (clase) td.className = clase;
+        return td;
+    }
+
+    function celdaNumero(valor) {
+        return celda(
+            numeroVisible(valor),
+            "numero-derecha"
+        );
+    }
+
+    function renderDisponibilidad(secuencias) {
+        let entrada = 0;
+        let salida = 0;
+        let venta = 0;
+        let ventaPreparada = 0;
+
+        let fechaEntrada = "";
+        let fechaSalida = "";
+
+        for (const r of secuencias) {
+            const proc = texto(r.gs_proceso).trim();
+            const cant = numero(r.gs_ctda);
+            const fecha = fechaBase(r.gs_fecha);
+
+            if (proc === "Fabricacion-Entrada") {
+                entrada += cant;
+                fechaEntrada = fechaMayor(fechaEntrada, fecha);
+            } else if (proc === "Fabricacion-Salida") {
+                salida += cant;
+                fechaSalida = fechaMayor(fechaSalida, fecha);
+            } else if (proc === "Venta-Concretada") {
+                venta += cant;
+            } else if (proc === "Venta-Preparada") {
+                ventaPreparada += cant;
+            }
+        }
+
+        const enFabricacion = entrada - salida;
+        const listasEnviar = salida - venta - ventaPreparada;
+        const fechaFabricacion = fechaMayor(
+            fechaEntrada,
+            fechaSalida
+        );
+        const fechaDisponible = salida > 0 ? fechaSalida : "";
+
+        const tbody =
+            document.getElementById("disponibilidad-body");
+
+        tbody.replaceChildren();
+
+        const tr = document.createElement("tr");
+
+        tr.appendChild(celda(PROYECTO));
+        tr.appendChild(celda("Placas"));
+        tr.appendChild(celdaNumero(enFabricacion));
+        tr.appendChild(
+            celda(
+                fechaConDia(fechaFabricacion),
+                "fecha-celda"
+            )
+        );
+        tr.appendChild(celdaNumero(listasEnviar));
+        tr.appendChild(
+            celda(
+                fechaConDia(fechaDisponible),
+                "fecha-celda"
+            )
+        );
+
+        tbody.appendChild(tr);
+    }
+
+    function prioridadNumerica(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 999;
+    }
+
+    function claseEstado(estado) {
+        const s = texto(estado).trim().toLowerCase();
+
+        if ([
+            "resuelto",
+            "cumplido",
+            "completado",
+            "terminado"
+        ].includes(s)) {
+            return "seq-resuelto";
+        }
+
+        if ([
+            "pendiente",
+            "no cumplido",
+            "incumplido"
+        ].includes(s)) {
+            return "seq-pendiente";
+        }
+
+        if (
+            s.includes("proceso")
+            || ["en curso","activo"].includes(s)
+        ) {
+            return "seq-proceso";
+        }
+
+        return "seq-neutral";
+    }
+
+    function renderSecuencias(secuencias) {
+        const tbody =
+            document.getElementById("secuencias-body");
+
+        tbody.replaceChildren();
+
+        const filas = secuencias
+            .filter(
+                r =>
+                    texto(r.gs_ver)
+                    .trim()
+                    .toUpperCase() !== "N"
+            )
+            .sort((a, b) => {
+                const aPend =
+                    texto(a.gs_estado)
+                    .trim()
+                    .toLowerCase() === "pendiente";
+
+                const bPend =
+                    texto(b.gs_estado)
+                    .trim()
+                    .toLowerCase() === "pendiente";
+
+                if (aPend !== bPend) {
+                    return aPend ? -1 : 1;
+                }
+
+                if (aPend && bPend) {
+                    const dp =
+                        prioridadNumerica(a.gs_prior)
+                        - prioridadNumerica(b.gs_prior);
+
+                    if (dp !== 0) return dp;
+                }
+
+                const fa = fechaBase(a.gs_fecha);
+                const fb = fechaBase(b.gs_fecha);
+
+                if (fa !== fb) {
+                    return fb.localeCompare(fa);
+                }
+
+                return numero(b.gs_id) - numero(a.gs_id);
+            });
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin secuencias registradas.");
+            td.colSpan = 4;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const tr = document.createElement("tr");
+            tr.className = claseEstado(r.gs_estado);
+
+            tr.appendChild(celda(r.gs_proceso));
+            tr.appendChild(
+                celda(
+                    fechaConDia(r.gs_fecha),
+                    "fecha-celda"
+                )
+            );
+
+            const estadoTd =
+                document.createElement("td");
+
+            estadoTd.className = "estado-celda";
+            estadoTd.dataset.label = "Estado";
+
+            const estadoValor =
+                document.createElement("span");
+
+            estadoValor.className = "estado-valor";
+
+            const estadoOriginal =
+                texto(r.gs_estado).trim();
+
+            if (
+                estadoOriginal.toLowerCase()
+                === "pendiente"
+            ) {
+                estadoValor.textContent = "Pendiente";
+            } else if (
+                estadoOriginal.toLowerCase()
+                === "resuelto"
+            ) {
+                estadoValor.textContent = "Resuelto";
+            } else {
+                estadoValor.textContent = estadoOriginal;
+            }
+
+            estadoTd.appendChild(estadoValor);
+            tr.appendChild(estadoTd);
+
+            tr.appendChild(
+                celda(
+                    r.gs_desc,
+                    "descripcion-celda"
+                )
+            );
+
+            tbody.appendChild(tr);
+        }
+    }
+
+    function mapaStock(stockRows) {
+        const mapa = new Map();
+
+        for (const r of stockRows) {
+            mapa.set(
+                texto(r.idE)
+                    .trim()
+                    .replace(/\.0$/, ""),
+                r
+            );
+        }
+
+        return mapa;
+    }
+
+    function renderEspecificos(stockRows) {
+        const tbody =
+            document.getElementById("especificos-body");
+
+        tbody.replaceChildren();
+
+        const mapa = mapaStock(stockRows);
+
+        const filas =
+            [...COMPONENTES_ESPECIFICOS]
+            .map(id => mapa.get(id))
+            .filter(Boolean);
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda(
+                "Sin componentes específicos."
+            );
+            td.colSpan = 3;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const tr = document.createElement("tr");
+
+            tr.appendChild(
+                celda(
+                    texto(r.idE)
+                    .replace(/\.0$/, "")
+                )
+            );
+
+            tr.appendChild(
+                celda(
+                    r.cs_desc,
+                    "descripcion-celda"
+                )
+            );
+
+            tr.appendChild(
+                celdaNumero(r.cs_ctda)
+            );
+
+            tbody.appendChild(tr);
+        }
+    }
+
+    function renderComponentesProyecto(
+        proyectoRows,
+        stockRows
+    ) {
+        const tbody =
+            document.getElementById("proyecto-body");
+
+        tbody.replaceChildren();
+
+        const stock = mapaStock(stockRows);
+        const agrupado = new Map();
+
+        for (const r of proyectoRows) {
+            const id =
+                texto(r.cp_idE)
+                .trim()
+                .replace(/\.0$/, "");
+
+            if (!id) continue;
+
+            if (!agrupado.has(id)) {
+                agrupado.set(id, {
+                    idE: id,
+                    descripcion: texto(r.cp_desc),
+                    cantidad: 0
+                });
+            }
+
+            const item = agrupado.get(id);
+            item.cantidad += numero(r.cp_ctda);
+
+            if (!item.descripcion && r.cp_desc) {
+                item.descripcion = texto(r.cp_desc);
+            }
+        }
+
+        const filas =
+            [...agrupado.values()]
+            .sort((a, b) =>
+                texto(a.descripcion).localeCompare(
+                    texto(b.descripcion),
+                    "es",
+                    { sensitivity: "base" }
+                )
+            );
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda(
+                "Sin componentes del proyecto."
+            );
+            td.colSpan = 4;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const s = stock.get(r.idE);
+
+            const descripcion =
+                s && texto(s.cs_desc).trim()
+                ? s.cs_desc
+                : r.descripcion;
+
+            const existencia =
+                s ? numero(s.cs_ctda) : 0;
+
+            const tr =
+                document.createElement("tr");
+
+            tr.appendChild(celda(r.idE));
+
+            tr.appendChild(
+                celda(
+                    descripcion,
+                    "descripcion-celda"
+                )
+            );
+
+            tr.appendChild(
+                celdaNumero(r.cantidad)
+            );
+
+            tr.appendChild(
+                celdaNumero(existencia)
+            );
+
+            tbody.appendChild(tr);
+        }
+    }
+
+    function aplicarEtiquetasMoviles() {
+        const etiquetas = {
+            "tabla-disponibilidad": [
+                "Proyecto",
+                "Componente",
+                "En fabricación",
+                "Fecha fabricación",
+                "Lista para enviar",
+                "Fecha disponible"
+            ],
+            "tabla-secuencias": [
+                "Proceso",
+                "Fecha",
+                "Estado",
+                "Descripción"
+            ],
+            "tabla-especificos": [
+                "idE",
+                "Descripción",
+                "Existencia"
+            ],
+            "tabla-proyecto": [
+                "idE",
+                "Descripción",
+                "Ctdad Proy",
+                "Ctdad Stock"
+            ]
+        };
+
+        for (
+            const [id, nombres]
+            of Object.entries(etiquetas)
+        ) {
+            const tabla =
+                document.getElementById(id);
+
+            if (!tabla) continue;
+
+            for (
+                const fila
+                of tabla.querySelectorAll("tbody tr")
+            ) {
+                const celdas =
+                    fila.querySelectorAll(":scope > td");
+
+                celdas.forEach((td, i) => {
+                    if (nombres[i]) {
+                        td.dataset.label = nombres[i];
+                    }
+                });
+            }
+        }
+    }
+
+    async function actualizarTodo() {
+        const estado =
+            document.getElementById(
+                "estado-supabase"
+            );
+
+        estado.textContent =
+            "Actualizando datos desde Supabase...";
+
+        estado.style.color = "#657786";
+        estado.style.borderColor = "#cdd8e2";
+        estado.style.background = "#ffffff";
+
+        try {
+            const [
+                secuencias,
+                proyectoRows,
+                stockRows
+            ] = await Promise.all([
+                fetchTabla(
+                    "gs_secuencias",
+                    [
+                        "gs_id",
+                        "gs_proceso",
+                        "gs_subproceso",
+                        "gs_proyecto",
+                        "gs_lote",
+                        "gs_prior",
+                        "gs_fecha",
+                        "gs_desc",
+                        "gs_ctda",
+                        "gs_estado",
+                        "gs_ver",
+                        "gs_fecha_cum"
+                    ].join(","),
+                    {
+                        gs_proyecto:
+                            `eq.${PROYECTO}`
+                    }
+                ),
+
+                fetchTabla(
+                    "cp_proyectos",
+                    [
+                        "cp_id",
+                        "cp_proyecto",
+                        "cp_idE",
+                        "cp_desc",
+                        "cp_ctda"
+                    ].join(","),
+                    {
+                        cp_proyecto:
+                            `eq.${PROYECTO}`
+                    }
+                ),
+
+                fetchTabla(
+                    "cs_stock",
+                    [
+                        "idE",
+                        "cs_desc",
+                        "cs_ctda",
+                        "cs_ctmi",
+                        "cs_tipo",
+                        "cs_observe"
+                    ].join(",")
+                )
+            ]);
+
+            renderDisponibilidad(secuencias);
+            renderSecuencias(secuencias);
+            renderEspecificos(stockRows);
+
+            renderComponentesProyecto(
+                proyectoRows,
+                stockRows
+            );
+
+            aplicarEtiquetasMoviles();
+            actualizarFooter();
+
+            const hora =
+                new Date().toLocaleTimeString(
+                    "es-MX",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: false
+                    }
+                );
+
+            estado.textContent =
+                `Supabase conectado · ` +
+                `${secuencias.length} secuencias · ` +
+                `${proyectoRows.length} registros BOM · ` +
+                `${hora}`;
+
+            estado.style.color = "#1f6334";
+            estado.style.borderColor = "#b9ddc3";
+            estado.style.background = "#eef9f1";
+
+        } catch (error) {
+            console.error(error);
+
+            estado.textContent =
+                "Error al obtener datos desde Supabase";
+
+            estado.style.color = "#a02a2a";
+            estado.style.borderColor = "#e5b8b8";
+            estado.style.background = "#fff1f1";
+        }
+    }
+
+    actualizarFooter();
+    actualizarTodo();
+
+    window.setInterval(
+        actualizarTodo,
+        60000
+    );
+
+    window.setInterval(
+        actualizarFooter,
+        1000
+    );
+
+    window.addEventListener(
+        "resize",
+        aplicarEtiquetasMoviles
+    );
+})();
+</script></body>
 </html>
