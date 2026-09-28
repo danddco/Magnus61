@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>CircuitDesignMX</title>
-    <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
+<title>CircuitDesignMX</title>
+<style>
 
         * {
             margin: 0;
@@ -387,470 +388,2293 @@
 
 
     </style>
+<style>
+/* ============================================================
+   MEJORA DE ESCRITORIO Y SECUENCIAS DE TRABAJO
+   ============================================================ */
+
+#tabla-secuencias {
+    width: 100%;
+    min-width: 1180px;
+    table-layout: fixed;
+}
+
+#tabla-secuencias th:nth-child(1),
+#tabla-secuencias td:nth-child(1) {
+    width: 72px;
+    text-align: center;
+}
+
+#tabla-secuencias th:nth-child(2),
+#tabla-secuencias td:nth-child(2) {
+    width: 205px;
+}
+
+#tabla-secuencias th:nth-child(3),
+#tabla-secuencias td:nth-child(3) {
+    width: 185px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: clip;
+}
+
+#tabla-secuencias th:nth-child(4),
+#tabla-secuencias td:nth-child(4) {
+    width: 135px;
+    text-align: center;
+}
+
+#tabla-secuencias th:nth-child(5),
+#tabla-secuencias td:nth-child(5) {
+    width: auto;
+    min-width: 520px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+
+/* Color de toda la fila por estado de cumplimiento */
+#tabla-secuencias tbody tr.seq-pendiente {
+    background: #f8d7da;
+    color: #721c24;
+}
+#tabla-secuencias tbody tr.seq-resuelto {
+    background: #dff3e4;
+    color: #1f6334;
+}
+#tabla-secuencias tbody tr.seq-proceso {
+    background: #fff3cd;
+    color: #6f5900;
+}
+#tabla-secuencias tbody tr.seq-neutral {
+    background: #eef1f4;
+    color: #48545f;
+}
+
+#tabla-secuencias tbody tr:hover {
+    filter: brightness(0.975);
+}
+
+/* El estado queda más visible */
+#tabla-secuencias td:nth-child(4) {
+    font-weight: 800;
+}
+
+/* Aprovechar mejor monitores de escritorio */
+@media (min-width: 1000px) {
+    main {
+        width: 90%;
+        max-width: none;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    #tabla-secuencias {
+        width: 100%;
+        font-size: 18px;
+    }
+}
+
+/* En móvil conserva desplazamiento horizontal y legibilidad */
+@media (max-width: 700px) {
+    #tabla-secuencias {
+        min-width: 980px;
+        font-size: 14px;
+    }
+
+    #tabla-secuencias th,
+    #tabla-secuencias td {
+        padding: 7px 6px;
+    }
+}
+
+
+/* Corrección de fechas largas con día de la semana */
+#tabla-secuencias {
+    table-layout: fixed;
+}
+
+#tabla-secuencias th,
+#tabla-secuencias td {
+    vertical-align: middle;
+}
+
+#tabla-secuencias td:nth-child(3),
+#tabla-secuencias th:nth-child(3) {
+    min-width: 185px;
+}
+
+@media (min-width: 1000px) {
+    #tabla-secuencias td:nth-child(3),
+    #tabla-secuencias th:nth-child(3) {
+        width: 190px;
+        min-width: 190px;
+    }
+}
+
+@media (max-width: 700px) {
+    #tabla-secuencias {
+        min-width: 900px;
+    }
+
+    #tabla-secuencias td:nth-child(3),
+    #tabla-secuencias th:nth-child(3) {
+        width: 165px;
+        min-width: 165px;
+    }
+}
+</style><style>
+/* Alineación de valores numéricos */
+td.numero-derecha {
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+}
+</style><style>
+/* ============================================================
+   AJUSTE AUTOMATICO DE CELDAS AL CONTENIDO
+   ============================================================ */
+
+/* Mantener el área principal al 90% en computadora */
+@media (min-width: 1000px) {
+    main {
+        width: 90% !important;
+        max-width: none !important;
+    }
+}
+
+/* Todas las tablas calculan sus columnas según el contenido */
+table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+}
+
+/* Evita anchos heredados rígidos */
+th, td {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+}
+
+/* ------------------------------------------------------------
+   SECUENCIAS DE TRABAJO
+   gs_id | Proceso | Fecha | Estado | Descripcion
+   ------------------------------------------------------------ */
+#tabla-secuencias {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+}
+
+/* Columnas cortas: ocupan sólo lo necesario */
+#tabla-secuencias th:nth-child(1),
+#tabla-secuencias td:nth-child(1),
+#tabla-secuencias th:nth-child(2),
+#tabla-secuencias td:nth-child(2),
+#tabla-secuencias th:nth-child(3),
+#tabla-secuencias td:nth-child(3),
+#tabla-secuencias th:nth-child(4),
+#tabla-secuencias td:nth-child(4) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+
+/* Descripción toma todo el espacio sobrante */
+#tabla-secuencias th:nth-child(5),
+#tabla-secuencias td:nth-child(5) {
+    width: auto !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* gs_id numérico a la derecha; encabezado centrado visualmente */
+#tabla-secuencias td:nth-child(1) {
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Componentes: IDs y cantidades compactos, descripción flexible */
+main table:not(#tabla-secuencias) th:first-child,
+main table:not(#tabla-secuencias) td:first-child {
+    white-space: nowrap;
+}
+
+main table:not(#tabla-secuencias) td.numero-derecha {
+    white-space: nowrap;
+}
+
+/* En pantallas pequeñas conservar desplazamiento sólo si hace falta */
+@media (max-width: 700px) {
+    .tabla-wrap {
+        overflow-x: auto !important;
+    }
+
+    table,
+    #tabla-secuencias {
+        width: max-content !important;
+        min-width: 100% !important;
+    }
+
+    #tabla-secuencias th:nth-child(5),
+    #tabla-secuencias td:nth-child(5) {
+        min-width: 240px !important;
+    }
+}
+</style><style>
+/* ============================================================
+   AJUSTE FINAL: 90% PANTALLA + COLUMNAS AUTOMATICAS
+   ============================================================ */
+@media (min-width: 1000px) {
+    main {
+        width: 90% !important;
+        max-width: none !important;
+    }
+}
+
+.tabla-wrap {
+    width: 100% !important;
+    overflow-x: auto;
+}
+
+table {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+th, td {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+}
+
+/* Números a la derecha */
+td.numero-derecha {
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* Fechas completas sin invadir la celda vecina */
+td.fecha-celda,
+th.fecha-celda {
+    white-space: nowrap !important;
+}
+
+/* Descripciones pueden aprovechar el espacio restante */
+td.descripcion-celda {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Secuencias */
+#tabla-secuencias {
+    width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+}
+
+/* Proceso, Fecha y Estado se ajustan al contenido */
+#tabla-secuencias th:nth-child(1),
+#tabla-secuencias td:nth-child(1),
+#tabla-secuencias th:nth-child(2),
+#tabla-secuencias td:nth-child(2),
+#tabla-secuencias th:nth-child(3),
+#tabla-secuencias td:nth-child(3) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+
+/* Descripción toma el espacio sobrante */
+#tabla-secuencias th:nth-child(4),
+#tabla-secuencias td:nth-child(4) {
+    width: auto !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+}
+
+/* Color de TODA la fila según estado */
+#tabla-secuencias tbody tr.seq-pendiente {
+    background: #f8d7da !important;
+    color: #721c24;
+}
+#tabla-secuencias tbody tr.seq-resuelto {
+    background: #dff3e4 !important;
+    color: #1f6334;
+}
+#tabla-secuencias tbody tr.seq-proceso {
+    background: #fff3cd !important;
+    color: #6f5900;
+}
+#tabla-secuencias tbody tr.seq-neutral {
+    background: #eef1f4 !important;
+    color: #48545f;
+}
+#tabla-secuencias tbody tr:hover {
+    filter: brightness(.975);
+}
+#tabla-secuencias td:nth-child(3) {
+    font-weight: 800;
+}
+
+/* Indicador visible de Supabase */
+#estado-supabase {
+    width: fit-content;
+    max-width: 95%;
+    margin: -8px auto 18px;
+    padding: 7px 12px;
+    border: 1px solid #cdd8e2;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #657786;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+
+@media (max-width: 700px) {
+    main {
+        width: 100% !important;
+    }
+
+    table {
+        width: max-content !important;
+        min-width: 100% !important;
+    }
+
+    #tabla-secuencias {
+        width: max-content !important;
+        min-width: 100% !important;
+    }
+
+    #tabla-secuencias td:nth-child(4),
+    #tabla-secuencias th:nth-child(4) {
+        min-width: 250px !important;
+    }
+}
+</style><style>
+/* ============================================================
+   AJUSTE FINAL DE TABLAS AL CONTENIDO - EXP_IVAN
+   ============================================================ */
+
+/* Página: conservar 90% de la pantalla en escritorio */
+@media (min-width: 1000px) {
+    main {
+        width: 90% !important;
+        max-width: none !important;
+    }
+}
+
+/* Contenedores centrados */
+.tabla-wrap {
+    width: 100% !important;
+    overflow-x: auto !important;
+    text-align: center;
+}
+
+/* Todas las tablas se ajustan al contenido real */
+#tabla-disponibilidad,
+#tabla-secuencias,
+#tabla-especificos,
+#tabla-proyecto {
+    width: max-content !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Todas las celdas calculan su ancho según contenido */
+#tabla-disponibilidad th,
+#tabla-disponibilidad td,
+#tabla-secuencias th,
+#tabla-secuencias td,
+#tabla-especificos th,
+#tabla-especificos td,
+#tabla-proyecto th,
+#tabla-proyecto td {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+}
+
+/* ------------------------------------------------------------
+   BALANCE DE DISPONIBILIDAD DE PLACAS
+   Todo compacto al contenido
+   ------------------------------------------------------------ */
+#tabla-disponibilidad th,
+#tabla-disponibilidad td {
+    white-space: nowrap !important;
+}
+
+/* ------------------------------------------------------------
+   SECUENCIAS DE TRABAJO
+   Proceso / Fecha / Estado compactos
+   Descripción usa únicamente el espacio que necesita,
+   pero puede envolver en textos largos.
+   ------------------------------------------------------------ */
+#tabla-secuencias th:nth-child(1),
+#tabla-secuencias td:nth-child(1),
+#tabla-secuencias th:nth-child(2),
+#tabla-secuencias td:nth-child(2),
+#tabla-secuencias th:nth-child(3),
+#tabla-secuencias td:nth-child(3) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+
+#tabla-secuencias th:nth-child(4),
+#tabla-secuencias td:nth-child(4) {
+    width: auto !important;
+    text-align: left !important;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: normal !important;
+}
+
+/* ------------------------------------------------------------
+   COMPONENTES ESPECIFICOS
+   ID y Existencia compactos, descripción según contenido
+   ------------------------------------------------------------ */
+#tabla-especificos th:nth-child(1),
+#tabla-especificos td:nth-child(1),
+#tabla-especificos th:nth-child(3),
+#tabla-especificos td:nth-child(3) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+
+#tabla-especificos th:nth-child(2),
+#tabla-especificos td:nth-child(2) {
+    width: auto !important;
+    white-space: normal !important;
+}
+
+/* ------------------------------------------------------------
+   COMPONENTES DEL PROYECTO
+   ID y cantidades compactos, descripción según contenido
+   ------------------------------------------------------------ */
+#tabla-proyecto th:nth-child(1),
+#tabla-proyecto td:nth-child(1),
+#tabla-proyecto th:nth-child(3),
+#tabla-proyecto td:nth-child(3),
+#tabla-proyecto th:nth-child(4),
+#tabla-proyecto td:nth-child(4) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+
+#tabla-proyecto th:nth-child(2),
+#tabla-proyecto td:nth-child(2) {
+    width: auto !important;
+    white-space: normal !important;
+}
+
+/* Números siempre a la derecha */
+td.numero-derecha {
+    text-align: right !important;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap !important;
+}
+
+/* En móvil, permitir scroll solo si realmente hace falta */
+@media (max-width: 700px) {
+    #tabla-disponibilidad,
+    #tabla-secuencias,
+    #tabla-especificos,
+    #tabla-proyecto {
+        width: max-content !important;
+        max-width: none !important;
+        min-width: 100% !important;
+    }
+
+    #tabla-secuencias th:nth-child(4),
+    #tabla-secuencias td:nth-child(4),
+    #tabla-especificos th:nth-child(2),
+    #tabla-especificos td:nth-child(2),
+    #tabla-proyecto th:nth-child(2),
+    #tabla-proyecto td:nth-child(2) {
+        max-width: 520px !important;
+    }
+}
+</style><style>
+/* ============================================================
+   AJUSTE AL CONTENIDO - INFORMACION TECNICA
+   ============================================================ */
+
+.seccion-tecnica {
+    width: max-content !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Título y subtítulo centrados dentro del ancho real de la sección */
+.seccion-tecnica h2,
+.seccion-tecnica .subtitulo-tecnico {
+    width: auto !important;
+    max-width: 100% !important;
+}
+
+/* Imagen: usar su ancho natural sin deformar ni forzar 100% */
+.seccion-tecnica .imagen-placa {
+    width: max-content !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.seccion-tecnica .imagen-placa img {
+    width: auto !important;
+    height: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+}
+
+/* Tarjetas técnicas: sólo el ancho que requiera su contenido */
+.seccion-tecnica .grid-tecnico {
+    width: max-content !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    grid-template-columns: repeat(2, max-content) !important;
+    justify-content: center !important;
+}
+
+.seccion-tecnica .tarjeta-tecnica {
+    width: max-content !important;
+    max-width: min(520px, 100%) !important;
+}
+
+/* Nota importante también ajustada al contenido */
+.seccion-tecnica .nota-tecnica {
+    width: max-content !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/* Móvil: una sola columna y sin desbordar */
+@media (max-width: 900px) {
+    .seccion-tecnica {
+        width: 100% !important;
+    }
+
+    .seccion-tecnica .grid-tecnico {
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+    }
+
+    .seccion-tecnica .tarjeta-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .seccion-tecnica .imagen-placa {
+        width: 100% !important;
+    }
+}
+</style><style>
+/* ============================================================
+   VERSION FINAL
+   ESCRITORIO: tablas/sección ajustadas al contenido
+   MOVIL: conservar entorno gráfico responsivo original
+   ============================================================ */
+
+/* -------------------- ESCRITORIO -------------------- */
+@media (min-width: 901px) {
+
+    main {
+        width: 90% !important;
+        max-width: none !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .tabla-wrap {
+        width: 100% !important;
+        overflow-x: auto !important;
+        text-align: center !important;
+    }
+
+    #tabla-disponibilidad,
+    #tabla-secuencias,
+    #tabla-especificos,
+    #tabla-proyecto {
+        width: max-content !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        table-layout: auto !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    #tabla-disponibilidad th,
+    #tabla-disponibilidad td,
+    #tabla-secuencias th,
+    #tabla-secuencias td,
+    #tabla-especificos th,
+    #tabla-especificos td,
+    #tabla-proyecto th,
+    #tabla-proyecto td {
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+    }
+
+    /* Disponibilidad: compacto */
+    #tabla-disponibilidad th,
+    #tabla-disponibilidad td {
+        white-space: nowrap !important;
+    }
+
+    /* Secuencias: columnas compactas y descripción a la izquierda */
+    #tabla-secuencias th:nth-child(1),
+    #tabla-secuencias td:nth-child(1),
+    #tabla-secuencias th:nth-child(2),
+    #tabla-secuencias td:nth-child(2),
+    #tabla-secuencias th:nth-child(3),
+    #tabla-secuencias td:nth-child(3) {
+        width: 1% !important;
+        white-space: nowrap !important;
+    }
+
+    #tabla-secuencias th:nth-child(4),
+    #tabla-secuencias td:nth-child(4) {
+        width: auto !important;
+        text-align: left !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    /* Componentes específicos */
+    #tabla-especificos th:nth-child(1),
+    #tabla-especificos td:nth-child(1),
+    #tabla-especificos th:nth-child(3),
+    #tabla-especificos td:nth-child(3) {
+        width: 1% !important;
+        white-space: nowrap !important;
+    }
+
+    #tabla-especificos th:nth-child(2),
+    #tabla-especificos td:nth-child(2) {
+        width: auto !important;
+        white-space: normal !important;
+    }
+
+    /* Componentes del proyecto */
+    #tabla-proyecto th:nth-child(1),
+    #tabla-proyecto td:nth-child(1),
+    #tabla-proyecto th:nth-child(3),
+    #tabla-proyecto td:nth-child(3),
+    #tabla-proyecto th:nth-child(4),
+    #tabla-proyecto td:nth-child(4) {
+        width: 1% !important;
+        white-space: nowrap !important;
+    }
+
+    #tabla-proyecto th:nth-child(2),
+    #tabla-proyecto td:nth-child(2) {
+        width: auto !important;
+        white-space: normal !important;
+    }
+
+    td.numero-derecha {
+        text-align: right !important;
+        white-space: nowrap !important;
+        font-variant-numeric: tabular-nums;
+    }
+
+    /* Sección técnica ajustada al contenido en PC */
+    .seccion-tecnica {
+        width: max-content !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .seccion-tecnica .imagen-placa {
+        width: max-content !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .seccion-tecnica .imagen-placa img {
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        object-fit: contain !important;
+    }
+
+    .seccion-tecnica .grid-tecnico {
+        width: max-content !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        grid-template-columns: repeat(2, max-content) !important;
+        justify-content: center !important;
+    }
+
+    .seccion-tecnica .tarjeta-tecnica {
+        width: max-content !important;
+        max-width: 520px !important;
+    }
+
+    .seccion-tecnica .nota-tecnica {
+        width: max-content !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+
+/* -------------------- TABLET / CELULAR -------------------- */
+/* Restaurar el entorno gráfico responsivo de Exp_Ivan */
+@media (max-width: 900px) {
+
+    .grid-tecnico {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+    }
+
+    .seccion-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 13px 8px !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .seccion-tecnica h2 {
+        font-size: 24px !important;
+        line-height: 1.2 !important;
+    }
+
+    .subtitulo-tecnico {
+        font-size: 16px !important;
+        line-height: 1.4 !important;
+    }
+
+    .tarjeta-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .tarjeta-tecnica h3 {
+        font-size: 20px !important;
+    }
+
+    .tarjeta-tecnica p,
+    .nota-tecnica {
+        font-size: 17px !important;
+        line-height: 1.5 !important;
+    }
+
+    .nota-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .imagen-placa {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .imagen-placa img {
+        width: auto !important;
+        max-width: 100% !important;
+        height: auto !important;
+    }
+}
+
+@media (max-width: 700px) {
+
+    #cabecera {
+        min-height: 60px !important;
+        padding: 6px 8px !important;
+        margin-bottom: 14px !important;
+        grid-template-columns: auto 1fr auto !important;
+        gap: 7px !important;
+    }
+
+    .logo-contenedor {
+        padding: 3px 5px !important;
+        border-radius: 6px !important;
+    }
+
+    .logo {
+        height: 40px !important;
+        max-width: 92px !important;
+    }
+
+    #titulo {
+        font-size: 20px !important;
+        text-align: left !important;
+        line-height: 1.1 !important;
+    }
+
+    .home-link {
+        min-width: 68px !important;
+        min-height: 38px !important;
+        padding: 7px 9px !important;
+        border-radius: 7px !important;
+        font-size: 14px !important;
+    }
+
+    main {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 4px 6px 20px !important;
+    }
+
+    h1.seccion-principal {
+        font-size: 23px !important;
+    }
+
+    h2 {
+        font-size: 20px !important;
+    }
+
+    .tabla-wrap {
+        width: 100% !important;
+        overflow-x: auto !important;
+        text-align: initial !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Restaurar tablas móviles originales: ancho completo + scroll */
+    #tabla-disponibilidad,
+    #tabla-secuencias,
+    #tabla-especificos,
+    #tabla-proyecto {
+        display: table !important;
+        width: 100% !important;
+        min-width: 650px !important;
+        max-width: none !important;
+        margin: auto !important;
+        table-layout: auto !important;
+        font-size: 15px !important;
+    }
+
+    #tabla-disponibilidad thead,
+    #tabla-secuencias thead,
+    #tabla-especificos thead,
+    #tabla-proyecto thead {
+        display: table-header-group !important;
+    }
+
+    #tabla-disponibilidad tbody,
+    #tabla-secuencias tbody,
+    #tabla-especificos tbody,
+    #tabla-proyecto tbody {
+        display: table-row-group !important;
+    }
+
+    #tabla-disponibilidad tr,
+    #tabla-secuencias tr,
+    #tabla-especificos tr,
+    #tabla-proyecto tr {
+        display: table-row !important;
+    }
+
+    #tabla-disponibilidad th,
+    #tabla-disponibilidad td,
+    #tabla-secuencias th,
+    #tabla-secuencias td,
+    #tabla-especificos th,
+    #tabla-especificos td,
+    #tabla-proyecto th,
+    #tabla-proyecto td {
+        display: table-cell !important;
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        padding: 7px !important;
+        font-size: 15px !important;
+        line-height: normal !important;
+        border: 1px solid #d8dee5 !important;
+        vertical-align: middle !important;
+    }
+
+    /* Quitar pseudoetiquetas de estilos de tarjeta si alguna regla heredada las activa */
+    #tabla-disponibilidad td::before,
+    #tabla-secuencias td::before,
+    #tabla-especificos td::before,
+    #tabla-proyecto td::before {
+        content: none !important;
+        display: none !important;
+    }
+
+    /* Descripción sigue alineada a la izquierda */
+    #tabla-secuencias th:nth-child(4),
+    #tabla-secuencias td:nth-child(4) {
+        text-align: left !important;
+        white-space: normal !important;
+        min-width: 260px !important;
+    }
+
+    td.numero-derecha {
+        text-align: right !important;
+    }
+
+    footer {
+        padding: 12px 10px !important;
+    }
+
+    footer .copyright {
+        font-size: 13px !important;
+    }
+
+    footer .fecha-hora {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 420px) {
+
+    #cabecera {
+        gap: 5px !important;
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+
+    .logo {
+        height: 36px !important;
+        max-width: 78px !important;
+    }
+
+    #titulo {
+        font-size: 17px !important;
+    }
+
+    .home-link {
+        min-width: 60px !important;
+        padding: 6px 8px !important;
+        font-size: 13px !important;
+    }
+}
+</style><style>
+/* ============================================================
+   VISTA MOVIL REAL EN TARJETAS
+   PC (>700px) queda sin cambios.
+   ============================================================ */
+@media (max-width: 700px) {
+
+    body {
+        overflow-x: hidden !important;
+    }
+
+    main {
+        width: 100% !important;
+        padding: 4px 7px 24px !important;
+    }
+
+    h1.seccion-principal {
+        font-size: 23px !important;
+        margin: 8px 0 14px !important;
+    }
+
+    h2 {
+        font-size: 20px !important;
+        margin: 14px 0 10px !important;
+    }
+
+    .separador {
+        margin: 15px 0 6px !important;
+        letter-spacing: 1px !important;
+    }
+
+    /* El contenedor ya no genera una tabla ancha con scroll */
+    .tabla-wrap {
+        width: 100% !important;
+        overflow: visible !important;
+        margin-bottom: 14px !important;
+    }
+
+    /* Las cuatro tablas se transforman en tarjetas */
+    #tabla-disponibilidad,
+    #tabla-secuencias,
+    #tabla-especificos,
+    #tabla-proyecto {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        table-layout: auto !important;
+        margin: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        border-collapse: separate !important;
+        font-size: 16px !important;
+    }
+
+    #tabla-disponibilidad thead,
+    #tabla-secuencias thead,
+    #tabla-especificos thead,
+    #tabla-proyecto thead {
+        display: none !important;
+    }
+
+    #tabla-disponibilidad tbody,
+    #tabla-secuencias tbody,
+    #tabla-especificos tbody,
+    #tabla-proyecto tbody {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    #tabla-disponibilidad tbody tr,
+    #tabla-secuencias tbody tr,
+    #tabla-especificos tbody tr,
+    #tabla-proyecto tbody tr {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 0 12px !important;
+        padding: 3px 0 !important;
+        border: 1px solid #d8dee5 !important;
+        border-radius: 10px !important;
+        background: #fff;
+        overflow: hidden !important;
+        box-shadow: 0 1px 5px rgba(0,0,0,.06) !important;
+    }
+
+    #tabla-disponibilidad tbody td,
+    #tabla-secuencias tbody td,
+    #tabla-especificos tbody td,
+    #tabla-proyecto tbody td {
+        display: grid !important;
+        grid-template-columns: minmax(108px, 37%) minmax(0, 63%) !important;
+        align-items: center !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding: 9px 10px !important;
+        border: 0 !important;
+        border-bottom: 1px solid #e1e6eb !important;
+        font-size: 16px !important;
+        line-height: 1.35 !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+        text-align: left !important;
+        background: transparent !important;
+    }
+
+    #tabla-disponibilidad tbody td:last-child,
+    #tabla-secuencias tbody td:last-child,
+    #tabla-especificos tbody td:last-child,
+    #tabla-proyecto tbody td:last-child {
+        border-bottom: 0 !important;
+    }
+
+    /* Etiquetas de cada campo */
+    #tabla-disponibilidad tbody td::before,
+    #tabla-secuencias tbody td::before,
+    #tabla-especificos tbody td::before,
+    #tabla-proyecto tbody td::before {
+        display: block !important;
+        padding-right: 8px !important;
+        color: #30485d !important;
+        font-size: 14px !important;
+        font-weight: 800 !important;
+        line-height: 1.2 !important;
+        text-align: left !important;
+    }
+
+    /* Balance de disponibilidad */
+    #tabla-disponibilidad tbody td:nth-child(1)::before { content: "Proyecto"; }
+    #tabla-disponibilidad tbody td:nth-child(2)::before { content: "Componente"; }
+    #tabla-disponibilidad tbody td:nth-child(3)::before { content: "En fabricación"; }
+    #tabla-disponibilidad tbody td:nth-child(4)::before { content: "Fecha fabricación"; }
+    #tabla-disponibilidad tbody td:nth-child(5)::before { content: "Lista para enviar"; }
+    #tabla-disponibilidad tbody td:nth-child(6)::before { content: "Fecha disponible"; }
+
+    /* Secuencias */
+    #tabla-secuencias tbody td:nth-child(1)::before { content: "Proceso"; }
+    #tabla-secuencias tbody td:nth-child(2)::before { content: "Fecha"; }
+    #tabla-secuencias tbody td:nth-child(3)::before { content: "Estado"; }
+    #tabla-secuencias tbody td:nth-child(4)::before { content: "Descripción"; }
+
+    /* Componentes específicos */
+    #tabla-especificos tbody td:nth-child(1)::before { content: "idE"; }
+    #tabla-especificos tbody td:nth-child(2)::before { content: "Descripción"; }
+    #tabla-especificos tbody td:nth-child(3)::before { content: "Existencia"; }
+
+    /* Componentes del proyecto */
+    #tabla-proyecto tbody td:nth-child(1)::before { content: "idE"; }
+    #tabla-proyecto tbody td:nth-child(2)::before { content: "Descripción"; }
+    #tabla-proyecto tbody td:nth-child(3)::before { content: "Ctdad Proy"; }
+    #tabla-proyecto tbody td:nth-child(4)::before { content: "Ctdad Stock"; }
+
+    /* Valores numéricos siguen a la derecha */
+    #tabla-disponibilidad td.numero-derecha,
+    #tabla-especificos td.numero-derecha,
+    #tabla-proyecto td.numero-derecha {
+        text-align: right !important;
+    }
+
+    /* La descripción siempre a la izquierda */
+    #tabla-secuencias tbody td:nth-child(4),
+    #tabla-especificos tbody td:nth-child(2),
+    #tabla-proyecto tbody td:nth-child(2) {
+        text-align: left !important;
+    }
+
+    /* Mantener color de toda la tarjeta según estado */
+    #tabla-secuencias tbody tr.seq-pendiente {
+        background: #f8d7da !important;
+        color: #721c24 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-resuelto {
+        background: #dff3e4 !important;
+        color: #1f6334 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-proceso {
+        background: #fff3cd !important;
+        color: #6f5900 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-neutral {
+        background: #eef1f4 !important;
+        color: #48545f !important;
+    }
+
+    /* Supabase status compacto */
+    #estado-supabase {
+        max-width: calc(100% - 10px) !important;
+        margin: -4px auto 12px !important;
+        padding: 6px 8px !important;
+        font-size: 12px !important;
+    }
+
+    /* Sección técnica mantiene presentación móvil */
+    .seccion-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 18px 0 0 !important;
+        padding: 13px 8px !important;
+    }
+
+    .seccion-tecnica .grid-tecnico {
+        display: grid !important;
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .seccion-tecnica .tarjeta-tecnica,
+    .seccion-tecnica .nota-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .seccion-tecnica .imagen-placa {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 14px 0 4px !important;
+    }
+
+    .seccion-tecnica .imagen-placa img {
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 420px) {
+    #tabla-disponibilidad tbody td,
+    #tabla-secuencias tbody td,
+    #tabla-especificos tbody td,
+    #tabla-proyecto tbody td {
+        grid-template-columns: minmax(100px, 36%) minmax(0, 64%) !important;
+        padding: 8px !important;
+        font-size: 15px !important;
+    }
+
+    #tabla-disponibilidad tbody td::before,
+    #tabla-secuencias tbody td::before,
+    #tabla-especificos tbody td::before,
+    #tabla-proyecto tbody td::before {
+        font-size: 13px !important;
+    }
+}
+</style><style>
+/* ============================================================
+   MOVIL / TABLET - ESTILO STOCK_LAST
+   Escritorio queda exactamente igual.
+   ============================================================ */
+@media (max-width: 900px) {
+
+    body {
+        padding: 7px !important;
+        font-size: 17px !important;
+        overflow-x: hidden !important;
+    }
+
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 4px 0 28px !important;
+        margin: 0 auto !important;
+    }
+
+    h1.seccion-principal {
+        font-size: 25px !important;
+        line-height: 1.2 !important;
+        margin: 8px 0 14px !important;
+    }
+
+    h2 {
+        font-size: 22px !important;
+        line-height: 1.2 !important;
+        margin: 13px 0 10px !important;
+    }
+
+    .separador {
+        margin: 14px 0 6px !important;
+    }
+
+    #estado-supabase {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: -5px auto 12px !important;
+        padding: 7px 9px !important;
+        font-size: 13px !important;
+    }
+
+    /* Igual que Stock_Last: el contenedor deja de ser una tabla ancha */
+    .tabla-wrap {
+        width: 100% !important;
+        overflow: visible !important;
+        border: 0 !important;
+        background: transparent !important;
+        margin-bottom: 14px !important;
+    }
+
+    #tabla-disponibilidad,
+    #tabla-secuencias,
+    #tabla-especificos,
+    #tabla-proyecto {
+        display: block !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        border-collapse: separate !important;
+        table-layout: auto !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        font-size: 17px !important;
+    }
+
+    #tabla-disponibilidad thead,
+    #tabla-secuencias thead,
+    #tabla-especificos thead,
+    #tabla-proyecto thead {
+        display: none !important;
+    }
+
+    #tabla-disponibilidad tbody,
+    #tabla-secuencias tbody,
+    #tabla-especificos tbody,
+    #tabla-proyecto tbody {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* Tarjetas verticales, igual a Stock_Last */
+    #tabla-disponibilidad tbody tr,
+    #tabla-secuencias tbody tr,
+    #tabla-especificos tbody tr,
+    #tabla-proyecto tbody tr {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 0 12px !important;
+        padding: 5px 0 !important;
+        border: 1px solid #d8dee5 !important;
+        border-radius: 9px !important;
+        background: white !important;
+        overflow: hidden !important;
+        box-shadow: 0 1px 4px rgba(0,0,0,.05) !important;
+    }
+
+    /* Mantener color de estado para Secuencias */
+    #tabla-secuencias tbody tr.seq-pendiente {
+        background: #f8d7da !important;
+        color: #721c24 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-resuelto {
+        background: #dff3e4 !important;
+        color: #1f6334 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-proceso {
+        background: #fff3cd !important;
+        color: #6f5900 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-neutral {
+        background: #eef1f4 !important;
+        color: #48545f !important;
+    }
+
+    /* 38% etiqueta / 62% valor, como Stock_Last */
+    #tabla-disponibilidad tbody td,
+    #tabla-secuencias tbody td,
+    #tabla-especificos tbody td,
+    #tabla-proyecto tbody td {
+        display: grid !important;
+        grid-template-columns: minmax(112px, 38%) minmax(0, 62%) !important;
+        align-items: center !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        padding: 9px 10px !important;
+        border: 0 !important;
+        border-bottom: 1px solid #d8dee5 !important;
+        font-size: 17px !important;
+        line-height: 1.35 !important;
+        text-align: left !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+        background: transparent !important;
+    }
+
+    #tabla-disponibilidad tbody td:last-child,
+    #tabla-secuencias tbody td:last-child,
+    #tabla-especificos tbody td:last-child,
+    #tabla-proyecto tbody td:last-child {
+        border-bottom: 0 !important;
+    }
+
+    /* Etiqueta generada desde data-label, igual a Stock_Last */
+    #tabla-disponibilidad tbody td::before,
+    #tabla-secuencias tbody td::before,
+    #tabla-especificos tbody td::before,
+    #tabla-proyecto tbody td::before {
+        content: attr(data-label) !important;
+        display: block !important;
+        padding-right: 8px !important;
+        color: #30485d !important;
+        font-weight: 800 !important;
+        font-size: 15px !important;
+        line-height: 1.25 !important;
+        text-align: left !important;
+    }
+
+    /* En tarjetas coloreadas, conservar etiqueta legible */
+    #tabla-secuencias tbody tr.seq-pendiente td::before {
+        color: #721c24 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-resuelto td::before {
+        color: #1f6334 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-proceso td::before {
+        color: #6f5900 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-neutral td::before {
+        color: #48545f !important;
+    }
+
+    /* Jerarquía similar a Stock_Last */
+    #tabla-disponibilidad tbody td,
+    #tabla-secuencias tbody td,
+    #tabla-especificos tbody td,
+    #tabla-proyecto tbody td {
+        font-size: 18px !important;
+    }
+
+    #tabla-secuencias tbody td:nth-child(4),
+    #tabla-especificos tbody td:nth-child(2),
+    #tabla-proyecto tbody td:nth-child(2) {
+        font-weight: 800 !important;
+        text-align: left !important;
+    }
+
+    #tabla-disponibilidad td.numero-derecha,
+    #tabla-especificos td.numero-derecha,
+    #tabla-proyecto td.numero-derecha {
+        text-align: left !important;
+        font-weight: 800 !important;
+    }
+
+    /* Técnica: misma lógica de una sola columna */
+    .seccion-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 18px 0 0 !important;
+        padding: 13px 8px !important;
+    }
+
+    .seccion-tecnica h2 {
+        font-size: 24px !important;
+        line-height: 1.2 !important;
+    }
+
+    .subtitulo-tecnico {
+        font-size: 16px !important;
+        line-height: 1.4 !important;
+    }
+
+    .seccion-tecnica .grid-tecnico {
+        display: grid !important;
+        width: 100% !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    .seccion-tecnica .tarjeta-tecnica,
+    .seccion-tecnica .nota-tecnica {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .seccion-tecnica .imagen-placa {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 14px 0 4px !important;
+    }
+
+    .seccion-tecnica .imagen-placa img {
+        display: block !important;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+}
+
+@media (max-width: 480px) {
+
+    body {
+        padding: 5px !important;
+    }
+
+    h1.seccion-principal {
+        font-size: 22px !important;
+    }
+
+    h2 {
+        font-size: 20px !important;
+    }
+
+    #tabla-disponibilidad tbody td,
+    #tabla-secuencias tbody td,
+    #tabla-especificos tbody td,
+    #tabla-proyecto tbody td {
+        grid-template-columns: minmax(102px, 36%) minmax(0, 64%) !important;
+        padding: 9px 8px !important;
+        font-size: 17px !important;
+    }
+
+    #tabla-disponibilidad tbody td::before,
+    #tabla-secuencias tbody td::before,
+    #tabla-especificos tbody td::before,
+    #tabla-proyecto tbody td::before {
+        font-size: 14px !important;
+    }
+}
+</style><style>
+/* ============================================================
+   CORRECCION DEFINITIVA DE ESTADO EN SECUENCIAS
+   ============================================================ */
+
+/* Escritorio: se ve como una celda normal */
+#tabla-secuencias td.estado-celda .estado-etiqueta {
+    display: none;
+}
+
+#tabla-secuencias td.estado-celda .estado-valor {
+    display: inline;
+}
+
+/* Móvil: etiqueta real + valor real; no depende de ::before */
+@media (max-width: 900px) {
+
+    #tabla-secuencias tbody td.estado-celda::before {
+        content: none !important;
+        display: none !important;
+    }
+
+    #tabla-secuencias tbody td.estado-celda {
+        display: grid !important;
+        grid-template-columns: minmax(112px, 38%) minmax(0, 62%) !important;
+        align-items: center !important;
+        width: 100% !important;
+        padding: 9px 10px !important;
+        border-bottom: 1px solid #d8dee5 !important;
+        text-align: left !important;
+        white-space: normal !important;
+    }
+
+    #tabla-secuencias tbody td.estado-celda .estado-etiqueta {
+        display: block !important;
+        padding-right: 8px !important;
+        color: #30485d !important;
+        font-weight: 800 !important;
+        font-size: 15px !important;
+        line-height: 1.25 !important;
+        white-space: nowrap !important;
+        overflow: visible !important;
+    }
+
+    #tabla-secuencias tbody td.estado-celda .estado-valor {
+        display: block !important;
+        min-width: 0 !important;
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        line-height: 1.35 !important;
+        text-align: left !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+    }
+
+    /* Conservar color de etiqueta acorde al estado de la tarjeta */
+    #tabla-secuencias tbody tr.seq-pendiente td.estado-celda .estado-etiqueta {
+        color: #721c24 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-resuelto td.estado-celda .estado-etiqueta {
+        color: #1f6334 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-proceso td.estado-celda .estado-etiqueta {
+        color: #6f5900 !important;
+    }
+
+    #tabla-secuencias tbody tr.seq-neutral td.estado-celda .estado-etiqueta {
+        color: #48545f !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #tabla-secuencias tbody td.estado-celda {
+        grid-template-columns: minmax(102px, 36%) minmax(0, 64%) !important;
+        padding: 9px 8px !important;
+    }
+
+    #tabla-secuencias tbody td.estado-celda .estado-etiqueta {
+        font-size: 14px !important;
+    }
+
+    #tabla-secuencias tbody td.estado-celda .estado-valor {
+        font-size: 17px !important;
+    }
+}
+</style>
+<style>
+/* ============================================================
+   SECUENCIAS - PRIORIDAD + ORDEN POR CUMPLIMIENTO
+   ============================================================ */
+
+@media (min-width: 901px) {
+    /* Proceso, Prioridad, Fecha y Estado compactos */
+    #tabla-secuencias th:nth-child(1),
+    #tabla-secuencias td:nth-child(1),
+    #tabla-secuencias th:nth-child(2),
+    #tabla-secuencias td:nth-child(2),
+    #tabla-secuencias th:nth-child(3),
+    #tabla-secuencias td:nth-child(3),
+    #tabla-secuencias th:nth-child(4),
+    #tabla-secuencias td:nth-child(4) {
+        width: 1% !important;
+        white-space: nowrap !important;
+    }
+
+    /* Prioridad centrada */
+    #tabla-secuencias th:nth-child(2),
+    #tabla-secuencias td:nth-child(2) {
+        text-align: center !important;
+        min-width: 82px !important;
+    }
+
+    /* Estado */
+    #tabla-secuencias th:nth-child(4),
+    #tabla-secuencias td:nth-child(4) {
+        text-align: center !important;
+    }
+
+    /* Descripción ocupa espacio restante */
+    #tabla-secuencias th:nth-child(5),
+    #tabla-secuencias td:nth-child(5) {
+        width: auto !important;
+        min-width: 280px !important;
+        text-align: left !important;
+        white-space: normal !important;
+        overflow-wrap: anywhere !important;
+        word-break: normal !important;
+    }
+}
+
+@media (max-width: 900px) {
+    /* Descripción nueva columna 5 */
+    #tabla-secuencias tbody td:nth-child(5) {
+        font-weight: 800 !important;
+        text-align: left !important;
+    }
+
+    /* Prioridad visible y compacta en tarjeta */
+    #tabla-secuencias tbody td:nth-child(2) {
+        font-weight: 800 !important;
+    }
+}
+</style>
+<style>
+/* ============================================================
+   AJUSTE FINAL - BALANCE SIN COMPONENTE
+   ============================================================ */
+
+/* Balance:
+   1 Proyecto
+   2 En fabricación cantidad
+   3 En fabricación fecha
+   4 Lista para enviar cantidad
+   5 Lista para enviar fecha
+*/
+@media (min-width: 901px) {
+    #tabla-disponibilidad th,
+    #tabla-disponibilidad td {
+        white-space: nowrap !important;
+    }
+
+    #tabla-disponibilidad td:nth-child(2),
+    #tabla-disponibilidad td:nth-child(4) {
+        text-align: right !important;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+/* Prioridad más legible */
+#tabla-secuencias td.prioridad-celda {
+    font-weight: 800 !important;
+    text-align: center !important;
+}
+</style>
 </head>
 <body>
-    <header id="cabecera">
-        <div class="logo-contenedor">
-            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
-        </div>
-        <h1 id="titulo">CircuitDesignMX</h1>
-        <a class="home-link"
-           href="https://danddco.github.io/Magnus61/San25Fco.html"
-           title="Ir a la página inicial">Inicio</a>
-    </header>
-
-    <main>
-        <h1 class="seccion-principal">Expediente Darmax</h1>
-
-        <div class="separador">-------------------------</div>
-        <h2>Balance de Disponibilidad de Placas</h2>
-        <div class="tabla-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th rowspan="2">Proyecto</th>
-                        <th rowspan="2">Componente</th>
-                        <th colspan="2">En Fabricacion</th>
-                        <th colspan="2">Lista para Enviar</th>
-                    </tr>
-                    <tr>
-                        <th>cantidad</th>
-                        <th>fecha</th>
-                        <th>cantidad</th>
-                        <th>fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
+<header id="cabecera">
+<div class="logo-contenedor">
+<img alt="Logo CircuitDesignMX" class="logo" src="Logo-Circuit-MX.jpg"/>
+</div>
+<h1 id="titulo">CircuitDesignMX</h1>
+<a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html" title="Ir a la página inicial">Inicio</a>
+</header>
+<main>
+<h1 class="seccion-principal">Expediente Darmax</h1><p id="estado-supabase">Conectando con Supabase...</p>
+<div class="separador">-------------------------</div>
+<h2>Balance de Disponibilidad de Placas</h2>
+<div class="tabla-wrap">
+<table id="tabla-disponibilidad">
+<thead>
 <tr>
-    <td>Darmax</td>
-    <td>Placas</td>
-    <td>0</td>
-    <td>2026-05-21</td>
-    <td>5</td>
-    <td>2026-05-21</td>
+<th rowspan="2">Proyecto</th>
+<th colspan="2">En Fabricacion</th>
+<th colspan="2">Lista para Enviar</th>
 </tr>
-</tbody>
-            </table>
-        </div>
-
-        <div class="separador">-------------------------</div>
-        <h2>Secuencias de Trabajo</h2>
-        <div class="tabla-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Proyecto</th>
-                        <th>Lote</th>
-                        <th>Fecha</th>
-                        <th>Descripcion</th>
-                        <th>Cantidad</th>
-                    </tr>
-                </thead>
-                <tbody><tr>
-        <td>Fabricacion-Programacion</td>
-        <td></td>
-        <td>2026-09-08</td>
-        <td>Las 5 Placas restantes NO estan programadas - Daniel</td>
-        <td>5</td>
-    </tr>
 <tr>
-        <td>Venta-Concretada</td>
-        <td>Placas</td>
-        <td>2026-09-07</td>
-        <td>5 Placas, 1 pantalla de 5&#x27; NT, 2 pantallas de 8&#x27; y 3 cables 4-corto</td>
-        <td>5</td>
-    </tr>
+<th>cantidad</th>
+<th>fecha</th>
+<th>cantidad</th>
+<th>fecha</th>
+</tr>
+</thead>
+<tbody id="disponibilidad-body"></tbody>
+</table>
+</div>
+<div class="separador">-------------------------</div>
+<h2>Secuencias de Trabajo</h2>
+<div class="tabla-wrap">
+<table id="tabla-secuencias">
+<thead>
 <tr>
-        <td>Venta-Concretada</td>
-        <td>Placas</td>
-        <td>2026-04-22</td>
-        <td></td>
-        <td>0</td>
-    </tr></tbody>
-            </table>
-        </div>
-
-        <div class="separador">-------------------------</div>
-        <h2>Componentes Especificos</h2>
-        <div class="tabla-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>idE</th>
-                        <th>Descripcion</th>
-                        <th>Existencia</th>
-                    </tr>
-                </thead>
-                <tbody><tr>
-        <td>48</td>
-        <td>ARDUINO - MP3-TF-16P v3.0</td>
-        <td>78</td>
-    </tr>
+<th>Proceso</th>
+<th>Prioridad</th>
+<th class="fecha-celda">Fecha</th>
+<th>Estado</th>
+<th>Descripcion</th>
+</tr>
+</thead>
+<tbody id="secuencias-body"></tbody>
+</table>
+</div>
+<div class="separador">-------------------------</div>
+<h2>Componentes Especificos</h2>
+<div class="tabla-wrap">
+<table id="tabla-especificos">
+<thead>
 <tr>
-        <td>49</td>
-        <td>Amplificador 8610</td>
-        <td>0</td>
-    </tr>
+<th>idE</th>
+<th>Descripcion</th>
+<th>Existencia</th>
+</tr>
+</thead>
+<tbody id="especificos-body"></tbody>
+</table>
+</div>
+<div class="separador">-------------------------</div>
+<h2>Componentes del Proyecto</h2>
+<div class="tabla-wrap">
+<table id="tabla-proyecto">
+<thead>
 <tr>
-        <td>61</td>
-        <td>CABLE - 4 Corto (Zen)</td>
-        <td>31</td>
-    </tr>
-<tr>
-        <td>195</td>
-        <td>PANTALLA - 5&#x27;&#x27; - No Touch - DMG80480C050_09WN</td>
-        <td>28</td>
-    </tr>
-<tr>
-        <td>123</td>
-        <td>PANTALLA - 8&#x27;&#x27; - TOUCH - 8 pulgada (DARMAX)</td>
-        <td>9</td>
-    </tr></tbody>
-            </table>
-        </div>
-
-        <div class="separador">-------------------------</div>
-        <h2>Componentes del Proyecto</h2>
-        <div class="tabla-wrap">
-            <table>
-                <thead>
-                    <tr>
-                        <th>idE</th>
-                        <th>Descripcion</th>
-                        <th>Ctdad Proy</th>
-                        <th>Ctdad Stock</th>
-                    </tr>
-                </thead>
-                <tbody><tr>
-        <td>49</td>
-        <td>Amplificador 8610</td>
-        <td>1</td>
-        <td>0</td>
-    </tr>
-<tr>
-        <td>48</td>
-        <td>ARDUINO - MP3-TF-16P v3.0</td>
-        <td>1</td>
-        <td>78</td>
-    </tr>
-<tr>
-        <td>4</td>
-        <td>CAPACITOR - 10 uf Tantalum 16V SA-3216</td>
-        <td>3</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>11</td>
-        <td>CAPACITOR - 22 pF 0805</td>
-        <td>2</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>107</td>
-        <td>CAPACITOR - 220 uF Electrolytic 35V</td>
-        <td>2</td>
-        <td>910</td>
-    </tr>
-<tr>
-        <td>10</td>
-        <td>CAPACITOR - 470 uf Electrolitico 10V SMD</td>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>31</td>
-        <td>Capacitor 10 nf</td>
-        <td>1</td>
-        <td>3950</td>
-    </tr>
-<tr>
-        <td>9</td>
-        <td>Capacitor 100 nf Ceramico 16V 0805</td>
-        <td>23</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>41</td>
-        <td>Capacitor 630 - AJC MPP 104J630V</td>
-        <td>1</td>
-        <td>843</td>
-    </tr>
-<tr>
-        <td>23</td>
-        <td>CONECTOR - DCJack C130239</td>
-        <td>1</td>
-        <td>690</td>
-    </tr>
-<tr>
-        <td>47</td>
-        <td>Conector Directo 6p hembra - pantalla -Cinta</td>
-        <td>1</td>
-        <td>231</td>
-    </tr>
-<tr>
-        <td>105</td>
-        <td>CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td>
-        <td>1</td>
-        <td>-229</td>
-    </tr>
-<tr>
-        <td>37</td>
-        <td>DIODO - 1N4004</td>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>5</td>
-        <td>DIODO - SS34 - MS</td>
-        <td>5</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>34</td>
-        <td>INDUCTOR - 470MT - FIXED 47uH 2.5A 100mΩ</td>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>17</td>
-        <td>LED GREEN 0805</td>
-        <td>2</td>
-        <td>3</td>
-    </tr>
-<tr>
-        <td>18</td>
-        <td>LED RED 0805</td>
-        <td>3</td>
-        <td>2</td>
-    </tr>
-<tr>
-        <td>2</td>
-        <td>MICRO - ATMEGA 2560</td>
-        <td>1</td>
-        <td>39</td>
-    </tr>
-<tr>
-        <td>22</td>
-        <td>MOSFET - AOD4184A-VB</td>
-        <td>4</td>
-        <td>20</td>
-    </tr>
-<tr>
-        <td>40</td>
-        <td>MOSFET - BT138-800CW</td>
-        <td>1</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>45</td>
-        <td>OPTOACOPLADOR - MOC 3063</td>
-        <td>1</td>
-        <td>970</td>
-    </tr>
-<tr>
-        <td>42</td>
-        <td>Pin Header 3P Single Macho</td>
-        <td>1</td>
-        <td>1000</td>
-    </tr>
-<tr>
-        <td>43</td>
-        <td>Pin Header pantalla 2x6</td>
-        <td>2</td>
-        <td>0</td>
-    </tr>
-<tr>
-        <td>44</td>
-        <td>Pinheader 2p -Jumper</td>
-        <td>1</td>
-        <td>396</td>
-    </tr>
-<tr>
-        <td>7</td>
-        <td>Regulador de Voltaje Linear 7805-C21706</td>
-        <td>1</td>
-        <td>240</td>
-    </tr>
-<tr>
-        <td>33</td>
-        <td>REGULADOR Voltaje - LM2596</td>
-        <td>1</td>
-        <td>640</td>
-    </tr>
-<tr>
-        <td>29</td>
-        <td>RESISTENCIA - 5K1</td>
-        <td>10</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>46</td>
-        <td>RESISTENCIA - FR2512J101 TS - 100 ohms</td>
-        <td>1</td>
-        <td>-30</td>
-    </tr>
-<tr>
-        <td>16</td>
-        <td>Resistencia Potenciometro POT 10kΩ</td>
-        <td>1</td>
-        <td>415</td>
-    </tr>
-<tr>
-        <td>20</td>
-        <td>RESISTENCIAb - 240</td>
-        <td>2</td>
-        <td>0</td>
-    </tr>
-<tr>
-        <td>38</td>
-        <td>RESISTENCIAb - 330</td>
-        <td>2</td>
-        <td>2</td>
-    </tr>
-<tr>
-        <td>39</td>
-        <td>RESISTENCIAb - 470</td>
-        <td>10</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>19</td>
-        <td>RESISTENCIAd - 1K0</td>
-        <td>5</td>
-        <td>2</td>
-    </tr>
-<tr>
-        <td>14</td>
-        <td>RESISTENCIAd - 2K2</td>
-        <td>5</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>21</td>
-        <td>RESISTENCIAf - 10K0</td>
-        <td>6</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>36</td>
-        <td>RESISTENCIAg - 47K0</td>
-        <td>5</td>
-        <td>0</td>
-    </tr>
-<tr>
-        <td>8</td>
-        <td>SWITCH - Tactil Push Bottom</td>
-        <td>4</td>
-        <td>1</td>
-    </tr>
-<tr>
-        <td>50</td>
-        <td>Terminal 3P Grande</td>
-        <td>1</td>
-        <td>50</td>
-    </tr>
-<tr>
-        <td>27</td>
-        <td>TERMINAL BLOCK 2P</td>
-        <td>1</td>
-        <td>3200</td>
-    </tr>
-<tr>
-        <td>51</td>
-        <td>Terminal Block KF128-5.0-2P Standard</td>
-        <td>24</td>
-        <td>8480</td>
-    </tr>
-<tr>
-        <td>35</td>
-        <td>TRANSISTOR - J3Y Bipolar</td>
-        <td>10</td>
-        <td>1</td>
-    </tr></tbody>
-            </table>
-        </div>
-
-        <section class="seccion-tecnica">
-            <h2>Imagen e Información Técnica de la Placa</h2>
-            <p class="subtitulo-tecnico">
+<th>idE</th>
+<th>Descripcion</th>
+<th>Ctdad Proy</th>
+<th>Ctdad Stock</th>
+</tr>
+</thead>
+<tbody id="proyecto-body"></tbody>
+</table>
+</div>
+<section class="seccion-tecnica">
+<h2>Imagen e Información Técnica de la Placa</h2>
+<p class="subtitulo-tecnico">
                 Referencia visual y procedimiento básico de inspección.
             </p>
-
-            
-    <figure class="imagen-placa">
-        <img src="imagenes/darmax.jpeg" alt="Darmax" loading="lazy" decoding="async">
-        <figcaption class="pie">Imagen de referencia de Darmax</figcaption>
-    </figure>
-    
-
-            <div class="grid-tecnico">
-                
-    <article class="tarjeta-tecnica">
-        <h3>.</h3>
-        
-    </article>
-    
-    <article class="tarjeta-tecnica">
-        <h3></h3>
-        <p>...</p>
-    </article>
-    
-    <article class="tarjeta-tecnica">
-        <h3></h3>
-        <p>...</p>
-    </article>
-    
-    <article class="tarjeta-tecnica">
-        <h3></h3>
-        <p>...</p>
-    </article>
-    
-    <article class="tarjeta-tecnica">
-        <h3></h3>
-        <p>.</p>
-    </article>
-    
-    <article class="tarjeta-tecnica">
-        <h3></h3>
-        <p>.</p>
-    </article>
-    
-            </div>
-
-            <div class="nota-tecnica">
-                <strong>Importante:</strong> 
-            </div>
-        </section>
-    </main>
-
-    <div class="espacio-footer"></div>
-
-    <footer>
-        <p class="copyright">
-            &copy; 2026 CircuitDesignMX. Todos los derechos reservados.
+<figure class="imagen-placa">
+<img alt="Darmax" decoding="async" loading="lazy" src="imagenes/darmax.jpeg"/>
+<figcaption class="pie">Imagen de referencia de Darmax</figcaption>
+</figure>
+<div class="grid-tecnico">
+<article class="tarjeta-tecnica">
+<h3>.</h3>
+</article>
+<article class="tarjeta-tecnica">
+<h3></h3>
+<p>...</p>
+</article>
+<article class="tarjeta-tecnica">
+<h3></h3>
+<p>...</p>
+</article>
+<article class="tarjeta-tecnica">
+<h3></h3>
+<p>...</p>
+</article>
+<article class="tarjeta-tecnica">
+<h3></h3>
+<p>.</p>
+</article>
+<article class="tarjeta-tecnica">
+<h3></h3>
+<p>.</p>
+</article>
+</div>
+<div class="nota-tecnica">
+<strong>Importante:</strong>
+</div>
+</section>
+</main>
+<div class="espacio-footer"></div>
+<footer>
+<p class="copyright">
+            © 2026 CircuitDesignMX. Todos los derechos reservados.
         </p>
-        <p class="fecha-hora">
+<p class="fecha-hora">
             Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
-        </p>
-    </footer>
+</p>
+</footer>
+<script>
+(function () {
+    "use strict";
 
-    <script>
-    (function () {
-        function actualizarFooter() {
-            const el = document.getElementById("fecha-hora-dinamica");
-            if (!el) return;
-            const ahora = new Date();
-            const fecha = ahora.toLocaleDateString("es-MX", {
-                day: "2-digit", month: "2-digit", year: "numeric"
+    const PROYECTO = "Darmax";
+    const COMPONENTES_ESPECIFICOS = new Set(["48","49","61","195","123"]);
+
+    const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
+    const PAGE_SIZE = 1000;
+
+    function texto(v) {
+        return v === null || v === undefined ? "" : String(v);
+    }
+
+    function numero(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 0;
+    }
+
+    function numeroVisible(v) {
+        const n = numero(v);
+        return Number.isInteger(n) ? String(n) : String(Number(n.toFixed(6)));
+    }
+
+    function fechaBase(v) {
+        const s = texto(v);
+        const m = s.match(/\d{4}-\d{2}-\d{2}/);
+        return m ? m[0] : "";
+    }
+
+    function fechaConDia(v) {
+        const fecha = fechaBase(v);
+        if (!fecha) return texto(v);
+
+        const [y, m, d] = fecha.split("-").map(Number);
+        const f = new Date(y, m - 1, d);
+        const dias = ["Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
+        return dias[f.getDay()] + " " + fecha;
+    }
+
+    function fechaMayor(...valores) {
+        const fechas = valores.map(fechaBase).filter(Boolean).sort();
+        return fechas.length ? fechas[fechas.length - 1] : "";
+    }
+
+    function actualizarFooter() {
+        const el = document.getElementById("fecha-hora-dinamica");
+        if (!el) return;
+        const ahora = new Date();
+        const fecha = ahora.toLocaleDateString("es-MX", {
+            day: "2-digit", month: "2-digit", year: "numeric"
+        });
+        const hora = ahora.toLocaleTimeString("es-MX", {
+            hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
+        });
+        el.textContent = `${fecha} ${hora}`;
+    }
+
+    async function fetchTabla(tabla, select, filtros = {}) {
+        const total = [];
+        let offset = 0;
+
+        while (true) {
+            const p = new URLSearchParams({
+                select,
+                limit: String(PAGE_SIZE),
+                offset: String(offset)
             });
-            const hora = ahora.toLocaleTimeString("es-MX", {
+
+            for (const [k, v] of Object.entries(filtros)) p.set(k, v);
+
+            const url = `${SUPABASE_URL}/rest/v1/${tabla}?${p.toString()}`;
+
+            const r = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_ANON_KEY,
+                    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                    "Accept": "application/json"
+                },
+                cache: "no-store"
+            });
+
+            if (!r.ok) {
+                const detalle = await r.text();
+                throw new Error(`${tabla}: HTTP ${r.status}: ${detalle}`);
+            }
+
+            const datos = await r.json();
+            if (!Array.isArray(datos)) throw new Error(`${tabla}: respuesta inválida`);
+
+            total.push(...datos);
+            if (datos.length < PAGE_SIZE) break;
+            offset += PAGE_SIZE;
+        }
+
+        return total;
+    }
+
+    function celda(valor, clase = "") {
+        const td = document.createElement("td");
+        td.textContent = texto(valor);
+        if (clase) td.className = clase;
+        return td;
+    }
+
+    function celdaNumero(valor) {
+        return celda(numeroVisible(valor), "numero-derecha");
+    }
+
+    function renderDisponibilidad(secuencias) {
+        let entrada = 0, salida = 0, venta = 0, ventaPreparada = 0;
+        let fechaEntrada = "", fechaSalida = "";
+
+        for (const r of secuencias) {
+            const proc = texto(r.gs_proceso).trim();
+            const cant = numero(r.gs_ctda);
+            const fecha = fechaBase(r.gs_fecha);
+
+            if (proc === "Fabricacion-Entrada") {
+                entrada += cant;
+                fechaEntrada = fechaMayor(fechaEntrada, fecha);
+            } else if (proc === "Fabricacion-Salida") {
+                salida += cant;
+                fechaSalida = fechaMayor(fechaSalida, fecha);
+            } else if (proc === "Venta-Concretada") {
+                venta += cant;
+            } else if (proc === "Venta-Preparada") {
+                ventaPreparada += cant;
+            }
+        }
+
+        const enFabricacion = entrada - salida;
+        const listasEnviar = salida - venta - ventaPreparada;
+        const fechaFabricacion = fechaMayor(fechaEntrada, fechaSalida);
+        const fechaDisponible = salida > 0 ? fechaSalida : "";
+
+        const tbody = document.getElementById("disponibilidad-body");
+        tbody.replaceChildren();
+
+        const tr = document.createElement("tr");
+        tr.appendChild(celda(PROYECTO));
+        tr.appendChild(celdaNumero(enFabricacion));
+        tr.appendChild(celda(fechaConDia(fechaFabricacion), "fecha-celda"));
+        tr.appendChild(celdaNumero(listasEnviar));
+        tr.appendChild(celda(fechaConDia(fechaDisponible), "fecha-celda"));
+        tbody.appendChild(tr);
+    }
+
+    function prioridadNumerica(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 999;
+    }
+
+    function prioridadVisible(v) {
+        const n = Number(v);
+
+        if (n === 1) return "Alta";
+        if (n === 2) return "Media";
+        if (n === 3) return "Baja";
+
+        return texto(v).trim();
+    }
+
+    function claseEstado(estado) {
+        const s = texto(estado).trim().toLowerCase();
+        if (["resuelto","cumplido","completado","terminado"].includes(s)) return "seq-resuelto";
+        if (["pendiente","no cumplido","incumplido"].includes(s)) return "seq-pendiente";
+        if (s.includes("proceso") || ["en curso","activo"].includes(s)) return "seq-proceso";
+        return "seq-neutral";
+    }
+
+    function renderSecuencias(secuencias) {
+        const tbody = document.getElementById("secuencias-body");
+        tbody.replaceChildren();
+
+        const filas = secuencias
+            .filter(r => texto(r.gs_ver).trim().toUpperCase() !== "N")
+            .sort((a, b) => {
+                const aPend =
+                    texto(a.gs_estado).trim().toLowerCase() === "pendiente";
+                const bPend =
+                    texto(b.gs_estado).trim().toLowerCase() === "pendiente";
+
+                // 1. Pendientes siempre primero.
+                if (aPend !== bPend) return aPend ? -1 : 1;
+
+                // 2. Entre pendientes:
+                //    Prioridad 1 -> 2 -> 3 y luego fecha más reciente.
+                if (aPend && bPend) {
+                    const dp =
+                        prioridadNumerica(a.gs_prior)
+                        - prioridadNumerica(b.gs_prior);
+
+                    if (dp !== 0) return dp;
+
+                    const fa = fechaBase(a.gs_fecha);
+                    const fb = fechaBase(b.gs_fecha);
+
+                    if (fa !== fb) return fb.localeCompare(fa);
+
+                    return numero(b.gs_id) - numero(a.gs_id);
+                }
+
+                // 3. No pendientes:
+                //    fecha de cumplimiento DESC.
+                //    Si no existe, usar fecha normal como respaldo.
+                const fa =
+                    fechaBase(a.gs_fecha_cum)
+                    || fechaBase(a.gs_fecha);
+
+                const fb =
+                    fechaBase(b.gs_fecha_cum)
+                    || fechaBase(b.gs_fecha);
+
+                if (fa !== fb) return fb.localeCompare(fa);
+
+                return numero(b.gs_id) - numero(a.gs_id);
+            });
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin secuencias registradas.");
+            td.colSpan = 5;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const tr = document.createElement("tr");
+            tr.className = claseEstado(r.gs_estado);
+            tr.appendChild(celda(r.gs_proceso));
+            tr.appendChild(
+                celda(
+                    prioridadVisible(r.gs_prior),
+                    "prioridad-celda"
+                )
+            );
+            tr.appendChild(celda(fechaConDia(r.gs_fecha), "fecha-celda"));
+            const estadoTd = document.createElement("td");
+            estadoTd.className = "estado-celda";
+            estadoTd.dataset.label = "Estado";
+
+            const estadoEtiqueta = document.createElement("span");
+            estadoEtiqueta.className = "estado-etiqueta";
+            estadoEtiqueta.textContent = "Estado";
+
+            const estadoValor = document.createElement("span");
+            estadoValor.className = "estado-valor";
+
+            const estadoOriginal = texto(r.gs_estado).trim();
+            if (estadoOriginal.toLowerCase() === "pendiente") {
+                estadoValor.textContent = "Pendiente";
+            } else if (estadoOriginal.toLowerCase() === "resuelto") {
+                estadoValor.textContent = "Resuelto";
+            } else {
+                estadoValor.textContent = estadoOriginal;
+            }
+
+            estadoTd.appendChild(estadoEtiqueta);
+            estadoTd.appendChild(estadoValor);
+            tr.appendChild(estadoTd);
+
+            tr.appendChild(celda(r.gs_desc, "descripcion-celda"));
+            tbody.appendChild(tr);
+        }
+    }
+
+    function mapaStock(stockRows) {
+        const mapa = new Map();
+        for (const r of stockRows) {
+            mapa.set(texto(r.idE).trim().replace(/\.0$/, ""), r);
+        }
+        return mapa;
+    }
+
+    function renderEspecificos(stockRows) {
+        const tbody = document.getElementById("especificos-body");
+        tbody.replaceChildren();
+
+        const mapa = mapaStock(stockRows);
+        const filas = [...COMPONENTES_ESPECIFICOS]
+            .map(id => mapa.get(id))
+            .filter(Boolean);
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin componentes específicos.");
+            td.colSpan = 3;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const tr = document.createElement("tr");
+            tr.appendChild(celda(texto(r.idE).replace(/\.0$/, "")));
+            tr.appendChild(celda(r.cs_desc, "descripcion-celda"));
+            tr.appendChild(celdaNumero(r.cs_ctda));
+            tbody.appendChild(tr);
+        }
+    }
+
+    function renderComponentesProyecto(proyectoRows, stockRows) {
+        const tbody = document.getElementById("proyecto-body");
+        tbody.replaceChildren();
+
+        const stock = mapaStock(stockRows);
+        const agrupado = new Map();
+
+        for (const r of proyectoRows) {
+            const id = texto(r.cp_idE).trim().replace(/\.0$/, "");
+            if (!id) continue;
+
+            if (!agrupado.has(id)) {
+                agrupado.set(id, {
+                    idE: id,
+                    descripcion: texto(r.cp_desc),
+                    cantidad: 0
+                });
+            }
+
+            const item = agrupado.get(id);
+            item.cantidad += numero(r.cp_ctda);
+
+            if (!item.descripcion && r.cp_desc) item.descripcion = texto(r.cp_desc);
+        }
+
+        const filas = [...agrupado.values()].sort((a, b) =>
+            texto(a.descripcion).localeCompare(texto(b.descripcion), "es", { sensitivity: "base" })
+        );
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin componentes del proyecto.");
+            td.colSpan = 4;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const s = stock.get(r.idE);
+            const descripcion = s && texto(s.cs_desc).trim() ? s.cs_desc : r.descripcion;
+            const existencia = s ? numero(s.cs_ctda) : 0;
+
+            const tr = document.createElement("tr");
+            tr.appendChild(celda(r.idE));
+            tr.appendChild(celda(descripcion, "descripcion-celda"));
+            tr.appendChild(celdaNumero(r.cantidad));
+            tr.appendChild(celdaNumero(existencia));
+            tbody.appendChild(tr);
+        }
+    }
+
+    async function actualizarTodo() {
+        const estado = document.getElementById("estado-supabase");
+        estado.textContent = "Actualizando datos desde Supabase...";
+        estado.style.color = "#657786";
+        estado.style.borderColor = "#cdd8e2";
+        estado.style.background = "#ffffff";
+
+        try {
+            const [secuencias, proyectoRows, stockRows] = await Promise.all([
+                fetchTabla(
+                    "gs_secuencias",
+                    [
+                        "gs_id","gs_proceso","gs_subproceso","gs_proyecto","gs_lote",
+                        "gs_prior","gs_fecha","gs_desc","gs_ctda","gs_estado","gs_ver","gs_fecha_cum"
+                    ].join(","),
+                    { gs_proyecto: `eq.${PROYECTO}` }
+                ),
+                fetchTabla(
+                    "cp_proyectos",
+                    ["cp_id","cp_proyecto","cp_idE","cp_desc","cp_ctda"].join(","),
+                    { cp_proyecto: `eq.${PROYECTO}` }
+                ),
+                fetchTabla(
+                    "cs_stock",
+                    ["idE","cs_desc","cs_ctda","cs_ctmi","cs_tipo","cs_observe"].join(",")
+                )
+            ]);
+
+            renderDisponibilidad(secuencias);
+            renderSecuencias(secuencias);
+            renderEspecificos(stockRows);
+            renderComponentesProyecto(proyectoRows, stockRows);
+            actualizarFooter();
+
+            const hora = new Date().toLocaleTimeString("es-MX", {
                 hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false
             });
-            el.textContent = `${fecha} ${hora}`;
+
+            estado.textContent =
+                `Supabase conectado · ${secuencias.length} secuencias · ` +
+                `${proyectoRows.length} registros BOM · ${hora}`;
+            estado.style.color = "#1f6334";
+            estado.style.borderColor = "#b9ddc3";
+            estado.style.background = "#eef9f1";
+
+        } catch (error) {
+            console.error(error);
+            estado.textContent = "Error al obtener datos desde Supabase";
+            estado.style.color = "#a02a2a";
+            estado.style.borderColor = "#e5b8b8";
+            estado.style.background = "#fff1f1";
         }
-        actualizarFooter();
-        setInterval(actualizarFooter, 1000);
-    })();
-    </script>
-</body>
+    }
+
+    actualizarFooter();
+    actualizarTodo();
+    window.setInterval(actualizarTodo, 60000);
+})();
+</script><script>
+(function () {
+    "use strict";
+
+    const etiquetasMoviles = {
+        "tabla-disponibilidad": [
+            "Proyecto",
+            "En fabricación",
+            "Fecha fabricación",
+            "Lista para enviar",
+            "Fecha disponible"
+        ],
+        "tabla-secuencias": [
+            "Proceso",
+            "Prioridad",
+            "Fecha",
+            "Estado",
+            "Descripción"
+        ],
+        "tabla-especificos": [
+            "idE",
+            "Descripción",
+            "Existencia"
+        ],
+        "tabla-proyecto": [
+            "idE",
+            "Descripción",
+            "Ctdad Proy",
+            "Ctdad Stock"
+        ]
+    };
+
+    function aplicarEtiquetasMoviles() {
+        for (const [id, etiquetas] of Object.entries(etiquetasMoviles)) {
+            const tabla = document.getElementById(id);
+            if (!tabla) continue;
+
+            const filas = tabla.querySelectorAll("tbody tr");
+            for (const fila of filas) {
+                const celdas = fila.querySelectorAll(":scope > td");
+                celdas.forEach((td, i) => {
+                    if (etiquetas[i]) {
+                        td.dataset.label = etiquetas[i];
+                    }
+                });
+            }
+        }
+    }
+
+    aplicarEtiquetasMoviles();
+
+    const objetivos = [
+        "disponibilidad-body",
+        "secuencias-body",
+        "especificos-body",
+        "proyecto-body"
+    ];
+
+    for (const id of objetivos) {
+        const nodo = document.getElementById(id);
+        if (!nodo) continue;
+
+        const observer = new MutationObserver(aplicarEtiquetasMoviles);
+        observer.observe(nodo, { childList: true, subtree: true });
+    }
+
+    window.addEventListener("resize", aplicarEtiquetasMoviles);
+})();
+</script></body>
 </html>
