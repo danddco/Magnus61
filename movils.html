@@ -68,6 +68,17 @@ button:disabled{opacity:.55;cursor:not-allowed}
 }
 </style>
 
+
+<style>
+/* Catálogos de Nuevo registro alineados con SECUENCIAS escritorio */
+#formPanel input[list] {
+  background-color: #fff;
+}
+#formPanel input[list]::-webkit-calendar-picker-indicator {
+  opacity: 1;
+}
+</style>
+
 </head>
 <body>
 
@@ -126,11 +137,24 @@ button:disabled{opacity:.55;cursor:not-allowed}
     <div class="grid">
       <div>
         <label>Proyecto</label>
-        <input id="gs_proyecto">
+        <input id="gs_proyecto" list="lista_proyectos" autocomplete="off">
+        <datalist id="lista_proyectos"></datalist>
       </div>
       <div>
         <label>Proceso</label>
-        <input id="gs_proceso">
+        <input id="gs_proceso" list="lista_procesos" autocomplete="off">
+        <datalist id="lista_procesos">
+          <option value="Fabricacion-Entrada"></option>
+          <option value="Fabricacion-SMD"></option>
+          <option value="Fabricacion-TH"></option>
+          <option value="Fabricacion-Diagnostico"></option>
+          <option value="Fabricacion-Programacion"></option>
+          <option value="Fabricacion-Proceso"></option>
+          <option value="Fabricacion-Salida"></option>
+          <option value="Venta-Estimada"></option>
+          <option value="Venta-Preparada"></option>
+          <option value="Venta-Concretada"></option>
+        </datalist>
       </div>
       <div>
         <label>Fecha</label>
@@ -165,10 +189,11 @@ button:disabled{opacity:.55;cursor:not-allowed}
         <input id="gs_ctda" type="number" step="any">
       </div>
       <div>
-        <label>Visible</label>
+        <label>Ver</label>
         <select id="gs_ver">
-          <option value="S">Sí</option>
-          <option value="N">No</option>
+          <option value="G">G</option>
+          <option value="P">P</option>
+          <option value="N">N</option>
         </select>
       </div>
     </div>
@@ -429,6 +454,30 @@ function prioridadTexto(v) {
   return s;
 }
 
+function actualizarCatalogosFormulario() {
+  const listaProyectos = $("lista_proyectos");
+  if (!listaProyectos) return;
+
+  const vistos = new Set();
+  const proyectos = [];
+
+  for (const r of registros) {
+    const proyecto = texto(r.gs_proyecto).trim();
+    if (!proyecto || vistos.has(proyecto)) continue;
+
+    vistos.add(proyecto);
+    proyectos.push(proyecto);
+  }
+
+  listaProyectos.replaceChildren();
+
+  for (const proyecto of proyectos) {
+    const option = document.createElement("option");
+    option.value = proyecto;
+    listaProyectos.appendChild(option);
+  }
+}
+
 function estadoClase(v) {
   const s = texto(v).trim().toLowerCase();
   if (s === "pendiente") return "pendiente";
@@ -511,6 +560,7 @@ async function cargar() {
 
     registros = Array.isArray(data) ? data : [];
     ordenar();
+    actualizarCatalogosFormulario();
     render();
     setEstado(`Supabase conectado · ${registros.length} registros`, "ok");
   } catch (e) {
@@ -561,9 +611,9 @@ function limpiarFormulario() {
   $("editId").value = "";
   ["gs_proyecto","gs_proceso","gs_lote","gs_fecha","gs_desc","gs_ctda","gs_fecha_cum"]
     .forEach(id => $(id).value = "");
-  $("gs_prior").value = "";
+  $("gs_prior").value = "3";
   $("gs_estado").value = "Pendiente";
-  $("gs_ver").value = "S";
+  $("gs_ver").value = "G";
 }
 
 function nuevo() {
@@ -591,7 +641,7 @@ function editar(id) {
   $("gs_ctda").value = texto(r.gs_ctda);
   $("gs_prior").value = texto(r.gs_prior);
   $("gs_estado").value = texto(r.gs_estado) || "Pendiente";
-  $("gs_ver").value = texto(r.gs_ver) || "S";
+  $("gs_ver").value = texto(r.gs_ver) || "G";
   $("gs_fecha_cum").value = texto(r.gs_fecha_cum).slice(0,10);
 
   $("formPanel").classList.remove("hidden");
@@ -610,7 +660,7 @@ function payload() {
     gs_ctda: $("gs_ctda").value === "" ? null : Number($("gs_ctda").value),
     gs_prior: $("gs_prior").value || null,
     gs_estado: estado,
-    gs_ver: $("gs_ver").value || "S",
+    gs_ver: $("gs_ver").value || "G",
     gs_fecha_cum: estado === "Resuelto"
       ? ($("gs_fecha_cum").value || null)
       : null
