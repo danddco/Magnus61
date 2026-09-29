@@ -192,7 +192,33 @@ td.id-b {
         word-break: keep-all !important;
     }
 }
-</style></head>
+</style>
+<style>
+.filtro-fecha-wrap{
+  width:96%;margin:0 auto 14px;padding:10px 12px;display:flex;flex-wrap:wrap;
+  align-items:center;gap:9px;border:1px solid #cfd6dc;border-radius:9px;
+  background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.04);font-family:Arial,sans-serif;
+}
+.filtro-fecha-wrap label{font-weight:800;color:#30485d}
+#filtro-fecha{
+  min-height:38px;padding:6px 9px;border:1px solid #b8c4ce;border-radius:7px;
+  font:700 15px Arial,sans-serif;background:#fff
+}
+#quitar-filtro-fecha{
+  min-height:38px;padding:7px 12px;border:0;border-radius:7px;background:#e9eef2;
+  color:#30485d;font:800 14px Arial,sans-serif;cursor:pointer
+}
+#estado-filtro-fecha{margin-left:auto;color:#657786;font-size:13px;font-weight:700}
+@media(max-width:700px){
+  .filtro-fecha-wrap{width:100%;padding:9px}
+  .filtro-fecha-wrap label{width:100%}
+  #filtro-fecha{flex:1 1 150px}
+  #quitar-filtro-fecha{flex:1 1 120px}
+  #estado-filtro-fecha{width:100%;margin-left:0}
+}
+</style>
+
+</head>
 <body>
 <header id="cabecera">
 <div class="logo-contenedor">
@@ -463,6 +489,13 @@ td.id-b {
              ">
             Conectando con Supabase...
         </div>
+
+<div class="filtro-fecha-wrap">
+  <label for="filtro-fecha">Filtrar por fecha mostrada:</label>
+  <input id="filtro-fecha" type="date">
+  <button id="quitar-filtro-fecha" type="button">Quitar filtro</button>
+  <span id="estado-filtro-fecha"></span>
+</div>
 <div class="tabla-wrap">
 <table>
 <thead>
@@ -503,6 +536,10 @@ td.id-b {
 
     const tbody = document.getElementById("secuencias-body");
     const estado = document.getElementById("estado-supabase");
+    const filtroFecha = document.getElementById("filtro-fecha");
+    const quitarFiltroFecha = document.getElementById("quitar-filtro-fecha");
+    const estadoFiltroFecha = document.getElementById("estado-filtro-fecha");
+    let datosCargados = [];
 
     function texto(valor) {
         return valor === null || valor === undefined ? "" : String(valor);
@@ -526,6 +563,32 @@ td.id-b {
         }
 
         return texto(registro.gs_fecha).trim();
+    }
+
+    function fechaISOVisible(registro) {
+        return texto(fechaRegistro(registro)).slice(0, 10);
+    }
+
+    function aplicarFiltroFecha() {
+        const valor = filtroFecha ? filtroFecha.value : "";
+        let filtrados = datosCargados;
+
+        if (valor) {
+            filtrados = datosCargados.filter(
+                registro => fechaISOVisible(registro) === valor
+            );
+        }
+
+        const visibles = filtrados.slice(0, LIMITE_VISIBLE);
+        renderizar(visibles);
+
+        if (estadoFiltroFecha) {
+            estadoFiltroFecha.textContent = valor
+                ? `${filtrados.length} registro(s) en ${formatearFecha(valor)}`
+                : `Mostrando ${visibles.length} de ${datosCargados.length}`;
+        }
+
+        return { totalFiltrados: filtrados.length, visibles: visibles.length };
     }
 
     function fechaNumero(valor) {
@@ -847,12 +910,8 @@ td.id-b {
 
             datos.sort(comparar);
 
-            const visibles = datos.slice(
-                0,
-                LIMITE_VISIBLE
-            );
-
-            renderizar(visibles);
+            datosCargados = datos;
+            const resumenFiltro = aplicarFiltroFecha();
             actualizarFechaFooter();
 
             const ahora = new Date().toLocaleTimeString(
@@ -865,7 +924,11 @@ td.id-b {
             );
 
             estado.textContent =
-                `Supabase conectado · ${visibles.length} registros · ${ahora}`;
+                `Supabase conectado · ${resumenFiltro.visibles} visibles` +
+                (filtroFecha && filtroFecha.value
+                    ? ` · ${resumenFiltro.totalFiltrados} coinciden`
+                    : "") +
+                ` · ${ahora}`;
 
         } catch (error) {
             console.error(error);
@@ -889,6 +952,24 @@ td.id-b {
                 "Error de conexión con Supabase";
             estado.style.color = "#a02a2a";
         }
+    }
+
+    if (filtroFecha) {
+        filtroFecha.addEventListener("change", () => {
+            const resumen = aplicarFiltroFecha();
+            estado.textContent = filtroFecha.value
+                ? `Filtro activo · ${resumen.totalFiltrados} registro(s)`
+                : `Supabase conectado · ${resumen.visibles} visibles`;
+        });
+    }
+
+    if (quitarFiltroFecha) {
+        quitarFiltroFecha.addEventListener("click", () => {
+            filtroFecha.value = "";
+            const resumen = aplicarFiltroFecha();
+            estado.textContent =
+                `Filtro eliminado · ${resumen.visibles} visibles`;
+        });
     }
 
     actualizarFechaFooter();
