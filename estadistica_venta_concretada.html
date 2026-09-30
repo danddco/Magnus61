@@ -546,9 +546,9 @@ function etiquetaSemana(lunes) {
 
 async function traerPagina(desde, hasta) {
     const params = new URLSearchParams({
-        select: "gs_id,gs_proyecto,gs_fecha,gs_ctda,gs_desc,gs_estado",
+        select: "gs_id,gs_proyecto,gs_fecha_cum,gs_ctda,gs_desc,gs_estado",
         gs_proceso: "eq.Venta-Concretada",
-        order: "gs_fecha.desc,gs_id.desc"
+        order: "gs_fecha_cum.desc,gs_id.desc"
     });
 
     const resp = await fetch(`${SUPABASE_URL}/rest/v1/gs_secuencias?${params}`, {
@@ -584,7 +584,7 @@ async function cargarSupabase() {
     }
 
     datosOriginales = todos
-        .map(r => ({...r, _fecha: parseFecha(r.gs_fecha)}))
+        .map(r => ({...r, _fecha: parseFecha(r.gs_fecha_cum)}))
         .filter(r => r._fecha);
 
     cargarFiltros();
