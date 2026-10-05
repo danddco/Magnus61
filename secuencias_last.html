@@ -194,27 +194,71 @@ td.id-b {
 }
 </style>
 <style>
-.filtro-fecha-wrap{
-  width:96%;margin:0 auto 14px;padding:10px 12px;display:flex;flex-wrap:wrap;
-  align-items:center;gap:9px;border:1px solid #cfd6dc;border-radius:9px;
-  background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.04);font-family:Arial,sans-serif;
+.filtro-texto-wrap{
+  width:96%;
+  margin:0 auto 14px;
+  padding:10px 12px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:9px;
+  border:1px solid #cfd6dc;
+  border-radius:9px;
+  background:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+  font-family:Arial,sans-serif;
 }
-.filtro-fecha-wrap label{font-weight:800;color:#30485d}
-#filtro-fecha{
-  min-height:38px;padding:6px 9px;border:1px solid #b8c4ce;border-radius:7px;
-  font:700 15px Arial,sans-serif;background:#fff
+.filtro-texto-wrap label{
+  font-weight:800;
+  color:#30485d;
 }
-#quitar-filtro-fecha{
-  min-height:38px;padding:7px 12px;border:0;border-radius:7px;background:#e9eef2;
-  color:#30485d;font:800 14px Arial,sans-serif;cursor:pointer
+#filtro-texto{
+  flex:1 1 420px;
+  min-height:40px;
+  padding:7px 11px;
+  border:1px solid #b8c4ce;
+  border-radius:7px;
+  font:700 15px Arial,sans-serif;
+  background:#fff;
 }
-#estado-filtro-fecha{margin-left:auto;color:#657786;font-size:13px;font-weight:700}
+#limpiar-filtro-texto{
+  min-height:40px;
+  padding:7px 14px;
+  border:0;
+  border-radius:7px;
+  background:#e9eef2;
+  color:#30485d;
+  font:800 14px Arial,sans-serif;
+  cursor:pointer;
+}
+#limpiar-filtro-texto:hover{
+  background:#dbe4eb;
+}
+#estado-filtro-texto{
+  margin-left:auto;
+  color:#657786;
+  font-size:13px;
+  font-weight:700;
+}
 @media(max-width:700px){
-  .filtro-fecha-wrap{width:100%;padding:9px}
-  .filtro-fecha-wrap label{width:100%}
-  #filtro-fecha{flex:1 1 150px}
-  #quitar-filtro-fecha{flex:1 1 120px}
-  #estado-filtro-fecha{width:100%;margin-left:0}
+  .filtro-texto-wrap{
+    width:100%;
+    padding:9px;
+  }
+  .filtro-texto-wrap label{
+    width:100%;
+  }
+  #filtro-texto{
+    flex:1 1 100%;
+    width:100%;
+  }
+  #limpiar-filtro-texto{
+    flex:0 0 auto;
+  }
+  #estado-filtro-texto{
+    width:100%;
+    margin-left:0;
+  }
 }
 </style>
 
@@ -490,11 +534,16 @@ td.id-b {
             Conectando con Supabase...
         </div>
 
-<div class="filtro-fecha-wrap">
-  <label for="filtro-fecha">Filtrar por fecha mostrada:</label>
-  <input id="filtro-fecha" type="date">
-  <button id="quitar-filtro-fecha" type="button">Quitar filtro</button>
-  <span id="estado-filtro-fecha"></span>
+<div class="filtro-texto-wrap">
+  <label for="filtro-texto">Filtrar:</label>
+  <input
+    id="filtro-texto"
+    type="search"
+    placeholder="Escribe proyecto, proceso, descripción, prioridad, estado, fecha o ID..."
+    autocomplete="off"
+  >
+  <button id="limpiar-filtro-texto" type="button">Limpiar</button>
+  <span id="estado-filtro-texto"></span>
 </div>
 <div class="tabla-wrap">
 <table>
@@ -536,9 +585,9 @@ td.id-b {
 
     const tbody = document.getElementById("secuencias-body");
     const estado = document.getElementById("estado-supabase");
-    const filtroFecha = document.getElementById("filtro-fecha");
-    const quitarFiltroFecha = document.getElementById("quitar-filtro-fecha");
-    const estadoFiltroFecha = document.getElementById("estado-filtro-fecha");
+    const filtroTexto = document.getElementById("filtro-texto");
+    const limpiarFiltroTexto = document.getElementById("limpiar-filtro-texto");
+    const estadoFiltroTexto = document.getElementById("estado-filtro-texto");
     let datosCargados = [];
 
     function texto(valor) {
@@ -565,30 +614,56 @@ td.id-b {
         return texto(registro.gs_fecha).trim();
     }
 
-    function fechaISOVisible(registro) {
-        return texto(fechaRegistro(registro)).slice(0, 10);
+    function normalizarBusqueda(valor) {
+        return texto(valor)
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim();
     }
 
-    function aplicarFiltroFecha() {
-        const valor = filtroFecha ? filtroFecha.value : "";
+    function textoBusquedaRegistro(registro) {
+        const partes = [
+            registro.gs_id,
+            registro.gs_proyecto,
+            registro.gs_proceso,
+            formatearFecha(fechaRegistro(registro)),
+            fechaRegistro(registro),
+            registro.gs_desc,
+            prioridadTexto(registro.gs_prior),
+            registro.gs_prior,
+            registro.gs_estado
+        ];
+
+        return normalizarBusqueda(partes.join(" "));
+    }
+
+    function aplicarFiltroTexto() {
+        const termino = filtroTexto
+            ? normalizarBusqueda(filtroTexto.value)
+            : "";
+
         let filtrados = datosCargados;
 
-        if (valor) {
+        if (termino) {
             filtrados = datosCargados.filter(
-                registro => fechaISOVisible(registro) === valor
+                registro => textoBusquedaRegistro(registro).includes(termino)
             );
         }
 
         const visibles = filtrados.slice(0, LIMITE_VISIBLE);
         renderizar(visibles);
 
-        if (estadoFiltroFecha) {
-            estadoFiltroFecha.textContent = valor
-                ? `${filtrados.length} registro(s) en ${formatearFecha(valor)}`
+        if (estadoFiltroTexto) {
+            estadoFiltroTexto.textContent = termino
+                ? `${filtrados.length} coincidencia(s)`
                 : `Mostrando ${visibles.length} de ${datosCargados.length}`;
         }
 
-        return { totalFiltrados: filtrados.length, visibles: visibles.length };
+        return {
+            totalFiltrados: filtrados.length,
+            visibles: visibles.length
+        };
     }
 
     function fechaNumero(valor) {
@@ -635,6 +710,22 @@ td.id-b {
         return salida.charAt(0).toUpperCase() + salida.slice(1);
     }
 
+    function compararProceso(a, b) {
+        return texto(a.gs_proceso).trim().localeCompare(
+            texto(b.gs_proceso).trim(),
+            "es",
+            { sensitivity: "base", numeric: true }
+        );
+    }
+
+    function compararDescripcion(a, b) {
+        return texto(a.gs_desc).trim().localeCompare(
+            texto(b.gs_desc).trim(),
+            "es",
+            { sensitivity: "base", numeric: true }
+        );
+    }
+
     function comparar(a, b) {
         const estadoA = texto(a.gs_estado).trim().toLowerCase();
         const estadoB = texto(b.gs_estado).trim().toLowerCase();
@@ -650,8 +741,8 @@ td.id-b {
         const idA = Number(a.gs_id) || 0;
         const idB = Number(b.gs_id) || 0;
 
-        // Entre pendientes conservamos el orden por prioridad,
-        // después por gs_fecha descendente.
+        // Entre pendientes:
+        // prioridad -> proceso A-Z -> descripción A-Z -> ID DESC.
         if (pendienteA && pendienteB) {
             let prioridadA = Number(texto(a.gs_prior).trim());
             let prioridadB = Number(texto(b.gs_prior).trim());
@@ -663,11 +754,14 @@ td.id-b {
                 return prioridadA - prioridadB;
             }
 
-            const fechaA = fechaNumero(a.gs_fecha);
-            const fechaB = fechaNumero(b.gs_fecha);
+            const proceso = compararProceso(a, b);
+            if (proceso !== 0) {
+                return proceso;
+            }
 
-            if (fechaA !== fechaB) {
-                return fechaB - fechaA;
+            const descripcion = compararDescripcion(a, b);
+            if (descripcion !== 0) {
+                return descripcion;
             }
 
             return idB - idA;
@@ -676,12 +770,23 @@ td.id-b {
         // Después de los pendientes:
         // - Resuelto: gs_fecha_cum
         // - No resuelto: gs_fecha
-        // Orden descendente por la fecha correspondiente.
+        // Orden:
+        // fecha DESC -> proceso A-Z -> descripción A-Z -> ID DESC.
         const fechaA = fechaNumero(fechaRegistro(a));
         const fechaB = fechaNumero(fechaRegistro(b));
 
         if (fechaA !== fechaB) {
             return fechaB - fechaA;
+        }
+
+        const proceso = compararProceso(a, b);
+        if (proceso !== 0) {
+            return proceso;
+        }
+
+        const descripcion = compararDescripcion(a, b);
+        if (descripcion !== 0) {
+            return descripcion;
         }
 
         return idB - idA;
@@ -911,7 +1016,7 @@ td.id-b {
             datos.sort(comparar);
 
             datosCargados = datos;
-            const resumenFiltro = aplicarFiltroFecha();
+            const resumenFiltro = aplicarFiltroTexto();
             actualizarFechaFooter();
 
             const ahora = new Date().toLocaleTimeString(
@@ -925,7 +1030,7 @@ td.id-b {
 
             estado.textContent =
                 `Supabase conectado · ${resumenFiltro.visibles} visibles` +
-                (filtroFecha && filtroFecha.value
+                (filtroTexto && filtroTexto.value.trim()
                     ? ` · ${resumenFiltro.totalFiltrados} coinciden`
                     : "") +
                 ` · ${ahora}`;
@@ -954,19 +1059,22 @@ td.id-b {
         }
     }
 
-    if (filtroFecha) {
-        filtroFecha.addEventListener("change", () => {
-            const resumen = aplicarFiltroFecha();
-            estado.textContent = filtroFecha.value
-                ? `Filtro activo · ${resumen.totalFiltrados} registro(s)`
+    if (filtroTexto) {
+        filtroTexto.addEventListener("input", () => {
+            const resumen = aplicarFiltroTexto();
+
+            estado.textContent = filtroTexto.value.trim()
+                ? `Filtro activo · ${resumen.totalFiltrados} coincidencia(s)`
                 : `Supabase conectado · ${resumen.visibles} visibles`;
         });
     }
 
-    if (quitarFiltroFecha) {
-        quitarFiltroFecha.addEventListener("click", () => {
-            filtroFecha.value = "";
-            const resumen = aplicarFiltroFecha();
+    if (limpiarFiltroTexto) {
+        limpiarFiltroTexto.addEventListener("click", () => {
+            filtroTexto.value = "";
+            const resumen = aplicarFiltroTexto();
+            filtroTexto.focus();
+
             estado.textContent =
                 `Filtro eliminado · ${resumen.visibles} visibles`;
         });
