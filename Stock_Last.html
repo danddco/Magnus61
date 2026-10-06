@@ -718,11 +718,15 @@
 
     async function leerExistencias() {
         /*
-            Equivale exactamente al subquery original:
+            Existencia por componente:
 
             SELECT SUM(r2.cr_ctda)
             FROM cr_registros r2
             WHERE r2.cr_idE = r1.cr_idE
+              AND cr_accion <> 'Facturado'
+
+            En JavaScript la comparación se hace sin distinguir
+            mayúsculas/minúsculas.
         */
         const sumas = new Map();
         let offset = 0;
@@ -731,7 +735,7 @@
             const params =
                 new URLSearchParams({
                     select:
-                        "cr_idE,cr_ctda",
+                        "cr_idE,cr_ctda,cr_accion",
                     limit:
                         String(LOTE),
                     offset:
@@ -750,6 +754,16 @@
                     String(
                         fila.cr_idE
                     ).trim() === ""
+                ) {
+                    continue;
+                }
+
+                // Los movimientos con acción Facturado no forman parte
+                // de la existencia disponible.
+                if (
+                    texto(fila.cr_accion)
+                        .trim()
+                        .toLowerCase() === "facturado"
                 ) {
                     continue;
                 }
