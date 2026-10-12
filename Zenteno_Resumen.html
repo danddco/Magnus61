@@ -295,6 +295,7 @@
                 width: min(620px, 100%);
                 justify-self: center;
             }
+
         }
 
         /* ================================================
@@ -523,9 +524,9 @@
     "use strict";
 
     const PROYECTOS = [
-        "AWS Mini v1.0",
-        "AWS Pro v1.0",
-        "DUO ver1.0"
+        "DUO Basic",
+        "DUO Pro",
+        "Mini"
     ];
 
     const SUPABASE_URL =
@@ -619,7 +620,7 @@
                     "gs_ctda"
                 ].join(","),
                 gs_proyecto:
-                    "in.(AWS Mini v1.0,AWS Pro v1.0,DUO ver1.0)",
+                    "in.(DUO Basic,DUO Pro,Mini)",
                 gs_proceso:
                     "in.(Fabricacion-Entrada,Fabricacion-Salida,Venta-Concretada)",
                 order:
