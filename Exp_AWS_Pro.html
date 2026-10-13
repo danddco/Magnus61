@@ -397,10 +397,11 @@
 </header>
 <main>
 <h1 class="seccion-principal">Expediente DUO Pro</h1>
+<p id="estado-supabase" style="text-align:center;color:#657786;font-weight:700;margin:-8px 0 16px;">Conectando con Supabase...</p>
 <div class="separador">-------------------------</div>
 <h2>Balance de Disponibilidad de Placas</h2>
 <div class="tabla-wrap">
-<table>
+<table id="tabla-disponibilidad">
 <thead>
 <tr>
 <th rowspan="2">Proyecto</th>
@@ -415,29 +416,29 @@
 <th>fecha</th>
 </tr>
 </thead>
-<tbody id="disponibilidad-body"><tr><td>DUO Pro</td><td>Placas</td><td>6</td><td>Martes 2026-06-16</td><td>0</td><td>Martes 2026-06-16</td></tr></tbody>
+<tbody id="disponibilidad-body"><tr><td colspan="6">Cargando desde Supabase...</td></tr></tbody>
 </table>
 </div>
 <div class="separador">-------------------------</div>
 <h2>Secuencias de Trabajo</h2>
 <div class="tabla-wrap">
-<table>
+<table id="tabla-secuencias">
 <thead>
 <tr>
-<th>Proyecto</th>
+<th>Proceso</th>
 <th>Lote</th>
 <th>Fecha</th>
 <th>Descripcion</th>
 <th>Cantidad</th>
 </tr>
 </thead>
-<tbody id="secuencias-body"><tr><td>Fabricacion-Programacion</td><td></td><td>Lunes 2026-08-24</td><td>Programadas: 4 pantallas de 5 pulgada y (2 de 7 pulgadas, enviada por Zenteno), enviado Doc a Bere</td><td>4</td></tr><tr><td>Fabricacion-Programacion</td><td></td><td>Lunes 2026-08-24</td><td>Nueva Interfase 2408 en etiqueta, guardada en PC</td><td></td></tr><tr><td>Venta-Concretada</td><td></td><td>Jueves 2026-07-02</td><td>4 Placas, 4 Pantallas, 4 Cables,</td><td>4</td></tr><tr><td>Venta-Concretada</td><td></td><td>Martes 2026-06-16</td><td>4 Placas</td><td>4</td></tr></tbody>
+<tbody id="secuencias-body"><tr><td colspan="5">Cargando desde Supabase...</td></tr></tbody>
 </table>
 </div>
 <div class="separador">-------------------------</div>
 <h2>Componentes Especificos</h2>
 <div class="tabla-wrap">
-<table>
+<table id="tabla-especificos">
 <thead>
 <tr>
 <th>idE</th>
@@ -445,13 +446,13 @@
 <th>Existencia</th>
 </tr>
 </thead>
-<tbody id="especificos-body"><tr><td colspan="3">Sin componentes específicos.</td></tr></tbody>
+<tbody id="especificos-body"><tr><td colspan="3">Cargando desde Supabase...</td></tr></tbody>
 </table>
 </div>
 <div class="separador">-------------------------</div>
 <h2>Componentes del Proyecto</h2>
 <div class="tabla-wrap">
-<table>
+<table id="tabla-proyecto">
 <thead>
 <tr>
 <th>idE</th>
@@ -460,7 +461,7 @@
 <th>Ctdad Stock</th>
 </tr>
 </thead>
-<tbody id="proyecto-body"><tr><td>71</td><td>MICRO - PAM86</td><td>1</td><td>78</td></tr><tr><td>72</td><td>PANTALLA - 5'' - Capacitiva - DMG80480C050_09WTC</td><td>1</td><td>19</td></tr><tr><td>105</td><td>CRISTAL - 16MHz ±20ppm 20pF HC-49S-SMD</td><td>1</td><td>-229</td></tr><tr><td>4</td><td>CAPACITOR - 10 uf Tantalum 16V SA-3216</td><td>2</td><td>1</td></tr><tr><td>11</td><td>CAPACITOR - 22 pF 0805</td><td>2</td><td>1</td></tr><tr><td>10</td><td>CAPACITOR - 470 uf Electrolitico 10V SMD</td><td>2</td><td>1</td></tr><tr><td>9</td><td>Capacitor 100 nf Ceramico 16V 0805</td><td>23</td><td>1</td></tr><tr><td>208</td><td>CONECTOR - HEADER SMD R/A 4POS 2mm</td><td>1</td><td>200</td></tr><tr><td>104</td><td>CONECTOR - HEADER SMD R/A 6POS 2mm</td><td>1</td><td>1</td></tr><tr><td>206</td><td>CONECTOR - PANTALLA - 6x2 House Negro</td><td>1</td><td>150</td></tr><tr><td>37</td><td>DIODO - 1N4004</td><td>3</td><td>1</td></tr><tr><td>5</td><td>DIODO - SS34 - MS</td><td>9</td><td>1</td></tr><tr><td>17</td><td>LED GREEN 0805</td><td>1</td><td>3</td></tr><tr><td>18</td><td>LED RED 0805</td><td>11</td><td>2</td></tr><tr><td>22</td><td>MOSFET - AOD4184A-VB</td><td>9</td><td>20</td></tr><tr><td>40</td><td>MOSFET - BT138-800CW</td><td>2</td><td>1</td></tr><tr><td>45</td><td>OPTOACOPLADOR - MOC 3063</td><td>4</td><td>970</td></tr><tr><td>167</td><td>RESISTENCIAa - 100</td><td>2</td><td>0</td></tr><tr><td>13</td><td>RESISTENCIAa - 3.4</td><td>9</td><td>1</td></tr><tr><td>20</td><td>RESISTENCIAb - 240</td><td>2</td><td>0</td></tr><tr><td>38</td><td>RESISTENCIAb - 330</td><td>2</td><td>1</td></tr><tr><td>19</td><td>RESISTENCIAd - 1K0</td><td>5</td><td>2</td></tr><tr><td>14</td><td>RESISTENCIAd - 2K2</td><td>10</td><td>1</td></tr><tr><td>55</td><td>RESISTENCIAe - 4K7</td><td>2</td><td>1</td></tr><tr><td>172</td><td>RESISTENCIAe - 5K1</td><td>4</td><td>1</td></tr><tr><td>21</td><td>RESISTENCIAf - 10K0</td><td>28</td><td>1</td></tr><tr><td>8</td><td>SWITCH - Tactil Push Bottom</td><td>2</td><td>1</td></tr><tr><td>35</td><td>TRANSISTOR - J3Y Bipolar</td><td>3</td><td>1</td></tr><tr><td>28</td><td>MICRO - ATMEGA 328pAU</td><td>1</td><td>132</td></tr><tr><td>109</td><td>Pin Header 1x3 Single Macho</td><td>4</td><td>270</td></tr><tr><td>7</td><td>Regulador de Voltaje Linear 7805-C21706</td><td>1</td><td>240</td></tr><tr><td>48</td><td>ARDUINO - MP3-TF-16P v3.0</td><td>1</td><td>78</td></tr><tr><td>118</td><td>Modulo Control Inalambrico ESP32-WROOM-32U-N4</td><td>1</td><td>30</td></tr><tr><td>175</td><td>REGULADOR Voltaje - AMS1117</td><td>1</td><td>100</td></tr><tr><td>107</td><td>CAPACITOR - 220 uF Electrolytic 35V</td><td>1</td><td>410</td></tr><tr><td>41</td><td>Capacitor 630 - AJC MPP 104J630V</td><td>2</td><td>843</td></tr><tr><td>205</td><td>CONECTOR - CACHIMBA - 4P HEMBRA - 3.81</td><td>1</td><td>288</td></tr><tr><td>165</td><td>CONECTOR - CACHIMBA - 4P HEMBRA - 5.08</td><td>3</td><td>96</td></tr><tr><td>204</td><td>CONECTOR - CACHIMBA - 4P MACHO - 3.81 - Recto - Pequeño</td><td>1</td><td>40</td></tr><tr><td>201</td><td>CONECTOR - CACHIMBA - 4P MACHO - 5.08 - 90 grados</td><td>3</td><td>130</td></tr><tr><td>200</td><td>CONECTOR - CACHIMBA - 5P HEMBRA 5.08</td><td>5</td><td>56</td></tr><tr><td>203</td><td>CONECTOR - CACHIMBA - 5P MACHO - 90 grados</td><td>5</td><td>60</td></tr><tr><td>176</td><td>CONECTOR - CACHIMBA - 6P HEMBRA</td><td>1</td><td>130</td></tr><tr><td>202</td><td>CONECTOR - CACHIMBA - 6P MACHO - 90 grados</td><td>1</td><td>154</td></tr><tr><td>23</td><td>CONECTOR - DCJack C130239</td><td>1</td><td>190</td></tr></tbody>
+<tbody id="proyecto-body"><tr><td colspan="4">Cargando desde Supabase...</td></tr></tbody>
 </table>
 </div>
 <section class="seccion-tecnica">
@@ -489,17 +490,401 @@
 </p>
 </footer>
 <script>
-(function(){
-  function actualizarFooter(){
-    const el=document.getElementById("fecha-hora-dinamica");
-    if(!el) return;
-    const ahora=new Date();
-    const fecha=ahora.toLocaleDateString("es-MX",{day:"2-digit",month:"2-digit",year:"numeric"});
-    const hora=ahora.toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});
-    el.textContent=`${fecha} ${hora}`;
-  }
-  actualizarFooter();
-  setInterval(actualizarFooter,1000);
+(function () {
+    "use strict";
+
+    const PROYECTO = "DUO Pro";
+    const COMPONENTES_ESPECIFICOS = new Set([]);
+
+    const SUPABASE_URL =
+        "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const PAGE_SIZE = 1000;
+
+    function texto(v) {
+        return v === null || v === undefined ? "" : String(v);
+    }
+
+    function numero(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 0;
+    }
+
+    function numeroVisible(v) {
+        const n = numero(v);
+        return Number.isInteger(n)
+            ? String(n)
+            : String(Number(n.toFixed(6)));
+    }
+
+    function fechaBase(v) {
+        const s = texto(v);
+        const m = s.match(/\d{4}-\d{2}-\d{2}/);
+        return m ? m[0] : "";
+    }
+
+    function fechaConDia(v) {
+        const fecha = fechaBase(v);
+        if (!fecha) return texto(v);
+
+        const [y, m, d] = fecha.split("-").map(Number);
+        const f = new Date(y, m - 1, d);
+        const dias = [
+            "Domingo","Lunes","Martes","Miércoles",
+            "Jueves","Viernes","Sábado"
+        ];
+        return dias[f.getDay()] + " " + fecha;
+    }
+
+    function fechaMayor(...valores) {
+        const fechas = valores.map(fechaBase).filter(Boolean).sort();
+        return fechas.length ? fechas[fechas.length - 1] : "";
+    }
+
+    function actualizarFooter() {
+        const el = document.getElementById("fecha-hora-dinamica");
+        if (!el) return;
+
+        const ahora = new Date();
+        const fecha = ahora.toLocaleDateString(
+            "es-MX",
+            { day: "2-digit", month: "2-digit", year: "numeric" }
+        );
+        const hora = ahora.toLocaleTimeString(
+            "es-MX",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: false
+            }
+        );
+        el.textContent = `${fecha} ${hora}`;
+    }
+
+    async function fetchTabla(tabla, select, filtros = {}) {
+        const total = [];
+        let offset = 0;
+
+        while (true) {
+            const p = new URLSearchParams({
+                select,
+                limit: String(PAGE_SIZE),
+                offset: String(offset)
+            });
+
+            for (const [k, v] of Object.entries(filtros)) {
+                p.set(k, v);
+            }
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${tabla}?${p.toString()}`;
+
+            const r = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_ANON_KEY,
+                    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                    "Accept": "application/json"
+                },
+                cache: "no-store"
+            });
+
+            if (!r.ok) {
+                const detalle = await r.text();
+                throw new Error(
+                    `${tabla}: HTTP ${r.status}: ${detalle}`
+                );
+            }
+
+            const datos = await r.json();
+            if (!Array.isArray(datos)) {
+                throw new Error(`${tabla}: respuesta inválida`);
+            }
+
+            total.push(...datos);
+
+            if (datos.length < PAGE_SIZE) break;
+            offset += PAGE_SIZE;
+        }
+
+        return total;
+    }
+
+    function celda(valor, clase = "") {
+        const td = document.createElement("td");
+        td.textContent = texto(valor);
+        if (clase) td.className = clase;
+        return td;
+    }
+
+    function celdaNumero(valor) {
+        return celda(numeroVisible(valor), "numero-derecha");
+    }
+
+    function renderDisponibilidad(secuencias) {
+        let entrada = 0;
+        let salida = 0;
+        let venta = 0;
+        let ventaPreparada = 0;
+        let fechaEntrada = "";
+        let fechaSalida = "";
+
+        for (const r of secuencias) {
+            const proc = texto(r.gs_proceso).trim();
+            const cant = numero(r.gs_ctda);
+            const fecha = fechaBase(r.gs_fecha);
+
+            if (proc === "Fabricacion-Entrada") {
+                entrada += cant;
+                fechaEntrada = fechaMayor(fechaEntrada, fecha);
+            } else if (proc === "Fabricacion-Salida") {
+                salida += cant;
+                fechaSalida = fechaMayor(fechaSalida, fecha);
+            } else if (proc === "Venta-Concretada") {
+                venta += cant;
+            } else if (proc === "Venta-Preparada") {
+                ventaPreparada += cant;
+            }
+        }
+
+        const enFabricacion = entrada - salida;
+        const listasEnviar = salida - venta - ventaPreparada;
+        const fechaFabricacion = fechaMayor(fechaEntrada, fechaSalida);
+        const fechaDisponible = salida > 0 ? fechaSalida : "";
+
+        const tbody = document.getElementById("disponibilidad-body");
+        tbody.replaceChildren();
+
+        const tr = document.createElement("tr");
+        tr.appendChild(celda(PROYECTO));
+        tr.appendChild(celda("Placas"));
+        tr.appendChild(celdaNumero(enFabricacion));
+        tr.appendChild(celda(fechaConDia(fechaFabricacion)));
+        tr.appendChild(celdaNumero(listasEnviar));
+        tr.appendChild(celda(fechaConDia(fechaDisponible)));
+        tbody.appendChild(tr);
+    }
+
+    function renderSecuencias(secuencias) {
+        const tbody = document.getElementById("secuencias-body");
+        tbody.replaceChildren();
+
+        const filas = secuencias
+            .filter(r => texto(r.gs_ver).trim().toUpperCase() !== "N")
+            .sort((a, b) => {
+                const fa = fechaBase(a.gs_fecha);
+                const fb = fechaBase(b.gs_fecha);
+                if (fa !== fb) return fb.localeCompare(fa);
+                return numero(b.gs_id) - numero(a.gs_id);
+            });
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin secuencias registradas.");
+            td.colSpan = 5;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const tr = document.createElement("tr");
+            tr.appendChild(celda(r.gs_proceso));
+            tr.appendChild(celda(r.gs_lote));
+            tr.appendChild(celda(fechaConDia(r.gs_fecha)));
+            tr.appendChild(celda(r.gs_desc));
+            tr.appendChild(celdaNumero(r.gs_ctda));
+            tbody.appendChild(tr);
+        }
+    }
+
+    function mapaStock(stockRows) {
+        const mapa = new Map();
+        for (const r of stockRows) {
+            mapa.set(
+                texto(r.idE).trim().replace(/\.0$/, ""),
+                r
+            );
+        }
+        return mapa;
+    }
+
+    function renderEspecificos(stockRows) {
+        const tbody = document.getElementById("especificos-body");
+        tbody.replaceChildren();
+
+        const mapa = mapaStock(stockRows);
+        const filas = [...COMPONENTES_ESPECIFICOS]
+            .map(id => mapa.get(id))
+            .filter(Boolean);
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin componentes específicos.");
+            td.colSpan = 3;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const tr = document.createElement("tr");
+            tr.appendChild(
+                celda(texto(r.idE).replace(/\.0$/, ""))
+            );
+            tr.appendChild(celda(r.cs_desc));
+            tr.appendChild(celdaNumero(r.cs_ctda));
+            tbody.appendChild(tr);
+        }
+    }
+
+    function renderComponentesProyecto(proyectoRows, stockRows) {
+        const tbody = document.getElementById("proyecto-body");
+        tbody.replaceChildren();
+
+        const stock = mapaStock(stockRows);
+        const agrupado = new Map();
+
+        for (const r of proyectoRows) {
+            const id = texto(r.cp_idE).trim().replace(/\.0$/, "");
+            if (!id) continue;
+
+            if (!agrupado.has(id)) {
+                agrupado.set(id, {
+                    idE: id,
+                    descripcion: texto(r.cp_desc),
+                    cantidad: 0
+                });
+            }
+
+            const item = agrupado.get(id);
+            item.cantidad += numero(r.cp_ctda);
+
+            if (!item.descripcion && r.cp_desc) {
+                item.descripcion = texto(r.cp_desc);
+            }
+        }
+
+        const filas = [...agrupado.values()].sort((a, b) =>
+            texto(a.descripcion).localeCompare(
+                texto(b.descripcion),
+                "es",
+                { sensitivity: "base" }
+            )
+        );
+
+        if (!filas.length) {
+            const tr = document.createElement("tr");
+            const td = celda("Sin componentes del proyecto.");
+            td.colSpan = 4;
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const r of filas) {
+            const s = stock.get(r.idE);
+            const descripcion =
+                s && texto(s.cs_desc).trim()
+                    ? s.cs_desc
+                    : r.descripcion;
+            const existencia =
+                s ? numero(s.cs_ctda) : 0;
+
+            const tr = document.createElement("tr");
+            tr.appendChild(celda(r.idE));
+            tr.appendChild(celda(descripcion));
+            tr.appendChild(celdaNumero(r.cantidad));
+            tr.appendChild(celdaNumero(existencia));
+            tbody.appendChild(tr);
+        }
+    }
+
+    async function actualizarTodo() {
+        const estado =
+            document.getElementById("estado-supabase");
+
+        if (estado) {
+            estado.textContent =
+                "Actualizando datos desde Supabase...";
+            estado.style.color = "#657786";
+        }
+
+        try {
+            const [secuencias, proyectoRows, stockRows] =
+                await Promise.all([
+                    fetchTabla(
+                        "gs_secuencias",
+                        [
+                            "gs_id","gs_proceso","gs_subproceso",
+                            "gs_proyecto","gs_lote","gs_prior",
+                            "gs_fecha","gs_desc","gs_ctda",
+                            "gs_estado","gs_ver","gs_fecha_cum"
+                        ].join(","),
+                        { gs_proyecto: `eq.${PROYECTO}` }
+                    ),
+                    fetchTabla(
+                        "cp_proyectos",
+                        [
+                            "cp_id","cp_proyecto","cp_idE",
+                            "cp_desc","cp_ctda"
+                        ].join(","),
+                        { cp_proyecto: `eq.${PROYECTO}` }
+                    ),
+                    fetchTabla(
+                        "cs_stock",
+                        [
+                            "idE","cs_desc","cs_ctda",
+                            "cs_ctmi","cs_tipo","cs_observe"
+                        ].join(",")
+                    )
+                ]);
+
+            renderDisponibilidad(secuencias);
+            renderSecuencias(secuencias);
+            renderEspecificos(stockRows);
+            renderComponentesProyecto(proyectoRows, stockRows);
+            actualizarFooter();
+
+            if (estado) {
+                const hora = new Date().toLocaleTimeString(
+                    "es-MX",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit",
+                        hour12: false
+                    }
+                );
+
+                estado.textContent =
+                    `Supabase conectado · ${secuencias.length} secuencias · ` +
+                    `${proyectoRows.length} registros BOM · ${hora}`;
+                estado.style.color = "#1f6334";
+            }
+
+        } catch (error) {
+            console.error(error);
+
+            if (estado) {
+                estado.textContent =
+                    "Error al obtener datos desde Supabase";
+                estado.style.color = "#a02a2a";
+            }
+        }
+    }
+
+    actualizarFooter();
+    actualizarTodo();
+
+    window.setInterval(actualizarTodo, 60000);
+    window.setInterval(actualizarFooter, 1000);
 })();
 </script></body>
 </html>
