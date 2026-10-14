@@ -1284,6 +1284,78 @@ main {
 }
 </style>
 
+
+<style id="estilo-contadores-inversos">
+    .contadores-inversos {
+        width: 90%;
+        min-width: 950px;
+        margin: 0 auto 18px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .contador-inverso {
+        min-width: 0;
+        padding: 12px 15px;
+        border: 1px solid #cbd8e2;
+        border-radius: 12px;
+        background: #ffffff;
+        text-align: center;
+        box-shadow: 0 3px 10px rgba(0,0,0,.06);
+    }
+
+    .contador-inverso h2 {
+        margin: 0 0 8px;
+        color: #1f4e78;
+        font-size: 19px;
+        line-height: 1.2;
+    }
+
+    .contador-tiempo {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 6px 12px;
+        color: #26333f;
+    }
+
+    .contador-bloque {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 5px;
+    }
+
+    .contador-numero {
+        font-size: 25px;
+        line-height: 1;
+        font-weight: 800;
+        color: #1f4e78;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .contador-unidad {
+        font-size: 12px;
+        font-weight: 700;
+        color: #657786;
+    }
+
+    .contador-fecha {
+        margin-top: 8px;
+        color: #657786;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .contador-finalizado {
+        font-size: 25px;
+        line-height: 1.1;
+        font-weight: 800;
+        color: #1f6334;
+    }
+</style>
+
 </head>
 <body>
 <header id="cabecera">
@@ -1295,6 +1367,51 @@ main {
 </header>
 
 <main>
+
+    <section class="contadores-inversos" aria-label="Contadores inversos">
+        <article class="contador-inverso">
+            <h2>Comienzo Ampliacion</h2>
+            <div id="contador-ampliacion" class="contador-tiempo" aria-live="polite">
+                <span class="contador-bloque">
+                    <span class="contador-numero" data-parte="dias">--</span>
+                    <span class="contador-unidad">días</span>
+                </span>
+                <span class="contador-bloque">
+                    <span class="contador-numero" data-parte="horas">--</span>
+                    <span class="contador-unidad">horas</span>
+                </span>
+                <span class="contador-bloque">
+                    <span class="contador-numero" data-parte="minutos">--</span>
+                    <span class="contador-unidad">min</span>
+                </span>
+            </div>
+            <div class="contador-fecha">
+                Cierre: 07/12/2026 · 08:00
+            </div>
+        </article>
+
+        <article class="contador-inverso">
+            <h2>Restablecimiento del Sistema</h2>
+            <div id="contador-restablecimiento" class="contador-tiempo" aria-live="polite">
+                <span class="contador-bloque">
+                    <span class="contador-numero" data-parte="dias">--</span>
+                    <span class="contador-unidad">días</span>
+                </span>
+                <span class="contador-bloque">
+                    <span class="contador-numero" data-parte="horas">--</span>
+                    <span class="contador-unidad">horas</span>
+                </span>
+                <span class="contador-bloque">
+                    <span class="contador-numero" data-parte="minutos">--</span>
+                    <span class="contador-unidad">min</span>
+                </span>
+            </div>
+            <div class="contador-fecha">
+                Cierre: 07/04/2027 · 08:00
+            </div>
+        </article>
+    </section>
+
     <h1 class="seccion-principal">Expedientes de Todos los Proyectos</h1>
 
     <p id="estado-global" class="estado-supabase">
@@ -1330,6 +1447,93 @@ main {
         "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
 
     const PAGE_SIZE = 1000;
+
+    const CONTADORES = [
+        {
+            id: "contador-ampliacion",
+            objetivo: new Date(2026, 11, 7, 8, 0, 0, 0)
+        },
+        {
+            id: "contador-restablecimiento",
+            objetivo: new Date(2027, 3, 7, 8, 0, 0, 0)
+        }
+    ];
+
+    function actualizarContador(config) {
+        const contenedor =
+            document.getElementById(config.id);
+
+        if (!contenedor) {
+            return;
+        }
+
+        const restante =
+            config.objetivo.getTime() - Date.now();
+
+        if (restante <= 0) {
+            contenedor.className =
+                "contador-tiempo contador-finalizado";
+            contenedor.textContent =
+                "Finalizado";
+            return;
+        }
+
+        const totalMinutos =
+            Math.floor(
+                restante / (1000 * 60)
+            );
+
+        const totalHoras =
+            Math.floor(
+                totalMinutos / 60
+            );
+
+        const dias =
+            Math.floor(totalHoras / 24);
+
+        const horas =
+            totalHoras % 24;
+
+        const minutos =
+            totalMinutos % 60;
+
+        const nodoDias =
+            contenedor.querySelector(
+                '[data-parte="dias"]'
+            );
+
+        const nodoHoras =
+            contenedor.querySelector(
+                '[data-parte="horas"]'
+            );
+
+        const nodoMinutos =
+            contenedor.querySelector(
+                '[data-parte="minutos"]'
+            );
+
+        if (nodoDias) {
+            nodoDias.textContent =
+                String(dias);
+        }
+
+        if (nodoHoras) {
+            nodoHoras.textContent =
+                String(horas).padStart(2, "0");
+        }
+
+        if (nodoMinutos) {
+            nodoMinutos.textContent =
+                String(minutos).padStart(2, "0");
+        }
+    }
+
+    function actualizarContadores() {
+        for (const config of CONTADORES) {
+            actualizarContador(config);
+        }
+    }
+
 
     /*
        Componentes específicos recuperados de las páginas de proyecto
@@ -2542,11 +2746,17 @@ main {
 
 
     actualizarFooter();
+    actualizarContadores();
     actualizarTodo();
 
     window.setInterval(
         actualizarTodo,
         60000
+    );
+
+    window.setInterval(
+        actualizarContadores,
+        10000
     );
 })();
 </script>
