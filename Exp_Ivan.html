@@ -2253,6 +2253,135 @@ td.numero-derecha {
 }
 </style>
 
+
+<style id="estilo-contadores-laterales-avance">
+.avance-proceso-layout {
+    width: min(1400px, 100%);
+    margin: 0 auto 24px;
+    display: grid;
+    grid-template-columns: minmax(210px, 260px) minmax(620px, 1fr) minmax(210px, 260px);
+    align-items: stretch;
+    gap: 14px;
+}
+
+.avance-proceso-layout #resumen-procesos {
+    width: 100%;
+    margin: 0;
+    min-width: 0;
+}
+
+.contador-lateral {
+    min-width: 0;
+    padding: 16px 12px;
+    border: 1px solid #cbd8e2;
+    border-radius: 12px;
+    background: #ffffff;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.contador-lateral h2 {
+    margin: 0 0 12px;
+    color: #1f4e78;
+    font-size: 17px;
+    line-height: 1.2;
+}
+
+.contador-tiempo-lateral {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px 12px;
+}
+
+.contador-bloque-lateral {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+}
+
+.contador-numero-lateral {
+    color: #1f4e78;
+    font-size: 27px;
+    line-height: 1;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+.contador-unidad-lateral {
+    color: #657786;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.contador-fecha-lateral {
+    margin-top: 12px;
+    color: #657786;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.35;
+}
+
+.contador-finalizado-lateral {
+    color: #1f6334;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+@media (max-width: 1150px) {
+    .avance-proceso-layout {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .avance-proceso-layout #resumen-procesos {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .contador-lateral-izq {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .contador-lateral-der {
+        grid-column: 2;
+        grid-row: 2;
+    }
+}
+
+@media (max-width: 700px) {
+    .avance-proceso-layout {
+        width: 100%;
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .avance-proceso-layout #resumen-procesos,
+    .contador-lateral-izq,
+    .contador-lateral-der {
+        grid-column: 1;
+    }
+
+    .avance-proceso-layout #resumen-procesos {
+        grid-row: 1;
+    }
+
+    .contador-lateral-izq {
+        grid-row: 2;
+    }
+
+    .contador-lateral-der {
+        grid-row: 3;
+    }
+}
+</style>
+
 </head>
 <body>
 <header id="cabecera">
@@ -2265,25 +2394,71 @@ td.numero-derecha {
 <main>
 <h1 class="seccion-principal">Expediente Fashident v1.0</h1><p id="estado-supabase">Conectando con Supabase...</p>
 
-<section id="resumen-procesos">
-    <h2>Avance por Proceso</h2>
-    <p class="barras-proceso-subtitulo">
-        Cantidad acumulada por proceso · Ver ≠ N · procesos seleccionados
-    </p>
+<div class="avance-proceso-layout">
 
-    <div class="barras-proceso-plan">
-        <div class="barras-proceso-plan-etiqueta">Fabricacion-Plan</div>
-        <div class="barras-proceso-plan-valor" id="barras-proceso-plan">—</div>
-    </div>
+    <article class="contador-lateral contador-lateral-izq">
+        <h2>Comienzo Ampliacion</h2>
+        <div id="contador-ampliacion" class="contador-tiempo-lateral" aria-live="polite">
+            <span class="contador-bloque-lateral">
+                <span class="contador-numero-lateral" data-parte="dias">--</span>
+                <span class="contador-unidad-lateral">días</span>
+            </span>
+            <span class="contador-bloque-lateral">
+                <span class="contador-numero-lateral" data-parte="horas">--</span>
+                <span class="contador-unidad-lateral">horas</span>
+            </span>
+            <span class="contador-bloque-lateral">
+                <span class="contador-numero-lateral" data-parte="minutos">--</span>
+                <span class="contador-unidad-lateral">min</span>
+            </span>
+        </div>
+        <div class="contador-fecha-lateral">
+            Cierre: 07/12/2026 · 08:00
+        </div>
+    </article>
 
-    <div class="barras-proceso-escala" id="barras-proceso-escala">
-        Escala máxima: —
-    </div>
+    <section id="resumen-procesos">
+        <h2>Avance por Proceso</h2>
+        <p class="barras-proceso-subtitulo">
+            Cantidad acumulada por proceso · Ver ≠ N · procesos seleccionados
+        </p>
 
-    <div id="barras-proceso-lista">
-        <div class="barras-proceso-aviso">Cargando procesos desde Supabase...</div>
-    </div>
-</section>
+        <div class="barras-proceso-plan">
+            <div class="barras-proceso-plan-etiqueta">Fabricacion-Plan</div>
+            <div class="barras-proceso-plan-valor" id="barras-proceso-plan">—</div>
+        </div>
+
+        <div class="barras-proceso-escala" id="barras-proceso-escala">
+            Escala máxima: —
+        </div>
+
+        <div id="barras-proceso-lista">
+            <div class="barras-proceso-aviso">Cargando procesos desde Supabase...</div>
+        </div>
+    </section>
+
+    <article class="contador-lateral contador-lateral-der">
+        <h2>Restablecimiento del Sistema</h2>
+        <div id="contador-restablecimiento" class="contador-tiempo-lateral" aria-live="polite">
+            <span class="contador-bloque-lateral">
+                <span class="contador-numero-lateral" data-parte="dias">--</span>
+                <span class="contador-unidad-lateral">días</span>
+            </span>
+            <span class="contador-bloque-lateral">
+                <span class="contador-numero-lateral" data-parte="horas">--</span>
+                <span class="contador-unidad-lateral">horas</span>
+            </span>
+            <span class="contador-bloque-lateral">
+                <span class="contador-numero-lateral" data-parte="minutos">--</span>
+                <span class="contador-unidad-lateral">min</span>
+            </span>
+        </div>
+        <div class="contador-fecha-lateral">
+            Cierre: 11/04/2027 · 00:00
+        </div>
+    </article>
+
+</div>
 
 <div class="separador">-------------------------</div>
 <h2>Balance de Disponibilidad de Placas</h2>
@@ -3041,5 +3216,61 @@ td.numero-derecha {
 
     window.addEventListener("resize", aplicarEtiquetasMoviles);
 })();
-</script></body>
+</script>
+<script id="script-contadores-laterales">
+(function () {
+    "use strict";
+
+    const CONTADORES_LATERALES = [
+        {
+            id: "contador-ampliacion",
+            objetivo: new Date(2026, 11, 7, 8, 0, 0, 0)
+        },
+        {
+            id: "contador-restablecimiento",
+            objetivo: new Date(2027, 3, 11, 0, 0, 0, 0)
+        }
+    ];
+
+    function actualizarContadorLateral(config) {
+        const contenedor = document.getElementById(config.id);
+        if (!contenedor) return;
+
+        const restante = config.objetivo.getTime() - Date.now();
+
+        if (restante <= 0) {
+            contenedor.innerHTML =
+                '<span class="contador-finalizado-lateral">Finalizado</span>';
+            return;
+        }
+
+        const minuto = 60 * 1000;
+        const hora = 60 * minuto;
+        const dia = 24 * hora;
+
+        const dias = Math.floor(restante / dia);
+        const horas = Math.floor((restante % dia) / hora);
+        const minutos = Math.floor((restante % hora) / minuto);
+
+        const nodoDias = contenedor.querySelector('[data-parte="dias"]');
+        const nodoHoras = contenedor.querySelector('[data-parte="horas"]');
+        const nodoMinutos = contenedor.querySelector('[data-parte="minutos"]');
+
+        if (nodoDias) nodoDias.textContent = String(dias);
+        if (nodoHoras) nodoHoras.textContent = String(horas).padStart(2, "0");
+        if (nodoMinutos) nodoMinutos.textContent = String(minutos).padStart(2, "0");
+    }
+
+    function actualizarContadoresLaterales() {
+        for (const config of CONTADORES_LATERALES) {
+            actualizarContadorLateral(config);
+        }
+    }
+
+    actualizarContadoresLaterales();
+    window.setInterval(actualizarContadoresLaterales, 10000);
+})();
+</script>
+
+</body>
 </html>
