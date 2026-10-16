@@ -2069,6 +2069,190 @@ td.numero-derecha {
     text-align: center !important;
 }
 </style>
+
+<style>
+/* ============================================================
+   AVANCE POR PROCESO - FASHIDENT
+   Fabricacion-Plan = 100 %
+   Solo registros gs_ver != N/n
+   ============================================================ */
+
+#resumen-procesos {
+    width: min(1180px, 100%);
+    margin: 0 auto 24px;
+    padding: 20px 24px 24px;
+    background: #ffffff;
+    border: 1px solid #d8dee5;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+}
+
+#resumen-procesos h2 {
+    margin: 0 0 4px;
+    color: #1f4e78;
+    font-size: 25px;
+    text-align: center;
+}
+
+.barras-proceso-subtitulo {
+    margin: 0 0 16px;
+    color: #657786;
+    font-size: 14px;
+    text-align: center;
+}
+
+.barras-proceso-plan {
+    width: fit-content;
+    min-width: 230px;
+    margin: 0 auto 18px;
+    padding: 10px 20px;
+    border: 1px solid #cfd9e2;
+    border-radius: 10px;
+    background: #f8fbfd;
+    text-align: center;
+}
+
+.barras-proceso-plan-etiqueta {
+    color: #657786;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.barras-proceso-plan-valor {
+    margin-top: 2px;
+    color: #1f4e78;
+    font-size: 30px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+.barras-proceso-escala {
+    margin-bottom: 12px;
+    color: #657786;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: right;
+}
+
+#barras-proceso-lista {
+    width: 100%;
+}
+
+.barras-proceso-fila {
+    display: grid;
+    grid-template-columns: 210px minmax(260px, 1fr) 115px;
+    align-items: center;
+    gap: 14px;
+    min-height: 48px;
+    padding: 5px 0;
+}
+
+.barras-proceso-nombre {
+    color: #30485d;
+    font-size: 15px;
+    font-weight: 800;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.barras-proceso-fondo {
+    position: relative;
+    height: 27px;
+    overflow: hidden;
+    border: 1px solid #d6e0e7;
+    border-radius: 7px;
+    background: #e8eef3;
+}
+
+.barras-proceso-relleno {
+    height: 100%;
+    width: 0;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #346b98, #5796c4);
+    transition: width .65s ease;
+}
+
+/* Únicamente Fabricacion-Diagnostico se muestra en rojo */
+.barras-proceso-relleno.diagnostico {
+    background: linear-gradient(90deg, #b52b2b, #e05252);
+}
+
+.barras-proceso-cantidad-barra {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 9px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 800;
+    text-shadow: 0 1px 2px rgba(0,0,0,.45);
+    pointer-events: none;
+}
+
+.barras-proceso-dato {
+    text-align: right;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.barras-proceso-dato strong {
+    display: block;
+    color: #1f4e78;
+    font-size: 17px;
+}
+
+.barras-proceso-dato span {
+    display: block;
+    margin-top: 1px;
+    color: #657786;
+    font-size: 11px;
+}
+
+.barras-proceso-aviso {
+    padding: 14px;
+    color: #a02a2a;
+    font-weight: 700;
+    text-align: center;
+}
+
+@media (max-width: 900px) {
+    #resumen-procesos {
+        width: 100%;
+        margin: 0 0 18px;
+        padding: 16px 12px 18px;
+    }
+
+    #resumen-procesos h2 {
+        font-size: 22px;
+    }
+
+    .barras-proceso-fila {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        padding: 9px 0;
+        border-bottom: 1px solid #edf0f2;
+    }
+
+    .barras-proceso-nombre {
+        text-align: left;
+    }
+
+    .barras-proceso-dato {
+        display: flex;
+        justify-content: flex-end;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+    .barras-proceso-dato strong,
+    .barras-proceso-dato span {
+        display: inline;
+        margin: 0;
+    }
+}
+</style>
+
 </head>
 <body>
 <header id="cabecera">
@@ -2080,6 +2264,27 @@ td.numero-derecha {
 </header>
 <main>
 <h1 class="seccion-principal">Expediente Fashident v1.0</h1><p id="estado-supabase">Conectando con Supabase...</p>
+
+<section id="resumen-procesos">
+    <h2>Avance por Proceso</h2>
+    <p class="barras-proceso-subtitulo">
+        Cantidad acumulada por proceso · Ver ≠ N · procesos seleccionados
+    </p>
+
+    <div class="barras-proceso-plan">
+        <div class="barras-proceso-plan-etiqueta">Fabricacion-Plan</div>
+        <div class="barras-proceso-plan-valor" id="barras-proceso-plan">—</div>
+    </div>
+
+    <div class="barras-proceso-escala" id="barras-proceso-escala">
+        Escala máxima: —
+    </div>
+
+    <div id="barras-proceso-lista">
+        <div class="barras-proceso-aviso">Cargando procesos desde Supabase...</div>
+    </div>
+</section>
+
 <div class="separador">-------------------------</div>
 <h2>Balance de Disponibilidad de Placas</h2>
 <div class="tabla-wrap">
@@ -2351,6 +2556,180 @@ td.numero-derecha {
         return "seq-neutral";
     }
 
+
+    // ========================================================
+    // BARRAS DE AVANCE POR PROCESO
+    // Misma fuente de datos que Secuencias de Trabajo.
+    // Regla: excluir únicamente gs_ver = N/n.
+    // Fabricacion-Plan define el 100 %.
+    // ========================================================
+
+    function claveProcesoBarra(valor) {
+        return texto(valor)
+            .trim()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase();
+    }
+
+    function esFabricacionPlanBarra(valor) {
+        return claveProcesoBarra(valor) === "fabricacion-plan";
+    }
+
+    const ORDEN_BARRAS_PROCESO = [
+        "Fabricacion-Entrada",
+        "Fabricacion-SMD",
+        "Fabricacion-TH",
+        "Fabricacion-Diagnostico",
+        "Fabricacion-Programacion",
+        "Fabricacion-Salida"
+    ];
+
+    const CLAVES_BARRAS_PROCESO = ORDEN_BARRAS_PROCESO.map(
+        nombre => claveProcesoBarra(nombre)
+    );
+
+    function renderBarrasProcesos(secuencias) {
+        const lista = document.getElementById("barras-proceso-lista");
+        const planEl = document.getElementById("barras-proceso-plan");
+        const escalaEl = document.getElementById("barras-proceso-escala");
+
+        if (!lista || !planEl || !escalaEl) return;
+
+        // Mismo criterio de visibilidad de procesos:
+        // se elimina solamente gs_ver = N/n.
+        const validas = secuencias.filter(
+            r => texto(r.gs_ver).trim().toUpperCase() !== "N"
+        );
+
+        const acumulado = new Map();
+
+        for (const r of validas) {
+            const nombre = texto(r.gs_proceso).trim();
+            if (!nombre) continue;
+
+            const clave = claveProcesoBarra(nombre);
+
+            if (!acumulado.has(clave)) {
+                acumulado.set(clave, {
+                    nombre,
+                    cantidad: 0
+                });
+            }
+
+            acumulado.get(clave).cantidad += numero(r.gs_ctda);
+        }
+
+        const procesos = Array.from(acumulado.values());
+
+        const plan = procesos.find(
+            p => esFabricacionPlanBarra(p.nombre)
+        );
+
+        const maximo = plan ? numero(plan.cantidad) : 0;
+
+        planEl.textContent = numeroVisible(maximo);
+        escalaEl.textContent =
+            "Escala máxima: " + numeroVisible(maximo);
+
+        lista.replaceChildren();
+
+        if (!plan) {
+            const aviso = document.createElement("div");
+            aviso.className = "barras-proceso-aviso";
+            aviso.textContent =
+                'No existe un registro válido del proceso "Fabricacion-Plan".';
+            lista.appendChild(aviso);
+            return;
+        }
+
+        if (maximo <= 0) {
+            const aviso = document.createElement("div");
+            aviso.className = "barras-proceso-aviso";
+            aviso.textContent =
+                'Fabricacion-Plan tiene cantidad 0; no es posible calcular porcentajes.';
+            lista.appendChild(aviso);
+            return;
+        }
+
+        // Mostrar solamente los procesos deseados y en este orden exacto.
+        // Cualquier otro gs_proceso se ignora para esta gráfica.
+        const porClave = new Map(
+            procesos.map(p => [claveProcesoBarra(p.nombre), p])
+        );
+
+        const barras = ORDEN_BARRAS_PROCESO.map((nombreDeseado, indice) => {
+            const clave = CLAVES_BARRAS_PROCESO[indice];
+            const encontrado = porClave.get(clave);
+
+            return {
+                nombre: nombreDeseado,
+                cantidad: encontrado ? numero(encontrado.cantidad) : 0
+            };
+        });
+
+        barras.forEach((proceso, indice) => {
+            const cantidad = numero(proceso.cantidad);
+            const porcentajeReal = (cantidad / maximo) * 100;
+            const porcentajeVisual = Math.max(
+                0,
+                Math.min(100, porcentajeReal)
+            );
+
+            const fila = document.createElement("div");
+            fila.className = "barras-proceso-fila";
+
+            const nombre = document.createElement("div");
+            nombre.className = "barras-proceso-nombre";
+            nombre.textContent = proceso.nombre;
+
+            const fondo = document.createElement("div");
+            fondo.className = "barras-proceso-fondo";
+
+            const relleno = document.createElement("div");
+            relleno.className = "barras-proceso-relleno";
+
+            if (
+                claveProcesoBarra(proceso.nombre)
+                === claveProcesoBarra("Fabricacion-Diagnostico")
+            ) {
+                relleno.classList.add("diagnostico");
+            }
+
+            relleno.style.width = "0%";
+
+            const cantidadBarra = document.createElement("div");
+            cantidadBarra.className = "barras-proceso-cantidad-barra";
+            cantidadBarra.textContent = numeroVisible(cantidad);
+
+            fondo.appendChild(relleno);
+            fondo.appendChild(cantidadBarra);
+
+            const dato = document.createElement("div");
+            dato.className = "barras-proceso-dato";
+
+            const cantidadTexto = document.createElement("strong");
+            cantidadTexto.textContent = numeroVisible(cantidad);
+
+            const porcentajeTexto = document.createElement("span");
+            porcentajeTexto.textContent =
+                porcentajeReal.toFixed(1) + "%";
+
+            dato.appendChild(cantidadTexto);
+            dato.appendChild(porcentajeTexto);
+
+            fila.appendChild(nombre);
+            fila.appendChild(fondo);
+            fila.appendChild(dato);
+
+            lista.appendChild(fila);
+
+            window.setTimeout(() => {
+                relleno.style.width = porcentajeVisual + "%";
+            }, 50 + indice * 35);
+        });
+    }
+
     function renderSecuencias(secuencias) {
         const tbody = document.getElementById("secuencias-body");
         tbody.replaceChildren();
@@ -2563,6 +2942,7 @@ td.numero-derecha {
                 )
             ]);
 
+            renderBarrasProcesos(secuencias);
             renderDisponibilidad(secuencias);
             renderSecuencias(secuencias);
             renderEspecificos(stockRows);
