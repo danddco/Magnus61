@@ -581,7 +581,8 @@
                         "gs_proyecto",
                         "gs_lote",
                         "gs_fecha",
-                        "gs_ctda"
+                        "gs_ctda",
+                        "gs_ver"
                     ].join(","),
                     gs_proyecto:
                         `eq.${PROYECTO}`,
@@ -660,6 +661,14 @@
         };
 
         for (const fila of filas) {
+            if (
+                texto(fila.gs_ver)
+                    .trim()
+                    .toUpperCase() === "N"
+            ) {
+                continue;
+            }
+
             const proceso =
                 texto(fila.gs_proceso).trim();
 

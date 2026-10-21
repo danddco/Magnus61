@@ -1179,6 +1179,14 @@
         let fechaVenta = "";
 
         for (const r of secuencias) {
+            if (
+                texto(r.gs_ver)
+                    .trim()
+                    .toUpperCase() === "N"
+            ) {
+                continue;
+            }
+
             const proceso = texto(r.gs_proceso).trim();
             const cantidad = numero(r.gs_ctda);
             const fecha = fechaISO(r.gs_fecha);
