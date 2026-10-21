@@ -941,6 +941,14 @@
         let fechaSalida = "";
 
         for (const r of secuencias) {
+            if (
+                texto(r.gs_ver)
+                    .trim()
+                    .toUpperCase() === "N"
+            ) {
+                continue;
+            }
+
             const proc = texto(r.gs_proceso).trim();
             const cant = numero(r.gs_ctda);
             const fecha = fechaBase(r.gs_fecha);
