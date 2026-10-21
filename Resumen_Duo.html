@@ -1,60 +1,464 @@
 <!DOCTYPE html>
-    <html lang="es">
-    <head>
-    <meta charset="UTF-8">
-    <title>CircuitDesignMx</title>
-    <style>
-    * { margin: 0; padding: 0; }
-    #cabecera { background-color: limegreen; padding: 10px; color: white; text-align: center; }
-    body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
-    .card { background: white; padding: 25px; margin: 20px auto; border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); width: 350px; text-align: center; }
-    .valor { font-size: 40px; font-weight: bold; color: #333; }
-    .fecha { font-size: 16px; color: #666; margin-top: 5px; }
-    footer { background-color: red; color: white; padding: 8px; text-align: center; margin-top: 40px; }
-    </style>
-    </head>
-    <body>
-
-    <header id="cabecera">
-        <h1>CircuitDesignMx</h1>
-    </header>
-
-    <h1 style="text-align:center; margin-top:20px;">
-        Reporte de Producción - DUO ver1.0
-    </h1>
-
-    <div class="card">
-        <h2>En Fabricación</h2>
-        <div class="valor">5</div>
-        <div class="fecha">2026-06-10</div>
-    </div>
-
-    <div class="card">
-        <h2>Listas para enviar</h2>
-        <div class="valor">0</div>
-        <div class="fecha">2026-06-10</div>
-    </div>
-
-    </body>
-    </html>
-    
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>CircuitDesignMx</title>
 <style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f4f4f4;
+    color: #26333f;
+}
+
+#cabecera {
+    background-color: limegreen;
+    padding: 10px;
+    color: white;
+    text-align: center;
+}
+
+.titulo-reporte {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.estado {
+    text-align: center;
+    margin: 8px 0 6px;
+    color: #657786;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.card {
+    background: white;
+    padding: 25px;
+    margin: 20px auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    width: 350px;
+    text-align: center;
+}
+
+.valor {
+    font-size: 40px;
+    font-weight: bold;
+    color: #333;
+}
+
+.fecha {
+    font-size: 16px;
+    color: #666;
+    margin-top: 5px;
+}
+
 footer {
     background-color: red;
     color: white;
-    padding: 5px;
+    padding: 8px;
     text-align: center;
+    margin-top: 40px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
+
+@media (max-width: 480px) {
+    body {
+        margin: 12px;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .titulo-reporte {
+        font-size: 24px;
+    }
+}
 </style>
-  <div style="height: 14px;"></div>
+</head>
+
+<body>
+
+<header id="cabecera">
+    <h1>CircuitDesignMx</h1>
+</header>
+
+<h1 class="titulo-reporte">
+    Reporte de Producción - DUO Basic
+</h1>
+
+<div id="estado-supabase" class="estado">
+    Conectando con Supabase...
+</div>
+
+<div class="card">
+    <h2>En Fabricación</h2>
+    <div class="valor" id="valor-fabricacion">--</div>
+    <div class="fecha" id="fecha-fabricacion">--</div>
+</div>
+
+<div class="card">
+    <h2>Listas para enviar</h2>
+    <div class="valor" id="valor-enviar">--</div>
+    <div class="fecha" id="fecha-disponible">--</div>
+</div>
+
 <footer>
     <p style="margin-top:5px;">
         &copy; 2026 CircuitDesignMx. Todos los derechos reservados.
     </p>
     <p style="margin-top:5px;">
-        Fecha y hora: 10/06/2026 09:45:21
+        Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
     </p>
 </footer>
-        
+
+<script>
+(function () {
+    "use strict";
+
+    const PROYECTO = "DUO Basic";
+
+    const SUPABASE_URL =
+        "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const TABLA = "gs_secuencias";
+    const LOTE = 1000;
+
+    const valorFabricacion =
+        document.getElementById("valor-fabricacion");
+
+    const valorEnviar =
+        document.getElementById("valor-enviar");
+
+    const fechaFabricacion =
+        document.getElementById("fecha-fabricacion");
+
+    const fechaDisponible =
+        document.getElementById("fecha-disponible");
+
+    const estado =
+        document.getElementById("estado-supabase");
+
+    function texto(v) {
+        return v === null || v === undefined
+            ? ""
+            : String(v);
+    }
+
+    function numero(v) {
+        const n = Number(v);
+        return Number.isFinite(n) ? n : 0;
+    }
+
+    function numeroVisible(v) {
+        const n = numero(v);
+        return Number.isInteger(n)
+            ? String(n)
+            : String(Number(n.toFixed(6)));
+    }
+
+    function fechaBase(v) {
+        const s = texto(v);
+        const m = s.match(/\d{4}-\d{2}-\d{2}/);
+        return m ? m[0] : "";
+    }
+
+    function fechaMayor(...valores) {
+        const fechas =
+            valores
+                .map(fechaBase)
+                .filter(Boolean)
+                .sort();
+
+        return fechas.length
+            ? fechas[fechas.length - 1]
+            : "";
+    }
+
+    function actualizarFooter() {
+        const destino =
+            document.getElementById("fecha-hora-dinamica");
+
+        if (!destino) return;
+
+        const ahora = new Date();
+
+        const fecha =
+            ahora.toLocaleDateString(
+                "es-MX",
+                {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "numeric"
+                }
+            );
+
+        const hora =
+            ahora.toLocaleTimeString(
+                "es-MX",
+                {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                    second: "2-digit",
+                    hour12: false
+                }
+            );
+
+        destino.textContent =
+            `${fecha} ${hora}`;
+    }
+
+    async function leerProduccion() {
+        const todos = [];
+        let offset = 0;
+
+        while (true) {
+            const params =
+                new URLSearchParams({
+                    select: [
+                        "gs_id",
+                        "gs_proceso",
+                        "gs_proyecto",
+                        "gs_fecha",
+                        "gs_ctda",
+                        "gs_ver"
+                    ].join(","),
+                    gs_proyecto:
+                        `eq.${PROYECTO}`,
+                    gs_proceso:
+                        "in.(Fabricacion-Entrada,Fabricacion-Salida,Venta-Concretada,Venta-Preparada)",
+                    order:
+                        "gs_fecha.asc,gs_id.asc",
+                    limit:
+                        String(LOTE),
+                    offset:
+                        String(offset)
+                });
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${TABLA}?` +
+                params.toString();
+
+            const respuesta =
+                await fetch(
+                    url,
+                    {
+                        method: "GET",
+                        headers: {
+                            "apikey":
+                                SUPABASE_ANON_KEY,
+                            "Authorization":
+                                `Bearer ${SUPABASE_ANON_KEY}`,
+                            "Accept":
+                                "application/json"
+                        },
+                        cache: "no-store"
+                    }
+                );
+
+            if (!respuesta.ok) {
+                const detalle =
+                    await respuesta.text();
+
+                throw new Error(
+                    `HTTP ${respuesta.status}: ${detalle}`
+                );
+            }
+
+            const datos =
+                await respuesta.json();
+
+            if (!Array.isArray(datos)) {
+                throw new Error(
+                    "Supabase no devolvió una lista."
+                );
+            }
+
+            todos.push(...datos);
+
+            if (datos.length < LOTE) {
+                break;
+            }
+
+            offset += LOTE;
+        }
+
+        return todos;
+    }
+
+    function resumir(filas) {
+        let entrada = 0;
+        let salida = 0;
+        let venta = 0;
+        let ventaPreparada = 0;
+
+        let fechaEntrada = "";
+        let fechaSalida = "";
+        let fechaVenta = "";
+
+        for (const fila of filas) {
+            if (
+                texto(fila.gs_ver)
+                    .trim()
+                    .toUpperCase() === "N"
+            ) {
+                continue;
+            }
+
+            const proceso =
+                texto(fila.gs_proceso).trim();
+
+            const cantidad =
+                numero(fila.gs_ctda);
+
+            const fecha =
+                fechaBase(fila.gs_fecha);
+
+            if (proceso === "Fabricacion-Entrada") {
+                entrada += cantidad;
+                fechaEntrada =
+                    fechaMayor(fechaEntrada, fecha);
+            }
+            else if (proceso === "Fabricacion-Salida") {
+                salida += cantidad;
+                fechaSalida =
+                    fechaMayor(fechaSalida, fecha);
+            }
+            else if (proceso === "Venta-Concretada") {
+                venta += cantidad;
+                fechaVenta =
+                    fechaMayor(fechaVenta, fecha);
+            }
+            else if (proceso === "Venta-Preparada") {
+                ventaPreparada += cantidad;
+            }
+        }
+
+        return {
+            enFabricacion:
+                entrada - salida,
+
+            listasEnviar:
+                salida - venta - ventaPreparada,
+
+            fechaFabricacion:
+                fechaMayor(
+                    fechaEntrada,
+                    fechaSalida
+                ),
+
+            fechaDisponible:
+                fechaMayor(
+                    fechaSalida,
+                    fechaVenta
+                )
+        };
+    }
+
+    async function actualizarReporte() {
+        estado.textContent =
+            "Actualizando desde Supabase...";
+
+        estado.style.color =
+            "#657786";
+
+        try {
+            const filas =
+                await leerProduccion();
+
+            const resumen =
+                resumir(filas);
+
+            valorFabricacion.textContent =
+                numeroVisible(
+                    resumen.enFabricacion
+                );
+
+            valorEnviar.textContent =
+                numeroVisible(
+                    resumen.listasEnviar
+                );
+
+            fechaFabricacion.textContent =
+                resumen.fechaFabricacion || "—";
+
+            fechaDisponible.textContent =
+                resumen.fechaDisponible || "—";
+
+            const validos =
+                filas.filter(
+                    fila =>
+                        texto(fila.gs_ver)
+                            .trim()
+                            .toUpperCase() !== "N"
+                ).length;
+
+            const ahora =
+                new Date()
+                    .toLocaleTimeString(
+                        "es-MX",
+                        {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                            second: "2-digit"
+                        }
+                    );
+
+            estado.textContent =
+                `Supabase conectado · ` +
+                `${validos} registros válidos · ` +
+                `${ahora}`;
+
+            estado.style.color =
+                "#1f6334";
+        }
+        catch (error) {
+            console.error(error);
+
+            valorFabricacion.textContent =
+                "ERROR";
+
+            valorEnviar.textContent =
+                "ERROR";
+
+            fechaFabricacion.textContent =
+                "—";
+
+            fechaDisponible.textContent =
+                "—";
+
+            estado.textContent =
+                "Error de conexión con Supabase";
+
+            estado.style.color =
+                "#a02a2a";
+        }
+    }
+
+    actualizarFooter();
+    actualizarReporte();
+
+    window.setInterval(
+        actualizarReporte,
+        60000
+    );
+
+    window.setInterval(
+        actualizarFooter,
+        1000
+    );
+})();
+</script>
+
+</body>
+</html>
