@@ -339,6 +339,95 @@
             text-align: right;
         }
 
+        .imagen-stock-celda {
+            text-align: center;
+            min-width: 86px;
+        }
+
+        .miniatura-stock {
+            display: block;
+            width: 64px;
+            height: 64px;
+            margin: 0 auto;
+            object-fit: contain;
+            border: 1px solid #c9d3dc;
+            border-radius: 7px;
+            background: #ffffff;
+            cursor: zoom-in;
+            transition: transform .15s ease, box-shadow .15s ease;
+        }
+
+        .miniatura-stock:hover {
+            transform: scale(1.06);
+            box-shadow: 0 3px 10px rgba(0,0,0,.18);
+        }
+
+        .sin-imagen-stock {
+            display: inline-block;
+            color: #8a969f;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .visor-imagen-stock {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 28px;
+            background: rgba(0,0,0,.78);
+        }
+
+        .visor-imagen-stock.abierto {
+            display: flex;
+        }
+
+        .visor-imagen-contenido {
+            position: relative;
+            width: min(1100px, 96vw);
+            max-height: 92vh;
+            padding: 14px;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: 0 12px 40px rgba(0,0,0,.38);
+        }
+
+        .visor-imagen-grande {
+            display: block;
+            width: 100%;
+            max-height: calc(92vh - 70px);
+            object-fit: contain;
+            border-radius: 8px;
+            background: #f4f6f8;
+        }
+
+        .visor-imagen-cerrar {
+            position: absolute;
+            top: 6px;
+            right: 8px;
+            z-index: 2;
+            width: 38px;
+            height: 38px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(31,78,120,.92);
+            color: white;
+            font-size: 27px;
+            line-height: 38px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .visor-imagen-pie {
+            margin-top: 8px;
+            color: #526674;
+            font-size: 13px;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
+
         .sin-resultados {
             display: none;
             padding: 20px;
@@ -535,6 +624,7 @@
                         <th>ID</th>
                         <th>LCSC</th>
                         <th>Descripción</th>
+                        <th>Imagen</th>
                         <th>Cantidad</th>
                         <th>Ctdad Critica</th>
                         <th>Tipo</th>
@@ -544,7 +634,7 @@
                 </thead>
                 <tbody id="stock-body">
                     <tr>
-                        <td colspan="8"
+                        <td colspan="9"
                             style="text-align:center; padding:24px;">
                             Cargando existencia directamente desde Supabase...
                         </td>
@@ -558,10 +648,79 @@
         </div>
     </main>
 
+    <div id="visor-imagen-stock"
+         class="visor-imagen-stock"
+         role="dialog"
+         aria-modal="true"
+         aria-label="Vista ampliada de imagen"
+         onclick="cerrarVisorImagenStock(event)">
+        <div class="visor-imagen-contenido" onclick="event.stopPropagation()">
+            <button class="visor-imagen-cerrar"
+                    type="button"
+                    aria-label="Cerrar"
+                    onclick="cerrarVisorImagenStock()">×</button>
+            <img id="visor-imagen-grande"
+                 class="visor-imagen-grande"
+                 src=""
+                 alt="Imagen ampliada del componente">
+            <div id="visor-imagen-pie"
+                 class="visor-imagen-pie"></div>
+        </div>
+    </div>
+
     <script>
         function normalizar(texto) {
             return (texto || "").toString().trim().toLocaleLowerCase("es-MX");
         }
+
+        function abrirVisorImagenStock(ruta, descripcion) {
+            const visor = document.getElementById("visor-imagen-stock");
+            const imagen = document.getElementById("visor-imagen-grande");
+            const pie = document.getElementById("visor-imagen-pie");
+
+            if (!visor || !imagen) return;
+
+            imagen.src = ruta;
+            imagen.alt = descripcion
+                ? `Imagen ampliada de ${descripcion}`
+                : "Imagen ampliada del componente";
+
+            if (pie) {
+                pie.textContent = descripcion || "";
+            }
+
+            visor.classList.add("abierto");
+            document.body.style.overflow = "hidden";
+        }
+
+        function cerrarVisorImagenStock(event) {
+            if (
+                event &&
+                event.target &&
+                event.currentTarget &&
+                event.target !== event.currentTarget
+            ) {
+                return;
+            }
+
+            const visor = document.getElementById("visor-imagen-stock");
+            const imagen = document.getElementById("visor-imagen-grande");
+
+            if (!visor) return;
+
+            visor.classList.remove("abierto");
+            document.body.style.overflow = "";
+
+            if (imagen) {
+                imagen.src = "";
+            }
+        }
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                cerrarVisorImagenStock();
+            }
+        });
 
         function filtrarStock() {
             const criterioIdE = normalizar(
@@ -721,7 +880,8 @@
             "cs_ctmi",
             "cs_tipo",
             "cs_fecha",
-            "cs_observe"
+            "cs_observe",
+            "cs_imagen"
         ].join(",");
 
         while (true) {
@@ -810,6 +970,75 @@
     }
 
 
+    function resolverRutaImagenWeb(valor) {
+        let ruta = texto(valor).trim();
+
+        if (!ruta) {
+            return "";
+        }
+
+        // Las rutas guardadas por el programa de STOCK suelen usar
+        // formato relativo (por ejemplo: imagenes_stock/123.jpg).
+        ruta = ruta.replace(/\\/g, "/");
+
+        // URL absoluta: se utiliza tal cual.
+        if (/^(https?:|data:|blob:)/i.test(ruta)) {
+            return ruta;
+        }
+
+        // Quitar "./" iniciales para evitar rutas inconsistentes.
+        ruta = ruta.replace(/^\.\//, "");
+
+        return ruta;
+    }
+
+
+    function crearCeldaImagen(fila) {
+        const td = document.createElement("td");
+        td.dataset.label = "Imagen";
+        td.className = "imagen-stock-celda";
+
+        const ruta = resolverRutaImagenWeb(fila.cs_imagen);
+
+        if (!ruta) {
+            const span = document.createElement("span");
+            span.className = "sin-imagen-stock";
+            span.textContent = "Sin imagen";
+            td.appendChild(span);
+            return td;
+        }
+
+        const img = document.createElement("img");
+        img.className = "miniatura-stock";
+        img.src = ruta;
+        img.alt = texto(fila.cs_desc)
+            ? `Imagen de ${texto(fila.cs_desc)}`
+            : `Imagen del componente ${texto(fila.idE)}`;
+        img.loading = "lazy";
+        img.decoding = "async";
+        img.title = "Clic para ampliar";
+
+        img.addEventListener("click", function() {
+            abrirVisorImagenStock(
+                ruta,
+                texto(fila.cs_desc) || `Componente ${texto(fila.idE)}`
+            );
+        });
+
+        img.addEventListener("error", function() {
+            td.replaceChildren();
+            const span = document.createElement("span");
+            span.className = "sin-imagen-stock";
+            span.textContent = "No encontrada";
+            span.title = ruta;
+            td.appendChild(span);
+        });
+
+        td.appendChild(img);
+        return td;
+    }
+
+
     function renderizar(filas) {
         tbody.replaceChildren();
 
@@ -824,7 +1053,7 @@
                     "td"
                 );
 
-            td.colSpan = 8;
+            td.colSpan = 9;
             td.style.textAlign =
                 "center";
             td.style.padding =
@@ -900,6 +1129,10 @@
                     fila.cs_desc,
                     "descripcion"
                 )
+            );
+
+            tr.appendChild(
+                crearCeldaImagen(fila)
             );
 
             tr.appendChild(
@@ -1014,7 +1247,7 @@
                     "td"
                 );
 
-            td.colSpan = 8;
+            td.colSpan = 9;
             td.style.textAlign =
                 "center";
             td.style.padding =
