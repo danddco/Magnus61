@@ -625,7 +625,8 @@
                         <th>LCSC</th>
                         <th>Descripción</th>
                         <th>Imagen</th>
-                        <th>Cantidad</th>
+                        <th>Cantidad Bruta</th>
+                        <th>Cantidad Neta</th>
                         <th>Ctdad Critica</th>
                         <th>Tipo</th>
                         <th>Fecha</th>
@@ -634,7 +635,7 @@
                 </thead>
                 <tbody id="stock-body">
                     <tr>
-                        <td colspan="9"
+                        <td colspan="10"
                             style="text-align:center; padding:24px;">
                             Cargando existencia directamente desde Supabase...
                         </td>
@@ -785,6 +786,7 @@
         "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
 
     const TABLA = "cs_stock";
+    const TABLA_MOVIMIENTOS = "cr_registros";
     const LOTE = 1000;
 
     const tbody =
@@ -945,6 +947,70 @@
     }
 
 
+    // Suma exclusivamente las cantidades de movimientos "Reservado".
+    // cs_stock.cs_ctda ya incluye esos movimientos, así que restar su suma
+    // equivale a calcular el stock sin contar la acción "Reservado".
+    async function leerReservadosPorComponente() {
+        const sumas = new Map();
+        let offset = 0;
+
+        while (true) {
+            const params = new URLSearchParams({
+                select: "cr_idE,cr_ctda,cr_fecha",
+                cr_accion: "eq.Reservado",
+                order: "cr_idE.asc,cr_fecha.asc",
+                limit: String(LOTE),
+                offset: String(offset)
+            });
+
+            const url =
+                `${SUPABASE_URL}/rest/v1/${TABLA_MOVIMIENTOS}?` +
+                params.toString();
+
+            const respuesta = await fetch(url, {
+                method: "GET",
+                headers: {
+                    "apikey": SUPABASE_ANON_KEY,
+                    "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                    "Accept": "application/json"
+                },
+                cache: "no-store"
+            });
+
+            if (!respuesta.ok) {
+                const detalle = await respuesta.text();
+                throw new Error(
+                    `Error leyendo movimientos Reservado: HTTP ${respuesta.status}: ${detalle}`
+                );
+            }
+
+            const registros = await respuesta.json();
+            if (!Array.isArray(registros)) {
+                throw new Error("Supabase no devolvió una lista de movimientos.");
+            }
+
+            for (const registro of registros) {
+                // Mantener el mismo criterio de validez usado para el
+                // cálculo de cs_ctda: solo movimientos con fecha informada.
+                if (!texto(registro.cr_fecha).trim()) continue;
+
+                const id = texto(registro.cr_idE).trim();
+                if (!id) continue;
+
+                sumas.set(
+                    id,
+                    (sumas.get(id) || 0) + numero(registro.cr_ctda)
+                );
+            }
+
+            if (registros.length < LOTE) break;
+            offset += LOTE;
+        }
+
+        return sumas;
+    }
+
+
     function crearCelda(
         etiqueta,
         valor,
@@ -1039,7 +1105,7 @@
     }
 
 
-    function renderizar(filas) {
+    function renderizar(filas, reservasPorId, reservasDisponibles) {
         tbody.replaceChildren();
 
         if (!filas.length) {
@@ -1053,7 +1119,7 @@
                     "td"
                 );
 
-            td.colSpan = 9;
+            td.colSpan = 10;
             td.style.textAlign =
                 "center";
             td.style.padding =
@@ -1070,6 +1136,9 @@
         for (const fila of filas) {
             const cantidad =
                 numero(fila.cs_ctda);
+
+            const sumaReservado = reservasPorId.get(texto(fila.idE).trim()) || 0;
+            const cantidadSinReservado = cantidad - sumaReservado;
 
             const critica =
                 numero(fila.cs_ctmi);
@@ -1147,6 +1216,16 @@
 
             tr.appendChild(
                 crearCelda(
+                    "Cantidad sin Reservado",
+                    reservasDisponibles
+                        ? mostrarNumero(cantidadSinReservado)
+                        : "No disponible",
+                    "cantidad"
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
                     "Ctdad Critica",
                     mostrarNumero(
                         critica
@@ -1199,9 +1278,17 @@
             const filas =
                 await leerStockCompleto();
 
-            renderizar(
-                filas
-            );
+            // Un fallo al leer cr_registros no debe ocultar el stock original.
+            let reservasPorId = new Map();
+            let reservasDisponibles = true;
+            try {
+                reservasPorId = await leerReservadosPorComponente();
+            } catch (errorReservas) {
+                reservasDisponibles = false;
+                console.error(errorReservas);
+            }
+
+            renderizar(filas, reservasPorId, reservasDisponibles);
 
             actualizarFechaFooter();
 
@@ -1230,7 +1317,10 @@
             estado.textContent =
                 `Supabase conectado · ` +
                 `${filas.length} componentes · ` +
-                `${ahora}`;
+                `${ahora}` +
+                (reservasDisponibles
+                    ? ""
+                    : " · No se pudo consultar Reservado (revisar acceso a cr_registros)");
 
         } catch (error) {
             console.error(error);
@@ -1247,7 +1337,7 @@
                     "td"
                 );
 
-            td.colSpan = 9;
+            td.colSpan = 10;
             td.style.textAlign =
                 "center";
             td.style.padding =
