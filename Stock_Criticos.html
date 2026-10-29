@@ -766,6 +766,11 @@
                     item.cs_ctmi
                 );
 
+            // No incluir componentes cuya cantidad critica sea cero.
+            if (minimo === 0) {
+                continue;
+            }
+
             const existencia =
                 numero(
                     resumen.restantes
