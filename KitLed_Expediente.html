@@ -2323,37 +2323,54 @@ td.numero-derecha {
 
 
 <style>
-/* Solo Componentes Especificos: cobertura respecto a Fabricacion-Entrada. */
+/* Solo Componentes Especificos: tres meses independientes, llenado secuencial. */
 #tabla-especificos th:last-child,
 #tabla-especificos td.especificos-cobertura-celda {
-    min-width: 330px !important;
-    width: 330px !important;
+    min-width: 370px !important;
+    width: 370px !important;
     text-align: center !important;
     vertical-align: middle;
 }
 .especificos-cobertura-columna { width: 100%; min-width: 0; }
-.especificos-cobertura-fondo {
-    position: relative;
+.especificos-tres-meses {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    width: 100%;
+}
+.especificos-mes { min-width: 0; }
+.especificos-mes-titulo {
+    color: #30485d;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+.especificos-mes-fondo {
     height: 24px;
     overflow: hidden;
     border: 1px solid #d6e0e7;
-    border-radius: 7px;
+    border-radius: 6px;
     background: #e8eef3;
 }
-.especificos-cobertura-relleno {
+.especificos-mes-relleno {
     height: 100%;
     width: 0%;
-    border-radius: 6px;
     background: linear-gradient(90deg, #346b98, #5796c4);
 }
-.especificos-cobertura-dato {
-    margin-top: 5px;
+.especificos-mes-porcentaje {
+    margin-top: 4px;
     color: #1f4e78;
     font-size: 12px;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
 }
-.especificos-cobertura-dato small { color: #187052; font-size: 12px; }
+.especificos-cobertura-dato {
+    margin-top: 7px;
+    color: #1f4e78;
+    font-size: 12px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
 .especificos-cobertura-vacio { color: #657786; font-size: 13px; }
 @media (max-width: 900px) {
     #tabla-especificos td.especificos-cobertura-celda {
@@ -2426,7 +2443,7 @@ td.numero-derecha {
 <th>idE</th>
 <th>Descripcion</th>
 <th>Existencia</th>
-<th>Cobertura / Fabricacion-Entrada</th>
+<th>Cobertura por mes (1, 2 y 3)</th>
 </tr>
 </thead>
 <tbody id="especificos-body"></tbody>
@@ -2504,7 +2521,7 @@ td.numero-derecha {
     "use strict";
 
     const PROYECTO = "Kit Led / Conector";
-    const COMPONENTES_ESPECIFICOS = new Set(["125"]);
+    const COMPONENTES_ESPECIFICOS = new Set(["125","115","121","122"]);
 
     const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
@@ -3078,16 +3095,35 @@ td.numero-derecha {
         return mapa;
     }
 
+    // El material ya montado en Fabricacion-TH no vuelve a requerirse.
+    // El avance de cada mes suma esa produccion terminada y el stock restante,
+    // asignandolos secuencialmente a los meses 1, 2 y 3.
+    // Ejemplo: plan=1000, TH=400, stock=1200 -> [100, 60, 0].
+    function porcentajesCoberturaPorMes(cantidad, demandaMensual, montadasTH = 0) {
+        const existencia = Math.max(0, numero(cantidad));
+        const yaMontadas = Math.max(0, numero(montadasTH));
+        if (!(demandaMensual > 0)) return [0, 0, 0];
+        const coberturaTotal = existencia + yaMontadas;
+        return [0, 1, 2].map(mes => Math.max(0, Math.min(100,
+            ((coberturaTotal - mes * demandaMensual) / demandaMensual) * 100
+        )));
+    }
+
     function renderEspecificos(stockRows, secuencias) {
         const tbody = document.getElementById("especificos-body");
         tbody.replaceChildren();
 
-        // Misma cantidad de Entrada usada en Avance por Proceso.
-        // Registros gs_ver = N no participan en la referencia.
-        const entrada = secuencias
-            .filter(r => texto(r.gs_ver).trim().toUpperCase() !== "N")
-            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-entrada")
+        // Fabricacion-Plan se muestra como "Demanda Mensual" en el resumen.
+        // Cada mes utiliza esa cantidad como meta (p. ej. 1000 placas/mes).
+        const secuenciasValidas = secuencias.filter(
+            r => texto(r.gs_ver).trim().toUpperCase() !== "N"
+        );
+        const demandaMensual = secuenciasValidas
+            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-plan")
             .reduce((total, r) => total + numero(r.gs_ctda), 0);
+        const montadasTH = Math.max(0, secuenciasValidas
+            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-th")
+            .reduce((total, r) => total + numero(r.gs_ctda), 0));
 
         const mapa = mapaStock(stockRows);
         const filas = [...COMPONENTES_ESPECIFICOS]
@@ -3112,56 +3148,58 @@ td.numero-derecha {
             const td = document.createElement("td");
             td.className = "especificos-cobertura-celda";
 
-            if (entrada <= 0) {
+            if (!(demandaMensual > 0)) {
                 const aviso = document.createElement("span");
                 aviso.className = "especificos-cobertura-vacio";
-                aviso.textContent = "— (sin Fabricacion-Entrada)";
+                aviso.textContent = "— (sin Demanda Mensual válida)";
                 td.appendChild(aviso);
             } else {
                 const cantidad = Math.max(0, numero(r.cs_ctda));
-                const porcentajeReal = (cantidad / entrada) * 100;
-                const porcentajeEscala = Math.min(300, porcentajeReal);
-                const ancho = porcentajeEscala / 3;
-
+                const coberturas = porcentajesCoberturaPorMes(cantidad, demandaMensual, montadasTH);
                 const columna = document.createElement("div");
                 columna.className = "especificos-cobertura-columna";
-                const fondo = document.createElement("div");
-                fondo.className = "especificos-cobertura-fondo";
-                const relleno = document.createElement("div");
-                relleno.className = "especificos-cobertura-relleno";
-                relleno.style.width = ancho + "%";
-                fondo.appendChild(relleno);
+                const mesesContenedor = document.createElement("div");
+                mesesContenedor.className = "especificos-tres-meses";
 
-                // Marcas de uno y dos meses, idénticas a las barras superiores.
-                for (const clase of ["un-mes", "dos-meses"]) {
-                    const marca = document.createElement("div");
-                    marca.className = "barras-proceso-marca-mes " + clase;
-                    fondo.appendChild(marca);
-                }
-                columna.appendChild(fondo);
+                coberturas.forEach((avance, i) => {
+                    const mes = document.createElement("div");
+                    mes.className = "especificos-mes";
 
-                const escala = document.createElement("div");
-                escala.className = "barras-proceso-meses-escala";
-                for (const [pct, mes] of [
-                    ["0 %", "0 meses"], ["100 %", "1 mes"],
-                    ["200 %", "2 meses"], ["300 %", "3 meses"]
-                ]) {
-                    const marca = document.createElement("span");
-                    marca.textContent = pct;
-                    const detalle = document.createElement("small");
-                    detalle.textContent = mes;
-                    marca.appendChild(detalle);
-                    escala.appendChild(marca);
-                }
-                columna.appendChild(escala);
+                    const titulo = document.createElement("div");
+                    titulo.className = "especificos-mes-titulo";
+                    titulo.textContent = "Mes " + (i + 1);
+                    mes.appendChild(titulo);
+
+                    const fondo = document.createElement("div");
+                    fondo.className = "especificos-mes-fondo";
+                    fondo.setAttribute("role", "progressbar");
+                    fondo.setAttribute("aria-label", "Cobertura mes " + (i + 1));
+                    fondo.setAttribute("aria-valuemin", "0");
+                    fondo.setAttribute("aria-valuemax", "100");
+                    fondo.setAttribute("aria-valuenow", avance.toFixed(1));
+                    const relleno = document.createElement("div");
+                    relleno.className = "especificos-mes-relleno";
+                    relleno.style.width = avance + "%";
+                    fondo.appendChild(relleno);
+                    mes.appendChild(fondo);
+
+                    const porcentaje = document.createElement("div");
+                    porcentaje.className = "especificos-mes-porcentaje";
+                    porcentaje.textContent = numeroVisible(Number(avance.toFixed(1))) + " %";
+                    mes.appendChild(porcentaje);
+                    mesesContenedor.appendChild(mes);
+                });
+
+                columna.appendChild(mesesContenedor);
 
                 const dato = document.createElement("div");
                 dato.className = "especificos-cobertura-dato";
-                dato.appendChild(document.createTextNode(porcentajeEscala.toFixed(1) + "% · "));
-                const meses = document.createElement("small");
-                meses.textContent = "Cobertura: " + (porcentajeReal > 300
-                    ? "3+ meses" : (porcentajeReal / 100).toFixed(2) + " meses");
-                dato.appendChild(meses);
+                const meses = (cantidad + montadasTH) / demandaMensual;
+                const pendienteTresMeses = Math.max(0, 3 * demandaMensual - montadasTH);
+                dato.textContent = "Cobertura: " + numeroVisible(Number(meses.toFixed(2))) +
+                    " meses · TH montadas: " + numeroVisible(montadasTH) +
+                    " · Por montar (3 meses): " + numeroVisible(pendienteTresMeses) +
+                    " · Meta: " + numeroVisible(demandaMensual) + "/mes";
                 columna.appendChild(dato);
                 td.appendChild(columna);
             }
@@ -3307,7 +3345,7 @@ td.numero-derecha {
             "idE",
             "Descripción",
             "Existencia",
-            "Cobertura / Entrada"
+            "Cobertura por mes"
         ],
         "tabla-proyecto": [
             "idE",
