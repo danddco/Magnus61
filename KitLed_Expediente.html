@@ -2181,6 +2181,59 @@ td.numero-derecha {
     background: linear-gradient(90deg, #b52b2b, #e05252);
 }
 
+/* Venta-Concretada: forzar el mismo degradado azul de las barras generales. */
+.barras-proceso-relleno.venta-concretada {
+    background: linear-gradient(90deg, #346b98, #5796c4);
+}
+
+/* Sin Fabricacion-Salida no existe porcentaje calculable.
+   Rayado azul = dato sin referencia; NO representa 100 % de avance. */
+.barras-proceso-fondo.venta-sin-referencia {
+    background: repeating-linear-gradient(
+        135deg, #e8eef3 0, #e8eef3 9px,
+        #cbdce9 9px, #cbdce9 18px
+    );
+    border-color: #a2bcd0;
+}
+
+/* Entrada y Venta-Disponible utilizan escala de cobertura de 0 a 3 meses. */
+.barras-proceso-entrada-columna {
+    min-width: 0;
+}
+.barras-proceso-marca-mes {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    border-left: 1px dashed rgba(38, 65, 86, .55);
+    pointer-events: none;
+}
+.barras-proceso-marca-mes.un-mes { left: 33.3333%; }
+.barras-proceso-marca-mes.dos-meses { left: 66.6667%; }
+.barras-proceso-meses-escala {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: 4px;
+    gap: 2px;
+    color: #49657a;
+    font-size: 10px;
+    font-weight: 800;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+.barras-proceso-meses-escala span:first-child { text-align: left; }
+.barras-proceso-meses-escala span:last-child { text-align: right; }
+.barras-proceso-meses-escala small {
+    display: block;
+    color: #657786;
+    font-size: 10px;
+    font-weight: 600;
+}
+.barras-proceso-meses-valor {
+    color: #187052 !important;
+    font-weight: 800;
+}
+
 .barras-proceso-cantidad-barra {
     position: absolute;
     inset: 0;
@@ -2258,150 +2311,47 @@ td.numero-derecha {
 </style>
 
 
-<style id="estilo-contadores-laterales-avance">
-/* ============================================================
-   CONTADORES LATERALES DEL AVANCE POR PROCESO
-   Izquierda: Comienzo Ampliacion
-   Derecha: Restablecimiento del Sistema
-   ============================================================ */
 
-.avance-proceso-layout {
-    width: min(1400px, 100%);
-    margin: 0 auto 24px;
-    display: grid;
-    grid-template-columns: minmax(210px, 260px) minmax(620px, 1fr) minmax(210px, 260px);
-    align-items: stretch;
-    gap: 14px;
+<style>
+/* Solo Componentes Especificos: cobertura respecto a Fabricacion-Entrada. */
+#tabla-especificos th:last-child,
+#tabla-especificos td.especificos-cobertura-celda {
+    min-width: 330px !important;
+    width: 330px !important;
+    text-align: center !important;
+    vertical-align: middle;
 }
-
-.avance-proceso-layout #resumen-procesos {
-    width: 100%;
-    margin: 0;
-    min-width: 0;
+.especificos-cobertura-columna { width: 100%; min-width: 0; }
+.especificos-cobertura-fondo {
+    position: relative;
+    height: 24px;
+    overflow: hidden;
+    border: 1px solid #d6e0e7;
+    border-radius: 7px;
+    background: #e8eef3;
 }
-
-.contador-lateral {
-    min-width: 0;
-    padding: 16px 12px;
-    border: 1px solid #cbd8e2;
-    border-radius: 12px;
-    background: #ffffff;
-    text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,.05);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.especificos-cobertura-relleno {
+    height: 100%;
+    width: 0%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #346b98, #5796c4);
 }
-
-.contador-lateral h2 {
-    margin: 0 0 12px;
+.especificos-cobertura-dato {
+    margin-top: 5px;
     color: #1f4e78;
-    font-size: 17px;
-    line-height: 1.2;
-}
-
-.contador-tiempo-lateral {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 10px 12px;
-}
-
-.contador-bloque-lateral {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-}
-
-.contador-numero-lateral {
-    color: #1f4e78;
-    font-size: 27px;
-    line-height: 1;
+    font-size: 12px;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
 }
-
-.contador-unidad-lateral {
-    color: #657786;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.contador-fecha-lateral {
-    margin-top: 12px;
-    color: #657786;
-    font-size: 11px;
-    font-weight: 700;
-    line-height: 1.35;
-}
-
-.contador-finalizado-lateral {
-    color: #1f6334;
-    font-size: 20px;
-    font-weight: 800;
-    line-height: 1.2;
-}
-
-@media (max-width: 1150px) {
-    .avance-proceso-layout {
-        grid-template-columns: 1fr 1fr;
+.especificos-cobertura-dato small { color: #187052; font-size: 12px; }
+.especificos-cobertura-vacio { color: #657786; font-size: 13px; }
+@media (max-width: 900px) {
+    #tabla-especificos td.especificos-cobertura-celda {
+        min-width: 0 !important;
+        width: 100% !important;
     }
-
-    .avance-proceso-layout #resumen-procesos {
-        grid-column: 1 / -1;
-        grid-row: 1;
-    }
-
-    .contador-lateral-izq {
-        grid-column: 1;
-        grid-row: 2;
-    }
-
-    .contador-lateral-der {
-        grid-column: 2;
-        grid-row: 2;
-    }
-}
-
-@media (max-width: 700px) {
-    .avance-proceso-layout {
-        width: 100%;
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-
-    .avance-proceso-layout #resumen-procesos,
-    .contador-lateral-izq,
-    .contador-lateral-der {
-        grid-column: 1;
-    }
-
-    .avance-proceso-layout #resumen-procesos {
-        grid-row: 1;
-    }
-
-    .contador-lateral-izq {
-        grid-row: 2;
-    }
-
-    .contador-lateral-der {
-        grid-row: 3;
-    }
-
-    .contador-lateral {
-        padding: 13px 10px;
-    }
-
-    .contador-lateral h2 {
-        font-size: 16px;
-        margin-bottom: 9px;
-    }
-
-    .contador-numero-lateral {
-        font-size: 24px;
-    }
+    #tabla-especificos th:last-child { min-width: 0 !important; width: auto !important; }
+    .especificos-cobertura-columna { min-width: 0; }
 }
 </style>
 
@@ -2417,37 +2367,14 @@ td.numero-derecha {
 <main>
 <h1 class="seccion-principal">Expediente Kit Led / Conector</h1><p id="estado-supabase">Conectando con Supabase...</p>
 
-<div class="avance-proceso-layout">
-
-    <article class="contador-lateral contador-lateral-izq">
-        <h2>Comienzo Ampliacion</h2>
-        <div id="contador-ampliacion" class="contador-tiempo-lateral" aria-live="polite">
-            <span class="contador-bloque-lateral">
-                <span class="contador-numero-lateral" data-parte="dias">--</span>
-                <span class="contador-unidad-lateral">días</span>
-            </span>
-            <span class="contador-bloque-lateral">
-                <span class="contador-numero-lateral" data-parte="horas">--</span>
-                <span class="contador-unidad-lateral">horas</span>
-            </span>
-            <span class="contador-bloque-lateral">
-                <span class="contador-numero-lateral" data-parte="minutos">--</span>
-                <span class="contador-unidad-lateral">min</span>
-            </span>
-        </div>
-        <div class="contador-fecha-lateral">
-            Cierre: 07/12/2026 · 08:00
-        </div>
-    </article>
-
-    <section id="resumen-procesos">
+<section id="resumen-procesos">
         <h2>Avance por Proceso</h2>
         <p class="barras-proceso-subtitulo">
             Cantidad acumulada por proceso · Ver ≠ N · procesos seleccionados
         </p>
 
         <div class="barras-proceso-plan">
-            <div class="barras-proceso-plan-etiqueta">Fabricacion-Plan</div>
+            <div class="barras-proceso-plan-etiqueta">Demanda Mensual</div>
             <div class="barras-proceso-plan-valor" id="barras-proceso-plan">—</div>
         </div>
 
@@ -2459,29 +2386,6 @@ td.numero-derecha {
             <div class="barras-proceso-aviso">Cargando procesos desde Supabase...</div>
         </div>
     </section>
-
-    <article class="contador-lateral contador-lateral-der">
-        <h2>Restablecimiento del Sistema</h2>
-        <div id="contador-restablecimiento" class="contador-tiempo-lateral" aria-live="polite">
-            <span class="contador-bloque-lateral">
-                <span class="contador-numero-lateral" data-parte="dias">--</span>
-                <span class="contador-unidad-lateral">días</span>
-            </span>
-            <span class="contador-bloque-lateral">
-                <span class="contador-numero-lateral" data-parte="horas">--</span>
-                <span class="contador-unidad-lateral">horas</span>
-            </span>
-            <span class="contador-bloque-lateral">
-                <span class="contador-numero-lateral" data-parte="minutos">--</span>
-                <span class="contador-unidad-lateral">min</span>
-            </span>
-        </div>
-        <div class="contador-fecha-lateral">
-            Cierre: 11/04/2027 · 00:00
-        </div>
-    </article>
-
-</div>
 
 <div class="separador">-------------------------</div>
 <h2>Balance de Disponibilidad de Placas</h2>
@@ -2504,6 +2408,21 @@ td.numero-derecha {
 </table>
 </div>
 <div class="separador">-------------------------</div>
+<h2>Componentes Especificos</h2>
+<div class="tabla-wrap">
+<table id="tabla-especificos">
+<thead>
+<tr>
+<th>idE</th>
+<th>Descripcion</th>
+<th>Existencia</th>
+<th>Cobertura / Fabricacion-Entrada</th>
+</tr>
+</thead>
+<tbody id="especificos-body"></tbody>
+</table>
+</div>
+<div class="separador">-------------------------</div>
 <h2>Secuencias de Trabajo</h2>
 <div class="tabla-wrap">
 <table id="tabla-secuencias">
@@ -2517,20 +2436,6 @@ td.numero-derecha {
 </tr>
 </thead>
 <tbody id="secuencias-body"></tbody>
-</table>
-</div>
-<div class="separador">-------------------------</div>
-<h2>Componentes Especificos</h2>
-<div class="tabla-wrap">
-<table id="tabla-especificos">
-<thead>
-<tr>
-<th>idE</th>
-<th>Descripcion</th>
-<th>Existencia</th>
-</tr>
-</thead>
-<tbody id="especificos-body"></tbody>
 </table>
 </div>
 <div class="separador">-------------------------</div>
@@ -2762,8 +2667,11 @@ td.numero-derecha {
     // BARRAS DE AVANCE POR PROCESO
     // Política compartida:
     // - excluir únicamente gs_ver = N/n
-    // - Fabricacion-Plan = 100 %
-    // - solo 6 procesos, en orden fijo
+    // - Entrada / Plan y Venta-Disponible / Plan: cobertura de hasta 300 %
+    // - SMD / Entrada; TH / SMD
+    // - Salida / TH; Venta-Concretada / Salida
+    // - Venta-Disponible = Salida - Venta-Concretada
+    // - Diagnostico / Entrada
     // ========================================================
 
     function claveProcesoBarra(valor) {
@@ -2783,9 +2691,9 @@ td.numero-derecha {
         "Fabricacion-SMD",
         "Fabricacion-TH",
         "Fabricacion-Diagnostico",
-        "Fabricacion-Programacion",
         "Fabricacion-Salida",
-        "Venta-Concretada"
+        "Venta-Concretada",
+        "Venta-Disponible"
     ];
 
     const CLAVES_BARRAS_PROCESO = ORDEN_BARRAS_PROCESO.map(
@@ -2831,7 +2739,7 @@ td.numero-derecha {
 
         planEl.textContent = numeroVisible(maximo);
         escalaEl.textContent =
-            "Escala máxima: " + numeroVisible(maximo);
+            "Entrada / Demanda Mensual · SMD / Entrada · TH / SMD · Diagnostico / Entrada · Salida / TH · Venta / Salida · Disponible / Demanda Mensual (cobertura máx. 3 meses)";
 
         lista.replaceChildren();
 
@@ -2857,23 +2765,62 @@ td.numero-derecha {
             procesos.map(p => [claveProcesoBarra(p.nombre), p])
         );
 
+        const entradaBase = numero(
+            (porClave.get(claveProcesoBarra("Fabricacion-Entrada")) || {}).cantidad
+        );
+        const smdBase = numero(
+            (porClave.get(claveProcesoBarra("Fabricacion-SMD")) || {}).cantidad
+        );
+        const thBase = numero(
+            (porClave.get(claveProcesoBarra("Fabricacion-TH")) || {}).cantidad
+        );
+        const salidaBase = numero(
+            (porClave.get(claveProcesoBarra("Fabricacion-Salida")) || {}).cantidad
+        );
+        const ventaBase = numero(
+            (porClave.get(claveProcesoBarra("Venta-Concretada")) || {}).cantidad
+        );
+        const ventaDisponible = salidaBase - ventaBase;
+
+        // Venta-Disponible es un indicador calculado, no un proceso en Supabase.
         const barras = ORDEN_BARRAS_PROCESO.map((nombreDeseado, indice) => {
             const clave = CLAVES_BARRAS_PROCESO[indice];
             const encontrado = porClave.get(clave);
 
             return {
                 nombre: nombreDeseado,
-                cantidad: encontrado ? numero(encontrado.cantidad) : 0
+                cantidad: clave === "venta-disponible"
+                    ? ventaDisponible
+                    : (encontrado ? numero(encontrado.cantidad) : 0)
             };
         });
 
         barras.forEach((proceso, indice) => {
             const cantidad = numero(proceso.cantidad);
-            const porcentajeReal = (cantidad / maximo) * 100;
-            const porcentajeVisual = Math.max(
-                0,
-                Math.min(100, porcentajeReal)
+            const clave = claveProcesoBarra(proceso.nombre);
+            const esEntrada = clave === "fabricacion-entrada";
+            const esCobertura = esEntrada || clave === "venta-disponible";
+
+            // Referencia específica según la etapa, sin cambiar otras secciones.
+            let referencia = maximo;
+            if (clave === "fabricacion-smd") referencia = entradaBase;
+            if (clave === "fabricacion-diagnostico") referencia = entradaBase;
+            if (clave === "fabricacion-th") referencia = smdBase;
+            if (clave === "fabricacion-salida") referencia = thBase;
+            if (clave === "venta-concretada") referencia = numero(
+                (porClave.get(claveProcesoBarra("Fabricacion-Salida")) || {}).cantidad
             );
+
+            // Si no hay cantidad de referencia, no inventar un porcentaje.
+            const porcentajeReal = referencia > 0
+                ? (cantidad / referencia) * 100
+                : null;
+            const porcentajeMostrado = porcentajeReal === null
+                ? null
+                : (esCobertura ? Math.max(0, Math.min(300, porcentajeReal)) : porcentajeReal);
+            const porcentajeVisual = porcentajeReal === null
+                ? 0
+                : Math.max(0, Math.min(100, esCobertura ? porcentajeMostrado / 3 : porcentajeReal));
 
             const fila = document.createElement("div");
             fila.className = "barras-proceso-fila";
@@ -2895,6 +2842,14 @@ td.numero-derecha {
                 relleno.classList.add("diagnostico");
             }
 
+            if (clave === "venta-concretada") {
+                relleno.classList.add("venta-concretada");
+                if (cantidad > 0 && referencia <= 0) {
+                    fondo.classList.add("venta-sin-referencia");
+                    fondo.title = "Hay ventas, pero Fabricacion-Salida no tiene una cantidad válida para calcular el porcentaje.";
+                }
+            }
+
             relleno.style.width = "0%";
 
             const cantidadBarra = document.createElement("div");
@@ -2911,20 +2866,69 @@ td.numero-derecha {
             cantidadTexto.textContent = numeroVisible(cantidad);
 
             const porcentajeTexto = document.createElement("span");
-            porcentajeTexto.textContent =
-                porcentajeReal.toFixed(1) + "%";
+            porcentajeTexto.textContent = porcentajeMostrado === null
+                ? (clave === "venta-concretada" && cantidad > 0
+                    ? "Sin base Salida" : "—")
+                : porcentajeMostrado.toFixed(1) + "%";
 
             dato.appendChild(cantidadTexto);
             dato.appendChild(porcentajeTexto);
 
             fila.appendChild(nombre);
-            fila.appendChild(fondo);
-            fila.appendChild(dato);
 
+            if (esCobertura) {
+                const columnaEntrada = document.createElement("div");
+                columnaEntrada.className = "barras-proceso-entrada-columna";
+
+                // Marcas a 100 % (1 mes) y 200 % (2 meses).
+                for (const [clase, etiqueta] of [
+                    ["un-mes", "1 mes"], ["dos-meses", "2 meses"]
+                ]) {
+                    const marca = document.createElement("div");
+                    marca.className = "barras-proceso-marca-mes " + clase;
+                    marca.title = etiqueta;
+                    fondo.appendChild(marca);
+                }
+                columnaEntrada.appendChild(fondo);
+
+                const escalaMeses = document.createElement("div");
+                escalaMeses.className = "barras-proceso-meses-escala";
+                for (const [porcentaje, meses] of [
+                    ["0 %", "0 meses"],
+                    ["100 %", "1 mes"],
+                    ["200 %", "2 meses"],
+                    ["300 %", "3 meses"]
+                ]) {
+                    const marca = document.createElement("span");
+                    marca.textContent = porcentaje;
+                    const detalle = document.createElement("small");
+                    detalle.textContent = meses;
+                    marca.appendChild(detalle);
+                    escalaMeses.appendChild(marca);
+                }
+                columnaEntrada.appendChild(escalaMeses);
+                fila.appendChild(columnaEntrada);
+
+                const cobertura = document.createElement("span");
+                cobertura.className = "barras-proceso-meses-valor";
+                cobertura.textContent = porcentajeReal === null
+                    ? "Cobertura: —"
+                    : "Cobertura: " + (porcentajeReal > 300
+                        ? "3+ meses" : (porcentajeReal / 100).toFixed(2) + " meses");
+                dato.appendChild(cobertura);
+            } else {
+                fila.appendChild(fondo);
+            }
+
+            fila.appendChild(dato);
             lista.appendChild(fila);
 
             window.setTimeout(() => {
-                relleno.style.width = porcentajeVisual + "%";
+                // Un avance positivo muy pequeño sigue siendo visible,
+                // sin alterar el porcentaje numérico calculado.
+                const visible = (clave === "venta-concretada" && porcentajeVisual > 0)
+                    ? Math.max(2, porcentajeVisual) : porcentajeVisual;
+                relleno.style.width = visible + "%";
             }, 50 + indice * 35);
         });
     }
@@ -3034,9 +3038,16 @@ td.numero-derecha {
         return mapa;
     }
 
-    function renderEspecificos(stockRows) {
+    function renderEspecificos(stockRows, secuencias) {
         const tbody = document.getElementById("especificos-body");
         tbody.replaceChildren();
+
+        // Misma cantidad de Entrada usada en Avance por Proceso.
+        // Registros gs_ver = N no participan en la referencia.
+        const entrada = secuencias
+            .filter(r => texto(r.gs_ver).trim().toUpperCase() !== "N")
+            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-entrada")
+            .reduce((total, r) => total + numero(r.gs_ctda), 0);
 
         const mapa = mapaStock(stockRows);
         const filas = [...COMPONENTES_ESPECIFICOS]
@@ -3046,7 +3057,7 @@ td.numero-derecha {
         if (!filas.length) {
             const tr = document.createElement("tr");
             const td = celda("Sin componentes específicos.");
-            td.colSpan = 3;
+            td.colSpan = 4;
             tr.appendChild(td);
             tbody.appendChild(tr);
             return;
@@ -3057,6 +3068,64 @@ td.numero-derecha {
             tr.appendChild(celda(texto(r.idE).replace(/\.0$/, "")));
             tr.appendChild(celda(r.cs_desc, "descripcion-celda"));
             tr.appendChild(celdaNumero(r.cs_ctda));
+
+            const td = document.createElement("td");
+            td.className = "especificos-cobertura-celda";
+
+            if (entrada <= 0) {
+                const aviso = document.createElement("span");
+                aviso.className = "especificos-cobertura-vacio";
+                aviso.textContent = "— (sin Fabricacion-Entrada)";
+                td.appendChild(aviso);
+            } else {
+                const cantidad = Math.max(0, numero(r.cs_ctda));
+                const porcentajeReal = (cantidad / entrada) * 100;
+                const porcentajeEscala = Math.min(300, porcentajeReal);
+                const ancho = porcentajeEscala / 3;
+
+                const columna = document.createElement("div");
+                columna.className = "especificos-cobertura-columna";
+                const fondo = document.createElement("div");
+                fondo.className = "especificos-cobertura-fondo";
+                const relleno = document.createElement("div");
+                relleno.className = "especificos-cobertura-relleno";
+                relleno.style.width = ancho + "%";
+                fondo.appendChild(relleno);
+
+                // Marcas de uno y dos meses, idénticas a las barras superiores.
+                for (const clase of ["un-mes", "dos-meses"]) {
+                    const marca = document.createElement("div");
+                    marca.className = "barras-proceso-marca-mes " + clase;
+                    fondo.appendChild(marca);
+                }
+                columna.appendChild(fondo);
+
+                const escala = document.createElement("div");
+                escala.className = "barras-proceso-meses-escala";
+                for (const [pct, mes] of [
+                    ["0 %", "0 meses"], ["100 %", "1 mes"],
+                    ["200 %", "2 meses"], ["300 %", "3 meses"]
+                ]) {
+                    const marca = document.createElement("span");
+                    marca.textContent = pct;
+                    const detalle = document.createElement("small");
+                    detalle.textContent = mes;
+                    marca.appendChild(detalle);
+                    escala.appendChild(marca);
+                }
+                columna.appendChild(escala);
+
+                const dato = document.createElement("div");
+                dato.className = "especificos-cobertura-dato";
+                dato.appendChild(document.createTextNode(porcentajeEscala.toFixed(1) + "% · "));
+                const meses = document.createElement("small");
+                meses.textContent = "Cobertura: " + (porcentajeReal > 300
+                    ? "3+ meses" : (porcentajeReal / 100).toFixed(2) + " meses");
+                dato.appendChild(meses);
+                columna.appendChild(dato);
+                td.appendChild(columna);
+            }
+            tr.appendChild(td);
             tbody.appendChild(tr);
         }
     }
@@ -3144,7 +3213,7 @@ td.numero-derecha {
             renderBarrasProcesos(secuencias);
             renderDisponibilidad(secuencias);
             renderSecuencias(secuencias);
-            renderEspecificos(stockRows);
+            renderEspecificos(stockRows, secuencias);
             renderComponentesProyecto(proyectoRows, stockRows);
             actualizarFooter();
 
@@ -3174,80 +3243,6 @@ td.numero-derecha {
 })();
 </script>
 
-<script id="script-contadores-laterales">
-(function () {
-    "use strict";
-
-    const CONTADORES_LATERALES = [
-        {
-            id: "contador-ampliacion",
-            objetivo: new Date(2026, 11, 7, 8, 0, 0, 0)
-        },
-        {
-            id: "contador-restablecimiento",
-            objetivo: new Date(2027, 3, 11, 0, 0, 0, 0)
-        }
-    ];
-
-    function actualizarContadorLateral(config) {
-        const contenedor = document.getElementById(config.id);
-
-        if (!contenedor) return;
-
-        const restante = config.objetivo.getTime() - Date.now();
-
-        if (restante <= 0) {
-            contenedor.innerHTML =
-                '<span class="contador-finalizado-lateral">Finalizado</span>';
-            return;
-        }
-
-        const minuto = 60 * 1000;
-        const hora = 60 * minuto;
-        const dia = 24 * hora;
-
-        const dias = Math.floor(restante / dia);
-        const horas = Math.floor((restante % dia) / hora);
-        const minutos = Math.floor((restante % hora) / minuto);
-
-        const nodoDias =
-            contenedor.querySelector('[data-parte="dias"]');
-
-        const nodoHoras =
-            contenedor.querySelector('[data-parte="horas"]');
-
-        const nodoMinutos =
-            contenedor.querySelector('[data-parte="minutos"]');
-
-        if (nodoDias) {
-            nodoDias.textContent = String(dias);
-        }
-
-        if (nodoHoras) {
-            nodoHoras.textContent =
-                String(horas).padStart(2, "0");
-        }
-
-        if (nodoMinutos) {
-            nodoMinutos.textContent =
-                String(minutos).padStart(2, "0");
-        }
-    }
-
-    function actualizarContadoresLaterales() {
-        for (const config of CONTADORES_LATERALES) {
-            actualizarContadorLateral(config);
-        }
-    }
-
-    actualizarContadoresLaterales();
-
-    window.setInterval(
-        actualizarContadoresLaterales,
-        10000
-    );
-})();
-</script>
 
 <script>
 (function () {
@@ -3271,7 +3266,8 @@ td.numero-derecha {
         "tabla-especificos": [
             "idE",
             "Descripción",
-            "Existencia"
+            "Existencia",
+            "Cobertura / Entrada"
         ],
         "tabla-proyecto": [
             "idE",
