@@ -2144,7 +2144,7 @@ td.numero-derecha {
 
 .barras-proceso-fila {
     display: grid;
-    grid-template-columns: 210px minmax(260px, 1fr) 115px;
+    grid-template-columns: 210px minmax(260px, 1fr) 145px;
     align-items: center;
     gap: 14px;
     min-height: 48px;
@@ -2245,6 +2245,16 @@ td.numero-derecha {
     font-weight: 800;
     text-shadow: 0 1px 2px rgba(0,0,0,.45);
     pointer-events: none;
+}
+
+/* La cantidad del proceso permanece legible dentro de la barra,
+   incluso cuando el porcentaje es muy bajo o todavía es cero. */
+.barras-proceso-cantidad-barra span {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(29, 60, 87, .80);
+    white-space: nowrap;
 }
 
 .barras-proceso-dato {
@@ -2668,7 +2678,7 @@ td.numero-derecha {
     // Política compartida:
     // - excluir únicamente gs_ver = N/n
     // - Entrada / Plan y Venta-Disponible / Plan: cobertura de hasta 300 %
-    // - SMD / Entrada; TH / SMD
+    // - (SMD + TH) / Entrada; TH / SMD
     // - Salida / TH; Venta-Concretada / Salida
     // - Venta-Disponible = Salida - Venta-Concretada
     // - Diagnostico / Entrada
@@ -2739,7 +2749,7 @@ td.numero-derecha {
 
         planEl.textContent = numeroVisible(maximo);
         escalaEl.textContent =
-            "Entrada / Demanda Mensual · SMD / Entrada · TH / SMD · Diagnostico / Entrada · Salida / TH · Venta / Salida · Disponible / Demanda Mensual (cobertura máx. 3 meses)";
+            "Entrada / Demanda Mensual · (SMD + TH) / Entrada · TH / SMD · Diagnostico / Entrada · Salida / TH · Venta / Salida · Disponible / Demanda Mensual (cobertura máx. 3 meses)";
 
         lista.replaceChildren();
 
@@ -2791,7 +2801,9 @@ td.numero-derecha {
                 nombre: nombreDeseado,
                 cantidad: clave === "venta-disponible"
                     ? ventaDisponible
-                    : (encontrado ? numero(encontrado.cantidad) : 0)
+                    : clave === "fabricacion-smd"
+                        ? smdBase + thBase
+                        : (encontrado ? numero(encontrado.cantidad) : 0)
             };
         });
 
@@ -2827,7 +2839,17 @@ td.numero-derecha {
 
             const nombre = document.createElement("div");
             nombre.className = "barras-proceso-nombre";
-            nombre.textContent = proceso.nombre;
+            // Etiquetas visuales solamente; conserva las claves originales de Supabase.
+            const etiquetasVisibles = {
+                "fabricacion-entrada": "Entrada de Placas",
+                "fabricacion-smd": "Con SMD",
+                "fabricacion-th": "Con TH",
+                "fabricacion-diagnostico": "Reparacion",
+                "fabricacion-salida": "Lista para la Venta",
+                "venta-concretada": "Vendidas",
+                "venta-disponible": "Disponible"
+            };
+            nombre.textContent = etiquetasVisibles[clave] || proceso.nombre;
 
             const fondo = document.createElement("div");
             fondo.className = "barras-proceso-fondo";
@@ -2854,7 +2876,9 @@ td.numero-derecha {
 
             const cantidadBarra = document.createElement("div");
             cantidadBarra.className = "barras-proceso-cantidad-barra";
-            cantidadBarra.textContent = numeroVisible(cantidad);
+            const valorDentro = document.createElement("span");
+            valorDentro.textContent = numeroVisible(cantidad);
+            cantidadBarra.appendChild(valorDentro);
 
             fondo.appendChild(relleno);
             fondo.appendChild(cantidadBarra);
@@ -2862,8 +2886,20 @@ td.numero-derecha {
             const dato = document.createElement("div");
             dato.className = "barras-proceso-dato";
 
+            // Entrada de Placas: faltante para alcanzar 3 meses de demanda.
+            // Disponible: faltante para alcanzar 2 meses de demanda.
+            // Con SMD: "Virgenes" indica las placas de Entrada aún sin SMD.
+            // Las demás barras conservan sus referencias y cálculos anteriores.
+            const metaFaltante = esEntrada ? referencia * 3
+                : clave === "venta-disponible" ? referencia * 2 : referencia;
+            const faltante = referencia > 0
+                ? Math.max(0, metaFaltante - cantidad)
+                : null;
+            const etiquetaFaltante = clave === "fabricacion-smd" ? "Virgenes" : "Faltan";
             const cantidadTexto = document.createElement("strong");
-            cantidadTexto.textContent = numeroVisible(cantidad);
+            cantidadTexto.textContent = faltante === null
+                ? etiquetaFaltante + ": —"
+                : etiquetaFaltante + ": " + numeroVisible(faltante);
 
             const porcentajeTexto = document.createElement("span");
             porcentajeTexto.textContent = porcentajeMostrado === null
@@ -2871,7 +2907,11 @@ td.numero-derecha {
                     ? "Sin base Salida" : "—")
                 : porcentajeMostrado.toFixed(1) + "%";
 
-            dato.appendChild(cantidadTexto);
+            // Diagnostico solo muestra el nombre Reparacion y su porcentaje.
+            // No presentar "Faltan" en esta etapa.
+            if (clave !== "fabricacion-diagnostico") {
+                dato.appendChild(cantidadTexto);
+            }
             dato.appendChild(porcentajeTexto);
 
             fila.appendChild(nombre);
