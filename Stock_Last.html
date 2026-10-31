@@ -299,6 +299,35 @@
         text-align: left;
     }
 
+    /* Anchuras de columnas en escritorio: Descripción > Observaciones.
+       No se modifica el formato de tarjetas en tablet/celular. */
+    @media (min-width: 901px) {
+        .tabla-wrap table {
+            table-layout: fixed;
+        }
+
+        .tabla-wrap table th:nth-child(1),
+        .tabla-wrap table td:nth-child(1) { width: 12%; }
+        .tabla-wrap table th:nth-child(2),
+        .tabla-wrap table td:nth-child(2) { width: 7%; }
+        .tabla-wrap table th:nth-child(3),
+        .tabla-wrap table td:nth-child(3) { width: 29%; }
+        .tabla-wrap table th:nth-child(4),
+        .tabla-wrap table td:nth-child(4) { width: 12%; }
+        .tabla-wrap table th:nth-child(5),
+        .tabla-wrap table td:nth-child(5) { width: 10%; }
+        .tabla-wrap table th:nth-child(6),
+        .tabla-wrap table td:nth-child(6) { width: 12%; }
+        .tabla-wrap table th:nth-child(7),
+        .tabla-wrap table td:nth-child(7) { width: 18%; }
+
+        .tabla-wrap table td.descripcion,
+        .tabla-wrap table td.observaciones {
+            overflow-wrap: anywhere;
+            white-space: normal;
+        }
+    }
+
     /* =====================================================
        CELULAR / TABLET
        La tabla se transforma en tarjetas verticales.
