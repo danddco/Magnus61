@@ -2075,7 +2075,7 @@ td.numero-derecha {
    AVANCE POR PROCESO
    POLÍTICA DE BARRAS:
    - Fabricacion-Plan = 100 %
-   - excluir gs_ver = N/n
+   - excluir gs_ver = N/n y E/e
    - mostrar solo procesos seleccionados y en orden fijo
    - Fabricacion-Diagnostico en rojo
    - cantidades internas blancas y en negritas
@@ -2632,6 +2632,10 @@ td.numero-derecha {
         let fechaEntrada = "", fechaSalida = "";
 
         for (const r of secuencias) {
+            // gs_ver = E se muestra en Secuencias de Trabajo,
+            // pero no participa en Balance de Disponibilidad de Placas.
+            if (texto(r.gs_ver).trim().toUpperCase() === "E") continue;
+
             const proc = texto(r.gs_proceso).trim();
             const cant = numero(r.gs_ctda);
             const fecha = fechaBase(r.gs_fecha);
@@ -2693,7 +2697,7 @@ td.numero-derecha {
     // ========================================================
     // BARRAS DE AVANCE POR PROCESO
     // Política compartida:
-    // - excluir únicamente gs_ver = N/n
+    // - excluir gs_ver = N/n y E/e
     // - Entrada / Plan y Venta-Disponible / Plan: cobertura de hasta 300 %
     // - (SMD + TH) / Entrada; TH / SMD
     // - Salida / TH; Venta-Concretada / Salida
@@ -2733,9 +2737,10 @@ td.numero-derecha {
 
         if (!lista || !planEl || !escalaEl) return;
 
-        const validas = secuencias.filter(
-            r => texto(r.gs_ver).trim().toUpperCase() !== "N"
-        );
+        const validas = secuencias.filter(r => {
+            const ver = texto(r.gs_ver).trim().toUpperCase();
+            return ver !== "N" && ver !== "E";
+        });
 
         const acumulado = new Map();
 
