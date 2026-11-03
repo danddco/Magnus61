@@ -2719,7 +2719,6 @@ td.numero-derecha {
         "Fabricacion-TH",
         "Fabricacion-Diagnostico",
         "Fabricacion-Salida",
-        "Venta-Concretada",
         "Venta-Disponible"
     ];
 
@@ -2807,20 +2806,25 @@ td.numero-derecha {
         const ventaBase = numero(
             (porClave.get(claveProcesoBarra("Venta-Concretada")) || {}).cantidad
         );
-        const ventaDisponible = salidaBase - ventaBase;
+        const ventaDisponible = Math.max(0, salidaBase - ventaBase);
 
-        // Venta-Disponible es un indicador calculado, no un proceso en Supabase.
+        // Descontar Venta-Concretada de todos los indicadores mostrados.
+        // Venta-Disponible ya representa Salida - Venta, por lo que no se descuenta dos veces.
         const barras = ORDEN_BARRAS_PROCESO.map((nombreDeseado, indice) => {
             const clave = CLAVES_BARRAS_PROCESO[indice];
             const encontrado = porClave.get(clave);
 
+            let cantidadOriginal = clave === "fabricacion-smd"
+                ? smdBase
+                : (encontrado ? numero(encontrado.cantidad) : 0);
+
+            const cantidadMostrada = clave === "venta-disponible"
+                ? ventaDisponible
+                : Math.max(0, cantidadOriginal - ventaBase);
+
             return {
                 nombre: nombreDeseado,
-                cantidad: clave === "venta-disponible"
-                    ? ventaDisponible
-                    : clave === "fabricacion-smd"
-                        ? smdBase + thBase
-                        : (encontrado ? numero(encontrado.cantidad) : 0)
+                cantidad: cantidadMostrada
             };
         });
 
