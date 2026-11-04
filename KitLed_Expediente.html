@@ -3011,7 +3011,12 @@ td.numero-derecha {
         tbody.replaceChildren();
 
         const filas = secuencias
-            .filter(r => texto(r.gs_ver).trim().toUpperCase() !== "N")
+            // N y C no se muestran en Secuencias de Trabajo.
+            // C sigue participando normalmente en los procesos de calculo.
+            .filter(r => {
+                const ver = texto(r.gs_ver).trim().toUpperCase();
+                return ver !== "N" && ver !== "C";
+            })
             .sort((a, b) => {
                 const aPend =
                     texto(a.gs_estado).trim().toLowerCase() === "pendiente";
@@ -3204,17 +3209,7 @@ td.numero-derecha {
                 td.appendChild(aviso);
             } else {
                 const cantidad = Math.max(0, numero(r.cs_ctda));
-                const idComponente = texto(r.idE).trim().replace(/\.0$/, "");
-                // Excepción: el componente 125 usa Fabricacion-TH completo.
-                // Para 125 NO se descuenta Venta-Concretada.
-                const fabricadasParaComponente = idComponente === "125"
-                    ? 0
-                    : montadasTH;
-                const detallesMes = detalleCoberturaPorMes(
-                    cantidad,
-                    demandaMensual,
-                    fabricadasParaComponente
-                );
+                const detallesMes = detalleCoberturaPorMes(cantidad, demandaMensual, montadasTH);
                 const columna = document.createElement("div");
                 columna.className = "especificos-cobertura-columna";
                 const mesesContenedor = document.createElement("div");
@@ -3252,10 +3247,7 @@ td.numero-derecha {
                     comprobacion.className = "especificos-mes-comprobacion";
                     comprobacion.innerHTML =
                         "Plan: <b>" + numeroVisible(detalle.plan) + "</b><br>" +
-                        (idComponente === "125"
-                            ? "Ya fabricadas aplicadas: <b>0</b><br>"
-                            : "Ya fabricadas netas aplicadas: <b>" +
-                                numeroVisible(detalle.fabricadasAplicadas) + "</b><br>") +
+                        "Ya fabricadas netas aplicadas: <b>" + numeroVisible(detalle.fabricadasAplicadas) + "</b><br>" +
                         "Requiere componentes: <b>" + numeroVisible(detalle.requiereComponentes) + "</b><br>" +
                         "Stock usado: <b>" + numeroVisible(detalle.stockUsado) + "</b><br>" +
                         "Stock restante: <b>" + numeroVisible(detalle.stockRestante) + "</b>";
@@ -3268,14 +3260,11 @@ td.numero-derecha {
 
                 const dato = document.createElement("div");
                 dato.className = "especificos-cobertura-dato";
-                dato.textContent = idComponente === "125"
-                    ? "Cobertura SOLO STOCK · Stock inicial: " + numeroVisible(cantidad) +
-                        " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes"
-                    : "Fabricacion-TH: " + numeroVisible(montadasTHBrutas) +
-                        " · Venta-Concretada: " + numeroVisible(ventaConcretada) +
-                        " · Ya fabricadas netas: " + numeroVisible(fabricadasParaComponente) +
-                        " · Stock inicial: " + numeroVisible(cantidad) +
-                        " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes";
+                dato.textContent = "Fabricacion-TH: " + numeroVisible(montadasTHBrutas) +
+                    " · Venta-Concretada: " + numeroVisible(ventaConcretada) +
+                    " · Ya fabricadas netas: " + numeroVisible(montadasTH) +
+                    " · Stock inicial: " + numeroVisible(cantidad) +
+                    " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes";
                 columna.appendChild(dato);
                 td.appendChild(columna);
             }
