@@ -2389,6 +2389,65 @@ td.numero-derecha {
 }
 </style>
 
+
+<style>
+/* Componentes Externos: mismo formato visual que Componentes Fijos. */
+#tabla-externos {
+    width: max-content !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+#tabla-externos th,
+#tabla-externos td {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+}
+#tabla-externos th:nth-child(1),
+#tabla-externos td:nth-child(1),
+#tabla-externos th:nth-child(3),
+#tabla-externos td:nth-child(3) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+#tabla-externos th:nth-child(2),
+#tabla-externos td:nth-child(2) {
+    width: auto !important;
+    white-space: normal !important;
+}
+#tabla-externos th:last-child,
+#tabla-externos td.especificos-cobertura-celda {
+    min-width: 370px !important;
+    width: 370px !important;
+    text-align: center !important;
+    vertical-align: middle;
+}
+@media (max-width: 900px) {
+    #tabla-externos td.especificos-cobertura-celda {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    #tabla-externos th:last-child {
+        min-width: 0 !important;
+        width: auto !important;
+    }
+}
+@media (max-width: 700px) {
+    #tabla-externos {
+        width: max-content !important;
+        max-width: none !important;
+        min-width: 100% !important;
+    }
+    #tabla-externos th:nth-child(2),
+    #tabla-externos td:nth-child(2) {
+        max-width: 520px !important;
+    }
+}
+</style>
+
 </head>
 <body>
 <header id="cabecera">
@@ -2442,7 +2501,22 @@ td.numero-derecha {
 </table>
 </div>
 <div class="separador">-------------------------</div>
-<h2>Componentes Especificos</h2>
+<h2>Componentes Externos</h2>
+<div class="tabla-wrap">
+<table id="tabla-externos">
+<thead>
+<tr>
+<th>idE</th>
+<th>Descripcion</th>
+<th>Existencia</th>
+<th>Cobertura por mes (1, 2 y 3)</th>
+</tr>
+</thead>
+<tbody id="externos-body"></tbody>
+</table>
+</div>
+<div class="separador">-------------------------</div>
+<h2>Componentes Fijos</h2>
 <div class="tabla-wrap">
 <table id="tabla-especificos">
 <thead>
@@ -2528,7 +2602,8 @@ td.numero-derecha {
     "use strict";
 
     const PROYECTO = "Kit Led / Conector";
-    const COMPONENTES_ESPECIFICOS = new Set(["125","115","121","122"]);
+    const COMPONENTES_EXTERNOS = new Set(["125"]);
+    const COMPONENTES_FIJOS = new Set(["115","121","122"]);
 
     const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
@@ -2705,10 +2780,9 @@ td.numero-derecha {
     // BARRAS DE AVANCE POR PROCESO
     // Política compartida:
     // - excluir gs_ver = N/n y E/e
-    // - Entrada / Plan y Venta-Disponible / Plan: cobertura de hasta 300 %
-    // - (SMD + TH) / Entrada; TH / SMD
-    // - Salida / TH; Venta-Concretada / Salida
-    // - Venta-Disponible = Salida - Venta-Concretada
+    // - Entrada / Plan: cobertura de hasta 300 %
+    // - SMD / Entrada; TH / SMD
+    // - Lista para la Venta / TH
     // - Diagnostico / Entrada
     // ========================================================
 
@@ -2729,8 +2803,7 @@ td.numero-derecha {
         "Fabricacion-SMD",
         "Fabricacion-TH",
         "Fabricacion-Diagnostico",
-        "Fabricacion-Salida",
-        "Venta-Disponible"
+        "Fabricacion-Salida"
     ];
 
     const CLAVES_BARRAS_PROCESO = ORDEN_BARRAS_PROCESO.map(
@@ -2777,7 +2850,7 @@ td.numero-derecha {
 
         planEl.textContent = numeroVisible(maximo);
         escalaEl.textContent =
-            "Entrada / Demanda Mensual · (SMD + TH) / Entrada · TH / SMD · Diagnostico / Entrada · Salida / TH · Venta / Salida · Disponible / Demanda Mensual (cobertura máx. 3 meses)";
+            "Entrada / Demanda Mensual · SMD / Entrada · TH / SMD · Diagnostico / Entrada · Lista para la Venta / TH";
 
         lista.replaceChildren();
 
@@ -2819,6 +2892,9 @@ td.numero-derecha {
             (porClave.get(claveProcesoBarra("Venta-Concretada")) || {}).cantidad
         );
         const ventaDisponible = Math.max(0, salidaBase - ventaBase);
+        const entradaMostrada = Math.max(0, entradaBase - ventaBase);
+        const smdMostrado = Math.max(0, smdBase - ventaBase);
+        const thMostrado = Math.max(0, thBase - ventaBase);
 
         // Descontar Venta-Concretada de todos los indicadores mostrados.
         // Venta-Disponible ya representa Salida - Venta, por lo que no se descuenta dos veces.
@@ -2848,10 +2924,10 @@ td.numero-derecha {
 
             // Referencia específica según la etapa, sin cambiar otras secciones.
             let referencia = maximo;
-            if (clave === "fabricacion-smd") referencia = entradaBase;
+            if (clave === "fabricacion-smd") referencia = entradaMostrada;
             if (clave === "fabricacion-diagnostico") referencia = entradaBase;
-            if (clave === "fabricacion-th") referencia = smdBase;
-            if (clave === "fabricacion-salida") referencia = thBase;
+            if (clave === "fabricacion-th") referencia = smdMostrado;
+            if (clave === "fabricacion-salida") referencia = thMostrado;
             if (clave === "venta-concretada") referencia = numero(
                 (porClave.get(claveProcesoBarra("Fabricacion-Salida")) || {}).cantidad
             );
@@ -2920,11 +2996,10 @@ td.numero-derecha {
             dato.className = "barras-proceso-dato";
 
             // Entrada de Placas: faltante para alcanzar 3 meses de demanda.
-            // Disponible: faltante para alcanzar 2 meses de demanda.
-            // Con SMD: "Virgenes" indica las placas de Entrada aún sin SMD.
-            // Las demás barras conservan sus referencias y cálculos anteriores.
-            const metaFaltante = esEntrada ? referencia * 3
-                : clave === "venta-disponible" ? referencia * 2 : referencia;
+            // Con SMD: Virgenes = Entrada de Placas mostrada - Con SMD mostrado.
+            // Con TH: faltante respecto a Con SMD mostrado.
+            // Lista para la Venta: faltante respecto a Con TH mostrado.
+            const metaFaltante = esEntrada ? referencia * 3 : referencia;
             const faltante = referencia > 0
                 ? Math.max(0, metaFaltante - cantidad)
                 : null;
@@ -3158,35 +3233,19 @@ td.numero-derecha {
         return meses;
     }
 
-    function renderEspecificos(stockRows, secuencias) {
-        const tbody = document.getElementById("especificos-body");
+    function renderGrupoComponentes(tbodyId, ids, stockRows, demandaMensual, montadasTH, opciones = {}) {
+        const tbody = document.getElementById(tbodyId);
         tbody.replaceChildren();
 
-        // Fabricacion-Plan se muestra como "Demanda Mensual" en el resumen.
-        // Cada mes utiliza esa cantidad como meta (p. ej. 1000 placas/mes).
-        const secuenciasValidas = secuencias.filter(
-            r => texto(r.gs_ver).trim().toUpperCase() !== "N"
-        );
-        const demandaMensual = secuenciasValidas
-            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-plan")
-            .reduce((total, r) => total + numero(r.gs_ctda), 0);
-        const montadasTHBrutas = Math.max(0, secuenciasValidas
-            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-th")
-            .reduce((total, r) => total + numero(r.gs_ctda), 0));
-        const ventaConcretada = Math.max(0, secuenciasValidas
-            .filter(r => claveProcesoBarra(r.gs_proceso) === "venta-concretada")
-            .reduce((total, r) => total + numero(r.gs_ctda), 0));
-        // Las unidades ya vendidas dejan de aportar cobertura como placas montadas.
-        const montadasTH = Math.max(0, montadasTHBrutas - ventaConcretada);
-
+        const usarFabricadas = opciones.usarFabricadas !== false;
         const mapa = mapaStock(stockRows);
-        const filas = [...COMPONENTES_ESPECIFICOS]
+        const filas = [...ids]
             .map(id => mapa.get(id))
             .filter(Boolean);
 
         if (!filas.length) {
             const tr = document.createElement("tr");
-            const td = celda("Sin componentes específicos.");
+            const td = celda(opciones.mensajeVacio || "Sin componentes.");
             td.colSpan = 4;
             tr.appendChild(td);
             tbody.appendChild(tr);
@@ -3209,7 +3268,15 @@ td.numero-derecha {
                 td.appendChild(aviso);
             } else {
                 const cantidad = Math.max(0, numero(r.cs_ctda));
-                const detallesMes = detalleCoberturaPorMes(cantidad, demandaMensual, montadasTH);
+                // Externos: montadasTH = 0, por lo que solo se contabiliza stock.
+                // Fijos: se conserva la lógica de TH netas + stock.
+                const fabricadasParaCalculo = usarFabricadas ? montadasTH : 0;
+                const detallesMes = detalleCoberturaPorMes(
+                    cantidad,
+                    demandaMensual,
+                    fabricadasParaCalculo
+                );
+
                 const columna = document.createElement("div");
                 columna.className = "especificos-cobertura-columna";
                 const mesesContenedor = document.createElement("div");
@@ -3245,14 +3312,20 @@ td.numero-derecha {
 
                     const comprobacion = document.createElement("div");
                     comprobacion.className = "especificos-mes-comprobacion";
-                    comprobacion.innerHTML =
-                        "Plan: <b>" + numeroVisible(detalle.plan) + "</b><br>" +
-                        "Ya fabricadas netas aplicadas: <b>" + numeroVisible(detalle.fabricadasAplicadas) + "</b><br>" +
-                        "Requiere componentes: <b>" + numeroVisible(detalle.requiereComponentes) + "</b><br>" +
-                        "Stock usado: <b>" + numeroVisible(detalle.stockUsado) + "</b><br>" +
-                        "Stock restante: <b>" + numeroVisible(detalle.stockRestante) + "</b>";
+                    if (usarFabricadas) {
+                        comprobacion.innerHTML =
+                            "Plan: <b>" + numeroVisible(detalle.plan) + "</b><br>" +
+                            "Ya fabricadas netas aplicadas: <b>" + numeroVisible(detalle.fabricadasAplicadas) + "</b><br>" +
+                            "Requiere componentes: <b>" + numeroVisible(detalle.requiereComponentes) + "</b><br>" +
+                            "Stock usado: <b>" + numeroVisible(detalle.stockUsado) + "</b><br>" +
+                            "Stock restante: <b>" + numeroVisible(detalle.stockRestante) + "</b>";
+                    } else {
+                        comprobacion.innerHTML =
+                            "Plan: <b>" + numeroVisible(detalle.plan) + "</b><br>" +
+                            "Stock usado: <b>" + numeroVisible(detalle.stockUsado) + "</b><br>" +
+                            "Stock restante: <b>" + numeroVisible(detalle.stockRestante) + "</b>";
+                    }
                     mes.appendChild(comprobacion);
-
                     mesesContenedor.appendChild(mes);
                 });
 
@@ -3260,17 +3333,59 @@ td.numero-derecha {
 
                 const dato = document.createElement("div");
                 dato.className = "especificos-cobertura-dato";
-                dato.textContent = "Fabricacion-TH: " + numeroVisible(montadasTHBrutas) +
-                    " · Venta-Concretada: " + numeroVisible(ventaConcretada) +
-                    " · Ya fabricadas netas: " + numeroVisible(montadasTH) +
-                    " · Stock inicial: " + numeroVisible(cantidad) +
-                    " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes";
+                if (usarFabricadas) {
+                    dato.textContent = "Ya fabricadas netas: " + numeroVisible(montadasTH) +
+                        " · Stock inicial: " + numeroVisible(cantidad) +
+                        " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes";
+                } else {
+                    dato.textContent = "Solo stock: " + numeroVisible(cantidad) +
+                        " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes";
+                }
                 columna.appendChild(dato);
                 td.appendChild(columna);
             }
+
             tr.appendChild(td);
             tbody.appendChild(tr);
         }
+    }
+
+    function renderEspecificos(stockRows, secuencias) {
+        // Fabricacion-Plan es la meta de cada uno de los tres meses.
+        // gs_ver=C sí participa en los cálculos; solo N queda excluido aquí.
+        const secuenciasValidas = secuencias.filter(
+            r => texto(r.gs_ver).trim().toUpperCase() !== "N"
+        );
+        const demandaMensual = secuenciasValidas
+            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-plan")
+            .reduce((total, r) => total + numero(r.gs_ctda), 0);
+        const montadasTHBrutas = Math.max(0, secuenciasValidas
+            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-th")
+            .reduce((total, r) => total + numero(r.gs_ctda), 0));
+        const ventaConcretada = Math.max(0, secuenciasValidas
+            .filter(r => claveProcesoBarra(r.gs_proceso) === "venta-concretada")
+            .reduce((total, r) => total + numero(r.gs_ctda), 0));
+        const montadasTH = Math.max(0, montadasTHBrutas - ventaConcretada);
+
+        // Componente externo 125: exclusivamente stock, sin TH ni Venta-Concretada.
+        renderGrupoComponentes(
+            "externos-body",
+            COMPONENTES_EXTERNOS,
+            stockRows,
+            demandaMensual,
+            montadasTH,
+            { usarFabricadas: false, mensajeVacio: "Sin componentes externos." }
+        );
+
+        // Componentes fijos: conservan la lógica de TH netas + stock.
+        renderGrupoComponentes(
+            "especificos-body",
+            COMPONENTES_FIJOS,
+            stockRows,
+            demandaMensual,
+            montadasTH,
+            { usarFabricadas: true, mensajeVacio: "Sin componentes fijos." }
+        );
     }
 
     function renderComponentesProyecto(proyectoRows, stockRows) {
@@ -3406,6 +3521,12 @@ td.numero-derecha {
             "Estado",
             "Descripción"
         ],
+        "tabla-externos": [
+            "idE",
+            "Descripción",
+            "Existencia",
+            "Cobertura por mes"
+        ],
         "tabla-especificos": [
             "idE",
             "Descripción",
@@ -3442,6 +3563,7 @@ td.numero-derecha {
     const objetivos = [
         "disponibilidad-body",
         "secuencias-body",
+        "externos-body",
         "especificos-body",
         "proyecto-body"
     ];
