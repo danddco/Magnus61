@@ -2371,6 +2371,13 @@ td.numero-derecha {
     font-weight: 800;
     font-variant-numeric: tabular-nums;
 }
+.especificos-mes-comprobacion {
+    margin-top: 5px;
+    font-size: 10px;
+    line-height: 1.35;
+    color: #52697a;
+    text-align: left;
+}
 .especificos-cobertura-vacio { color: #657786; font-size: 13px; }
 @media (max-width: 900px) {
     #tabla-especificos td.especificos-cobertura-celda {
@@ -3104,18 +3111,46 @@ td.numero-derecha {
         return mapa;
     }
 
-    // El material ya montado en Fabricacion-TH no vuelve a requerirse.
-    // El avance de cada mes suma esa produccion terminada y el stock restante,
-    // asignandolos secuencialmente a los meses 1, 2 y 3.
-    // Ejemplo: plan=1000, TH=400, stock=1200 -> [100, 60, 0].
-    function porcentajesCoberturaPorMes(cantidad, demandaMensual, montadasTH = 0) {
-        const existencia = Math.max(0, numero(cantidad));
-        const yaMontadas = Math.max(0, numero(montadasTH));
-        if (!(demandaMensual > 0)) return [0, 0, 0];
-        const coberturaTotal = existencia + yaMontadas;
-        return [0, 1, 2].map(mes => Math.max(0, Math.min(100,
-            ((coberturaTotal - mes * demandaMensual) / demandaMensual) * 100
-        )));
+    // Cobertura secuencial de Componentes Especificos:
+    // Cada mes tiene como objetivo Fabricacion-Plan.
+    // Las placas ya fabricadas (Fabricacion-TH - Venta-Concretada)
+    // reducen primero la cantidad que aun necesita componentes.
+    // El remanente se aplica Mes 1 -> Mes 2 -> Mes 3.
+    function detalleCoberturaPorMes(cantidad, demandaMensual, montadasTH = 0) {
+        let stockRestante = Math.max(0, numero(cantidad));
+        let fabricadasRestantes = Math.max(0, numero(montadasTH));
+
+        if (!(demandaMensual > 0)) return [];
+
+        const meses = [];
+
+        for (let mes = 0; mes < 3; mes++) {
+            // Primero: placas de este mes que ya fueron fabricadas y, por tanto,
+            // ya no requieren componentes del stock actual.
+            const fabricadasAplicadas = Math.min(demandaMensual, fabricadasRestantes);
+            fabricadasRestantes -= fabricadasAplicadas;
+
+            // Segundo: solo estas placas siguen necesitando componentes.
+            const requiereComponentes = Math.max(0, demandaMensual - fabricadasAplicadas);
+            const stockUsado = Math.min(requiereComponentes, stockRestante);
+            stockRestante -= stockUsado;
+
+            const cubiertoTotal = fabricadasAplicadas + stockUsado;
+            const porcentaje = Math.max(0, Math.min(100,
+                (cubiertoTotal / demandaMensual) * 100
+            ));
+
+            meses.push({
+                porcentaje,
+                plan: demandaMensual,
+                fabricadasAplicadas,
+                requiereComponentes,
+                stockUsado,
+                stockRestante
+            });
+        }
+
+        return meses;
     }
 
     function renderEspecificos(stockRows, secuencias) {
@@ -3130,9 +3165,14 @@ td.numero-derecha {
         const demandaMensual = secuenciasValidas
             .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-plan")
             .reduce((total, r) => total + numero(r.gs_ctda), 0);
-        const montadasTH = Math.max(0, secuenciasValidas
+        const montadasTHBrutas = Math.max(0, secuenciasValidas
             .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-th")
             .reduce((total, r) => total + numero(r.gs_ctda), 0));
+        const ventaConcretada = Math.max(0, secuenciasValidas
+            .filter(r => claveProcesoBarra(r.gs_proceso) === "venta-concretada")
+            .reduce((total, r) => total + numero(r.gs_ctda), 0));
+        // Las unidades ya vendidas dejan de aportar cobertura como placas montadas.
+        const montadasTH = Math.max(0, montadasTHBrutas - ventaConcretada);
 
         const mapa = mapaStock(stockRows);
         const filas = [...COMPONENTES_ESPECIFICOS]
@@ -3164,13 +3204,14 @@ td.numero-derecha {
                 td.appendChild(aviso);
             } else {
                 const cantidad = Math.max(0, numero(r.cs_ctda));
-                const coberturas = porcentajesCoberturaPorMes(cantidad, demandaMensual, montadasTH);
+                const detallesMes = detalleCoberturaPorMes(cantidad, demandaMensual, montadasTH);
                 const columna = document.createElement("div");
                 columna.className = "especificos-cobertura-columna";
                 const mesesContenedor = document.createElement("div");
                 mesesContenedor.className = "especificos-tres-meses";
 
-                coberturas.forEach((avance, i) => {
+                detallesMes.forEach((detalle, i) => {
+                    const avance = detalle.porcentaje;
                     const mes = document.createElement("div");
                     mes.className = "especificos-mes";
 
@@ -3196,6 +3237,17 @@ td.numero-derecha {
                     porcentaje.className = "especificos-mes-porcentaje";
                     porcentaje.textContent = numeroVisible(Number(avance.toFixed(1))) + " %";
                     mes.appendChild(porcentaje);
+
+                    const comprobacion = document.createElement("div");
+                    comprobacion.className = "especificos-mes-comprobacion";
+                    comprobacion.innerHTML =
+                        "Plan: <b>" + numeroVisible(detalle.plan) + "</b><br>" +
+                        "Ya fabricadas netas aplicadas: <b>" + numeroVisible(detalle.fabricadasAplicadas) + "</b><br>" +
+                        "Requiere componentes: <b>" + numeroVisible(detalle.requiereComponentes) + "</b><br>" +
+                        "Stock usado: <b>" + numeroVisible(detalle.stockUsado) + "</b><br>" +
+                        "Stock restante: <b>" + numeroVisible(detalle.stockRestante) + "</b>";
+                    mes.appendChild(comprobacion);
+
                     mesesContenedor.appendChild(mes);
                 });
 
@@ -3203,12 +3255,11 @@ td.numero-derecha {
 
                 const dato = document.createElement("div");
                 dato.className = "especificos-cobertura-dato";
-                const meses = (cantidad + montadasTH) / demandaMensual;
-                const pendienteTresMeses = Math.max(0, 3 * demandaMensual - montadasTH);
-                dato.textContent = "Cobertura: " + numeroVisible(Number(meses.toFixed(2))) +
-                    " meses · TH montadas: " + numeroVisible(montadasTH) +
-                    " · Por montar (3 meses): " + numeroVisible(pendienteTresMeses) +
-                    " · Meta: " + numeroVisible(demandaMensual) + "/mes";
+                dato.textContent = "Fabricacion-TH: " + numeroVisible(montadasTHBrutas) +
+                    " · Venta-Concretada: " + numeroVisible(ventaConcretada) +
+                    " · Ya fabricadas netas: " + numeroVisible(montadasTH) +
+                    " · Stock inicial: " + numeroVisible(cantidad) +
+                    " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes";
                 columna.appendChild(dato);
                 td.appendChild(columna);
             }
