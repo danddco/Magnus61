@@ -2196,7 +2196,7 @@ td.numero-derecha {
     border-color: #a2bcd0;
 }
 
-/* Entrada y Venta-Disponible utilizan escala de cobertura de 0 a 3 meses. */
+/* Entrada y Lista para la Venta utilizan escala de cobertura de 0 a 3 meses. */
 .barras-proceso-entrada-columna {
     min-width: 0;
 }
@@ -2850,7 +2850,7 @@ td.numero-derecha {
 
         planEl.textContent = numeroVisible(maximo);
         escalaEl.textContent =
-            "Entrada / Demanda Mensual · SMD / Entrada · TH / SMD · Diagnostico / Entrada · Lista para la Venta / TH";
+            "Entrada / Demanda Mensual · SMD / Entrada · TH / SMD · Diagnostico / Entrada · Lista para la Venta / Demanda Mensual";
 
         lista.replaceChildren();
 
@@ -2920,14 +2920,14 @@ td.numero-derecha {
             const cantidad = numero(proceso.cantidad);
             const clave = claveProcesoBarra(proceso.nombre);
             const esEntrada = clave === "fabricacion-entrada";
-            const esCobertura = esEntrada || clave === "venta-disponible";
+            const esCobertura = esEntrada || clave === "fabricacion-salida";
 
             // Referencia específica según la etapa, sin cambiar otras secciones.
             let referencia = maximo;
             if (clave === "fabricacion-smd") referencia = entradaMostrada;
             if (clave === "fabricacion-diagnostico") referencia = entradaBase;
             if (clave === "fabricacion-th") referencia = smdMostrado;
-            if (clave === "fabricacion-salida") referencia = thMostrado;
+            if (clave === "fabricacion-salida") referencia = maximo;
             if (clave === "venta-concretada") referencia = numero(
                 (porClave.get(claveProcesoBarra("Fabricacion-Salida")) || {}).cantidad
             );
@@ -2998,8 +2998,8 @@ td.numero-derecha {
             // Entrada de Placas: faltante para alcanzar 3 meses de demanda.
             // Con SMD: Virgenes = Entrada de Placas mostrada - Con SMD mostrado.
             // Con TH: faltante respecto a Con SMD mostrado.
-            // Lista para la Venta: faltante respecto a Con TH mostrado.
-            const metaFaltante = esEntrada ? referencia * 3 : referencia;
+            // Lista para la Venta: cobertura de hasta 3 meses respecto a Fabricacion-Plan.
+            const metaFaltante = esCobertura ? referencia * 3 : referencia;
             const faltante = referencia > 0
                 ? Math.max(0, metaFaltante - cantidad)
                 : null;
