@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-
-<html lang="es">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
-<title>CircuitDesignMX</title>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport">
+<title>Expediente Mini | CircuitDesignMX</title>
 <style>
 
         * {
@@ -2075,7 +2073,7 @@ td.numero-derecha {
    AVANCE POR PROCESO
    POLÍTICA DE BARRAS:
    - Fabricacion-Plan = 100 %
-   - excluir gs_ver = N/n
+   - excluir gs_ver = N/n y E/e
    - mostrar solo procesos seleccionados y en orden fijo
    - Fabricacion-Diagnostico en rojo
    - cantidades internas blancas y en negritas
@@ -2196,7 +2194,7 @@ td.numero-derecha {
     border-color: #a2bcd0;
 }
 
-/* Entrada y Venta-Disponible utilizan escala de cobertura de 0 a 3 meses. */
+/* Entrada y Lista para la Venta utilizan escala de cobertura de 0 a 3 meses. */
 .barras-proceso-entrada-columna {
     min-width: 0;
 }
@@ -2323,7 +2321,7 @@ td.numero-derecha {
 
 
 <style>
-/* Solo Componentes Especificos: cobertura de stock separada de unidades TH ya montadas. */
+/* Solo Componentes Especificos: tres meses independientes, llenado secuencial. */
 #tabla-especificos th:last-child,
 #tabla-especificos td.especificos-cobertura-celda {
     min-width: 370px !important;
@@ -2364,29 +2362,19 @@ td.numero-derecha {
     font-weight: 800;
     font-variant-numeric: tabular-nums;
 }
-.especificos-mes-detalle {
-    margin-top: 3px;
-    color: #526c80;
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 1.25;
-    overflow-wrap: anywhere;
-    font-variant-numeric: tabular-nums;
-}
-.especificos-mes-sin-pendiente .especificos-mes-fondo {
-    background: #f4f6f8;
-    border-style: dashed;
-}
-.especificos-mes-sin-pendiente .especificos-mes-porcentaje {
-    color: #657786;
-    font-size: 11px;
-}
 .especificos-cobertura-dato {
     margin-top: 7px;
     color: #1f4e78;
     font-size: 12px;
     font-weight: 800;
     font-variant-numeric: tabular-nums;
+}
+.especificos-mes-comprobacion {
+    margin-top: 5px;
+    font-size: 10px;
+    line-height: 1.35;
+    color: #52697a;
+    text-align: left;
 }
 .especificos-cobertura-vacio { color: #657786; font-size: 13px; }
 @media (max-width: 900px) {
@@ -2399,17 +2387,202 @@ td.numero-derecha {
 }
 </style>
 
-</head>
+
+<style>
+/* Componentes Externos: mismo formato visual que Componentes Fijos. */
+#tabla-externos {
+    width: max-content !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    table-layout: auto !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+#tabla-externos th,
+#tabla-externos td {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+}
+#tabla-externos th:nth-child(1),
+#tabla-externos td:nth-child(1),
+#tabla-externos th:nth-child(3),
+#tabla-externos td:nth-child(3) {
+    width: 1% !important;
+    white-space: nowrap !important;
+}
+#tabla-externos th:nth-child(2),
+#tabla-externos td:nth-child(2) {
+    width: auto !important;
+    white-space: normal !important;
+}
+#tabla-externos th:last-child,
+#tabla-externos td.especificos-cobertura-celda {
+    min-width: 370px !important;
+    width: 370px !important;
+    text-align: center !important;
+    vertical-align: middle;
+}
+@media (max-width: 900px) {
+    #tabla-externos td.especificos-cobertura-celda {
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    #tabla-externos th:last-child {
+        min-width: 0 !important;
+        width: auto !important;
+    }
+}
+@media (max-width: 700px) {
+    #tabla-externos {
+        width: max-content !important;
+        max-width: none !important;
+        min-width: 100% !important;
+    }
+    #tabla-externos th:nth-child(2),
+    #tabla-externos td:nth-child(2) {
+        max-width: 520px !important;
+    }
+}
+</style>
+
+<style>
+.config-panel{margin:0 auto 22px;max-width:1050px;background:#fff;border:1px solid #cbd7e1;border-radius:10px;box-shadow:0 2px 8px #0000000a}
+.config-panel summary{padding:15px 18px;cursor:pointer;font-size:19px;font-weight:700;color:#1f4e78}
+.config-hint{font-size:13px;color:#657786;font-weight:400;margin-left:9px}
+.config-content{border-top:1px solid #dae2e9;padding:18px}
+.config-content>p{font-size:14px;color:#526577;line-height:1.5;margin-bottom:15px}
+.config-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.config-grid label{display:flex;flex-direction:column;gap:5px;color:#30485d;font-size:14px;font-weight:700}
+.config-grid input,.config-grid textarea{width:100%;border:1px solid #b8c7d4;border-radius:6px;padding:9px;font:15px Arial,sans-serif;color:#26333f;background:white}
+.config-grid textarea{resize:vertical}
+.config-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:17px}
+.config-actions button{background:#1f4e78;color:white;border:0;border-radius:6px;padding:10px 15px;cursor:pointer;font-weight:700}
+#cfg-exportar{background:#137247;font-size:16px;padding:14px 20px;box-shadow:0 2px 6px #0002}
+#cfg-exportar:hover{background:#0f5c39}
+.config-actions button.secondary{background:#e9eef3;color:#30485d}
+.proyectos-manager{display:flex;flex-wrap:wrap;gap:9px;align-items:end;margin:14px 0;padding:14px;border:1px solid #d8dee5;border-radius:8px;background:#f3f7fa}
+.proyectos-manager>label:first-child{flex:1 1 240px;font-weight:700;color:#30485d}
+.proyectos-manager select{display:block;margin-top:6px;width:100%;min-height:39px;padding:7px;border:1px solid #b9cad7;border-radius:6px;background:white;font-size:15px}
+.proyectos-manager button,.importar-label{border:0;border-radius:6px;padding:10px 12px;font-weight:700;font-size:13px;cursor:pointer;background:#1f4e78;color:#fff}
+.proyectos-manager .danger{background:#ad3434}
+.importar-label{position:relative;overflow:hidden;background:#607489}
+.importar-label input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.manager-ayuda{font-size:13px;color:#516579;margin:0 0 12px}
+@media(max-width:700px){.proyectos-manager>label:first-child{flex-basis:100%}}
+#cfg-estado{font-size:13px;color:#486274}
+@media(max-width:700px){.config-grid{grid-template-columns:1fr}.config-panel summary{font-size:17px}.config-hint{display:block;margin:5px 0 0}}
+</style>
+<style>
+/* Galería de imágenes independiente por proyecto */
+.galeria-editor{margin:20px 0 12px;padding:16px;border:1px solid #ccd9e5;border-radius:10px;background:#f7fafc}
+.galeria-editor h3{color:#1f4e78;margin:0 0 7px;font-size:19px}
+.galeria-editor p{font-size:14px;color:#536679;line-height:1.45;margin:0 0 12px}
+.galeria-editor-lista{display:grid;gap:12px}
+.galeria-editor-item{display:grid;grid-template-columns:110px minmax(0,1fr) auto;gap:12px;align-items:start;padding:12px;background:white;border:1px solid #d8dee5;border-radius:9px}
+.galeria-miniatura{width:110px;height:95px;object-fit:contain;background:#edf2f7;border:1px solid #d8dee5;border-radius:6px}
+.galeria-editor-item textarea{display:block;width:100%;min-height:70px;padding:9px;font:inherit;border:1px solid #bac9d6;border-radius:7px;resize:vertical}
+.galeria-editor-item label{display:block;font-size:14px;font-weight:700;color:#30485d}
+.galeria-quitar{border:0;border-radius:7px;padding:9px 10px;background:#af3434;color:#fff;cursor:pointer}
+.galeria-cargas{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:12px}
+.galeria-cargas input[type=file]{max-width:100%;font-size:14px}
+.galeria-vista{margin:22px 0 12px}
+.galeria-vista[hidden]{display:none!important}
+.galeria-vista h3{text-align:center;color:#1f4e78;margin-bottom:14px;font-size:23px}
+.galeria-vista-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:17px}
+.galeria-vista figure{margin:0;padding:12px;background:#fff;border:1px solid #d8dee5;border-radius:10px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+.galeria-vista img{display:block;width:100%;height:auto;max-height:430px;object-fit:contain;border-radius:6px}
+.galeria-vista figcaption{padding:12px 4px 3px;line-height:1.45;white-space:pre-wrap;text-align:center;overflow-wrap:anywhere}
+@media(max-width:700px){.galeria-editor-item{grid-template-columns:82px minmax(0,1fr)}.galeria-miniatura{width:82px;height:82px}.galeria-quitar{grid-column:2;justify-self:end}.galeria-vista-grid{grid-template-columns:1fr}}
+</style>
+<style>
+/* Corrección de tarjetas de información técnica, aplicada también al HTML exportado. */
+.seccion-tecnica{min-width:0!important;max-width:100%!important;box-sizing:border-box}
+.seccion-tecnica .grid-tecnico{
+  display:grid!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:16px!important;align-items:stretch!important;
+}
+.seccion-tecnica .tarjeta-tecnica{
+  box-sizing:border-box!important;width:100%!important;min-width:0!important;
+  max-width:100%!important;overflow-wrap:anywhere!important;word-break:normal!important;
+  white-space:normal!important;overflow:hidden;
+}
+.seccion-tecnica .tarjeta-tecnica h3,
+.seccion-tecnica .tarjeta-tecnica p,
+.seccion-tecnica .nota-tecnica,
+.seccion-tecnica .subtitulo-tecnico,
+.seccion-tecnica .pie,
+.seccion-tecnica .galeria-vista figcaption{
+  min-width:0!important;max-width:100%!important;
+  white-space:pre-wrap!important;overflow-wrap:anywhere!important;word-break:normal!important;
+}
+.seccion-tecnica .nota-tecnica{box-sizing:border-box!important;width:100%!important}
+.config-grid label{min-width:0;overflow-wrap:anywhere}
+.config-grid input,.config-grid textarea{min-width:0;max-width:100%;box-sizing:border-box}
+.config-grupo-titulos{grid-column:1/-1;padding:11px 12px;border-radius:7px;background:#eaf2f8;color:#1f4e78;font-weight:800}
+@media(max-width:900px){
+ .seccion-tecnica .grid-tecnico{grid-template-columns:minmax(0,1fr)!important}
+}
+</style>
+<style>
+/* Ambos cuadros técnicos tienen la misma presentación adaptable. */
+.seccion-tecnica .contenido-cuadro { min-width:0; max-width:100%; width:100%; }
+.seccion-tecnica .contenido-cuadro p { white-space:pre-wrap!important; overflow-wrap:anywhere!important; word-break:normal!important; max-width:100%; }
+</style>
+<style>#configuracion-proyecto{display:none!important}</style></head>
 <body>
 <header id="cabecera">
 <div class="logo-contenedor">
-<img alt="Logo CircuitDesignMX" class="logo" src="Logo-Circuit-MX.jpg"/>
+<img alt="Logo CircuitDesignMX" class="logo" src="Logo-Circuit-MX.jpg">
 </div>
 <h1 id="titulo">CircuitDesignMX</h1>
 <a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html" title="Ir a la página inicial">Inicio</a>
 </header>
 <main>
-<h1 class="seccion-principal">Expediente Mini</h1><p id="estado-supabase">Conectando con Supabase...</p>
+<h1 class="seccion-principal">Expediente Mini</h1><p id="estado-supabase" style="color: rgb(101, 119, 134); border-color: rgb(205, 216, 226); background: rgb(255, 255, 255);">Actualizando datos desde Supabase...</p>
+
+<section id="configuracion-proyecto" class="config-panel">
+<details open="">
+<summary>Configuración del proyecto <span class="config-hint">Editar parámetros variables</span></summary>
+<div class="config-content">
+<p>Modifica los parámetros, guarda para obtener una vista previa y pulsa <strong>Generar página HTML del proyecto</strong> para descargar un archivo independiente. Esta plantilla permanece disponible para crear otros proyectos.</p>
+<div class="proyectos-manager">
+<label for="cfg-seleccionar">Proyecto guardado<select id="cfg-seleccionar" aria-label="Seleccionar proyecto guardado"><option value="kit-led-conector">Kit Led / Conector</option><option value="proyecto-mw3jbvpb-qzyxw">DUO Basic</option><option value="proyecto-mw452xyx-bfw41">Mini</option><option value="proyecto-mw45yhhy-ijz1n">Fashident v1.0</option><option value="proyecto-mw45z005-j3doh">Purisystems v1.0</option><option value="proyecto-mw45zirb-qi1dz">Purimatic v2.2</option><option value="proyecto-mw460i2d-jwb7q">DUO Producto</option></select></label>
+<button type="button" id="cfg-nuevo">＋ Nuevo proyecto</button>
+<button type="button" id="cfg-duplicar">Duplicar proyecto</button>
+<button type="button" id="cfg-eliminar" class="danger">Eliminar proyecto</button>
+<button type="button" id="cfg-respaldo">Descargar respaldo JSON</button>
+<label class="importar-label">Importar respaldo JSON<input type="file" id="cfg-importar" accept="application/json,.json"></label>
+</div>
+<p class="manager-ayuda">Cada proyecto conserva sus propios datos en este navegador. Selecciona uno para cargarlo; pulsa Guardar y actualizar para registrar cambios. Descarga un respaldo para proteger tu información o trasladarla a otra computadora.</p>
+<div class="config-grid">
+<label>Nombre del proyecto<input id="cfg-proyecto" type="text"></label>
+<label>ID de componentes externos (separados por comas)<input id="cfg-externos" type="text"></label>
+<label>ID de componentes fijos (separados por comas)<input id="cfg-fijos" type="text"></label>
+<label>Ruta de la imagen de referencia<input id="cfg-imagen" type="text"></label>
+<label>Texto de referencia de la imagen<input id="cfg-pie" type="text"></label>
+<div class="config-grupo-titulos">Títulos y textos de los cuadros de información técnica</div>
+<label>Título de la sección técnica<input id="cfg-titulo-tecnico" type="text"></label>
+<label>Subtítulo de la sección técnica<textarea id="cfg-subtitulo-tecnico" rows="2"></textarea></label>
+<label>Nombre del primer cuadro<input id="cfg-detalles" type="text"></label>
+<label>Texto del primer cuadro (una línea por párrafo)<textarea id="cfg-detalles-texto" rows="3"></textarea></label>
+<label>Nombre del segundo cuadro (observaciones)<input id="cfg-titulo-observaciones" type="text"></label>
+<label>Observaciones (una por línea)<textarea id="cfg-observaciones" rows="3"></textarea></label>
+<label>Actualización automática (segundos)<input id="cfg-intervalo" type="number" min="10" max="3600" step="1"></label>
+</div>
+
+<div class="galeria-editor" id="galeria-editor">
+<h3>Imágenes adicionales del proyecto</h3>
+<p>Agrega varias fotografías o diagramas y escribe una descripción debajo de cada imagen. Se guardan por proyecto y se incorporan al HTML generado. Para evitar llenar el almacenamiento, se optimizan al subirlos. Conserva respaldos JSON.</p>
+<div id="galeria-editor-lista" class="galeria-editor-lista"></div>
+<div class="galeria-cargas"><label for="galeria-agregar">Añadir imágenes (puedes seleccionar varias)</label><input id="galeria-agregar" type="file" accept="image/*" multiple=""></div>
+</div>
+<div class="config-actions"><button type="button" id="cfg-exportar">⬇ Generar página HTML del proyecto</button><button type="button" id="cfg-guardar">Guardar y actualizar</button><button type="button" id="cfg-restaurar" class="secondary">Restaurar valores originales</button><span id="cfg-estado" role="status">Proyecto guardado. Los cambios se conservan al volver a abrir esta plantilla en este navegador.</span></div>
+</div>
+</details>
+</section>
 
 <section id="resumen-procesos">
         <h2>Avance por Proceso</h2>
@@ -2419,16 +2592,12 @@ td.numero-derecha {
 
         <div class="barras-proceso-plan">
             <div class="barras-proceso-plan-etiqueta">Demanda Mensual</div>
-            <div class="barras-proceso-plan-valor" id="barras-proceso-plan">—</div>
+            <div class="barras-proceso-plan-valor" id="barras-proceso-plan">20</div>
         </div>
 
-        <div class="barras-proceso-escala" id="barras-proceso-escala">
-            Escala máxima: —
-        </div>
+        <div class="barras-proceso-escala" id="barras-proceso-escala">Entrada / Demanda Mensual · SMD / Entrada · TH / SMD · Diagnostico / Entrada · Lista para la Venta / Demanda Mensual</div>
 
-        <div id="barras-proceso-lista">
-            <div class="barras-proceso-aviso">Cargando procesos desde Supabase...</div>
-        </div>
+        <div id="barras-proceso-lista"><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Entrada de Placas</div><div class="barras-proceso-entrada-columna"><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 75%;"></div><div class="barras-proceso-cantidad-barra"><span>45</span></div><div class="barras-proceso-marca-mes un-mes" title="1 mes"></div><div class="barras-proceso-marca-mes dos-meses" title="2 meses"></div></div><div class="barras-proceso-meses-escala"><span>0 %<small>0 meses</small></span><span>100 %<small>1 mes</small></span><span>200 %<small>2 meses</small></span><span>300 %<small>3 meses</small></span></div></div><div class="barras-proceso-dato"><strong>Faltan: 15</strong><span>225.0%</span><span class="barras-proceso-meses-valor">Cobertura: 2.25 meses</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Con SMD</div><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 97.7778%;"></div><div class="barras-proceso-cantidad-barra"><span>44</span></div></div><div class="barras-proceso-dato"><strong>Virgenes: 1</strong><span>97.8%</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Con TH</div><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 56.8182%;"></div><div class="barras-proceso-cantidad-barra"><span>25</span></div></div><div class="barras-proceso-dato"><strong>Faltan: 19</strong><span>56.8%</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Reparacion</div><div class="barras-proceso-fondo"><div class="barras-proceso-relleno diagnostico" style="width: 2.22222%;"></div><div class="barras-proceso-cantidad-barra"><span>1</span></div></div><div class="barras-proceso-dato"><span>2.2%</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Lista para la Venta</div><div class="barras-proceso-entrada-columna"><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 40%;"></div><div class="barras-proceso-cantidad-barra"><span>24</span></div><div class="barras-proceso-marca-mes un-mes" title="1 mes"></div><div class="barras-proceso-marca-mes dos-meses" title="2 meses"></div></div><div class="barras-proceso-meses-escala"><span>0 %<small>0 meses</small></span><span>100 %<small>1 mes</small></span><span>200 %<small>2 meses</small></span><span>300 %<small>3 meses</small></span></div></div><div class="barras-proceso-dato"><strong>Faltan: 36</strong><span>120.0%</span><span class="barras-proceso-meses-valor">Cobertura: 1.20 meses</span></div></div></div>
     </section>
 
 <div class="separador">-------------------------</div>
@@ -2452,7 +2621,22 @@ td.numero-derecha {
 </table>
 </div>
 <div class="separador">-------------------------</div>
-<h2>Componentes Especificos</h2>
+<h2>Componentes Externos</h2>
+<div class="tabla-wrap">
+<table id="tabla-externos">
+<thead>
+<tr>
+<th>idE</th>
+<th>Descripcion</th>
+<th>Existencia</th>
+<th>Cobertura por mes (1, 2 y 3)</th>
+</tr>
+</thead>
+<tbody id="externos-body"><tr><td data-label="idE">230</td><td class="descripcion-celda" data-label="Descripción">ACRILICO 2 Oreja Laterales  (Mini)</td><td class="numero-derecha" data-label="Existencia">3</td><td class="especificos-cobertura-celda" data-label="Cobertura por mes"><div class="especificos-cobertura-columna"><div class="especificos-tres-meses"><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 1</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="15.0"><div class="especificos-mes-relleno" style="width: 15%;"></div></div><div class="especificos-mes-porcentaje">15 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>3</b><br>Stock restante: <b>0</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 2</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0.0"><div class="especificos-mes-relleno" style="width: 0%;"></div></div><div class="especificos-mes-porcentaje">0 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>0</b><br>Stock restante: <b>0</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 3</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 3" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0.0"><div class="especificos-mes-relleno" style="width: 0%;"></div></div><div class="especificos-mes-porcentaje">0 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>0</b><br>Stock restante: <b>0</b></div></div></div><div class="especificos-cobertura-dato">Solo stock: 3 · Fabricacion-Plan: 20/mes</div></div></td></tr><tr><td data-label="idE">66</td><td class="descripcion-celda" data-label="Descripción">ACRILICO Pantalla LCD</td><td class="numero-derecha" data-label="Existencia">16</td><td class="especificos-cobertura-celda" data-label="Cobertura por mes"><div class="especificos-cobertura-columna"><div class="especificos-tres-meses"><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 1</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80.0"><div class="especificos-mes-relleno" style="width: 80%;"></div></div><div class="especificos-mes-porcentaje">80 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>16</b><br>Stock restante: <b>0</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 2</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0.0"><div class="especificos-mes-relleno" style="width: 0%;"></div></div><div class="especificos-mes-porcentaje">0 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>0</b><br>Stock restante: <b>0</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 3</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 3" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0.0"><div class="especificos-mes-relleno" style="width: 0%;"></div></div><div class="especificos-mes-porcentaje">0 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>0</b><br>Stock restante: <b>0</b></div></div></div><div class="especificos-cobertura-dato">Solo stock: 16 · Fabricacion-Plan: 20/mes</div></div></td></tr><tr><td data-label="idE">119</td><td class="descripcion-celda" data-label="Descripción">CABLE - Cinta Largo</td><td class="numero-derecha" data-label="Existencia">46</td><td class="especificos-cobertura-celda" data-label="Cobertura por mes"><div class="especificos-cobertura-columna"><div class="especificos-tres-meses"><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 1</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>26</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 2</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>6</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 3</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 3" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30.0"><div class="especificos-mes-relleno" style="width: 30%;"></div></div><div class="especificos-mes-porcentaje">30 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>6</b><br>Stock restante: <b>0</b></div></div></div><div class="especificos-cobertura-dato">Solo stock: 46 · Fabricacion-Plan: 20/mes</div></div></td></tr><tr><td data-label="idE">205</td><td class="descripcion-celda" data-label="Descripción">CONECTOR - CACHIMBA - 4P HEMBRA - 3.81</td><td class="numero-derecha" data-label="Existencia">200</td><td class="especificos-cobertura-celda" data-label="Cobertura por mes"><div class="especificos-cobertura-columna"><div class="especificos-tres-meses"><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 1</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>180</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 2</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>160</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 3</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 3" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>140</b></div></div></div><div class="especificos-cobertura-dato">Solo stock: 200 · Fabricacion-Plan: 20/mes</div></div></td></tr><tr><td data-label="idE">165</td><td class="descripcion-celda" data-label="Descripción">CONECTOR - CACHIMBA - 4P HEMBRA - 5.08</td><td class="numero-derecha" data-label="Existencia">474</td><td class="especificos-cobertura-celda" data-label="Cobertura por mes"><div class="especificos-cobertura-columna"><div class="especificos-tres-meses"><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 1</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>454</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 2</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>434</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 3</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 3" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>414</b></div></div></div><div class="especificos-cobertura-dato">Solo stock: 474 · Fabricacion-Plan: 20/mes</div></div></td></tr><tr><td data-label="idE">200</td><td class="descripcion-celda" data-label="Descripción">CONECTOR - CACHIMBA - 5P HEMBRA 5.08</td><td class="numero-derecha" data-label="Existencia">208</td><td class="especificos-cobertura-celda" data-label="Cobertura por mes"><div class="especificos-cobertura-columna"><div class="especificos-tres-meses"><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 1</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>188</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 2</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>168</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 3</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 3" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100.0"><div class="especificos-mes-relleno" style="width: 100%;"></div></div><div class="especificos-mes-porcentaje">100 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>20</b><br>Stock restante: <b>148</b></div></div></div><div class="especificos-cobertura-dato">Solo stock: 208 · Fabricacion-Plan: 20/mes</div></div></td></tr><tr><td data-label="idE">176</td><td class="descripcion-celda" data-label="Descripción">CONECTOR - CACHIMBA - 6P HEMBRA</td><td class="numero-derecha" data-label="Existencia">3</td><td class="especificos-cobertura-celda" data-label="Cobertura por mes"><div class="especificos-cobertura-columna"><div class="especificos-tres-meses"><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 1</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 1" aria-valuemin="0" aria-valuemax="100" aria-valuenow="15.0"><div class="especificos-mes-relleno" style="width: 15%;"></div></div><div class="especificos-mes-porcentaje">15 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>3</b><br>Stock restante: <b>0</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 2</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 2" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0.0"><div class="especificos-mes-relleno" style="width: 0%;"></div></div><div class="especificos-mes-porcentaje">0 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>0</b><br>Stock restante: <b>0</b></div></div><div class="especificos-mes"><div class="especificos-mes-titulo">Mes 3</div><div class="especificos-mes-fondo" role="progressbar" aria-label="Cobertura mes 3" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0.0"><div class="especificos-mes-relleno" style="width: 0%;"></div></div><div class="especificos-mes-porcentaje">0 %</div><div class="especificos-mes-comprobacion">Plan: <b>20</b><br>Stock usado: <b>0</b><br>Stock restante: <b>0</b></div></div></div><div class="especificos-cobertura-dato">Solo stock: 3 · Fabricacion-Plan: 20/mes</div></div></td></tr></tbody>
+</table>
+</div>
+<div class="separador">-------------------------</div>
+<h2>Componentes Fijos</h2>
 <div class="tabla-wrap">
 <table id="tabla-especificos">
 <thead>
@@ -2499,28 +2683,22 @@ td.numero-derecha {
 </div>
 <section class="seccion-tecnica">
 <h2>Imagen e Información Técnica de la Placa</h2>
-<p class="subtitulo-tecnico">
-                  Referencia visual y procedimiento básico de inspección.
-              </p>
+<p class="subtitulo-tecnico">Referencia visual y procedimiento básico de inspección.</p>
 <figure class="imagen-placa">
-<img alt="Mini" decoding="async" loading="lazy" src="imagenes/Mini.jpeg"/>
-<figcaption class="pie">
-                      Imagen de referencia de Mini
-                  </figcaption>
+<img alt="Mini" decoding="async" loading="lazy" src="imagenes/Mini.jpeg">
+<figcaption class="pie">Imagen de referencia de Mini</figcaption>
 </figure>
 <div class="grid-tecnico">
 <article class="tarjeta-tecnica">
 <h3>Detalles Tecnicos.</h3>
-<strong>Programacion Placa</strong>
-<p>C:\Users\MAGNO\Documents\Archivos de proyecto\Multiprogramador\hex_files\MINI5botonesV21_B6_como_B4_en_menu.hex con fecha: miércoles, 30 de septiembre de 2026, 09:49:15.</p>
+<div class="contenido-cuadro"><p>C:\Users\MAGNO\Documents\Archivos de proyecto\Multiprogramador\hex_files\MINI5botonesV21_B6_como_B4_en_menu.hex con fecha: miércoles, 30 de septiembre de 2026, 09:49:15.</p></div>
 </article>
 <article class="tarjeta-tecnica">
 <h3>Observaciones</h3>
+<div class="contenido-cuadro"></div>
 </article>
 </div>
-<div class="nota-tecnica">
-<strong>Importante:</strong>
-</div>
+<section class="galeria-vista" id="galeria-vista" hidden=""><h3>Galería de imágenes del proyecto</h3><div class="galeria-vista-grid" id="galeria-vista-grid"></div></section>
 </section>
 </main>
 <div class="espacio-footer"></div>
@@ -2529,15 +2707,349 @@ td.numero-derecha {
             © 2026 CircuitDesignMX. Todos los derechos reservados.
         </p>
 <p class="fecha-hora">
-            Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span>
+            Fecha y hora: <span id="fecha-hora-dinamica">05/11/2026 18:09:31</span>
 </p>
 </footer>
 <script>
 (function () {
     "use strict";
 
-    const PROYECTO = "Mini";
-    const COMPONENTES_ESPECIFICOS = new Set(["230","66","119","65"]);
+    const CONFIG_ORIGINAL = {
+        "proyecto": "Mini",
+        "externos": "230, 66, 119, 205, 165, 200, 176",
+        "fijos": "41, 204, 201, 203, 202",
+        "imagen": "imagenes/Mini.jpeg",
+        "pie": "Imagen de referencia de Mini",
+        "detalles": "Detalles Tecnicos.",
+        "detallesTexto": "C:\\Users\\MAGNO\\Documents\\Archivos de proyecto\\Multiprogramador\\hex_files\\MINI5botonesV21_B6_como_B4_en_menu.hex con fecha: miércoles, 30 de septiembre de 2026, 09:49:15.",
+        "tituloTecnico": "Imagen e Información Técnica de la Placa",
+        "subtituloTecnico": "Referencia visual y procedimiento básico de inspección.",
+        "tituloObservaciones": "Observaciones",
+        "observaciones": "",
+        "intervalo": 60,
+        "galeria": []
+};
+    const MODO_GENERADO = true;
+    const CLAVE_PROYECTOS = "circuitdesign_expedientes_proyectos_v1";
+    const CLAVE_ANTERIOR = "config_exp_kitled_" + location.pathname;
+    const CAMPOS_CONFIG = {
+        proyecto: "cfg-proyecto", externos: "cfg-externos", fijos: "cfg-fijos",
+        imagen: "cfg-imagen", pie: "cfg-pie", detalles: "cfg-detalles", detallesTexto: "cfg-detalles-texto",
+        tituloTecnico: "cfg-titulo-tecnico", subtituloTecnico: "cfg-subtitulo-tecnico",
+        tituloObservaciones: "cfg-titulo-observaciones",
+        observaciones: "cfg-observaciones", intervalo: "cfg-intervalo"
+    };
+    const clonar = valor => JSON.parse(JSON.stringify(valor));
+    const ID_INICIAL = "kit-led-conector";
+    const registroInicial = () => ({version: 1, seleccionado: ID_INICIAL,
+        proyectos: {[ID_INICIAL]: clonar(CONFIG_ORIGINAL)}});
+    let registro = registroInicial();
+    if (!MODO_GENERADO) {
+        try {
+            const cargado = JSON.parse(localStorage.getItem(CLAVE_PROYECTOS) || "null");
+            if (cargado && cargado.version === 1 && cargado.proyectos &&
+                typeof cargado.proyectos === "object" && Object.keys(cargado.proyectos).length) {
+                registro = cargado;
+            } else {
+                const previo = JSON.parse(localStorage.getItem(CLAVE_ANTERIOR) || "null");
+                if (previo && typeof previo === "object")
+                    registro.proyectos[ID_INICIAL] = {...CONFIG_ORIGINAL, ...previo};
+            }
+        } catch (e) { console.warn("No se pudo abrir el registro de proyectos", e); }
+        if (!registro.proyectos[registro.seleccionado])
+            registro.seleccionado = Object.keys(registro.proyectos)[0];
+    }
+    let config = MODO_GENERADO ? clonar(CONFIG_ORIGINAL) :
+        {...CONFIG_ORIGINAL, ...registro.proyectos[registro.seleccionado]};
+    config.galeria = Array.isArray(config.galeria) ? config.galeria : [];
+    let galeriaBorrador = clonar(config.galeria);
+    let PROYECTO = config.proyecto;
+    let COMPONENTES_EXTERNOS = new Set(String(config.externos).split(",").map(x => x.trim()).filter(Boolean));
+    let COMPONENTES_FIJOS = new Set(String(config.fijos).split(",").map(x => x.trim()).filter(Boolean));
+    let temporizadorActualizacion = null;
+    const estado = document.getElementById("cfg-estado");
+    const seleccionar = document.getElementById("cfg-seleccionar");
+
+    function persistirRegistro() {
+        try { localStorage.setItem(CLAVE_PROYECTOS, JSON.stringify(registro)); return true; }
+        catch (e) { estado.textContent = "No se pudo guardar. Exporta un respaldo JSON."; return false; }
+    }
+    function dibujarGaleriaEditor() {
+        const lista = document.getElementById("galeria-editor-lista");
+        lista.replaceChildren();
+        galeriaBorrador.forEach((item, indice) => {
+            const fila = document.createElement("div"); fila.className = "galeria-editor-item";
+            const miniatura = document.createElement("img");
+            miniatura.className = "galeria-miniatura"; miniatura.alt = "Imagen " + (indice + 1);
+            miniatura.src = item.src;
+            const label = document.createElement("label"); label.textContent = "Texto debajo de la imagen " + (indice + 1);
+            const descripcion = document.createElement("textarea");
+            descripcion.placeholder = "Escribe una explicación o nota técnica...";
+            descripcion.value = item.texto || "";
+            descripcion.addEventListener("input", () => { galeriaBorrador[indice].texto = descripcion.value; });
+            label.appendChild(descripcion);
+            const borrar = document.createElement("button"); borrar.type = "button";
+            borrar.className = "galeria-quitar"; borrar.textContent = "Eliminar";
+            borrar.addEventListener("click", () => { galeriaBorrador.splice(indice, 1); dibujarGaleriaEditor(); });
+            fila.append(miniatura, label, borrar); lista.appendChild(fila);
+        });
+    }
+    function dibujarGaleriaVista() {
+        const seccion = document.getElementById("galeria-vista");
+        const lista = document.getElementById("galeria-vista-grid");
+        lista.replaceChildren();
+        for (const item of (config.galeria || [])) {
+            if (!item || typeof item.src !== "string" || !item.src) continue;
+            const figura = document.createElement("figure");
+            const img = document.createElement("img"); img.src = item.src;
+            img.loading = "lazy"; img.alt = item.texto || "Imagen del proyecto";
+            const pie = document.createElement("figcaption"); pie.textContent = item.texto || "";
+            figura.append(img, pie); lista.appendChild(figura);
+        }
+        seccion.hidden = !lista.children.length;
+    }
+    function imagenReducida(archivo) {
+        return new Promise((resolver, rechazar) => {
+            const url = URL.createObjectURL(archivo);
+            const foto = new Image();
+            foto.onload = () => {
+                try {
+                    const max = 1400;
+                    const proporcion = Math.min(1, max / Math.max(foto.naturalWidth, foto.naturalHeight));
+                    const lienzo = document.createElement("canvas");
+                    lienzo.width = Math.max(1, Math.round(foto.naturalWidth * proporcion));
+                    lienzo.height = Math.max(1, Math.round(foto.naturalHeight * proporcion));
+                    lienzo.getContext("2d").drawImage(foto, 0, 0, lienzo.width, lienzo.height);
+                    const tipo = archivo.type === "image/png" && archivo.size < 200000 ? "image/png" : "image/jpeg";
+                    resolver(lienzo.toDataURL(tipo, .78));
+                } catch (error) { rechazar(error); }
+                finally { URL.revokeObjectURL(url); }
+            };
+            foto.onerror = () => { URL.revokeObjectURL(url); rechazar(new Error("No se pudo leer la imagen")); };
+            foto.src = url;
+        });
+    }
+    document.getElementById("galeria-agregar").addEventListener("change", async evento => {
+        const archivos = [...evento.target.files];
+        evento.target.value = "";
+        if (!archivos.length) return;
+        let agregadas = 0;
+        for (const archivo of archivos) {
+            if (!archivo.type.startsWith("image/")) continue;
+            try {
+                const src = await imagenReducida(archivo);
+                galeriaBorrador.push({src, texto: ""}); agregadas++;
+            } catch (error) { console.warn(error); }
+        }
+        dibujarGaleriaEditor();
+        estado.textContent = agregadas + " imagen(es) añadidas. Escribe los textos y pulsa Guardar y actualizar.";
+    });
+    function cargarFormulario() {
+        for (const [clave, id] of Object.entries(CAMPOS_CONFIG))
+            document.getElementById(id).value = config[clave] ?? CONFIG_ORIGINAL[clave] ?? "";
+        galeriaBorrador = clonar(Array.isArray(config.galeria) ? config.galeria : []);
+        dibujarGaleriaEditor();
+    }
+    function refrescarSelector() {
+        seleccionar.replaceChildren();
+        for (const [id, datos] of Object.entries(registro.proyectos)) {
+            const opcion = document.createElement("option");
+            opcion.value = id;
+            opcion.textContent = datos.proyecto || "Proyecto sin nombre";
+            seleccionar.appendChild(opcion);
+        }
+        seleccionar.value = registro.seleccionado;
+    }
+    function aplicarConfiguracion() {
+        PROYECTO = config.proyecto;
+        dibujarGaleriaVista();
+        COMPONENTES_EXTERNOS = new Set(String(config.externos).split(",").map(x => x.trim()).filter(Boolean));
+        COMPONENTES_FIJOS = new Set(String(config.fijos).split(",").map(x => x.trim()).filter(Boolean));
+        document.querySelector("h1.seccion-principal").textContent = "Expediente " + PROYECTO;
+        const imagen = document.querySelector(".seccion-tecnica .imagen-placa img");
+        imagen.src = config.imagen;
+        imagen.alt = PROYECTO;
+        document.querySelector(".seccion-tecnica figcaption").textContent = config.pie;
+        document.querySelector(".seccion-tecnica > h2").textContent = config.tituloTecnico ?? CONFIG_ORIGINAL.tituloTecnico;
+        document.querySelector(".seccion-tecnica > .subtitulo-tecnico").textContent = config.subtituloTecnico ?? CONFIG_ORIGINAL.subtituloTecnico;
+        const cuadros = document.querySelectorAll(".seccion-tecnica .tarjeta-tecnica");
+        cuadros[0].querySelector("h3").textContent = config.detalles ?? CONFIG_ORIGINAL.detalles;
+        cuadros[1].querySelector("h3").textContent = config.tituloObservaciones ?? CONFIG_ORIGINAL.tituloObservaciones;
+        // Los dos cuadros utilizan el mismo método de edición y presentación.
+        for (const [cuadro, contenido] of [
+            [cuadros[0], config.detallesTexto ?? ""],
+            [cuadros[1], config.observaciones ?? ""]
+        ]) {
+            let contenedor = cuadro.querySelector(".contenido-cuadro");
+            if (!contenedor) {
+                contenedor = document.createElement("div");
+                contenedor.className = "contenido-cuadro";
+                cuadro.querySelectorAll("p").forEach(p => p.remove());
+                cuadro.appendChild(contenedor);
+            }
+            contenedor.replaceChildren();
+            for (const linea of String(contenido).split(/\r?\n/).filter(linea => linea.trim())) {
+                const p = document.createElement("p");
+                p.textContent = linea;
+                contenedor.appendChild(p);
+            }
+        }
+        if (temporizadorActualizacion) clearInterval(temporizadorActualizacion);
+        temporizadorActualizacion = setInterval(actualizarTodo, Number(config.intervalo) * 1000);
+    }
+    function leerFormulario() {
+        const nueva = {};
+        for (const [clave, id] of Object.entries(CAMPOS_CONFIG))
+            nueva[clave] = document.getElementById(id).value.trim();
+        nueva.intervalo = Number(nueva.intervalo);
+        nueva.galeria = clonar(galeriaBorrador);
+        if (!nueva.proyecto || !nueva.imagen || !Number.isInteger(nueva.intervalo) ||
+            nueva.intervalo < 10 || nueva.intervalo > 3600) {
+            estado.textContent = "Revisa nombre, imagen e intervalo (10–3600 segundos).";
+            return null;
+        }
+        return nueva;
+    }
+    function guardarFormulario() {
+        const nueva = leerFormulario();
+        if (!nueva) return false;
+        config = nueva;
+        if (!MODO_GENERADO) {
+            registro.proyectos[registro.seleccionado] = clonar(config);
+            const ok = persistirRegistro();
+            refrescarSelector();
+            estado.textContent = ok ? "Proyecto guardado. Los cambios se conservan al volver a abrir esta plantilla en este navegador." :
+                "Cambios aplicados, pero el navegador no permitió guardarlos.";
+        }
+        aplicarConfiguracion();
+        actualizarTodo();
+        return true;
+    }
+    function idProyectoNuevo() {
+        let id;
+        do { id = "proyecto-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 7); }
+        while (registro.proyectos[id]);
+        return id;
+    }
+    function activarProyecto(id) {
+        if (!registro.proyectos[id]) return;
+        registro.seleccionado = id;
+        config = {...CONFIG_ORIGINAL, ...clonar(registro.proyectos[id])};
+        if (!Array.isArray(config.galeria)) config.galeria = [];
+        cargarFormulario(); refrescarSelector(); persistirRegistro();
+        aplicarConfiguracion(); actualizarTodo();
+        estado.textContent = "Proyecto cargado: " + config.proyecto;
+    }
+    cargarFormulario();
+    refrescarSelector();
+    document.getElementById("cfg-guardar").addEventListener("click", guardarFormulario);
+    seleccionar.addEventListener("change", () => {
+        const id = seleccionar.value;
+        // No sobreescribir otro proyecto con cambios todavía no guardados.
+        const actual = leerFormulario();
+        if (actual && JSON.stringify(actual) !== JSON.stringify(config) &&
+            !confirm("Hay cambios sin guardar. ¿Cambiar de proyecto y descartarlos?")) {
+            seleccionar.value = registro.seleccionado;
+            return;
+        }
+        activarProyecto(id);
+    });
+    document.getElementById("cfg-nuevo").addEventListener("click", () => {
+        const nombre = prompt("Nombre del nuevo proyecto:");
+        if (nombre === null) return;
+        const limpio = nombre.trim();
+        if (!limpio) { estado.textContent = "Escribe un nombre para el proyecto."; return; }
+        const id = idProyectoNuevo();
+        registro.proyectos[id] = {...clonar(CONFIG_ORIGINAL), proyecto: limpio,
+            externos: "", fijos: "", imagen: "imagenes/" + limpio.replace(/[^a-zA-Z0-9_-]/g, "_") + ".jpg",
+            pie: "Imagen de referencia de " + limpio, detallesTexto: "", observaciones: "", galeria: []};
+        activarProyecto(id);
+        estado.textContent = "Proyecto creado. Completa sus campos y pulsa Guardar y actualizar.";
+    });
+    document.getElementById("cfg-duplicar").addEventListener("click", () => {
+        const actual = leerFormulario();
+        if (!actual) return;
+        const nombre = prompt("Nombre de la copia:", actual.proyecto + " - Copia");
+        if (nombre === null || !nombre.trim()) return;
+        const id = idProyectoNuevo();
+        registro.proyectos[id] = {...actual, proyecto: nombre.trim()};
+        activarProyecto(id);
+    });
+    document.getElementById("cfg-eliminar").addEventListener("click", () => {
+        if (Object.keys(registro.proyectos).length < 2) {
+            estado.textContent = "Debes conservar al menos un proyecto."; return;
+        }
+        if (!confirm('¿Eliminar permanentemente de este navegador el proyecto "' + config.proyecto + '"?')) return;
+        delete registro.proyectos[registro.seleccionado];
+        activarProyecto(Object.keys(registro.proyectos)[0]);
+        estado.textContent = "Proyecto eliminado del registro local.";
+    });
+    function descargarArchivo(nombre, contenido, tipo) {
+        const url = URL.createObjectURL(new Blob([contenido], {type: tipo}));
+        const enlace = document.createElement("a");
+        enlace.href = url; enlace.download = nombre;
+        document.body.appendChild(enlace); enlace.click(); enlace.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+    document.getElementById("cfg-respaldo").addEventListener("click", () => {
+        descargarArchivo("Respaldo_Proyectos_Expedientes.json", JSON.stringify(registro, null, 2), "application/json");
+        estado.textContent = "Respaldo descargado. Guárdalo en un lugar seguro.";
+    });
+    document.getElementById("cfg-importar").addEventListener("change", async (evento) => {
+        const archivo = evento.target.files[0];
+        if (!archivo) return;
+        try {
+            const datos = JSON.parse(await archivo.text());
+            if (datos.version !== 1 || !datos.proyectos ||
+                typeof datos.proyectos !== "object" || Array.isArray(datos.proyectos) ||
+                !Object.keys(datos.proyectos).length ||
+                !Object.values(datos.proyectos).every(p => p && typeof p.proyecto === "string" &&
+                  typeof p.imagen === "string" && p.proyecto.trim() && p.imagen.trim()))
+                throw new Error("Formato de respaldo no válido");
+            if (!confirm("Importar este respaldo reemplazará los proyectos guardados en este navegador. ¿Continuar?")) return;
+            registro = {version:1, proyectos:datos.proyectos,
+                seleccionado:datos.proyectos[datos.seleccionado] ? datos.seleccionado : Object.keys(datos.proyectos)[0]};
+            activarProyecto(registro.seleccionado);
+            estado.textContent = "Respaldo importado correctamente.";
+        } catch (e) { estado.textContent = "No se pudo importar el respaldo: " + e.message; }
+        finally { evento.target.value = ""; }
+    });
+    document.getElementById("cfg-exportar").addEventListener("click", () => {
+        if (!guardarFormulario()) return;
+        const copia = document.documentElement.cloneNode(true);
+        for (const id of ["tabla-disponibilidad", "tabla-secuencias", "tabla-especificos", "tabla-proyecto"]) {
+            const tbody = copia.querySelector("#" + id + " tbody");
+            if (tbody) tbody.replaceChildren();
+        }
+        // Las imágenes se incluyen en CONFIG_ORIGINAL como data URL para que
+        // cada expediente HTML pueda abrirse sin archivos de galería externos.
+        const galeriaClonada = copia.querySelector("#galeria-vista-grid");
+        if (galeriaClonada) galeriaClonada.replaceChildren();
+        const ocultar = document.createElement("style");
+        ocultar.textContent = "#configuracion-proyecto{display:none!important}";
+        copia.querySelector("head").appendChild(ocultar);
+        const titulo = copia.querySelector("title");
+        if (titulo) titulo.textContent = "Expediente " + config.proyecto + " | CircuitDesignMX";
+        let html = "<!DOCTYPE html>\n" + copia.outerHTML;
+        const serializado = JSON.stringify(config, null, 8).replace(/</g, "\\u003c");
+        const patron = /const CONFIG_ORIGINAL = \{[\s\S]*?\n    \};/;
+        if (!patron.test(html)) { estado.textContent = "Error al preparar la página HTML."; return; }
+        html = html.replace(patron, () => "const CONFIG_ORIGINAL = " + serializado + ";");
+        html = html.replace("const MODO_GENERADO = false;", "const MODO_GENERADO = true;");
+        const nombre = config.proyecto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+            .replace(/[^a-zA-Z0-9_-]+/g, "_").replace(/^_+|_+$/g, "") || "Proyecto";
+        const archivo = "Expediente_" + nombre + ".html";
+        descargarArchivo(archivo, html, "text/html;charset=utf-8");
+        estado.textContent = "HTML generado: " + archivo + ". Este archivo utiliza la configuración incorporada.";
+    });
+    document.getElementById("cfg-restaurar").addEventListener("click", () => {
+        if (!confirm("¿Restaurar los parámetros iniciales del proyecto seleccionado?")) return;
+        config = clonar(CONFIG_ORIGINAL);
+        registro.proyectos[registro.seleccionado] = clonar(config);
+        persistirRegistro(); cargarFormulario(); refrescarSelector();
+        aplicarConfiguracion(); actualizarTodo();
+        estado.textContent = "Parámetros iniciales restaurados solo para este proyecto.";
+    });
 
     const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
@@ -2648,6 +3160,10 @@ td.numero-derecha {
         let fechaEntrada = "", fechaSalida = "";
 
         for (const r of secuencias) {
+            // gs_ver = E se muestra en Secuencias de Trabajo,
+            // pero no participa en Balance de Disponibilidad de Placas.
+            if (texto(r.gs_ver).trim().toUpperCase() === "E") continue;
+
             const proc = texto(r.gs_proceso).trim();
             const cant = numero(r.gs_ctda);
             const fecha = fechaBase(r.gs_fecha);
@@ -2709,11 +3225,10 @@ td.numero-derecha {
     // ========================================================
     // BARRAS DE AVANCE POR PROCESO
     // Política compartida:
-    // - excluir únicamente gs_ver = N/n
-    // - Entrada / Plan y Venta-Disponible / Plan: cobertura de hasta 300 %
-    // - (SMD + TH) / Entrada; TH / SMD
-    // - Programacion / TH; Salida / TH; Venta-Concretada / Salida
-    // - Venta-Disponible = Salida - Venta-Concretada
+    // - excluir gs_ver = N/n y E/e
+    // - Entrada / Plan: cobertura de hasta 300 %
+    // - SMD / Entrada; TH / SMD
+    // - Lista para la Venta / TH
     // - Diagnostico / Entrada
     // ========================================================
 
@@ -2733,11 +3248,8 @@ td.numero-derecha {
         "Fabricacion-Entrada",
         "Fabricacion-SMD",
         "Fabricacion-TH",
-        "Fabricacion-Programacion",
         "Fabricacion-Diagnostico",
-        "Fabricacion-Salida",
-        "Venta-Concretada",
-        "Venta-Disponible"
+        "Fabricacion-Salida"
     ];
 
     const CLAVES_BARRAS_PROCESO = ORDEN_BARRAS_PROCESO.map(
@@ -2751,9 +3263,10 @@ td.numero-derecha {
 
         if (!lista || !planEl || !escalaEl) return;
 
-        const validas = secuencias.filter(
-            r => texto(r.gs_ver).trim().toUpperCase() !== "N"
-        );
+        const validas = secuencias.filter(r => {
+            const ver = texto(r.gs_ver).trim().toUpperCase();
+            return ver !== "N" && ver !== "E";
+        });
 
         const acumulado = new Map();
 
@@ -2783,7 +3296,7 @@ td.numero-derecha {
 
         planEl.textContent = numeroVisible(maximo);
         escalaEl.textContent =
-            "Entrada / Demanda Mensual · (SMD + TH) / Entrada · TH / SMD · Programacion / TH · Diagnostico / Entrada · Salida / TH · Venta / Salida · Disponible / Demanda Mensual (cobertura máx. 3 meses)";
+            "Entrada / Demanda Mensual · SMD / Entrada · TH / SMD · Diagnostico / Entrada · Lista para la Venta / Demanda Mensual";
 
         lista.replaceChildren();
 
@@ -2824,20 +3337,28 @@ td.numero-derecha {
         const ventaBase = numero(
             (porClave.get(claveProcesoBarra("Venta-Concretada")) || {}).cantidad
         );
-        const ventaDisponible = salidaBase - ventaBase;
+        const ventaDisponible = Math.max(0, salidaBase - ventaBase);
+        const entradaMostrada = Math.max(0, entradaBase - ventaBase);
+        const smdMostrado = Math.max(0, smdBase - ventaBase);
+        const thMostrado = Math.max(0, thBase - ventaBase);
 
-        // Venta-Disponible es un indicador calculado, no un proceso en Supabase.
+        // Descontar Venta-Concretada de todos los indicadores mostrados.
+        // Venta-Disponible ya representa Salida - Venta, por lo que no se descuenta dos veces.
         const barras = ORDEN_BARRAS_PROCESO.map((nombreDeseado, indice) => {
             const clave = CLAVES_BARRAS_PROCESO[indice];
             const encontrado = porClave.get(clave);
 
+            let cantidadOriginal = clave === "fabricacion-smd"
+                ? smdBase
+                : (encontrado ? numero(encontrado.cantidad) : 0);
+
+            const cantidadMostrada = clave === "venta-disponible"
+                ? ventaDisponible
+                : Math.max(0, cantidadOriginal - ventaBase);
+
             return {
                 nombre: nombreDeseado,
-                cantidad: clave === "venta-disponible"
-                    ? ventaDisponible
-                    : clave === "fabricacion-smd"
-                        ? smdBase + thBase
-                        : (encontrado ? numero(encontrado.cantidad) : 0)
+                cantidad: cantidadMostrada
             };
         });
 
@@ -2845,15 +3366,14 @@ td.numero-derecha {
             const cantidad = numero(proceso.cantidad);
             const clave = claveProcesoBarra(proceso.nombre);
             const esEntrada = clave === "fabricacion-entrada";
-            const esCobertura = esEntrada || clave === "venta-disponible";
+            const esCobertura = esEntrada || clave === "fabricacion-salida";
 
             // Referencia específica según la etapa, sin cambiar otras secciones.
             let referencia = maximo;
-            if (clave === "fabricacion-smd") referencia = entradaBase;
+            if (clave === "fabricacion-smd") referencia = entradaMostrada;
             if (clave === "fabricacion-diagnostico") referencia = entradaBase;
-            if (clave === "fabricacion-th") referencia = smdBase;
-            if (clave === "fabricacion-programacion") referencia = thBase;
-            if (clave === "fabricacion-salida") referencia = thBase;
+            if (clave === "fabricacion-th") referencia = smdMostrado;
+            if (clave === "fabricacion-salida") referencia = maximo;
             if (clave === "venta-concretada") referencia = numero(
                 (porClave.get(claveProcesoBarra("Fabricacion-Salida")) || {}).cantidad
             );
@@ -2879,7 +3399,6 @@ td.numero-derecha {
                 "fabricacion-entrada": "Entrada de Placas",
                 "fabricacion-smd": "Con SMD",
                 "fabricacion-th": "Con TH",
-                "fabricacion-programacion": "Programacion",
                 "fabricacion-diagnostico": "Reparacion",
                 "fabricacion-salida": "Lista para la Venta",
                 "venta-concretada": "Vendidas",
@@ -2923,11 +3442,10 @@ td.numero-derecha {
             dato.className = "barras-proceso-dato";
 
             // Entrada de Placas: faltante para alcanzar 3 meses de demanda.
-            // Disponible: faltante para alcanzar 2 meses de demanda.
-            // Con SMD: "Virgenes" indica las placas de Entrada aún sin SMD.
-            // Las demás barras conservan sus referencias y cálculos anteriores.
-            const metaFaltante = esEntrada ? referencia * 3
-                : clave === "venta-disponible" ? referencia * 2 : referencia;
+            // Con SMD: Virgenes = Entrada de Placas mostrada - Con SMD mostrado.
+            // Con TH: faltante respecto a Con SMD mostrado.
+            // Lista para la Venta: cobertura de hasta 3 meses respecto a Fabricacion-Plan.
+            const metaFaltante = esCobertura ? referencia * 3 : referencia;
             const faltante = referencia > 0
                 ? Math.max(0, metaFaltante - cantidad)
                 : null;
@@ -3014,7 +3532,12 @@ td.numero-derecha {
         tbody.replaceChildren();
 
         const filas = secuencias
-            .filter(r => texto(r.gs_ver).trim().toUpperCase() !== "N")
+            // N y C no se muestran en Secuencias de Trabajo.
+            // C sigue participando normalmente en los procesos de calculo.
+            .filter(r => {
+                const ver = texto(r.gs_ver).trim().toUpperCase();
+                return ver !== "N" && ver !== "C";
+            })
             .sort((a, b) => {
                 const aPend =
                     texto(a.gs_estado).trim().toLowerCase() === "pendiente";
@@ -3114,39 +3637,61 @@ td.numero-derecha {
         return mapa;
     }
 
-    // Componentes especificos Mini: la cobertura depende UNICAMENTE
-    // de las existencias en stock, sin sumar ni descontar Fabricacion-TH.
-    // Se distribuyen existencias a mes 1, despues mes 2 y despues mes 3.
-    // Ejemplo: demanda=1000, stock=1200 -> [100, 20, 0].
-    function porcentajesCoberturaPorMes(cantidad, demandaMensual) {
-        const existencia = Math.max(0, numero(cantidad));
-        if (!(demandaMensual > 0)) return [0, 0, 0];
-        return [0, 1, 2].map(mes => Math.max(0, Math.min(100,
-            ((existencia - mes * demandaMensual) / demandaMensual) * 100
-        )));
+    // Cobertura secuencial de Componentes Especificos:
+    // Cada mes tiene como objetivo Fabricacion-Plan.
+    // Las placas ya fabricadas (Fabricacion-TH - Venta-Concretada)
+    // reducen primero la cantidad que aun necesita componentes.
+    // El remanente se aplica Mes 1 -> Mes 2 -> Mes 3.
+    function detalleCoberturaPorMes(cantidad, demandaMensual, montadasTH = 0) {
+        let stockRestante = Math.max(0, numero(cantidad));
+        let fabricadasRestantes = Math.max(0, numero(montadasTH));
+
+        if (!(demandaMensual > 0)) return [];
+
+        const meses = [];
+
+        for (let mes = 0; mes < 3; mes++) {
+            // Primero: placas de este mes que ya fueron fabricadas y, por tanto,
+            // ya no requieren componentes del stock actual.
+            const fabricadasAplicadas = Math.min(demandaMensual, fabricadasRestantes);
+            fabricadasRestantes -= fabricadasAplicadas;
+
+            // Segundo: solo estas placas siguen necesitando componentes.
+            const requiereComponentes = Math.max(0, demandaMensual - fabricadasAplicadas);
+            const stockUsado = Math.min(requiereComponentes, stockRestante);
+            stockRestante -= stockUsado;
+
+            const cubiertoTotal = fabricadasAplicadas + stockUsado;
+            const porcentaje = Math.max(0, Math.min(100,
+                (cubiertoTotal / demandaMensual) * 100
+            ));
+
+            meses.push({
+                porcentaje,
+                plan: demandaMensual,
+                fabricadasAplicadas,
+                requiereComponentes,
+                stockUsado,
+                stockRestante
+            });
+        }
+
+        return meses;
     }
 
-    function renderEspecificos(stockRows, secuencias) {
-        const tbody = document.getElementById("especificos-body");
+    function renderGrupoComponentes(tbodyId, ids, stockRows, demandaMensual, montadasTH, opciones = {}) {
+        const tbody = document.getElementById(tbodyId);
         tbody.replaceChildren();
 
-        // Fabricacion-Plan se muestra como "Demanda Mensual" en el resumen.
-        // Cada mes utiliza esa cantidad como meta (p. ej. 1000 placas/mes).
-        const secuenciasValidas = secuencias.filter(
-            r => texto(r.gs_ver).trim().toUpperCase() !== "N"
-        );
-        const demandaMensual = secuenciasValidas
-            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-plan")
-            .reduce((total, r) => total + numero(r.gs_ctda), 0);
-
+        const usarFabricadas = opciones.usarFabricadas !== false;
         const mapa = mapaStock(stockRows);
-        const filas = [...COMPONENTES_ESPECIFICOS]
+        const filas = [...ids]
             .map(id => mapa.get(id))
             .filter(Boolean);
 
         if (!filas.length) {
             const tr = document.createElement("tr");
-            const td = celda("Sin componentes específicos.");
+            const td = celda(opciones.mensajeVacio || "Sin componentes.");
             td.colSpan = 4;
             tr.appendChild(td);
             tbody.appendChild(tr);
@@ -3169,13 +3714,22 @@ td.numero-derecha {
                 td.appendChild(aviso);
             } else {
                 const cantidad = Math.max(0, numero(r.cs_ctda));
-                const coberturas = porcentajesCoberturaPorMes(cantidad, demandaMensual);
+                // Externos: montadasTH = 0, por lo que solo se contabiliza stock.
+                // Fijos: se conserva la lógica de TH netas + stock.
+                const fabricadasParaCalculo = usarFabricadas ? montadasTH : 0;
+                const detallesMes = detalleCoberturaPorMes(
+                    cantidad,
+                    demandaMensual,
+                    fabricadasParaCalculo
+                );
+
                 const columna = document.createElement("div");
                 columna.className = "especificos-cobertura-columna";
                 const mesesContenedor = document.createElement("div");
                 mesesContenedor.className = "especificos-tres-meses";
 
-                coberturas.forEach((avance, i) => {
+                detallesMes.forEach((detalle, i) => {
+                    const avance = detalle.porcentaje;
                     const mes = document.createElement("div");
                     mes.className = "especificos-mes";
 
@@ -3201,6 +3755,23 @@ td.numero-derecha {
                     porcentaje.className = "especificos-mes-porcentaje";
                     porcentaje.textContent = numeroVisible(Number(avance.toFixed(1))) + " %";
                     mes.appendChild(porcentaje);
+
+                    const comprobacion = document.createElement("div");
+                    comprobacion.className = "especificos-mes-comprobacion";
+                    if (usarFabricadas) {
+                        comprobacion.innerHTML =
+                            "Plan: <b>" + numeroVisible(detalle.plan) + "</b><br>" +
+                            "Ya fabricadas netas aplicadas: <b>" + numeroVisible(detalle.fabricadasAplicadas) + "</b><br>" +
+                            "Requiere componentes: <b>" + numeroVisible(detalle.requiereComponentes) + "</b><br>" +
+                            "Stock usado: <b>" + numeroVisible(detalle.stockUsado) + "</b><br>" +
+                            "Stock restante: <b>" + numeroVisible(detalle.stockRestante) + "</b>";
+                    } else {
+                        comprobacion.innerHTML =
+                            "Plan: <b>" + numeroVisible(detalle.plan) + "</b><br>" +
+                            "Stock usado: <b>" + numeroVisible(detalle.stockUsado) + "</b><br>" +
+                            "Stock restante: <b>" + numeroVisible(detalle.stockRestante) + "</b>";
+                    }
+                    mes.appendChild(comprobacion);
                     mesesContenedor.appendChild(mes);
                 });
 
@@ -3208,17 +3779,59 @@ td.numero-derecha {
 
                 const dato = document.createElement("div");
                 dato.className = "especificos-cobertura-dato";
-                const meses = cantidad / demandaMensual;
-                const faltantesTresMeses = Math.max(0, 3 * demandaMensual - cantidad);
-                dato.textContent = "Cobertura: " + numeroVisible(Number(meses.toFixed(2))) +
-                    " meses · Faltan para 3 meses: " + numeroVisible(faltantesTresMeses) +
-                    " · Meta: " + numeroVisible(demandaMensual) + "/mes";
+                if (usarFabricadas) {
+                    dato.textContent = "Ya fabricadas netas: " + numeroVisible(montadasTH) +
+                        " · Stock inicial: " + numeroVisible(cantidad) +
+                        " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes";
+                } else {
+                    dato.textContent = "Solo stock: " + numeroVisible(cantidad) +
+                        " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes";
+                }
                 columna.appendChild(dato);
                 td.appendChild(columna);
             }
+
             tr.appendChild(td);
             tbody.appendChild(tr);
         }
+    }
+
+    function renderEspecificos(stockRows, secuencias) {
+        // Fabricacion-Plan es la meta de cada uno de los tres meses.
+        // gs_ver=C sí participa en los cálculos; solo N queda excluido aquí.
+        const secuenciasValidas = secuencias.filter(
+            r => texto(r.gs_ver).trim().toUpperCase() !== "N"
+        );
+        const demandaMensual = secuenciasValidas
+            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-plan")
+            .reduce((total, r) => total + numero(r.gs_ctda), 0);
+        const montadasTHBrutas = Math.max(0, secuenciasValidas
+            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-th")
+            .reduce((total, r) => total + numero(r.gs_ctda), 0));
+        const ventaConcretada = Math.max(0, secuenciasValidas
+            .filter(r => claveProcesoBarra(r.gs_proceso) === "venta-concretada")
+            .reduce((total, r) => total + numero(r.gs_ctda), 0));
+        const montadasTH = Math.max(0, montadasTHBrutas - ventaConcretada);
+
+        // Componente externo 125: exclusivamente stock, sin TH ni Venta-Concretada.
+        renderGrupoComponentes(
+            "externos-body",
+            COMPONENTES_EXTERNOS,
+            stockRows,
+            demandaMensual,
+            montadasTH,
+            { usarFabricadas: false, mensajeVacio: "Sin componentes externos." }
+        );
+
+        // Componentes fijos: conservan la lógica de TH netas + stock.
+        renderGrupoComponentes(
+            "especificos-body",
+            COMPONENTES_FIJOS,
+            stockRows,
+            demandaMensual,
+            montadasTH,
+            { usarFabricadas: true, mensajeVacio: "Sin componentes fijos." }
+        );
     }
 
     function renderComponentesProyecto(proyectoRows, stockRows) {
@@ -3328,9 +3941,9 @@ td.numero-derecha {
         }
     }
 
+    aplicarConfiguracion();
     actualizarFooter();
     actualizarTodo();
-    window.setInterval(actualizarTodo, 60000);
 })();
 </script>
 
@@ -3353,6 +3966,12 @@ td.numero-derecha {
             "Fecha",
             "Estado",
             "Descripción"
+        ],
+        "tabla-externos": [
+            "idE",
+            "Descripción",
+            "Existencia",
+            "Cobertura por mes"
         ],
         "tabla-especificos": [
             "idE",
@@ -3390,6 +4009,7 @@ td.numero-derecha {
     const objetivos = [
         "disponibilidad-body",
         "secuencias-body",
+        "externos-body",
         "especificos-body",
         "proyecto-body"
     ];
@@ -3404,5 +4024,6 @@ td.numero-derecha {
 
     window.addEventListener("resize", aplicarEtiquetasMoviles);
 })();
-</script></body>
-</html>
+</script>
+
+</body></html>
