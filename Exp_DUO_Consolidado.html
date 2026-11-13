@@ -2196,7 +2196,7 @@ td.numero-derecha {
     border-color: #a2bcd0;
 }
 
-/* Entrada y Venta-Disponible utilizan escala de cobertura de 0 a 3 meses. */
+/* Entrada y Lista para la Venta utilizan escala de 0 a 3 meses. */
 .barras-proceso-entrada-columna {
     min-width: 0;
 }
@@ -2880,7 +2880,7 @@ td.numero-derecha {
 
         planEl.textContent = numeroVisible(maximo);
         escalaEl.textContent =
-            "Entrada / Demanda Mensual · SMD / Entrada · TH / SMD · Programacion / TH · Reparacion / Entrada · Salida / TH · Cantidades netas después de ventas";
+            "Entrada y Lista para la Venta / Demanda Mensual (0–3 meses) · SMD / Entrada · TH / SMD · Programacion / TH · Reparacion / Entrada · Cantidades netas después de ventas";
 
         lista.replaceChildren();
 
@@ -2943,7 +2943,9 @@ td.numero-derecha {
                 const smd = obtener("fabricacion-smd");
                 const th = obtener("fabricacion-th");
                 const salida = obtener("fabricacion-salida");
-                const esDisponible = false;
+                // Lista para la Venta usa la misma cobertura mensual que Entrada,
+                // con la demanda mensual correspondiente a este proyecto.
+                const esDisponible = clave === "fabricacion-salida";
                 let cantidad = 0, referencia = 0;
                 if (clave === "fabricacion-smd") {
                     cantidad = smd;
@@ -2953,11 +2955,11 @@ td.numero-derecha {
                     referencia = smd;
                 } else if (clave === "fabricacion-salida") {
                     cantidad = salida;
-                    referencia = th;
+                    referencia = obtener("fabricacion-plan");
                 }
 
                 const porcentaje = referencia > 0 ? (cantidad / referencia) * 100 : null;
-                // Disponible conserva la escala de cobertura de 0 a 300 % (3 meses).
+                // Lista para la Venta conserva la escala de 0 a 300 % (3 meses).
                 const porcentajeVisual = porcentaje === null ? 0 : Math.max(0, Math.min(100,
                     esDisponible ? porcentaje / 3 : porcentaje));
 
@@ -2997,7 +2999,7 @@ td.numero-derecha {
                 dato.className = "barras-proceso-dato";
                 const faltante = document.createElement("strong");
                 const etiqueta = clave === "fabricacion-smd" ? "Virgenes" : "Faltan";
-                const meta = esDisponible ? referencia * 2 : referencia;
+                const meta = esDisponible ? referencia * 3 : referencia;
                 faltante.textContent = etiqueta + ": " +
                     (referencia > 0 ? numeroVisible(Math.max(0, meta - cantidad)) : "—");
                 const porcentajeTxt = document.createElement("span");
@@ -3057,7 +3059,7 @@ td.numero-derecha {
             const cantidad = numero(proceso.cantidad);
             const clave = claveProcesoBarra(proceso.nombre);
             const esEntrada = clave === "fabricacion-entrada";
-            const esCobertura = esEntrada;
+            const esCobertura = esEntrada || clave === "fabricacion-salida";
 
             // Referencia específica según la etapa, sin cambiar otras secciones.
             let referencia = maximo;
@@ -3065,7 +3067,7 @@ td.numero-derecha {
             if (clave === "fabricacion-diagnostico") referencia = entradaBase;
             if (clave === "fabricacion-th") referencia = smdBase;
             if (clave === "fabricacion-programacion") referencia = thBase;
-            if (clave === "fabricacion-salida") referencia = thBase;
+            if (clave === "fabricacion-salida") referencia = maximo;
 
             // Si no hay cantidad de referencia, no inventar un porcentaje.
             const porcentajeReal = referencia > 0
@@ -3121,10 +3123,10 @@ td.numero-derecha {
             const dato = document.createElement("div");
             dato.className = "barras-proceso-dato";
 
-            // Entrada de Placas: faltante para alcanzar 3 meses de demanda.
+            // Entrada de Placas y Lista para la Venta: faltante para 3 meses.
             // Con SMD: "Virgenes" indica las placas de Entrada aún sin SMD.
             // Las demás barras conservan sus referencias y cálculos anteriores.
-            const metaFaltante = esEntrada ? referencia * 3 : referencia;
+            const metaFaltante = esCobertura ? referencia * 3 : referencia;
             const faltante = referencia > 0
                 ? Math.max(0, metaFaltante - cantidad)
                 : null;
