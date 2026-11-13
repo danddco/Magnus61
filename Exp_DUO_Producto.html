@@ -2664,7 +2664,7 @@ td.numero-derecha {
 <div class="config-content">
 <p>Modifica los parámetros, guarda para obtener una vista previa y pulsa <strong>Generar página HTML del proyecto</strong> para descargar un archivo independiente. Esta plantilla permanece disponible para crear otros proyectos.</p>
 <div class="proyectos-manager">
-<label for="cfg-seleccionar">Proyecto guardado<select id="cfg-seleccionar" aria-label="Seleccionar proyecto guardado"><option value="kit-led-conector">Kit Led / Conector</option><option value="proyecto-mw3jbvpb-qzyxw">DUO Basic</option><option value="proyecto-mw452xyx-bfw41">Mini</option><option value="proyecto-mw45yhhy-ijz1n">Fashident v1.0</option><option value="proyecto-mw45z005-j3doh">Purisystems v1.0</option><option value="proyecto-mw45zirb-qi1dz">Purimatic v2.2</option><option value="proyecto-mw460i2d-jwb7q">DUO Producto</option><option value="proyecto-mw52gpuw-ej9ii">DUO Pro</option></select></label>
+<label for="cfg-seleccionar">Proyecto guardado<select id="cfg-seleccionar" aria-label="Seleccionar proyecto guardado"><option value="kit-led-conector">Kit Led / Conector</option><option value="proyecto-mw3jbvpb-qzyxw">DUO Basic</option><option value="proyecto-mw452xyx-bfw41">Mini</option><option value="proyecto-mw45yhhy-ijz1n">Fashident v1.0</option><option value="proyecto-mw45z005-j3doh">Purisystems v1.0</option><option value="proyecto-mw45zirb-qi1dz">Purimatic v2.2</option><option value="proyecto-mw460i2d-jwb7q">DUO Producto</option><option value="proyecto-mw52gpuw-ej9ii">DUO Pro</option><option value="proyecto-mw5hprz6-gtxjg">Veco v1.0</option></select></label>
 <button type="button" id="cfg-nuevo">＋ Nuevo proyecto</button>
 <button type="button" id="cfg-duplicar">Duplicar proyecto</button>
 <button type="button" id="cfg-eliminar" class="danger">Eliminar proyecto</button>
@@ -2736,6 +2736,22 @@ td.numero-derecha {
 </table>
 </div>
 <div class="separador">-------------------------</div>
+<h2>Secuencias de Trabajo</h2>
+<div class="tabla-wrap">
+<table id="tabla-secuencias">
+<thead>
+<tr>
+<th>Proceso</th>
+<th>Prioridad</th>
+<th class="fecha-celda">Fecha</th>
+<th>Estado</th>
+<th>Descripcion</th>
+</tr>
+</thead>
+<tbody id="secuencias-body"></tbody>
+</table>
+</div>
+<div class="separador">-------------------------</div>
 <h2>Componentes Externos</h2>
 <div class="tabla-wrap">
 <table id="tabla-externos">
@@ -2763,22 +2779,6 @@ td.numero-derecha {
 </tr>
 </thead>
 <tbody id="especificos-body"></tbody>
-</table>
-</div>
-<div class="separador">-------------------------</div>
-<h2>Secuencias de Trabajo</h2>
-<div class="tabla-wrap">
-<table id="tabla-secuencias">
-<thead>
-<tr>
-<th>Proceso</th>
-<th>Prioridad</th>
-<th class="fecha-celda">Fecha</th>
-<th>Estado</th>
-<th>Descripcion</th>
-</tr>
-</thead>
-<tbody id="secuencias-body"></tbody>
 </table>
 </div>
 <div class="separador">-------------------------</div>
@@ -2822,7 +2822,7 @@ td.numero-derecha {
             © 2026 CircuitDesignMX. Todos los derechos reservados.
         </p>
 <p class="fecha-hora">
-            Fecha y hora: <span id="fecha-hora-dinamica">06/11/2026 10:43:19</span>
+            Fecha y hora: <span id="fecha-hora-dinamica">13/11/2026 11:53:59</span>
 </p>
 </footer>
 <script>
@@ -3153,7 +3153,7 @@ td.numero-derecha {
         html = html.replace("const MODO_GENERADO = false;", "const MODO_GENERADO = true;");
         const nombre = config.proyecto.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
             .replace(/[^a-zA-Z0-9_-]+/g, "_").replace(/^_+|_+$/g, "") || "Proyecto";
-        const archivo = "Expediente_" + nombre + ".html";
+        const archivo = "Exp_" + nombre + ".html";
         descargarArchivo(archivo, html, "text/html;charset=utf-8");
         estado.textContent = "HTML generado: " + archivo + ". Este archivo utiliza la configuración incorporada.";
     });
