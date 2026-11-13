@@ -2461,6 +2461,60 @@ td.numero-derecha {
   #tabla-disponibilidad tbody tr.duo-fila-total td {background: transparent !important;}
 }
 </style>
+
+<style>
+/* Secuencias DUO: presentación independiente de las reglas antiguas de tablas. */
+#seccion-duo-secuencias { width: 100%; max-width: 100%; }
+#tabla-duo-secuencias {
+    width: 100% !important; min-width: 0 !important; table-layout: auto !important;
+    border-collapse: collapse; font-size: 16px; margin: 0 auto;
+}
+#tabla-duo-secuencias th, #tabla-duo-secuencias td {
+    padding: 9px 10px; border: 1px solid #d8dee5; vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+#tabla-duo-secuencias th { text-align: left; background: #eef3f7; }
+#tabla-duo-secuencias td:nth-child(1), #tabla-duo-secuencias td:nth-child(3),
+#tabla-duo-secuencias td:nth-child(4), #tabla-duo-secuencias td:nth-child(5) { white-space: nowrap; }
+#tabla-duo-secuencias td.prioridad-celda { text-align: center; font-weight: 800; }
+#tabla-duo-secuencias td.descripcion-celda { min-width: 220px; white-space: normal; text-align: left; }
+#tabla-duo-secuencias tbody tr.seq-pendiente { background: #f8d7da; color: #721c24; }
+#tabla-duo-secuencias tbody tr.seq-resuelto { background: #dff3e4; color: #1f6334; }
+#tabla-duo-secuencias tbody tr.seq-proceso { background: #fff3cd; color: #6f5900; }
+#tabla-duo-secuencias tbody tr.seq-neutral { background: #eef1f4; color: #48545f; }
+@media (max-width: 900px) {
+    #tabla-duo-secuencias { display: block !important; background: transparent; box-shadow: none; }
+    #tabla-duo-secuencias thead { display: none !important; }
+    #tabla-duo-secuencias tbody { display: block !important; }
+    #tabla-duo-secuencias tbody tr {
+        display: block !important; margin-bottom: 12px; border: 1px solid #d8dee5;
+        border-radius: 9px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    #tabla-duo-secuencias tbody td {
+        display: grid !important; grid-template-columns: minmax(105px, 38%) minmax(0, 62%);
+        width: 100% !important; min-width: 0 !important; padding: 9px 10px;
+        border: 0; border-bottom: 1px solid #d8dee5; white-space: normal !important;
+        text-align: left !important; font-size: 16px;
+    }
+    #tabla-duo-secuencias tbody td:last-child { border-bottom: 0; }
+    #tabla-duo-secuencias tbody td::before {
+        content: attr(data-label); display: block; font-size: 14px;
+        font-weight: 800; color: #30485d; padding-right: 6px;
+    }
+    #tabla-duo-secuencias td.descripcion-celda { min-width: 0 !important; }
+    #tabla-duo-secuencias td[colspan] { display: block !important; }
+    #seccion-duo-secuencias .tabla-wrap { overflow: visible !important; }
+}
+</style>
+<style>
+/* Enlaces finales a coberturas de componentes */
+.enlaces-cobertura-duo {margin: 28px auto 16px; max-width: 960px; padding: 18px; background: #fff; border: 1px solid #d8dee5; border-radius: 10px;}
+.enlaces-cobertura-duo h2 {margin: 0 0 16px; color: #1f4e78;}
+.enlaces-cobertura-grid {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;}
+.enlaces-cobertura-grid a {display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 12px 16px; border-radius: 8px; background: #1f4e78; color: #fff; font-size: 17px; font-weight: 700; text-align: center; text-decoration: none; overflow-wrap: anywhere;}
+.enlaces-cobertura-grid a:hover, .enlaces-cobertura-grid a:focus-visible {background: #346b98; text-decoration: underline;}
+@media (max-width: 700px) {.enlaces-cobertura-duo {padding: 12px 9px;} .enlaces-cobertura-grid {grid-template-columns: 1fr;} .enlaces-cobertura-grid a {font-size: 16px;}}
+</style>
 </head>
 <body>
 <header id="cabecera">
@@ -2514,20 +2568,22 @@ td.numero-derecha {
 </table>
 </div>
 <div class="separador">-------------------------</div>
-<h2>Componentes Específicos</h2>
+<section id="seccion-duo-secuencias" aria-labelledby="titulo-duo-secuencias">
+<h2 id="titulo-duo-secuencias">Secuencias de Trabajo</h2>
 <div class="tabla-wrap">
-<table id="tabla-especificos">
-<thead>
-<tr>
-<th>idE</th>
-<th>Descripcion</th>
-<th>Existencia</th>
-<th>Cobertura por mes (1, 2 y 3) · Demanda conjunta</th>
-</tr>
-</thead>
-<tbody id="especificos-body"></tbody>
+<table id="tabla-duo-secuencias">
+<thead><tr><th>Proyecto</th><th>Proceso</th><th>Prioridad</th><th>Fecha</th><th>Estado</th><th>Descripción</th></tr></thead>
+<tbody id="duo-secuencias-body"><tr><td colspan="6">Cargando secuencias...</td></tr></tbody>
 </table>
 </div>
+</section>
+<section class="enlaces-cobertura-duo" aria-labelledby="titulo-enlaces-cobertura">
+  <h2 id="titulo-enlaces-cobertura">Cobertura de Componentes</h2>
+  <div class="enlaces-cobertura-grid">
+    <a href="https://danddco.github.io/Magnus61/Componentes_Fijos_Multiproyecto.html" target="_blank" rel="noopener noreferrer">Cobertura Componentes en Placa</a>
+    <a href="https://danddco.github.io/Magnus61/Componentes_Externos_Multiproyecto.html" target="_blank" rel="noopener noreferrer">Cobertura Componentes en Stock</a>
+  </div>
+</section>
 </main>
 <div class="espacio-footer"></div>
 <footer>
@@ -2544,9 +2600,6 @@ td.numero-derecha {
 
     // Proyectos incluidos en el resumen y las necesidades mensuales.
     const PROYECTOS = ["DUO Basic", "DUO Pro", "DUO Producto"];
-    // Unión de componentes específicos efectivamente configurados en los expedientes:
-    // DUO Basic: 61 y 195; DUO Pro y DUO Producto: sin idE definidos.
-    const COMPONENTES_ESPECIFICOS = new Set(["61", "195"]);
 
     const SUPABASE_URL = 'https://ysyxjcwjtvklxvhwnxsi.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
@@ -3172,123 +3225,60 @@ td.numero-derecha {
         });
     }
 
-    function mapaStock(stockRows) {
-        const mapa = new Map();
-        for (const r of stockRows) {
-            mapa.set(texto(r.idE).trim().replace(/\.0$/, ""), r);
-        }
-        return mapa;
-    }
-
-    // Necesidad por idE: SUMA (cp_ctda × Fabricacion-Plan) para cada DUO.
-    // cs_stock es común: nunca se suma una existencia por cada proyecto.
-    // No se suma ni descuenta Fabricacion-TH de estos componentes.
-    function porcentajesCoberturaPorMes(cantidad, demandaMensual) {
-        const existencia = Math.max(0, numero(cantidad));
-        if (!(demandaMensual > 0)) return [0, 0, 0];
-        return [0, 1, 2].map(mes => Math.max(0, Math.min(100,
-            ((existencia - mes * demandaMensual) / demandaMensual) * 100
-        )));
-    }
-
-    function renderEspecificos(stockRows, secuencias, proyectoRows) {
-        const tbody = document.getElementById("especificos-body");
+    // Secuencias visibles únicamente de los tres proyectos DUO.
+    // Solo versiones G y P; no se modifican los cálculos existentes.
+    function renderSecuenciasDUO(secuencias) {
+        const tbody = document.getElementById("duo-secuencias-body");
+        if (!tbody) return;
         tbody.replaceChildren();
-        const validas = secuencias.filter(r =>
-            texto(r.gs_ver).trim().toUpperCase() !== "N"
-        );
-        const planes = new Map(PROYECTOS.map(p => [p, 0]));
-        for (const r of validas) {
-            const p = texto(r.gs_proyecto).trim();
-            if (planes.has(p) && claveProcesoBarra(r.gs_proceso) === "fabricacion-plan") {
-                planes.set(p, planes.get(p) + numero(r.gs_ctda));
-            }
-        }
-
-        const unidadesPorPlaca = new Map();
-        for (const r of proyectoRows) {
-            const p = texto(r.cp_proyecto).trim();
-            const id = texto(r.cp_idE).trim().replace(/\.0$/, "");
-            if (!PROYECTOS.includes(p) || !COMPONENTES_ESPECIFICOS.has(id)) continue;
-            const clave = p + "|" + id;
-            unidadesPorPlaca.set(clave, (unidadesPorPlaca.get(clave) || 0) + numero(r.cp_ctda));
-        }
-
-        const stock = mapaStock(stockRows);
-        for (const id of COMPONENTES_ESPECIFICOS) {
-            const r = stock.get(id);
+        const permitidos = new Set(PROYECTOS);
+        const filas = secuencias.filter(r => {
+            const proyecto = texto(r.gs_proyecto).trim();
+            const version = texto(r.gs_ver).trim().toUpperCase();
+            return permitidos.has(proyecto) && (version === "G" || version === "P");
+        });
+        const prioridad = r => {
+            const n = Number(r.gs_prior);
+            return Number.isFinite(n) && texto(r.gs_prior).trim() !== "" ? n : Infinity;
+        };
+        filas.sort((a,b) => {
+            const aCumplida = /cumpl|resuelt|finaliz|terminad|complet/i.test(texto(a.gs_estado));
+            const bCumplida = /cumpl|resuelt|finaliz|terminad|complet/i.test(texto(b.gs_estado));
+            return Number(aCumplida) - Number(bCumplida)
+                || prioridad(a) - prioridad(b)
+                || fechaBase(a.gs_fecha).localeCompare(fechaBase(b.gs_fecha))
+                || numero(a.gs_id) - numero(b.gs_id);
+        });
+        if (!filas.length) {
             const tr = document.createElement("tr");
-            tr.appendChild(celda(id));
-            const filaBOM = proyectoRows.find(p => texto(p.cp_idE).trim().replace(/\.0$/, "") === id && PROYECTOS.includes(texto(p.cp_proyecto).trim()));
-            tr.appendChild(celda(r?.cs_desc || filaBOM?.cp_desc || "Sin descripción", "descripcion-celda"));
-            tr.appendChild(r ? celdaNumero(r.cs_ctda) : celda("— (sin registro de stock)"));
-
-            const td = document.createElement("td");
-            td.className = "especificos-cobertura-celda";
-            const desglose = PROYECTOS.map(p => ({
-                proyecto: p,
-                piezasPorPlaca: unidadesPorPlaca.get(p + "|" + id) || 0,
-                plan: planes.get(p) || 0
-            }));
-            const demanda = desglose.reduce((total, d) => total + d.piezasPorPlaca * d.plan, 0);
-            const tieneBOM = desglose.some(d => unidadesPorPlaca.has(d.proyecto + "|" + id));
-            const sinPlan = desglose.some(d => d.piezasPorPlaca > 0 && !(d.plan > 0));
-
-            if (!r || !tieneBOM || !(demanda > 0) || sinPlan) {
-                const aviso = document.createElement("span");
-                aviso.className = "especificos-cobertura-vacio";
-                aviso.textContent = !r ? "Sin existencia registrada en cs_stock"
-                    : !tieneBOM ? "Sin cantidades por placa en cp_proyectos para este idE"
-                    : sinPlan ? "Falta Fabricacion-Plan válido de un proyecto que utiliza el componente"
-                    : "Sin demanda mensual válida";
-                td.appendChild(aviso);
-            } else {
-                const cantidad = Math.max(0, numero(r.cs_ctda));
-                const coberturas = porcentajesCoberturaPorMes(cantidad, demanda);
-                const columna = document.createElement("div");
-                columna.className = "especificos-cobertura-columna";
-                const mesesContenedor = document.createElement("div");
-                mesesContenedor.className = "especificos-tres-meses";
-                coberturas.forEach((avance, i) => {
-                    const mes = document.createElement("div");
-                    mes.className = "especificos-mes";
-                    const titulo = document.createElement("div");
-                    titulo.className = "especificos-mes-titulo";
-                    titulo.textContent = "Mes " + (i + 1);
-                    mes.appendChild(titulo);
-                    const fondo = document.createElement("div");
-                    fondo.className = "especificos-mes-fondo";
-                    fondo.setAttribute("role", "progressbar");
-                    fondo.setAttribute("aria-label", "Cobertura " + id + " mes " + (i + 1));
-                    fondo.setAttribute("aria-valuemin", "0");
-                    fondo.setAttribute("aria-valuemax", "100");
-                    fondo.setAttribute("aria-valuenow", avance.toFixed(1));
-                    const relleno = document.createElement("div");
-                    relleno.className = "especificos-mes-relleno";
-                    relleno.style.width = avance + "%";
-                    fondo.appendChild(relleno);
-                    mes.appendChild(fondo);
-                    const porcentaje = document.createElement("div");
-                    porcentaje.className = "especificos-mes-porcentaje";
-                    porcentaje.textContent = numeroVisible(Number(avance.toFixed(1))) + " %";
-                    mes.appendChild(porcentaje);
-                    mesesContenedor.appendChild(mes);
-                });
-                columna.appendChild(mesesContenedor);
-                const dato = document.createElement("div");
-                dato.className = "especificos-cobertura-dato";
-                dato.textContent = "Demanda DUO: " + numeroVisible(demanda) + "/mes · Cobertura: " +
-                    numeroVisible(Number((cantidad / demanda).toFixed(2))) + " meses · Faltan para 3 meses: " +
-                    numeroVisible(Math.max(0, 3 * demanda - cantidad));
-                columna.appendChild(dato);
-                const detalle = document.createElement("div");
-                detalle.className = "duo-desglose";
-                detalle.textContent = desglose.map(d => d.proyecto + ": " +
-                    numeroVisible(d.piezasPorPlaca * d.plan) + "/mes").join(" · ");
-                columna.appendChild(detalle);
-                td.appendChild(columna);
-            }
+            const td = celda("No hay secuencias visibles de proyectos DUO.");
+            td.colSpan = 6;
             tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+        for (const r of filas) {
+            const tr = document.createElement("tr");
+            const estado = texto(r.gs_estado).trim();
+            const normal = estado.toLowerCase();
+            tr.className = /cumpl|resuelt|finaliz|terminad|complet/.test(normal)
+                ? "seq-resuelto"
+                : /proceso|curso|ejecuci/.test(normal)
+                    ? "seq-proceso"
+                    : /pendiente|sin iniciar|atrasad/.test(normal)
+                        ? "seq-pendiente" : "seq-neutral";
+            const proc = [texto(r.gs_proceso).trim(), texto(r.gs_subproceso).trim()].filter(Boolean).join(" · ");
+            const valores = [texto(r.gs_proyecto).trim(), proc,
+                texto(r.gs_prior).trim() || "—", fechaConDia(r.gs_fecha) || "—",
+                estado || "—", texto(r.gs_desc).trim() || "—"];
+            const etiquetas = ["Proyecto","Proceso","Prioridad","Fecha","Estado","Descripción"];
+            valores.forEach((valor,i) => {
+                const td = celda(valor);
+                td.dataset.label = etiquetas[i];
+                if (i === 2) td.classList.add("prioridad-celda");
+                if (i === 5) td.classList.add("descripcion-celda");
+                tr.appendChild(td);
+            });
             tbody.appendChild(tr);
         }
     }
@@ -3301,26 +3291,17 @@ td.numero-derecha {
         estado.style.background = "#ffffff";
 
         try {
-            const [secuenciasPorProyecto, bomPorProyecto, stockRows] = await Promise.all([
-                Promise.all(PROYECTOS.map(proyecto => fetchTabla(
-                    "gs_secuencias",
-                    ["gs_id","gs_proceso","gs_subproceso","gs_proyecto","gs_lote",
-                     "gs_prior","gs_fecha","gs_desc","gs_ctda","gs_estado","gs_ver","gs_fecha_cum"].join(","),
-                    { gs_proyecto: `eq.${proyecto}` }
-                ))),
-                Promise.all(PROYECTOS.map(proyecto => fetchTabla(
-                    "cp_proyectos",
-                    ["cp_id","cp_proyecto","cp_idE","cp_desc","cp_ctda"].join(","),
-                    { cp_proyecto: `eq.${proyecto}` }
-                ))),
-                fetchTabla("cs_stock", ["idE","cs_desc","cs_ctda","cs_ctmi","cs_tipo","cs_observe"].join(","))
-            ]);
+            const secuenciasPorProyecto = await Promise.all(PROYECTOS.map(proyecto => fetchTabla(
+                "gs_secuencias",
+                ["gs_id","gs_proceso","gs_subproceso","gs_proyecto","gs_lote",
+                 "gs_prior","gs_fecha","gs_desc","gs_ctda","gs_estado","gs_ver","gs_fecha_cum"].join(","),
+                { gs_proyecto: `eq.${proyecto}` }
+            )));
             const secuencias = secuenciasPorProyecto.flat();
-            const proyectoRows = bomPorProyecto.flat();
 
             renderBarrasProcesos(secuencias);
             renderDisponibilidad(secuencias);
-            renderEspecificos(stockRows, secuencias, proyectoRows);
+            renderSecuenciasDUO(secuencias);
             actualizarFooter();
 
             const hora = new Date().toLocaleTimeString("es-MX", {
@@ -3328,8 +3309,7 @@ td.numero-derecha {
             });
 
             estado.textContent =
-                `Supabase conectado · ${secuencias.length} secuencias · ` +
-                `${proyectoRows.length} registros BOM · ${hora}`;
+                `Supabase conectado · ${secuencias.length} secuencias DUO · ${hora}`;
             estado.style.color = "#1f6334";
             estado.style.borderColor = "#b9ddc3";
             estado.style.background = "#eef9f1";
@@ -3361,12 +3341,6 @@ td.numero-derecha {
             "Fecha fabricación",
             "Lista para enviar",
             "Fecha disponible"
-        ],
-        "tabla-especificos": [
-            "idE",
-            "Descripción",
-            "Existencia",
-            "Cobertura por mes"
         ]
     };
 
@@ -3391,7 +3365,7 @@ td.numero-derecha {
 
     const objetivos = [
         "disponibilidad-body",
-        "especificos-body"
+        "duo-secuencias-body"
     ];
 
     for (const id of objetivos) {
