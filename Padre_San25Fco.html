@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f4e78">
+<title>CircuitDesignMX | Panel Empresarial</title>
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #f4f6f8;
+    color: #26333f;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* =========================================================
+   CABECERA UNIFORME
+   ========================================================= */
+header {
+    width: 100%;
+    min-height: 72px;
+    padding: 8px 18px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 14px;
+    background: linear-gradient(135deg, #1f4e78, #346b98);
+    color: white;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.16);
+    margin-bottom: 22px;
+}
+
+.logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 7px;
+    background: white;
+    border-radius: 8px;
+}
+
+.logo {
+    display: block;
+    height: 52px;
+    width: auto;
+    max-width: 150px;
+    object-fit: contain;
+}
+
+#titulo {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: .2px;
+}
+
+.home-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 92px;
+    min-height: 42px;
+    padding: 8px 15px;
+    border: 1px solid rgba(255,255,255,.55);
+    border-radius: 8px;
+    background: white;
+    color: #1f4e78;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(0,0,0,.14);
+    transition: background .15s ease, transform .15s ease;
+}
+
+.home-link:hover {
+    background: #eef5fa;
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   CONTENIDO
+   ========================================================= */
+.main {
+    width: min(1520px, 98%);
+    margin: 0 auto;
+    padding: 0 0 28px;
+    flex: 1;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns:
+        minmax(260px, 0.88fr)
+        minmax(340px, 1.10fr)
+        minmax(340px, 1.10fr);
+    gap: 18px;
+    align-items: start;
+}
+
+.columna-doble {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.section {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #d8dee5;
+    box-shadow: 0 3px 10px rgba(0,0,0,.05);
+}
+
+.section h3 {
+    margin-bottom: 14px;
+    padding-bottom: 9px;
+    border-bottom: 2px solid #e4edf4;
+    font-size: 13px;
+    color: #1f4e78;
+    letter-spacing: 1px;
+    font-weight: 800;
+}
+
+.section a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 9px 11px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    color: #26333f;
+    border: 1px solid #e3e8ed;
+    border-radius: 8px;
+    background: #f7f9fb;
+    transition: background .18s ease, transform .18s ease, border-color .18s ease;
+    font-size: 15px;
+}
+
+.section a:last-child {
+    margin-bottom: 0;
+}
+
+.section a:hover {
+    background: #edf5fa;
+    border-color: #bdd1e0;
+    transform: translateX(3px);
+}
+
+.section a i {
+    width: 20px;
+    flex: 0 0 20px;
+    text-align: center;
+    color: #346b98;
+    font-size: 16px;
+}
+
+/* =========================================================
+   PIE UNIFORME
+   ========================================================= */
+footer {
+    width: 100%;
+    margin-top: 28px;
+    padding: 14px 18px;
+    text-align: center;
+    color: white;
+    font-size: 13px;
+    background: linear-gradient(135deg, #1f4e78, #346b98);
+    box-shadow: 0 -2px 6px rgba(0,0,0,.14);
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+@media (max-width: 1000px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+@media (max-width: 700px) {
+    header {
+        min-height: 60px;
+        padding: 6px 8px;
+        grid-template-columns: auto 1fr auto;
+        gap: 7px;
+        margin-bottom: 14px;
+    }
+
+    .logo-wrap {
+        padding: 3px 5px;
+        border-radius: 6px;
+    }
+
+    .logo {
+        height: 40px;
+        max-width: 92px;
+    }
+
+    #titulo {
+        font-size: 20px;
+        text-align: left;
+        line-height: 1.1;
+    }
+
+    .home-link {
+        min-width: 68px;
+        min-height: 38px;
+        padding: 7px 9px;
+        font-size: 14px;
+    }
+
+    .main {
+        width: 100%;
+        padding: 0 7px 20px;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 12px;
+        width: 100%;
+    }
+
+    .columna-doble {
+        width: 100%;
+        min-width: 0;
+        gap: 12px;
+    }
+
+    .section {
+        width: 100%;
+        min-width: 0;
+        padding: 14px 12px;
+        border-radius: 9px;
+        overflow: hidden;
+    }
+
+    .section h3 {
+        margin-bottom: 10px;
+        font-size: 12px;
+    }
+
+    .section a {
+        width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        padding: 11px 10px;
+        margin-bottom: 8px;
+        font-size: 16px;
+        line-height: 1.25;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    .section a i {
+        font-size: 17px;
+    }
+
+    footer {
+        margin-top: 20px;
+        padding: 12px 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 420px) {
+    .main {
+        width: 100%;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .grid,
+    .columna-doble,
+    .section {
+        width: 100%;
+        min-width: 0;
+    }
+
+    header {
+        gap: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .logo {
+        height: 36px;
+        max-width: 78px;
+    }
+
+    #titulo {
+        font-size: 17px;
+    }
+
+    .home-link {
+        min-width: 60px;
+        padding: 6px 8px;
+        font-size: 13px;
+    }
+
+    .section a {
+        font-size: 15px;
+    }
+}
+
+/* =========================================================
+   HERRAMIENTAS DEL PANEL
+   ========================================================= */
+.panel-tools {
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) auto auto;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border: 1px solid #d8dee5;
+    border-radius: 11px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+
+.search-wrap {
+    position: relative;
+    min-width: 0;
+}
+
+.search-wrap i {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #657786;
+    pointer-events: none;
+}
+
+#panelSearch {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 12px 9px 39px;
+    border: 1px solid #bdcbd7;
+    border-radius: 8px;
+    background: #fbfcfd;
+    color: #26333f;
+    font-size: 16px;
+    outline: none;
+}
+
+#panelSearch:focus {
+    border-color: #346b98;
+    box-shadow: 0 0 0 3px rgba(52,107,152,.13);
+    background: white;
+}
+
+.search-status {
+    min-width: 135px;
+    color: #657786;
+    font-size: 13px;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.clear-search {
+    min-height: 42px;
+    padding: 8px 13px;
+    border: 1px solid #cbd7e0;
+    border-radius: 8px;
+    background: #eef3f7;
+    color: #27445b;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.clear-search:hover {
+    background: #e2edf5;
+}
+
+.no-results {
+    display: none;
+    grid-column: 1 / -1;
+    padding: 22px;
+    border: 1px dashed #b9c8d4;
+    border-radius: 10px;
+    background: white;
+    color: #657786;
+    text-align: center;
+}
+
+.grid.filtrando {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.home-link:focus-visible,
+.section a:focus-visible,
+.clear-search:focus-visible,
+#panelSearch:focus-visible,
+.back-to-top:focus-visible {
+    outline: 3px solid #78b4df;
+    outline-offset: 2px;
+}
+
+.back-to-top {
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    z-index: 50;
+    width: 44px;
+    height: 44px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    background: #1f4e78;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,.22);
+}
+
+.back-to-top.visible {
+    display: inline-flex;
+}
+
+.back-to-top:hover {
+    background: #346b98;
+}
+
+@media (max-width: 700px) {
+    .panel-tools {
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 8px;
+        margin-bottom: 12px;
+        padding: 9px;
+        border-radius: 9px;
+    }
+
+    .search-wrap {
+        grid-column: 1 / -1;
+    }
+
+    #panelSearch {
+        min-height: 46px;
+        font-size: 17px;
+    }
+
+    .search-status {
+        min-width: 0;
+        text-align: left;
+        font-size: 12px;
+        white-space: normal;
+    }
+
+    .clear-search {
+        min-height: 40px;
+        padding: 7px 11px;
+        font-size: 13px;
+    }
+
+    .grid.filtrando {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .back-to-top {
+        right: 12px;
+        bottom: 12px;
+        width: 42px;
+        height: 42px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+    <header>
+        <div class="logo-wrap">
+            <img class="logo" src="Logo-Circuit-MX.jpg" alt="Logo CircuitDesignMX">
+        </div>
+
+        <h1 id="titulo">CircuitDesignMX</h1>
+
+        <a class="home-link"
+           href="https://danddco.github.io/Magnus61/San25Fco.html"
+           title="Página inicial">Inicio</a>
+    </header>
+
+    <div class="main">
+
+        <section class="panel-tools" aria-label="Buscar accesos del panel">
+            <div class="search-wrap">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <input
+                    id="panelSearch"
+                    type="search"
+                    autocomplete="off"
+                    placeholder="Buscar cliente, expediente, componente o ayuda..."
+                    aria-label="Buscar en el panel"
+                >
+            </div>
+
+            <div id="searchStatus" class="search-status" aria-live="polite"></div>
+
+            <button id="clearSearch" class="clear-search" type="button">
+                Limpiar
+            </button>
+        </section>
+
+        <div id="noResults" class="no-results">
+            No se encontraron accesos con ese criterio.
+        </div>
+
+        <div class="grid" id="panelGrid">
+
+            <!-- PRIMERA COLUMNA: COMPONENTES Y SECUENCIAS -->
+            <div class="columna-doble">
+                  <!-- SECUENCIAS -->
+                
+                
+                
+
+                <!-- AYUDAS -->
+            <div class="section">
+                <h3>AYUDAS</h3>
+                <a href="lista_para_venta" target="_blank" rel="noopener noreferrer" title="Listado completo de componentes"><i class="fa-solid fa-list"></i>Comportamiento Fabricacion</a>
+                <a href="Stock_All" target="_blank" rel="noopener noreferrer" title="Listado completo de componentes"><i class="fa-solid fa-list"></i> Stock de Componentes</a>
+                <a href="Stock_Criticos" target="_blank" rel="noopener noreferrer" title="Componentes con disponibilidad crítica"><i class="fa-solid fa-triangle-exclamation"></i> Componentes Críticos</a>
+                <a href="Stock_Last" target="_blank" rel="noopener noreferrer" title="Últimos componentes registrados"><i class="fa-solid fa-hourglass-end"></i> Últimos Registros</a>   
+                <a href="CHM551_Feeders.html" target="_blank" rel="noopener noreferrer" title="Información sobre conectores"><i class="fa-solid fa-network-wired"></i> Mapa de la P&P</a>
+                <a href="Manual_Vending_Basic_Duo.pdf" target="_blank" rel="noopener noreferrer" title="Guía para las placas Duo Basic"><i class="fa-solid fa-microchip"></i> Guía - Duo Basic</a>
+                <a href="Conectores.html" target="_blank" rel="noopener noreferrer" title="Información sobre conectores"><i class="fa-solid fa-network-wired"></i> Conectores</a>
+                <a href="movilr.html" target="_blank" rel="noopener noreferrer" title="Información sobre conectores"><i class="fa-solid fa-network-wired"></i> Edicion Remota Registros</a>
+                <a href="movils.html" target="_blank" rel="noopener noreferrer" title="Información sobre conectores"><i class="fa-solid fa-network-wired"></i> Edicion Remota Bitacora</a>
+                <a href="Componentes_Fijos_Multiproyecto.html" target="_blank" rel="noopener noreferrer" title="Información sobre conectores"><i class="fa-solid fa-network-wired"></i> Cobertura Componentes Fijos</a>
+                <a href="Componentes_Externos_Multiproyecto.html" target="_blank" rel="noopener noreferrer" title="Información sobre conectores"><i class="fa-solid fa-network-wired"></i> Cobertura Componentes Externos</a>
+            </div>
+
+
+
+            </div>
+
+            <!-- EXPEDIENTE DE TRABAJO -->
+            <div class="section">
+                <h3>EXPEDIENTE DE TRABAJO</h3>
+                <a href="Exp_Mini.html" target="_blank" rel="noopener noreferrer" title="Placas Standard Mini"><i class="fa-solid fa-satellite-dish"></i>Mini</a>
+                <a href="Exp_DUO_Consolidado.html" target="_blank" rel="noopener noreferrer" title="Placas Standard Duo Pro"><i class="fa-solid fa-satellite-dish"></i>Placas DUO</a>      
+                <a href="Exp_DUO_Basic.html" target="_blank" rel="noopener noreferrer" title="Placas Standard Duo Pro"><i class="fa-solid fa-satellite-dish"></i>Duo Basic</a>
+                <a href="Exp_DUO_Pro.html" target="_blank" rel="noopener noreferrer" title="Placas Standard Duo Pro"><i class="fa-solid fa-satellite-dish"></i>Duo Pro</a>
+                <a href="Exp_DUO_Producto.html" target="_blank" rel="noopener noreferrer" title="Placas Standard Duo Pro"><i class="fa-solid fa-satellite-dish"></i>Duo Producto</a>            
+                <a href="Exp_AWS_Pro.html" target="_blank" rel="noopener noreferrer" title="Advance Water Systems Pro"><i class="fa-solid fa-satellite-dish"></i>AWS Pro</a>
+                <a href="Exp_Veco.html" target="_blank" rel="noopener noreferrer" title="Expediente del cliente Veco"><i class="fa-solid fa-folder-open"></i> Veco</a>
+                <a href="KitLed_Expediente.html" target="_blank" rel="noopener noreferrer" title="Expediente de Kit Led"><i class="fa-solid fa-lightbulb"></i> Kit Led / Conector</a>
+                <a href="Exp_Ivan.html" target="_blank" rel="noopener noreferrer" title="Expediente de Fashident"><i class="fa-solid fa-tooth"></i> Fashident</a>
+                <a href="Exp_Purisystems.html" target="_blank" rel="noopener noreferrer" title="Expediente de Purisystems"><i class="fa-solid fa-wind"></i> Purisystems</a>
+                <a href="Exp_Darmax.html" target="_blank" rel="noopener noreferrer" title="Expediente de Darmax"><i class="fa-solid fa-cogs"></i> Darmax</a>
+                <a href="Exp_PuriMatic.html" target="_blank" rel="noopener noreferrer" title="Expediente de Purimatic"><i class="fa-solid fa-sync"></i> Purimatic</a>
+                <a href="Exp_David.html" target="_blank" rel="noopener noreferrer" title="Expediente de Purimatic"><i class="fa-solid fa-sync"></i> David</a>
+
+            </div>
+
+                 <!-- CLIENTES -->
+                <div class="section">
+                    <h3>CLIENTES</h3>
+                    <a href="Resumen_Coespro.html" target="_blank" rel="noopener noreferrer" title=""><i class="fa-solid fa-satellite-dish"></i> COESPRO SA </a>
+                    <a href="resumen_veco.html" target="_blank" rel="noopener noreferrer" title="Resumen del cliente Veco"><i class="fa-solid fa-city"></i> Veco</a>
+                    <a href="Zenteno_Resumen.html" target="_blank" rel="noopener noreferrer" title="Zenteno, incluye Tarjeta Mini y Pro"><i class="fa-solid fa-satellite-dish"></i> Zenteno</a>
+                    <a href="KitLed_Resumen.html" target="_blank" rel="noopener noreferrer" title="Resumen del cliente Kit Led"><i class="fa-solid fa-lightbulb"></i> Kit Led / Conector</a>
+                    <a href="Ivan_Fashident.html" target="_blank" rel="noopener noreferrer" title="Resumen del cliente Fashident"><i class="fa-solid fa-tooth"></i> Fashident</a>
+                    <a href="PurSys.html" target="_blank" rel="noopener noreferrer" title="Resumen del cliente Purisystems"><i class="fa-solid fa-wind"></i> Purisystems</a>
+                    <a href="Darmax.html" target="_blank" rel="noopener noreferrer" title="Resumen del cliente Darmax"><i class="fa-solid fa-cogs"></i> Darmax</a>
+                    <a href="Purimatic.html" target="_blank" rel="noopener noreferrer" title="Resumen del cliente Purimatic"><i class="fa-solid fa-sync"></i> Purimatic</a>
+                    <a href="David_Hdez.html" target="_blank" rel="noopener noreferrer" title="Resumen del cliente Purimatic"><i class="fa-solid fa-sync"></i> David</a>
+                </div>
+        </div>
+    </div>
+    <footer>
+        &copy; 2026 CircuitDesignMX. Todos los derechos reservados.
+    </footer>
+
+    <button id="backToTop" class="back-to-top" type="button" aria-label="Volver arriba" title="Volver arriba">
+        <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+    </button>
+
+    <script>
+        (function () {
+            const input = document.getElementById("panelSearch");
+            const clearButton = document.getElementById("clearSearch");
+            const status = document.getElementById("searchStatus");
+            const noResults = document.getElementById("noResults");
+            const grid = document.getElementById("panelGrid");
+            const backToTop = document.getElementById("backToTop");
+
+            const sections = Array.from(document.querySelectorAll(".section"));
+            const allLinks = Array.from(document.querySelectorAll(".section a"));
+            const doubleColumn = document.querySelector(".columna-doble");
+
+            function normalizeText(value) {
+                return (value || "")
+                    .toString()
+                    .normalize("NFD")
+                    .replace(/[\u0300-\u036f]/g, "")
+                    .toLocaleLowerCase("es-MX")
+                    .trim();
+            }
+
+            function updateStatus(visibleCount, query) {
+                if (!query) {
+                    status.textContent = allLinks.length + " accesos disponibles";
+                } else {
+                    status.textContent = visibleCount + " resultado(s)";
+                }
+            }
+
+            function filterPanel() {
+                const query = normalizeText(input.value);
+                let visibleCount = 0;
+
+                grid.classList.toggle("filtrando", Boolean(query));
+
+                sections.forEach(function (section) {
+                    const title = normalizeText(
+                        section.querySelector("h3")?.textContent
+                    );
+
+                    const sectionMatches = Boolean(query) && title.includes(query);
+                    let sectionVisibleLinks = 0;
+
+                    section.querySelectorAll("a").forEach(function (link) {
+                        const searchable = normalizeText(
+                            link.textContent + " " +
+                            (link.getAttribute("title") || "") + " " +
+                            (link.getAttribute("href") || "")
+                        );
+
+                        const show =
+                            !query ||
+                            sectionMatches ||
+                            searchable.includes(query);
+
+                        link.style.display = show ? "" : "none";
+
+                        if (show) {
+                            sectionVisibleLinks++;
+                            visibleCount++;
+                        }
+                    });
+
+                    section.style.display =
+                        sectionVisibleLinks > 0 ? "" : "none";
+                });
+
+                if (doubleColumn) {
+                    const visibleSections = Array.from(
+                        doubleColumn.querySelectorAll(".section")
+                    ).some(function (section) {
+                        return section.style.display !== "none";
+                    });
+
+                    doubleColumn.style.display =
+                        visibleSections ? "" : "none";
+                }
+
+                noResults.style.display =
+                    visibleCount === 0 ? "block" : "none";
+
+                updateStatus(visibleCount, query);
+            }
+
+            function clearSearch() {
+                input.value = "";
+                filterPanel();
+                input.focus();
+            }
+
+            input.addEventListener("input", filterPanel);
+            clearButton.addEventListener("click", clearSearch);
+
+            document.addEventListener("keydown", function (event) {
+                if ((event.ctrlKey || event.metaKey) &&
+                    event.key.toLocaleLowerCase() === "k") {
+                    event.preventDefault();
+                    input.focus();
+                    input.select();
+                }
+
+                if (event.key === "Escape" &&
+                    document.activeElement === input &&
+                    input.value) {
+                    clearSearch();
+                }
+            });
+
+            window.addEventListener("scroll", function () {
+                backToTop.classList.toggle(
+                    "visible",
+                    window.scrollY > 450
+                );
+            }, { passive: true });
+
+            backToTop.addEventListener("click", function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+
+            filterPanel();
+        })();
+    </script>
+
+</body>
+</html>
