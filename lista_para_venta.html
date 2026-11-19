@@ -2515,6 +2515,34 @@ td.numero-derecha {
 .enlaces-cobertura-grid a:hover, .enlaces-cobertura-grid a:focus-visible {background: #346b98; text-decoration: underline;}
 @media (max-width: 700px) {.enlaces-cobertura-duo {padding: 12px 9px;} .enlaces-cobertura-grid {grid-template-columns: 1fr;} .enlaces-cobertura-grid a {font-size: 16px;}}
 </style>
+<style>
+/* Tabla de consumo real consolidado, solo lectura */
+#seccion-consumo-componentes { margin: 25px auto; }
+#tabla-consumo-componentes { width: max-content !important; max-width: 100%; min-width: 0 !important; table-layout: auto !important; font-size: 15px !important; font-weight: 600; }
+#tabla-consumo-componentes th, #tabla-consumo-componentes td { padding: 9px 11px; }
+#tabla-consumo-componentes th { white-space: normal; text-align: center; }
+#tabla-consumo-componentes td:nth-child(n+3) { text-align: right; font-variant-numeric: tabular-nums; }
+#tabla-consumo-componentes td:nth-child(2) { text-align: left; font-weight: 500; }
+#tabla-consumo-componentes td.consumo-cero { background-color: #fff6c4; }
+/* Alerta por idE: existencia disponible inferior a la necesidad crítica de dos meses. */
+#tabla-consumo-componentes tbody tr.stock-bajo-critico,
+#tabla-consumo-componentes tbody tr.stock-bajo-critico > td,
+#tabla-consumo-componentes tbody tr.stock-bajo-critico > td.consumo-cero {
+  background-color: #fbe0e2 !important;
+  color: #74272e;
+}
+#tabla-consumo-componentes tbody tr:last-child { border-top: 3px solid #1f4e78; font-weight: 800; }
+.consumo-componentes-nota { text-align: center; font-size: 13px; color: #657786; margin: 4px auto 18px; max-width: 1000px; }
+@media(max-width: 900px) {
+  .consumo-componentes-wrap { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
+  #tabla-consumo-componentes { display: table !important; width: max-content !important; min-width: 700px !important; max-width: none !important; }
+  #tabla-consumo-componentes thead { display: table-header-group !important; }
+  #tabla-consumo-componentes tbody { display: table-row-group !important; }
+  #tabla-consumo-componentes tr { display: table-row !important; }
+  #tabla-consumo-componentes th, #tabla-consumo-componentes td { display: table-cell !important; width: auto !important; padding: 7px !important; font-size: 13px !important; }
+  #tabla-consumo-componentes td::before { content: none !important; display: none !important; }
+}
+</style>
 </head>
 <body>
 <header id="cabecera">
@@ -2576,6 +2604,16 @@ td.numero-derecha {
 <tbody id="duo-secuencias-body"><tr><td colspan="6">Cargando secuencias...</td></tr></tbody>
 </table>
 </div>
+</section>
+<section id="seccion-consumo-componentes" aria-labelledby="titulo-consumo-componentes">
+  <h2 id="titulo-consumo-componentes">Consumo de Componentes · Cobertura de 3 meses</h2>
+  <div class="tabla-wrap consumo-componentes-wrap">
+    <table id="tabla-consumo-componentes">
+      <thead><tr><th>idE</th><th>Descripción</th><th>Valor crítico (2 meses)</th><th>Existencia STOCK</th><th>Consumo mes 1</th><th>Consumo mes 2</th><th>Consumo mes 3</th><th>Total 3 meses</th></tr></thead>
+      <tbody id="consumo-componentes-body"><tr><td colspan="8">Consultando componentes...</td></tr></tbody>
+    </table>
+  </div>
+  <p id="consumo-componentes-estado" class="consumo-componentes-nota">Valor crítico: necesidad bruta de 2 meses, sin descuentos. Los consumos mensuales sí descuentan las placas terminadas de forma progresiva. STOCK es la existencia actual.</p>
 </section>
 <section class="enlaces-cobertura-duo" aria-labelledby="titulo-enlaces-cobertura">
   <h2 id="titulo-enlaces-cobertura">Cobertura de Componentes</h2>
@@ -3269,6 +3307,81 @@ td.numero-derecha {
         }
     }
 
+
+    // Necesidades de todos los proyectos con Fabricacion-Plan; BOM cp_proyectos.
+    // Las placas terminadas cubren progresivamente los meses 1, 2 y 3.
+    // La existencia cs_stock se muestra una sola vez por idE, sin volver a descontarla.
+    function renderConsumoComponentes(secuencias, bom, stock) {
+        const tbody = document.getElementById("consumo-componentes-body");
+        const nota = document.getElementById("consumo-componentes-estado");
+        if (!tbody) return;
+        tbody.replaceChildren();
+        const claves = new Map(PROYECTOS.map(p => [p.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim(), p]));
+        const canon = p => claves.get(texto(p).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim());
+        const plan = new Map(), terminadas = new Map();
+        for (const r of secuencias) {
+            if (texto(r.gs_ver).trim().toUpperCase() === "N") continue;
+            const proyecto = canon(r.gs_proyecto);
+            if (!proyecto) continue;
+            const proceso = claveProcesoBarra(r.gs_proceso);
+            if (proceso === "fabricacion-plan") plan.set(proyecto, (plan.get(proyecto) || 0) + numero(r.gs_ctda));
+            if (proceso === "fabricacion-salida") terminadas.set(proyecto, (terminadas.get(proyecto) || 0) + numero(r.gs_ctda));
+        }
+        const inventario = new Map();
+        for (const r of stock) {
+            const id = texto(r.idE).trim().replace(/\.0$/, "");
+            if (!id) continue;
+            inventario.set(id, { cantidad: numero(r.cs_ctda), descripcion: texto(r.cs_desc).trim() });
+        }
+        const agrupados = new Map();
+        for (const r of bom) {
+            const proyecto = canon(r.cp_proyecto);
+            if (!proyecto || !plan.has(proyecto)) continue;
+            const id = texto(r.cp_idE).trim().replace(/\.0$/, "");
+            const unidades = numero(r.cp_ctda);
+            if (!id || unidades <= 0) continue;
+            const item = agrupados.get(id) || {id, descripcion:"", critico:0, meses:[0,0,0]};
+            if (!item.descripcion) item.descripcion = texto(r.cp_desc).trim();
+            const p = Math.max(0, numero(plan.get(proyecto)));
+            const t = Math.max(0, numero(terminadas.get(proyecto)));
+            // Valor crítico: demanda bruta de dos meses, sin descontar placas terminadas ni STOCK.
+            item.critico += 2*p*unidades;
+            for (let mes=1; mes<=3; mes++) {
+                const actual = Math.max(0, mes*p - t);
+                const anterior = Math.max(0, (mes-1)*p - t);
+                item.meses[mes-1] += Math.max(0, actual-anterior)*unidades;
+            }
+            agrupados.set(id,item);
+        }
+        const items = [...agrupados.values()].sort((a,b)=> Number(a.id)-Number(b.id) || a.id.localeCompare(b.id));
+        if (!items.length) {
+            const tr=document.createElement("tr"), td=celda("Sin componentes asociados a los proyectos con Fabricacion-Plan.");
+            td.colSpan=8;tr.appendChild(td);tbody.appendChild(tr);return;
+        }
+        const sumas=[0,0,0], cantidadStock=[0];
+        let sumaCritico=0;
+        for (const item of items) {
+            const st=inventario.get(item.id);
+            const valores=[item.id,item.descripcion || (st ? st.descripcion : "—"),numeroVisible(item.critico),st ? numeroVisible(st.cantidad):"—",
+                ...item.meses.map(numeroVisible),numeroVisible(item.meses.reduce((a,b)=>a+b,0))];
+            const tr=document.createElement("tr");
+            if ((st ? st.cantidad : 0) < item.critico) tr.classList.add("stock-bajo-critico");
+            valores.forEach((valor,i)=>{
+                const td=celda(valor);
+                if (i>=2 && valor==="0") td.classList.add("consumo-cero");
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+            item.meses.forEach((cantidad,i)=>sumas[i]+=cantidad);
+            sumaCritico+=item.critico;
+            if (st) cantidadStock[0]+=st.cantidad;
+        }
+        const total=document.createElement("tr");
+        ["TOTAL","Todos los proyectos",numeroVisible(sumaCritico),numeroVisible(cantidadStock[0]),...sumas.map(numeroVisible),numeroVisible(sumas.reduce((a,b)=>a+b,0))].forEach(v=>total.appendChild(celda(v)));
+        tbody.appendChild(total);
+        nota.textContent=`${items.length} componentes (idE) · Consumos de meses 1, 2 y 3 pendientes de instalar, después de considerar Fabricacion-Salida. Valor crítico = 2 × Fabricacion-Plan × unidades por placa, sin descuentos. STOCK = existencia actual, sin descuentos adicionales. Los valores de meses son independientes; el total es su suma. Las filas en rojo suave indican STOCK inferior al valor crítico.`;
+    }
+
     async function actualizarTodo() {
         const estado = document.getElementById("estado-supabase");
         estado.textContent = "Actualizando datos desde Supabase...";
@@ -3290,6 +3403,13 @@ td.numero-derecha {
                 r => publicados.has(texto(r.gs_proyecto).trim())
             );
 
+            // Consultar la lista completa del BOM y el STOCK, sin limitar idE.
+            // Se mantienen los mismos filtros de proyectos publicados que el expediente.
+            const [bom, stock] = await Promise.all([
+                fetchTabla("cp_proyectos", "cp_proyecto,cp_idE,cp_desc,cp_ctda"),
+                fetchTabla("cs_stock", "idE,cs_desc,cs_ctda")
+            ]);
+            renderConsumoComponentes(secuenciasPublicadas, bom, stock);
             renderBarrasProcesos(secuenciasPublicadas);
             renderDisponibilidad(secuenciasPublicadas);
             renderSecuenciasDUO(secuenciasPublicadas);
