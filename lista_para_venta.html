@@ -3265,14 +3265,24 @@ td.numero-derecha {
             const n = Number(r.gs_prior);
             return Number.isFinite(n) && texto(r.gs_prior).trim() !== "" ? n : Infinity;
         };
-        filas.sort((a,b) => {
-            const aCumplida = /cumpl|resuelt|finaliz|terminad|complet/i.test(texto(a.gs_estado));
-            const bCumplida = /cumpl|resuelt|finaliz|terminad|complet/i.test(texto(b.gs_estado));
-            return Number(aCumplida) - Number(bCumplida)
-                || prioridad(a) - prioridad(b)
-                || fechaBase(a.gs_fecha).localeCompare(fechaBase(b.gs_fecha))
-                || numero(a.gs_id) - numero(b.gs_id);
-        });
+        // Orden jerárquico: Proyecto > Estado (Pendiente arriba) > Prioridad > Fecha > ID.
+        // El estado se evalúa antes que la prioridad: un pendiente de baja prioridad
+        // aparece antes de cualquier registro En proceso o Resuelto del mismo proyecto.
+        const rangoEstado = r => {
+            const estado = texto(r.gs_estado).trim().toLowerCase()
+                .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            if (/pendiente|no cumplido|incumplido|sin iniciar|atrasad/.test(estado)) return 0;
+            if (/proceso|curso|ejecuci|activo/.test(estado)) return 1;
+            if (/resuelt|cumplido|finaliz|terminad|complet/.test(estado)) return 2;
+            return 3;
+        };
+        filas.sort((a,b) =>
+            texto(a.gs_proyecto).trim().localeCompare(texto(b.gs_proyecto).trim(), "es", {numeric: true})
+            || rangoEstado(a) - rangoEstado(b)
+            || prioridad(a) - prioridad(b)
+            || fechaBase(a.gs_fecha).localeCompare(fechaBase(b.gs_fecha))
+            || numero(a.gs_id) - numero(b.gs_id)
+        );
         if (!filas.length) {
             const tr = document.createElement("tr");
             const td = celda("No hay secuencias visibles de los proyectos.");
@@ -3284,13 +3294,10 @@ td.numero-derecha {
         for (const r of filas) {
             const tr = document.createElement("tr");
             const estado = texto(r.gs_estado).trim();
-            const normal = estado.toLowerCase();
-            tr.className = /cumpl|resuelt|finaliz|terminad|complet/.test(normal)
-                ? "seq-resuelto"
-                : /proceso|curso|ejecuci/.test(normal)
-                    ? "seq-proceso"
-                    : /pendiente|sin iniciar|atrasad/.test(normal)
-                        ? "seq-pendiente" : "seq-neutral";
+            const estadoOrden = rangoEstado(r);
+            tr.className = estadoOrden === 0 ? "seq-pendiente"
+                : estadoOrden === 1 ? "seq-proceso"
+                : estadoOrden === 2 ? "seq-resuelto" : "seq-neutral";
             const proc = [texto(r.gs_proceso).trim(), texto(r.gs_subproceso).trim()].filter(Boolean).join(" · ");
             const valores = [texto(r.gs_proyecto).trim(), proc,
                 texto(r.gs_prior).trim() || "—", fechaConDia(r.gs_fecha) || "—",
