@@ -2543,6 +2543,15 @@ td.numero-derecha {
   #tabla-consumo-componentes td::before { content: none !important; display: none !important; }
 }
 </style>
+<style>
+/* Leyenda debajo de Secuencias de Trabajo. */
+.subtitulo-secuencias-version {
+    text-align: center;
+    color: #657786;
+    font-size: 15px;
+    margin: -5px 0 15px;
+}
+</style>
 </head>
 <body>
 <header id="cabecera">
@@ -2598,6 +2607,7 @@ td.numero-derecha {
 <div class="separador">-------------------------</div>
 <section id="seccion-duo-secuencias" aria-labelledby="titulo-duo-secuencias">
 <h2 id="titulo-duo-secuencias">Secuencias de Trabajo</h2>
+<p class="subtitulo-secuencias-version">Solo registros con <strong>gs_ver = G</strong></p>
 <div class="tabla-wrap">
 <table id="tabla-duo-secuencias">
 <thead><tr><th>Proyecto</th><th>Proceso</th><th>Prioridad</th><th>Fecha</th><th>Estado</th><th>Descripción</th></tr></thead>
@@ -3250,7 +3260,7 @@ td.numero-derecha {
     }
 
     // Secuencias visibles para todos los proyectos.
-    // Solo versiones G y P; no se modifican los cálculos existentes.
+    // Solo version G en Secuencias de Trabajo; no se modifican los cálculos existentes.
     function renderSecuenciasDUO(secuencias) {
         const tbody = document.getElementById("duo-secuencias-body");
         if (!tbody) return;
@@ -3259,7 +3269,7 @@ td.numero-derecha {
         const filas = secuencias.filter(r => {
             const proyecto = texto(r.gs_proyecto).trim();
             const version = texto(r.gs_ver).trim().toUpperCase();
-            return permitidos.has(proyecto) && (version === "G" || version === "P");
+            return permitidos.has(proyecto) && version === "G";
         });
         const prioridad = r => {
             const n = Number(r.gs_prior);
