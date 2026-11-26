@@ -1,0 +1,1087 @@
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
+<title>CircuitDesignMX</title>
+<style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html, body {
+                width: 100%;
+            }
+
+            body {
+                font-family: Arial, sans-serif;
+                background: #f4f6f8;
+                color: #26333f;
+            }
+
+            #cabecera {
+                width: 100%;
+                min-height: 72px;
+                padding: 8px 18px;
+                margin-bottom: 22px;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                align-items: center;
+                gap: 14px;
+                background: linear-gradient(135deg, #1f4e78, #346b98);
+                color: white;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.16);
+            }
+
+            .logo-contenedor {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 4px 7px;
+                background: white;
+                border-radius: 8px;
+            }
+
+            .logo {
+                display: block;
+                height: 52px;
+                width: auto;
+                max-width: 150px;
+                object-fit: contain;
+            }
+
+            #titulo {
+                margin: 0;
+                text-align: center;
+                font-family: Arial, sans-serif;
+                font-size: 28px;
+                font-weight: 700;
+                letter-spacing: .2px;
+                color: white;
+            }
+
+            .home-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 92px;
+                min-height: 42px;
+                padding: 8px 15px;
+                border: 1px solid rgba(255,255,255,.55);
+                border-radius: 8px;
+                background: white;
+                color: #1f4e78;
+                text-decoration: none;
+                font-family: Arial, sans-serif;
+                font-size: 15px;
+                font-weight: 700;
+                box-shadow: 0 1px 3px rgba(0,0,0,.14);
+                transition: background .15s ease, transform .15s ease;
+            }
+
+            .home-link:hover {
+                background: #eef5fa;
+                transform: translateY(-1px);
+            }
+
+            .home-link:active {
+                transform: translateY(0);
+            }
+
+            @media (max-width: 700px) {
+                #cabecera {
+                    min-height: 60px;
+                    padding: 6px 8px;
+                    margin-bottom: 14px;
+                    grid-template-columns: auto 1fr auto;
+                    gap: 7px;
+                }
+
+                .logo-contenedor {
+                    padding: 3px 5px;
+                    border-radius: 6px;
+                }
+
+                .logo {
+                    height: 40px;
+                    max-width: 92px;
+                }
+
+                #titulo {
+                    font-size: 20px;
+                    text-align: left;
+                    line-height: 1.1;
+                }
+
+                .home-link {
+                    min-width: 68px;
+                    min-height: 38px;
+                    padding: 7px 9px;
+                    border-radius: 7px;
+                    font-size: 14px;
+                }
+            }
+
+            @media (max-width: 420px) {
+                #cabecera {
+                    gap: 5px;
+                    padding-left: 5px;
+                    padding-right: 5px;
+                }
+
+                .logo {
+                    height: 36px;
+                    max-width: 78px;
+                }
+
+                #titulo {
+                    font-size: 17px;
+                }
+
+                .home-link {
+                    min-width: 60px;
+                    padding: 6px 8px;
+                    font-size: 13px;
+                }
+            }
+        </style>
+<style>
+/* Columna ID de bitácora */
+th:first-child,
+td.id-b {
+    width: 1%;
+    white-space: nowrap;
+}
+
+td.id-b {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+}
+</style><style>
+/* ============================================================
+   CORRECCION MOVIL: id_B HORIZONTAL
+   ============================================================ */
+@media (max-width: 900px) {
+
+    tbody td.id-b {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        white-space: nowrap !important;
+        overflow-wrap: normal !important;
+        word-break: keep-all !important;
+        text-align: left !important;
+    }
+
+    tbody td.id-b::before {
+        white-space: nowrap !important;
+        overflow-wrap: normal !important;
+        word-break: keep-all !important;
+    }
+}
+
+@media (max-width: 480px) {
+    tbody td.id-b {
+        white-space: nowrap !important;
+        overflow-wrap: normal !important;
+        word-break: keep-all !important;
+    }
+}
+</style>
+<style>
+.filtro-texto-wrap{
+  width:96%;
+  margin:0 auto 14px;
+  padding:10px 12px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:9px;
+  border:1px solid #cfd6dc;
+  border-radius:9px;
+  background:#fff;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+  font-family:Arial,sans-serif;
+}
+.filtro-texto-wrap label{
+  font-weight:800;
+  color:#30485d;
+}
+#filtro-texto{
+  flex:1 1 420px;
+  min-height:40px;
+  padding:7px 11px;
+  border:1px solid #b8c4ce;
+  border-radius:7px;
+  font:700 15px Arial,sans-serif;
+  background:#fff;
+}
+#limpiar-filtro-texto{
+  min-height:40px;
+  padding:7px 14px;
+  border:0;
+  border-radius:7px;
+  background:#e9eef2;
+  color:#30485d;
+  font:800 14px Arial,sans-serif;
+  cursor:pointer;
+}
+#limpiar-filtro-texto:hover{
+  background:#dbe4eb;
+}
+#estado-filtro-texto{
+  margin-left:auto;
+  color:#657786;
+  font-size:13px;
+  font-weight:700;
+}
+@media(max-width:700px){
+  .filtro-texto-wrap{
+    width:100%;
+    padding:9px;
+  }
+  .filtro-texto-wrap label{
+    width:100%;
+  }
+  #filtro-texto{
+    flex:1 1 100%;
+    width:100%;
+  }
+  #limpiar-filtro-texto{
+    flex:0 0 auto;
+  }
+  #estado-filtro-texto{
+    width:100%;
+    margin-left:0;
+  }
+}
+</style>
+
+<style>
+
+/* Filtros de Proyecto y Acción (campo gs_proceso) */
+.filtros-estructurados {
+  width:96%; margin:0 auto 12px; padding:12px;
+  display:flex; flex-wrap:wrap; gap:12px; align-items:end;
+  background:#fff; border:1px solid #cfd6dc; border-radius:9px;
+  box-shadow:0 1px 4px rgba(0,0,0,.04);
+}
+.filtro-campo {display:flex; flex:1 1 250px; flex-direction:column; gap:5px; min-width:180px;}
+.filtro-campo label {font:800 14px Arial,sans-serif; color:#30485d;}
+.filtro-campo select {width:100%; min-height:42px; padding:7px 10px; border:1px solid #b8c4ce; border-radius:7px; background:#fff; font:700 15px Arial,sans-serif; color:#26333f;}
+#limpiar-filtros {min-height:42px; padding:8px 14px; border:0; border-radius:7px; background:#e9eef2; color:#30485d; font:800 14px Arial,sans-serif; cursor:pointer;}
+#limpiar-filtros:hover {background:#dbe4eb;}
+@media(max-width:700px) {.filtros-estructurados {width:100%; padding:9px;} .filtro-campo {flex-basis:100%;}}
+
+</style>
+</head>
+<body>
+<header id="cabecera">
+<div class="logo-contenedor">
+<img alt="Logo CircuitDesignMX" class="logo" src="Logo-Circuit-MX.jpg"/>
+</div>
+<h1 id="titulo">CircuitDesignMX</h1>
+<a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html" title="Ir a la página inicial">Inicio</a>
+</header>
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport"/>
+<title>Últimas Secuencias</title>
+<style>
+            :root {
+                --borde: #cfd6dc;
+                --texto: #26333f;
+                --fondo: #f4f6f8;
+                --blanco: #ffffff;
+                --alta-bg: #ffe1e1;
+                --alta-txt: #8a1c1c;
+                --media-bg: #fff3c4;
+                --media-txt: #6f5700;
+                --baja-bg: #e8f6ea;
+                --baja-txt: #285a39;
+            }
+
+            * { box-sizing: border-box; }
+
+            body {
+                margin: 0;
+                padding: 20px;
+                font-family: Arial, Helvetica, sans-serif;
+                color: var(--texto);
+                background: var(--fondo);
+            }
+
+            h2 {
+                margin: 8px 0 22px;
+                text-align: center;
+                font-size: 32px;
+            }
+
+            .tabla-wrap {
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                width: 96%;
+                margin: auto;
+                border-collapse: collapse;
+                background: var(--blanco);
+                font-size: 21px;
+                font-weight: 600;
+            }
+
+            th, td {
+                padding: 10px 12px;
+                border: 2px solid #555;
+                text-align: left;
+                vertical-align: middle;
+            }
+
+            th {
+                background-color: #e9eef2;
+                font-weight: 800;
+            }
+
+            .prioridad-alta {
+                background-color: var(--alta-bg);
+                color: var(--alta-txt);
+            }
+
+            .prioridad-media {
+                background-color: var(--media-bg);
+                color: var(--media-txt);
+            }
+
+            .prioridad-baja {
+                background-color: var(--baja-bg);
+                color: var(--baja-txt);
+            }
+
+            .cumplido {
+                background-color: var(--blanco) !important;
+                color: var(--texto) !important;
+            }
+
+            .estado-pendiente {
+                display: inline-block;
+                padding: 5px 10px;
+                border-radius: 999px;
+                background: #b42318;
+                color: white;
+                font-weight: 800;
+                white-space: nowrap;
+            }
+
+            .prioridad {
+                text-align: center;
+                font-size: 23px;
+                font-weight: 800;
+            }
+
+            .fecha {
+                font-weight: 700;
+            }
+
+            @media (max-width: 900px) {
+                body {
+                    padding: 7px;
+                    font-size: 17px;
+                }
+
+                h2 {
+                    margin: 8px 0 14px;
+                    font-size: 27px;
+                }
+
+                .tabla-wrap {
+                    width: 100%;
+                    overflow: visible;
+                }
+
+                table {
+                    display: block;
+                    width: 100%;
+                    min-width: 0;
+                    margin: 0;
+                    border-collapse: separate;
+                    background: transparent;
+                    font-size: 17px;
+                }
+
+                thead {
+                    display: none;
+                }
+
+                tbody {
+                    display: block;
+                    width: 100%;
+                }
+
+                tbody tr {
+                    display: block;
+                    width: 100%;
+                    margin: 0 0 12px;
+                    border: 1px solid var(--borde);
+                    border-radius: 10px;
+                    background: white;
+                    overflow: hidden;
+                    box-shadow: 0 1px 5px rgba(0,0,0,.07);
+                }
+
+                tbody td {
+                    display: grid;
+                    grid-template-columns: minmax(105px, 35%) minmax(0, 65%);
+                    align-items: center;
+                    width: 100%;
+                    min-width: 0;
+                    padding: 9px 10px;
+                    border: 0;
+                    border-bottom: 1px solid var(--borde);
+                    font-size: 17px;
+                    line-height: 1.35;
+                    text-align: left !important;
+                    white-space: normal !important;
+                    overflow-wrap: anywhere;
+                }
+
+                tbody td:last-child {
+                    border-bottom: 0;
+                }
+
+                tbody td::before {
+                    content: attr(data-label);
+                    display: block;
+                    padding-right: 8px;
+                    color: #30485d;
+                    font-size: 15px;
+                    font-weight: 800;
+                    line-height: 1.25;
+                }
+
+                .prioridad {
+                    text-align: left !important;
+                    font-size: 20px;
+                }
+
+                .fecha {
+                    font-size: 17px;
+                }
+
+                .estado-pendiente {
+                    font-size: 15px;
+                    padding: 5px 9px;
+                }
+
+                tbody tr.prioridad-alta {
+                    background: var(--alta-bg);
+                    color: var(--alta-txt);
+                }
+
+                tbody tr.prioridad-alta td::before {
+                    color: var(--alta-txt);
+                }
+
+                tbody tr.prioridad-media {
+                    background: var(--media-bg);
+                    color: var(--media-txt);
+                }
+
+                tbody tr.prioridad-media td::before {
+                    color: var(--media-txt);
+                }
+
+                tbody tr.prioridad-baja {
+                    background: var(--baja-bg);
+                    color: var(--baja-txt);
+                }
+
+                tbody tr.prioridad-baja td::before {
+                    color: var(--baja-txt);
+                }
+
+                tbody tr.cumplido {
+                    background: white !important;
+                    color: var(--texto) !important;
+                }
+
+                tbody tr.cumplido td::before {
+                    color: #30485d !important;
+                }
+            }
+
+            @media (max-width: 480px) {
+                body { padding: 5px; }
+                h2 { font-size: 25px; }
+
+                tbody td {
+                    grid-template-columns: minmax(96px, 34%) minmax(0, 66%);
+                    padding: 9px 8px;
+                    font-size: 16px;
+                }
+
+                tbody td::before {
+                    font-size: 14px;
+                }
+
+                .prioridad {
+                    font-size: 19px;
+                }
+            }
+        </style>
+</head>
+<body>
+<h2>Control de los Procesos por Proyecto, todos los Registros.</h2>
+<div id="estado-supabase" style="
+                width:96%;
+                margin:-12px auto 14px;
+                text-align:right;
+                color:#657786;
+                font:600 13px Arial, sans-serif;
+             ">
+            Conectando con Supabase...
+        </div>
+
+<div class="filtros-estructurados" aria-label="Filtros de la bitácora">
+  <div class="filtro-campo">
+    <label for="filtro-proyecto">Proyecto</label>
+    <select id="filtro-proyecto"><option value="">Todos los proyectos</option></select>
+  </div>
+  <div class="filtro-campo">
+    <label for="filtro-accion">Acción (Proceso)</label>
+    <select id="filtro-accion"><option value="">Todas las acciones</option></select>
+  </div>
+  <button id="limpiar-filtros" type="button">Limpiar filtros</button>
+</div>
+<div class="filtro-texto-wrap">
+  <label for="filtro-texto">Filtrar:</label>
+  <input
+    id="filtro-texto"
+    type="search"
+    placeholder="Escribe proyecto, proceso, descripción, prioridad, estado, fecha o ID..."
+    autocomplete="off"
+  >
+  <button id="limpiar-filtro-texto" type="button">Limpiar</button>
+  <span id="estado-filtro-texto"></span>
+</div>
+<div class="tabla-wrap">
+<table>
+<thead>
+<tr><th>id_B</th>
+<th>Proyecto</th>
+<th>Proceso</th>
+<th>Fecha</th>
+<th>Descripción</th>
+<th>Prioridad</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody id="secuencias-body">
+<tr>
+<td colspan="7" style="text-align:center; padding:24px;">
+                            Cargando datos directamente desde Supabase...
+                        </td>
+</tr>
+</tbody>
+</table>
+</div>
+<script>
+(function () {
+    "use strict";
+
+    const SUPABASE_URL = "https://ysyxjcwjtvklxvhwnxsi.supabase.co";
+
+    // Publishable/anon key. Es una clave de cliente; la seguridad real
+    // depende de las políticas RLS de Supabase.
+    const SUPABASE_ANON_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." +
+        "eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0." +
+        "xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM";
+
+    const TABLA = "gs_secuencias";
+    // Se muestran todos los registros accesibles; lectura en lotes de 1000.
+    const LIMITE_LECTURA = 1000;
+
+    const tbody = document.getElementById("secuencias-body");
+    const estado = document.getElementById("estado-supabase");
+    const filtroTexto = document.getElementById("filtro-texto");
+    const limpiarFiltroTexto = document.getElementById("limpiar-filtro-texto");
+    const estadoFiltroTexto = document.getElementById("estado-filtro-texto");
+    const filtroProyecto = document.getElementById("filtro-proyecto");
+    const filtroAccion = document.getElementById("filtro-accion");
+    const limpiarFiltros = document.getElementById("limpiar-filtros");
+    let datosCargados = [];
+    let cargaEnCurso = false;
+
+    function texto(valor) {
+        return valor === null || valor === undefined ? "" : String(valor);
+    }
+
+    function prioridadTexto(valor) {
+        const p = texto(valor).trim();
+        if (p === "1") return "Alta";
+        if (p === "2") return "Media";
+        if (p === "3") return "Baja";
+        return p;
+    }
+
+    function estaResuelto(registro) {
+        return texto(registro.gs_estado).trim().toLowerCase() === "resuelto";
+    }
+
+    function fechaRegistro(registro) {
+        if (estaResuelto(registro)) {
+            return texto(registro.gs_fecha_cum).trim() || texto(registro.gs_fecha).trim();
+        }
+
+        return texto(registro.gs_fecha).trim();
+    }
+
+    function normalizarBusqueda(valor) {
+        return texto(valor)
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .toLowerCase()
+            .trim();
+    }
+
+    function textoBusquedaRegistro(registro) {
+        const partes = [
+            registro.gs_id,
+            registro.gs_proyecto,
+            registro.gs_proceso,
+            formatearFecha(fechaRegistro(registro)),
+            fechaRegistro(registro),
+            registro.gs_desc,
+            prioridadTexto(registro.gs_prior),
+            registro.gs_prior,
+            registro.gs_estado
+        ];
+
+        return normalizarBusqueda(partes.join(" "));
+    }
+
+    function actualizarOpcionesFiltros() {
+        // Conservar las selecciones durante la actualización automática de Supabase.
+        const proyectoActual = filtroProyecto.value;
+        const accionActual = filtroAccion.value;
+        const actualizar = (select, campo, titulo, actual) => {
+            const valores = [...new Set(datosCargados.map(r => texto(r[campo]).trim()).filter(Boolean))]
+                .sort((a, b) => a.localeCompare(b, "es", {sensitivity:"base", numeric:true}));
+            select.replaceChildren();
+            select.add(new Option(titulo, ""));
+            valores.forEach(v => select.add(new Option(v, v)));
+            select.value = valores.includes(actual) ? actual : "";
+        };
+        actualizar(filtroProyecto, "gs_proyecto", "Todos los proyectos", proyectoActual);
+        actualizar(filtroAccion, "gs_proceso", "Todas las acciones", accionActual);
+    }
+
+    function aplicarFiltroTexto() {
+        const termino = filtroTexto ? normalizarBusqueda(filtroTexto.value) : "";
+        const proyecto = filtroProyecto.value;
+        const accion = filtroAccion.value;
+        const filtrados = datosCargados.filter(registro =>
+            (!proyecto || texto(registro.gs_proyecto).trim() === proyecto) &&
+            (!accion || texto(registro.gs_proceso).trim() === accion) &&
+            (!termino || textoBusquedaRegistro(registro).includes(termino))
+        );
+        const visibles = filtrados;
+        renderizar(visibles);
+        if (estadoFiltroTexto) {
+            estadoFiltroTexto.textContent = `${filtrados.length} coincidencia(s) · ${visibles.length} visibles`;
+        }
+        return {totalFiltrados: filtrados.length, visibles: visibles.length};
+    }
+
+    function fechaNumero(valor) {
+        const s = texto(valor).slice(0, 10);
+        const partes = s.split("-");
+
+        if (partes.length !== 3) return 0;
+
+        const y = Number(partes[0]);
+        const m = Number(partes[1]);
+        const d = Number(partes[2]);
+
+        if (!y || !m || !d) return 0;
+
+        return (y * 10000) + (m * 100) + d;
+    }
+
+    function formatearFecha(valor) {
+        const s = texto(valor).slice(0, 10);
+        const partes = s.split("-");
+
+        if (partes.length !== 3) return s;
+
+        const y = Number(partes[0]);
+        const m = Number(partes[1]);
+        const d = Number(partes[2]);
+
+        if (!y || !m || !d) return s;
+
+        // Se construye como fecha local para evitar que YYYY-MM-DD
+        // retroceda un día por conversión UTC.
+        const fecha = new Date(y, m - 1, d);
+
+        let salida = new Intl.DateTimeFormat(
+            "es-MX",
+            {
+                weekday: "long",
+                day: "2-digit",
+                month: "long",
+                year: "numeric"
+            }
+        ).format(fecha);
+
+        return salida.charAt(0).toUpperCase() + salida.slice(1);
+    }
+
+    function compararProceso(a, b) {
+        return texto(a.gs_proceso).trim().localeCompare(
+            texto(b.gs_proceso).trim(),
+            "es",
+            { sensitivity: "base", numeric: true }
+        );
+    }
+
+    function compararDescripcion(a, b) {
+        return texto(a.gs_desc).trim().localeCompare(
+            texto(b.gs_desc).trim(),
+            "es",
+            { sensitivity: "base", numeric: true }
+        );
+    }
+
+    function comparar(a, b) {
+        // Fecha mostrada DESCENDENTE para todos los estados y proyectos.
+        // En registros resueltos se utiliza fecha de cumplimiento si existe.
+        const fechaA = fechaNumero(fechaRegistro(a));
+        const fechaB = fechaNumero(fechaRegistro(b));
+        if (fechaA !== fechaB) return fechaB - fechaA;
+        return (Number(b.gs_id) || 0) - (Number(a.gs_id) || 0);
+    }
+
+    function claseRegistro(registro) {
+        const prioridad = texto(registro.gs_prior).trim();
+        const estadoRegistro = texto(registro.gs_estado).trim().toLowerCase();
+        const fechaCum = texto(registro.gs_fecha_cum).trim();
+
+        const cumplido =
+            Boolean(fechaCum) ||
+            estadoRegistro === "resuelto";
+
+        if (cumplido) return "cumplido";
+        if (prioridad === "1") return "prioridad-alta";
+        if (prioridad === "2") return "prioridad-media";
+        if (prioridad === "3") return "prioridad-baja";
+
+        return "";
+    }
+
+    function crearCelda(etiqueta, valor, clase, negrita) {
+        const td = document.createElement("td");
+        td.dataset.label = etiqueta;
+
+        if (clase) td.className = clase;
+        if (negrita) td.style.fontWeight = "700";
+
+        td.textContent = texto(valor);
+        return td;
+    }
+
+    function renderizar(registros) {
+        tbody.replaceChildren();
+
+        if (!registros.length) {
+            const tr = document.createElement("tr");
+            const td = document.createElement("td");
+
+            td.colSpan = 7;
+            td.style.textAlign = "center";
+            td.style.padding = "24px";
+            td.textContent = "No hay secuencias para mostrar.";
+
+            tr.appendChild(td);
+            tbody.appendChild(tr);
+            return;
+        }
+
+        for (const registro of registros) {
+            const tr = document.createElement("tr");
+            tr.className = claseRegistro(registro);
+
+            tr.appendChild(
+                crearCelda(
+                    "id_B",
+                    registro.gs_id,
+                    "id-b",
+                    false
+                )
+            );
+
+            const proyecto = crearCelda(
+                "Proyecto",
+                registro.gs_proyecto,
+                "",
+                true
+            );
+            proyecto.style.fontWeight = "800";
+
+            tr.appendChild(proyecto);
+
+            tr.appendChild(
+                crearCelda(
+                    "Proceso",
+                    registro.gs_proceso,
+                    "",
+                    false
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Fecha",
+                    formatearFecha(fechaRegistro(registro)),
+                    "fecha",
+                    false
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Descripción",
+                    registro.gs_desc,
+                    "",
+                    true
+                )
+            );
+
+            tr.appendChild(
+                crearCelda(
+                    "Prioridad",
+                    prioridadTexto(registro.gs_prior),
+                    "prioridad",
+                    false
+                )
+            );
+
+            const estadoTd = document.createElement("td");
+            estadoTd.dataset.label = "Estado";
+            estadoTd.style.fontWeight = "700";
+
+            const estadoRegistro =
+                texto(registro.gs_estado).trim();
+
+            const fechaCum =
+                texto(registro.gs_fecha_cum).trim();
+
+            const cumplido =
+                Boolean(fechaCum) ||
+                estadoRegistro.toLowerCase() === "resuelto";
+
+            if (
+                estadoRegistro.toLowerCase() === "pendiente" &&
+                !cumplido
+            ) {
+                const badge = document.createElement("span");
+                badge.className = "estado-pendiente";
+                badge.textContent = "Pendiente";
+                estadoTd.appendChild(badge);
+            } else if (cumplido) {
+                estadoTd.textContent = "Resuelto";
+            } else {
+                estadoTd.textContent = estadoRegistro;
+            }
+
+            tr.appendChild(estadoTd);
+            tbody.appendChild(tr);
+        }
+    }
+
+    async function cargarSecuencias() {
+        // Evitar solicitudes superpuestas cuando el refresco de 60 s coincida
+        // con una lectura extensa de varios lotes.
+        if (cargaEnCurso) return;
+        cargaEnCurso = true;
+        estado.textContent = "Actualizando todos los registros desde Supabase...";
+
+        const columnas = [
+            "gs_id", "gs_proceso", "gs_proyecto", "gs_lote",
+            "gs_fecha", "gs_desc", "gs_ctda", "gs_prior",
+            "gs_estado", "gs_ver", "gs_fecha_cum"
+        ].join(",");
+
+        try {
+            const todos = [];
+            let offset = 0;
+
+            while (true) {
+                // Orden estable: impide que la paginación omita o repita filas
+                // por la ausencia de un ORDER BY explícito.
+                const params = new URLSearchParams({
+                    select: columnas,
+                    order: "gs_id.asc",
+                    limit: String(LIMITE_LECTURA),
+                    offset: String(offset)
+                });
+                const url = `${SUPABASE_URL}/rest/v1/${TABLA}?${params.toString()}`;
+                const respuesta = await fetch(url, {
+                    method: "GET",
+                    headers: {
+                        "apikey": SUPABASE_ANON_KEY,
+                        "Authorization": `Bearer ${SUPABASE_ANON_KEY}`,
+                        "Accept": "application/json"
+                    },
+                    cache: "no-store"
+                });
+
+                if (!respuesta.ok) {
+                    const detalle = await respuesta.text();
+                    throw new Error(`HTTP ${respuesta.status}: ${detalle}`);
+                }
+
+                const lote = await respuesta.json();
+                if (!Array.isArray(lote)) {
+                    throw new Error("Supabase no devolvió una lista de registros.");
+                }
+                todos.push(...lote);
+                estado.textContent = `Leyendo Supabase: ${todos.length} registros...`;
+
+                if (lote.length < LIMITE_LECTURA) break;
+                offset += lote.length;
+            }
+
+            // Sin filtro gs_ver: incluir G, P, C, E y cualquier otro valor
+            // que la política RLS permita consultar.
+            todos.sort(comparar);
+            datosCargados = todos;
+            actualizarOpcionesFiltros();
+            const resumenFiltro = aplicarFiltroTexto();
+
+            const ahora = new Date().toLocaleTimeString("es-MX", {
+                hour: "2-digit", minute: "2-digit", second: "2-digit"
+            });
+            estado.style.color = "#657786";
+            estado.textContent =
+                `Supabase conectado · ${resumenFiltro.visibles} visibles` +
+                ` de ${datosCargados.length} registros · ${ahora}`;
+        } catch (error) {
+            console.error(error);
+            // En caso de error, conservar la última información válida.
+            estado.textContent = "Error al actualizar Supabase; se conservan los últimos datos cargados.";
+            estado.style.color = "#a02a2a";
+        } finally {
+            cargaEnCurso = false;
+        }
+    }
+
+    filtroProyecto.addEventListener("change", aplicarFiltroTexto);
+    filtroAccion.addEventListener("change", aplicarFiltroTexto);
+    limpiarFiltros.addEventListener("click", () => {
+        filtroProyecto.value = "";
+        filtroAccion.value = "";
+        if (filtroTexto) filtroTexto.value = "";
+        aplicarFiltroTexto();
+    });
+
+    if (filtroTexto) {
+        filtroTexto.addEventListener("input", () => {
+            const resumen = aplicarFiltroTexto();
+
+            estado.textContent = filtroTexto.value.trim()
+                ? `Filtro activo · ${resumen.totalFiltrados} coincidencia(s)`
+                : `Supabase conectado · ${resumen.visibles} visibles`;
+        });
+    }
+
+    if (limpiarFiltroTexto) {
+        limpiarFiltroTexto.addEventListener("click", () => {
+            filtroTexto.value = "";
+            const resumen = aplicarFiltroTexto();
+            filtroTexto.focus();
+
+            estado.textContent =
+                `Filtro eliminado · ${resumen.visibles} visibles`;
+        });
+    }
+
+    cargarSecuencias();
+
+    // Actualización automática sin recargar la página.
+    window.setInterval(
+        cargarSecuencias,
+        60000
+    );
+})();
+</script>
+</body>
+</html>
+<style>
+    .espacio-footer {
+        height: 28px;
+    }
+
+    footer {
+        width: 100%;
+        padding: 14px 18px;
+        background: linear-gradient(135deg, #1f4e78, #346b98);
+        color: white;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        box-shadow: 0 -2px 6px rgba(0,0,0,0.14);
+    }
+
+    footer p {
+        margin: 3px 0;
+        line-height: 1.35;
+    }
+
+    footer .copyright {
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    footer .fecha-hora {
+        font-size: 13px;
+        color: #e7f0f7;
+    }
+
+    @media (max-width: 700px) {
+        .espacio-footer {
+            height: 20px;
+        }
+
+        footer {
+            padding: 12px 10px;
+        }
+
+        footer .copyright {
+            font-size: 13px;
+        }
+
+        footer .fecha-hora {
+            font-size: 12px;
+        }
+    }
+</style>
+<div class="espacio-footer"></div>
+<footer>
+<p class="copyright">
+        © 2026 CircuitDesignMX. Todos los derechos reservados.
+    </p>
+<p class="fecha-hora">
+        Fecha de creación: <span id="fecha-hora-dinamica">26/11/2026 10:48:57</span>
+</p>
+</footer>
+</body></html>
