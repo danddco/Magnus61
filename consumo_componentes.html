@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Consumo de Componentes · CircuitDesignMX</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;width:100%}body{font-family:Arial,sans-serif;color:#26333f;background:#f4f6f8}
+#cabecera{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;background:linear-gradient(135deg,#1f4e78,#346b98);color:#fff;padding:8px 18px;min-height:72px;box-shadow:0 2px 6px #0002}
+.logo-contenedor{background:#fff;padding:4px 7px;border-radius:8px}.logo{display:block;max-width:150px;height:52px;object-fit:contain}
+#titulo{font-size:28px;text-align:center;margin:0}.home-link{min-height:42px;min-width:92px;padding:10px 14px;border-radius:8px;background:#fff;color:#1f4e78;text-align:center;text-decoration:none;font-weight:bold}
+main{width:min(1600px,94%);margin:24px auto 40px}h2{text-align:center;color:#30485d;font-size:28px;margin:8px 0 20px}
+#estado-supabase{width:fit-content;max-width:100%;margin:0 auto 18px;padding:8px 13px;border:1px solid #cdd8e2;background:white;border-radius:8px;color:#657786;text-align:center;font-size:14px;font-weight:700}
+.panel-filtros{display:flex;flex-wrap:wrap;gap:12px;align-items:end;background:#fff;border:1px solid #d8dee5;border-radius:10px;padding:16px;margin:0 auto 18px;box-shadow:0 1px 4px #0001}
+.campo{display:flex;flex-direction:column;gap:6px;flex:1 1 220px}.campo-descripcion{flex:2 1 340px}.campo label{font-size:14px;color:#30485d;font-weight:800}
+.campo input,.campo select{height:43px;width:100%;border:1px solid #b8c4ce;border-radius:7px;padding:8px 11px;font:600 15px Arial,sans-serif;background:#fff;color:#26333f}
+#limpiar-filtros{height:43px;border:0;border-radius:7px;background:#e9eef2;color:#30485d;font-size:14px;font-weight:800;padding:0 18px;cursor:pointer}
+#limpiar-filtros:hover{background:#dbe4eb}#contador{color:#657786;font-size:13px;font-weight:700;align-self:center}
+.tabla-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}table{width:max-content;max-width:100%;min-width:750px;border-collapse:collapse;margin:auto;background:#fff;font-weight:600;font-size:15px;box-shadow:0 3px 10px #0001}
+th,td{border:1px solid #d8dee5;padding:9px 11px}th{background:#eef3f7;color:#30485d;text-align:center}td:nth-child(n+3){text-align:right;font-variant-numeric:tabular-nums}td:nth-child(2){text-align:left;font-weight:500}
+tr.stock-bajo-critico td{background:#f8d7da;color:#721c24}td.consumo-cero{background:#fff6c4}#consumo-componentes-body tr.total-consumo td{border-top:3px solid #1f4e78;font-weight:800;background:#e9eef2;color:#26333f}
+.consumo-componentes-nota{max-width:1050px;margin:12px auto 18px;text-align:center;color:#657786;font-size:13px;line-height:1.5}
+footer{padding:14px 18px;background:linear-gradient(135deg,#1f4e78,#346b98);color:white;text-align:center;box-shadow:0 -2px 6px #0002}footer p{margin:3px 0;line-height:1.35}.copyright{font-weight:700;font-size:14px}.fecha-hora{font-size:13px;color:#e7f0f7}
+@media(max-width:700px){#cabecera{min-height:60px;padding:6px 8px;gap:7px}.logo{height:40px;max-width:92px}#titulo{font-size:19px;text-align:left}.home-link{min-width:65px;padding:9px 7px;font-size:13px}main{width:100%;padding:0 8px;margin:16px auto 28px}h2{font-size:22px}.panel-filtros{padding:11px;gap:12px}.campo,.campo-descripcion{flex-basis:100%}table{min-width:790px;font-size:13px}th,td{padding:7px}}
+
+
+/* Línea temporal de cobertura por componente seleccionado */
+#panel-linea-tiempo{display:none;margin:24px auto 22px;max-width:1200px}
+#panel-linea-tiempo.visible{display:block}
+#panel-linea-tiempo h3{text-align:center;color:#1f4e78;font-size:24px;margin:0 0 6px}
+#descripcion-linea-tiempo{text-align:center;color:#657786;margin:0 0 18px;font-size:14px}
+.tarjeta-cobertura{background:#fff;border:1px solid #d8dee5;border-radius:12px;padding:20px;margin:0 0 16px;box-shadow:0 2px 8px #0001}
+.cobertura-cabecera{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap;margin-bottom:11px}
+.cobertura-cabecera h4{font-size:19px;color:#30485d;margin:0}.cobertura-datos{color:#526779;font-size:14px;font-weight:700}
+.meses-etiquetas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));text-align:center;color:#30485d;font-weight:800;gap:3px;margin:8px 0}
+.meses-tramo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3px;min-height:48px}
+.mes-tramo{background:#e6ebf0;overflow:hidden;position:relative;border:1px solid #ccd6df;border-radius:5px}
+.mes-tramo .relleno{height:100%;background:#2d966b;transition:width .25s ease}
+.mes-tramo.parcial .relleno{background:#e4a63a}
+.mes-tramo .porcentaje{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#213b4c;font-weight:800;font-size:14px;text-shadow:0 1px #ffffffa8}
+.cobertura-pie{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;color:#526779;font-size:13px;margin-top:12px}
+.cobertura-aviso{background:#f1f5f8;color:#485d6e;padding:11px 13px;border-radius:8px;font-size:13px;line-height:1.5;margin-top:12px}
+#mensaje-linea-tiempo{margin:16px auto;text-align:center;color:#657786}
+#detalle-proyectos{background:#fff;border:1px solid #d8dee5;border-radius:12px;padding:17px;margin:20px 0;box-shadow:0 2px 8px #0001}
+#detalle-proyectos h4{text-align:left;font-size:20px;margin:0 0 9px;color:#1f4e78}
+#detalle-proyectos .detalle-aclaracion{font-size:13px;color:#526779;line-height:1.5;margin:0 0 13px}
+#tabla-proyectos-componente{width:100%;max-width:none;min-width:850px;font-size:14px;table-layout:auto}
+#tabla-proyectos-componente th{white-space:normal}
+#tabla-proyectos-componente td:first-child{text-align:left;font-weight:700}
+#tabla-proyectos-componente td:not(:first-child){text-align:right;font-variant-numeric:tabular-nums}
+#tabla-proyectos-componente tr.total-proyectos td{background:#e9eef2;border-top:3px solid #1f4e78;font-weight:800}
+/* Filas de consumo por proyecto, integradas en la tabla original */
+#tabla-consumo-componentes tr.fila-proyecto-consumo td{background:#f5f9fd!important;color:#30485d!important;font-weight:500}
+#tabla-consumo-componentes tr.fila-proyecto-consumo td:nth-child(2){padding-left:28px;font-weight:700}
+#tabla-consumo-componentes tr.fila-proyecto-consumo td:nth-child(1){color:#6286a3!important}
+#tabla-consumo-componentes tr.fila-proyecto-consumo td:nth-child(4){color:#71808d!important}
+#tabla-consumo-componentes tr.fila-proyecto-total td{background:#e4edf5!important;color:#203c57!important;font-weight:800;border-bottom:2px solid #1f4e78}
+#tabla-consumo-componentes .expandir-proyectos{border:0;background:none;color:#1f4e78;cursor:pointer;font:inherit;font-weight:800;text-align:left;padding:0}
+#tabla-consumo-componentes .expandir-proyectos:hover{text-decoration:underline}
+#tabla-consumo-componentes tr.fila-proyecto-consumo td:nth-child(2){max-width:400px}
+
+
+@media(max-width:700px){.tarjeta-cobertura{padding:13px 10px}.cobertura-cabecera h4{font-size:17px}.meses-tramo{min-height:43px}.mes-tramo .porcentaje{font-size:12px}#panel-linea-tiempo h3{font-size:20px}}
+
+/* Colores cuando consumo del mes < STOCK, priorizando el primer mes que cumpla. */
+#tabla-consumo-componentes tbody tr.consumo-mes-1 td {background:#f5b7b9 !important;color:#7f1d1d !important;}
+#tabla-consumo-componentes tbody tr.consumo-mes-2 td {background:#fbd5d5 !important;color:#833535 !important;}
+#tabla-consumo-componentes tbody tr.consumo-mes-3 td {background:#fff0f0 !important;color:#784747 !important;}
+/* Las filas de TOTAL y SUBTOTAL conservan un aspecto diferenciado. */
+#tabla-consumo-componentes tbody tr.total-consumo td {background:#e9eef2 !important;color:#26333f !important;}
+#tabla-consumo-componentes tbody tr.fila-proyecto-total td {background:#e4edf5 !important;color:#203c57 !important;}
+</style>
+</head>
+<body>
+<header id="cabecera"><div class="logo-contenedor"><img class="logo" alt="Logo CircuitDesignMX" src="Logo-Circuit-MX.jpg"></div><h1 id="titulo">CircuitDesignMX</h1><a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html">Inicio</a></header>
+<main>
+<section id="seccion-consumo-componentes" aria-labelledby="titulo-consumo-componentes">
+<h2 id="titulo-consumo-componentes">Consumo de Componentes · Cobertura de 3 meses</h2>
+<p id="estado-supabase" role="status">Conectando con Supabase...</p>
+<div class="panel-filtros" aria-label="Filtros de componentes">
+  <div class="campo"><label for="filtro-ide">Filtrar por IdE (número directo)</label><input id="filtro-ide" type="text" inputmode="numeric" placeholder="Ej. 204" autocomplete="off"></div>
+  <div class="campo campo-descripcion"><label for="filtro-descripcion">Filtrar por Descripción (listado)</label><select id="filtro-descripcion"><option value="">Todas las descripciones</option></select></div>
+  <button id="limpiar-filtros" type="button">Limpiar filtros</button><span id="contador" aria-live="polite"></span>
+</div>
+<section id="panel-linea-tiempo" aria-label="Cobertura temporal del componente elegido">
+<h3>Cobertura de 3 meses · Componente seleccionado</h3>
+<p id="descripcion-linea-tiempo"></p>
+<div id="barras-linea-tiempo"></div>
+<section id="detalle-proyectos" aria-label="Desglose de consumo por proyecto">
+ <h4>Desglose del componente por proyecto</h4>
+ <p class="detalle-aclaracion">Cada proyecto muestra su consumo mensual y su fabricación equivalente. El STOCK físico es compartido y no se asigna artificialmente a proyectos.</p>
+ <div class="tabla-wrap"><table id="tabla-proyectos-componente"><thead><tr><th>Proyecto</th><th>Unidades por placa</th><th>Plan mensual (placas)</th><th>Demanda mensual (componentes)</th><th>En fabricación (placas)</th><th>Componentes en fabricación</th><th>Demanda 3 meses</th></tr></thead><tbody id="proyectos-componente-body"></tbody></table></div>
+</section>
+</section>
+<h3 id="titulo-consumo-neto" style="text-align:center;color:#30485d;margin:24px 0 14px;">Consumo restando lo fabricado</h3>
+<div class="tabla-wrap"><table id="tabla-consumo-componentes"><thead><tr><th>idE</th><th>Descripción</th><th>Existencia STOCK</th><th>Consumo mes 1</th><th>Consumo mes 2</th><th>Consumo mes 3</th><th>Total 3 meses</th></tr></thead><tbody id="consumo-componentes-body"><tr><td colspan="7">Consultando componentes...</td></tr></tbody></table></div>
+<p class="consumo-componentes-nota">Al seleccionar un único componente, la tabla también muestra debajo de su fila el consumo de cada proyecto, mes a mes. El STOCK es compartido entre proyectos; por eso no se reparte en las filas de detalle.</p>
+<p id="consumo-componentes-estado" class="consumo-componentes-nota">Los consumos mensuales descuentan las placas terminadas de forma progresiva. STOCK es la existencia actual.</p>
+</section></main>
+<footer><p class="copyright">© 2026 CircuitDesignMX. Todos los derechos reservados.</p><p class="fecha-hora">Fecha y hora: <span id="fecha-hora-dinamica">--/--/---- --:--:--</span></p></footer>
+<script>
+(function(){
+"use strict";
+const SUPABASE_URL='https://ysyxjcwjtvklxvhwnxsi.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzeXhqY3dqdHZrbHh2aHdueHNpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY1MDU0OTEsImV4cCI6MjA3MjA4MTQ5MX0.xjw3tRBPZoS4YX49VS7Nn1HT9Owv-q8fR4txMivjIuM';
+const PAGE_SIZE=1000;
+const tbody=document.getElementById("consumo-componentes-body");
+const nota=document.getElementById("consumo-componentes-estado");
+const estado=document.getElementById("estado-supabase");
+const filtroId=document.getElementById("filtro-ide");
+const filtroDescripcion=document.getElementById("filtro-descripcion");
+const contador=document.getElementById("contador");
+let componentes=[];
+const panelTiempo=document.getElementById("panel-linea-tiempo");
+const descripcionTiempo=document.getElementById("descripcion-linea-tiempo");
+const barrasTiempo=document.getElementById("barras-linea-tiempo");
+const proyectosBody=document.getElementById("proyectos-componente-body");
+const texto=v=>v===null||v===undefined?"":String(v);
+const numero=v=>{const n=Number(v);return Number.isFinite(n)?n:0;};
+const numeroVisible=v=>{const n=numero(v);return Number.isInteger(n)?String(n):String(Number(n.toFixed(6)));};
+const normalizar=v=>texto(v).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+const idNormal=v=>texto(v).trim().replace(/\.0$/,"");
+const canonProceso=v=>normalizar(v);
+const celda=v=>{const td=document.createElement("td");td.textContent=texto(v);return td;};
+function actualizarFooter(){const ahora=new Date();const fecha=ahora.toLocaleDateString("es-MX",{day:"2-digit",month:"2-digit",year:"numeric"});const hora=ahora.toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false});document.getElementById("fecha-hora-dinamica").textContent=`${fecha} ${hora}`;}
+async function fetchTabla(tabla,select){
+ const total=[];let offset=0;
+ while(true){const params=new URLSearchParams({select,limit:String(PAGE_SIZE),offset:String(offset)});const url=`${SUPABASE_URL}/rest/v1/${tabla}?${params.toString()}`;
+  const respuesta=await fetch(url,{headers:{apikey:SUPABASE_ANON_KEY,Authorization:`Bearer ${SUPABASE_ANON_KEY}`,Accept:"application/json"},cache:"no-store"});
+  if(!respuesta.ok)throw new Error(`${tabla}: HTTP ${respuesta.status}: ${await respuesta.text()}`);
+  const lote=await respuesta.json();if(!Array.isArray(lote))throw new Error(`${tabla}: respuesta inválida`);
+  total.push(...lote);if(lote.length<PAGE_SIZE)break;offset+=PAGE_SIZE;
+ }
+ return total;
+}
+function calcular(secuencias,bom,stock){
+ // Mantiene la lógica del archivo de referencia: únicamente proyectos con Fabricacion-Plan y gs_ver distinto de N.
+ const proyectos=[...new Set(secuencias.filter(r=>canonProceso(r.gs_proceso)==="fabricacion-plan"&&texto(r.gs_ver).trim().toUpperCase()!=="N").map(r=>texto(r.gs_proyecto).trim()).filter(Boolean))];
+ const claves=new Map(proyectos.map(p=>[normalizar(p),p]));
+ const canon=p=>claves.get(normalizar(p));
+ const plan=new Map(),terminadas=new Map(),entradas=new Map();
+ for(const r of secuencias){if(texto(r.gs_ver).trim().toUpperCase()==="N")continue;const proyecto=canon(r.gs_proyecto);if(!proyecto)continue;const proceso=canonProceso(r.gs_proceso);if(proceso==="fabricacion-plan")plan.set(proyecto,(plan.get(proyecto)||0)+numero(r.gs_ctda));if(proceso==="fabricacion-salida")terminadas.set(proyecto,(terminadas.get(proyecto)||0)+numero(r.gs_ctda));if(proceso==="fabricacion-entrada")entradas.set(proyecto,(entradas.get(proyecto)||0)+numero(r.gs_ctda));}
+ const inventario=new Map();for(const r of stock){const id=idNormal(r.idE);if(id)inventario.set(id,{cantidad:numero(r.cs_ctda),descripcion:texto(r.cs_desc).trim()});}
+ const agrupados=new Map();
+ for(const r of bom){const proyecto=canon(r.cp_proyecto);if(!proyecto||!plan.has(proyecto))continue;const id=idNormal(r.cp_idE),unidades=numero(r.cp_ctda);if(!id||unidades<=0)continue;
+  const item=agrupados.get(id)||{id,descripcion:"",critico:0,meses:[0,0,0],fabricacion:0,proyectos:[]};if(!item.descripcion)item.descripcion=texto(r.cp_desc).trim();const p=Math.max(0,numero(plan.get(proyecto))),t=Math.max(0,numero(terminadas.get(proyecto)));
+  item.critico+=2*p*unidades;
+  // Estimación de unidades del componente incorporadas a placas en proceso.
+  // Entradas y salidas acumuladas del mismo proyecto; nunca se suma cada etapa por separado.
+  const enProceso=Math.max(0,numero(entradas.get(proyecto))-numero(terminadas.get(proyecto)));
+  item.fabricacion+=enProceso*unidades;
+  const mesesProyecto=[];
+  for(let mes=1;mes<=3;mes++){const actual=Math.max(0,mes*p-t),anterior=Math.max(0,(mes-1)*p-t);const consumo=Math.max(0,actual-anterior)*unidades;item.meses[mes-1]+=consumo;mesesProyecto.push(consumo);}
+  item.proyectos.push({nombre:proyecto,unidades,planMensual:p,demandaMensual:p*unidades,enProceso,fabricacion:enProceso*unidades,demanda3:p*unidades*3,critico:2*p*unidades,meses:mesesProyecto});
+  agrupados.set(id,item);
+ }
+ return [...agrupados.values()].map(item=>{const st=inventario.get(item.id);return {...item,descripcion:item.descripcion||(st?st.descripcion:"—"),stock:st?st.cantidad:null};}).sort((a,b)=>Number(a.id)-Number(b.id)||a.id.localeCompare(b.id));
+}
+function opcionesDescripcion(){
+ const valor=filtroDescripcion.value;
+ const valores=[...new Set(componentes.map(c=>c.descripcion).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"es",{sensitivity:"base",numeric:true}));
+ filtroDescripcion.replaceChildren(new Option("Todas las descripciones",""));valores.forEach(desc=>filtroDescripcion.add(new Option(desc,desc)));
+ filtroDescripcion.value=valores.includes(valor)?valor:"";
+}
+function porcentajeTramos(disponible,meses){
+ let restante=Math.max(0,disponible);
+ return meses.map(demanda=>{
+  const d=Math.max(0,demanda);
+  if(d===0)return {porcentaje:0,demanda:d,cubierto:0,vacio:true};
+  const cubierto=Math.min(restante,d);
+  restante=Math.max(0,restante-cubierto);
+  return {porcentaje:Math.max(0,Math.min(100,100*cubierto/d)),demanda:d,cubierto,vacio:false};
+ });
+}
+function crearCobertura(titulo,disponible,meses,detalle,notaExtra){
+ const tarjeta=document.createElement("article");tarjeta.className="tarjeta-cobertura";
+ const cabecera=document.createElement("div");cabecera.className="cobertura-cabecera";
+ const encabezado=document.createElement("h4");encabezado.textContent=titulo;
+ const datos=document.createElement("span");datos.className="cobertura-datos";datos.textContent=detalle;
+ cabecera.append(encabezado,datos);tarjeta.append(cabecera);
+ const etiquetas=document.createElement("div");etiquetas.className="meses-etiquetas";
+ ["Mes 1","Mes 2","Mes 3"].forEach(t=>{const e=document.createElement("span");e.textContent=t;etiquetas.appendChild(e);});
+ tarjeta.appendChild(etiquetas);
+ const tramos=document.createElement("div");tramos.className="meses-tramo";
+ const coberturas=porcentajeTramos(disponible,meses);
+ coberturas.forEach((dato,i)=>{
+  const tramo=document.createElement("div");tramo.className="mes-tramo";
+  if(dato.porcentaje>0&&dato.porcentaje<100)tramo.classList.add("parcial");
+  const relleno=document.createElement("div");relleno.className="relleno";relleno.style.width=`${dato.porcentaje}%`;
+  const porcentaje=document.createElement("span");porcentaje.className="porcentaje";porcentaje.textContent=dato.vacio?"Sin demanda":`${Math.round(dato.porcentaje)}%`;
+  tramo.title=`Mes ${i+1}: demanda ${numeroVisible(dato.demanda)}, cubiertas ${numeroVisible(dato.cubierto)}`;
+  tramo.append(relleno,porcentaje);tramos.appendChild(tramo);
+ });
+ tarjeta.appendChild(tramos);
+ const total=meses.reduce((a,b)=>a+b,0);
+ const pies=document.createElement("div");pies.className="cobertura-pie";
+ const izq=document.createElement("span");izq.textContent=`Demanda de 3 meses: ${numeroVisible(total)} unidades`;
+ const der=document.createElement("span");der.textContent=`Saldo a 3 meses: ${numeroVisible(disponible-total)} unidades`;
+ pies.append(izq,der);tarjeta.appendChild(pies);
+ const aviso=document.createElement("p");aviso.className="cobertura-aviso";aviso.textContent=notaExtra;tarjeta.appendChild(aviso);
+ return tarjeta;
+}
+function mostrarDetalleProyectos(componente){
+ proyectosBody.replaceChildren();
+ // Se agrupan las filas del mismo proyecto por si el BOM contiene varias entradas del mismo IdE.
+ const agrupados=new Map();
+ for(const r of componente.proyectos||[]){
+  const clave=normalizar(r.nombre);
+  const v=agrupados.get(clave)||{nombre:r.nombre,unidades:0,planMensual:r.planMensual,demandaMensual:0,enProceso:r.enProceso,fabricacion:0,demanda3:0};
+  v.unidades+=r.unidades;v.demandaMensual+=r.demandaMensual;v.fabricacion+=r.fabricacion;v.demanda3+=r.demanda3;
+  agrupados.set(clave,v);
+ }
+ const filas=[...agrupados.values()].sort((a,b)=>a.nombre.localeCompare(b.nombre,"es",{sensitivity:"base",numeric:true}));
+ const sumas={demandaMensual:0,fabricacion:0,demanda3:0};
+ for(const r of filas){
+  const tr=document.createElement("tr");
+  [r.nombre,r.unidades,r.planMensual,r.demandaMensual,r.enProceso,r.fabricacion,r.demanda3].forEach((v,i)=>tr.appendChild(celda(i===0?v:numeroVisible(v))));
+  proyectosBody.appendChild(tr);
+  sumas.demandaMensual+=r.demandaMensual;sumas.fabricacion+=r.fabricacion;sumas.demanda3+=r.demanda3;
+ }
+ const total=document.createElement("tr");total.className="total-proyectos";
+ ["TOTAL","—","—",numeroVisible(sumas.demandaMensual),"—",numeroVisible(sumas.fabricacion),numeroVisible(sumas.demanda3)].forEach(v=>total.appendChild(celda(v)));
+ proyectosBody.appendChild(total);
+}
+function mostrarLineaTiempo(visibles){
+ barrasTiempo.replaceChildren();
+ if(visibles.length!==1){panelTiempo.classList.remove("visible");return;}
+ const c=visibles[0],stock=Math.max(0,c.stock??0),fab=Math.max(0,c.fabricacion??0);
+ // La línea temporal utiliza demanda mensual BRUTA, no la demanda
+ // pendiente de instalar de la tabla (que descuenta placas terminadas).
+ // "critico" ya equivale a dos meses de Fabricacion-Plan × BOM.
+ const demandaMensual=Math.max(0,c.critico/2);
+ const demandaTemporal=[demandaMensual,demandaMensual,demandaMensual];
+ panelTiempo.classList.add("visible");
+ mostrarDetalleProyectos(c);
+ descripcionTiempo.textContent=`IdE ${c.id} · ${c.descripcion} · Consumo mensual bruto: ${numeroVisible(demandaMensual)} unidades · Cobertura de los próximos 3 meses`;
+ barrasTiempo.appendChild(crearCobertura(
+   "1. Solo STOCK",stock,demandaTemporal,
+   `Existencia física: ${numeroVisible(stock)} unidades`,
+   "Demanda de cada mes = Fabricacion-Plan × consumo por placa. El STOCK cubre primero el mes 1; el remanente pasa al mes 2 y después al mes 3. No se descuentan placas terminadas de la demanda temporal."
+ ));
+ barrasTiempo.appendChild(crearCobertura(
+   "2. STOCK + Fabricación en proceso (equivalente)",stock+fab,demandaTemporal,
+   `STOCK: ${numeroVisible(stock)} + fabricación: ${numeroVisible(fab)} = ${numeroVisible(stock+fab)} unidades`,
+   "Usa la misma demanda mensual bruta de la primera barra. Fabricación estimada = máx(0, Fabricacion-Entrada − Fabricacion-Salida) × cantidad por placa. Los componentes ya incorporados en placas NO son stock físico libre: esta barra indica cobertura equivalente de producción."
+ ));
+}
+// Generar desglose que suma exactamente las columnas del consumo original.
+function filasConsumoPorProyecto(componente){
+ const agrupados=new Map();
+ for(const r of componente.proyectos||[]){
+  const clave=normalizar(r.nombre);
+  const fila=agrupados.get(clave)||{nombre:r.nombre,critico:0,meses:[0,0,0]};
+  fila.critico+=r.critico;
+  for(let i=0;i<3;i++)fila.meses[i]+=r.meses[i];
+  agrupados.set(clave,fila);
+ }
+ return [...agrupados.values()].sort((a,b)=>a.nombre.localeCompare(b.nombre,"es",{sensitivity:"base",numeric:true}));
+}
+function claseColorConsumo(meses, stock){
+ // Condición corregida: consumo mensual > STOCK del componente (faltante de inventario).
+ // Prioridad: Mes 1 > Mes 2 > Mes 3. STOCK es compartido entre proyectos.
+ const existencia=numero(stock);
+ if(numero(meses[0])>existencia)return "consumo-mes-1";
+ if(numero(meses[1])>existencia)return "consumo-mes-2";
+ if(numero(meses[2])>existencia)return "consumo-mes-3";
+ return "";
+}
+function crearFilaProyecto(registro,clase,stockComponente){
+ const tr=document.createElement("tr");
+ const meses=registro.meses;
+ tr.className=clase+(clase==="fila-proyecto-consumo"?" "+claseColorConsumo(meses,stockComponente):"");
+ ["↳",registro.nombre,"—",...meses.map(numeroVisible),numeroVisible(meses.reduce((a,b)=>a+b,0))]
+  .forEach(v=>tr.appendChild(celda(v)));
+ tr.title="El STOCK es compartido; no se asigna a un proyecto individual";
+ return tr;
+}
+function mostrar(){
+ const id=idNormal(filtroId.value),descripcion=filtroDescripcion.value;
+ const visibles=componentes.filter(c=>(!id||c.id===id)&&(!descripcion||c.descripcion===descripcion));
+ tbody.replaceChildren();mostrarLineaTiempo(visibles);contador.textContent=`${visibles.length} de ${componentes.length} componentes`;
+ if(!visibles.length){const tr=document.createElement("tr"),td=celda("No se encontraron componentes con estos filtros.");td.colSpan=7;tr.appendChild(td);tbody.appendChild(tr);return;}
+ const sumas=[0,0,0],stockTotal={valor:0};
+ const desglosar=visibles.length===1;
+ for(const c of visibles){
+  const tr=document.createElement("tr");const clase=claseColorConsumo(c.meses,c.stock);if(clase)tr.classList.add(clase);
+  const valores=[c.id,c.descripcion,c.stock===null?"—":numeroVisible(c.stock),...c.meses.map(numeroVisible),numeroVisible(c.meses.reduce((a,b)=>a+b,0))];
+  valores.forEach((v,i)=>{const td=celda(v);if(i>=2&&v==="0"&&!clase)td.classList.add("consumo-cero");tr.appendChild(td);});tbody.appendChild(tr);
+  c.meses.forEach((v,i)=>sumas[i]+=v);if(c.stock!==null)stockTotal.valor+=c.stock;
+  // Al elegir un IdE o descripción única, abrir inmediatamente su desglose por proyecto.
+  if(desglosar){
+   const filas=filasConsumoPorProyecto(c);
+   filas.forEach(r=>tbody.appendChild(crearFilaProyecto(r,"fila-proyecto-consumo",c.stock)));
+   const t={nombre:"SUBTOTAL PROYECTOS",critico:0,meses:[0,0,0]};
+   filas.forEach(r=>{t.critico+=r.critico;r.meses.forEach((v,i)=>t.meses[i]+=v);});
+   tbody.appendChild(crearFilaProyecto(t,"fila-proyecto-total",c.stock));
+  }
+ }
+ const total=document.createElement("tr");total.className="total-consumo";["TOTAL",`${visibles.length} componente(s)`,numeroVisible(stockTotal.valor),...sumas.map(numeroVisible),numeroVisible(sumas.reduce((a,b)=>a+b,0))].forEach(v=>total.appendChild(celda(v)));tbody.appendChild(total);
+}
+async function actualizarTodo(){
+ estado.textContent="Actualizando datos desde Supabase...";
+ try{const secuencias=await fetchTabla("gs_secuencias","gs_proceso,gs_proyecto,gs_ctda,gs_ver");const [bom,stock]=await Promise.all([fetchTabla("cp_proyectos","cp_proyecto,cp_idE,cp_desc,cp_ctda"),fetchTabla("cs_stock","idE,cs_desc,cs_ctda")]);
+  componentes=calcular(secuencias,bom,stock);opcionesDescripcion();mostrar();
+  nota.textContent=`${componentes.length} componentes (idE) · Consumos de meses 1, 2 y 3 pendientes de instalar, después de considerar Fabricacion-Salida. STOCK = existencia actual, sin descuentos adicionales. Los valores de meses son independientes; el total es su suma. Color de filas cuando el consumo del mes supera el STOCK: rojo intenso para Mes 1, rojo medio para Mes 2 y rojo muy suave para Mes 3, con prioridad en ese orden. En filas de proyecto se compara contra el STOCK compartido del componente. Al elegir un único componente se abre su consumo por proyecto en la misma tabla y se muestran dos barras calculadas con consumo mensual BRUTO constante calculado con Fabricacion-Plan y unidades por placa. La tabla conserva su consumo pendiente ajustado por placas terminadas; por eso puede diferir de las barras.`;
+  estado.textContent=`Supabase conectado · ${componentes.length} componentes · ${new Date().toLocaleTimeString("es-MX",{hour:"2-digit",minute:"2-digit",second:"2-digit",hour12:false})}`;
+  estado.style.color="#1f6334";actualizarFooter();
+ }catch(error){console.error(error);estado.textContent="Error al obtener datos desde Supabase";estado.style.color="#a02a2a";if(!componentes.length){panelTiempo.classList.remove("visible");tbody.replaceChildren();const tr=document.createElement("tr"),td=celda("No fue posible cargar los componentes.");td.colSpan=7;tr.appendChild(td);tbody.appendChild(tr);}}
+}
+filtroId.addEventListener("input",mostrar);
+filtroDescripcion.addEventListener("change",mostrar);
+document.getElementById("limpiar-filtros").addEventListener("click",()=>{filtroId.value="";filtroDescripcion.value="";mostrar();});
+actualizarFooter();actualizarTodo();window.setInterval(actualizarTodo,60000);
+})();
+</script>
+</body>
+</html>
