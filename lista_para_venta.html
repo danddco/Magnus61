@@ -2541,6 +2541,11 @@ td.numero-derecha {
 .stock-relleno { height: 100%; background: #38945d; }
 .stock-marca { position: absolute; top: 0; bottom: 0; width: 2px; background: #ffffff; }
 </style>
+<style>
+.nav-cabecera { display: flex; gap: 6px; align-items: center; }
+@media (max-width: 700px) { .nav-cabecera { flex-wrap: wrap; justify-content: flex-end; } .nav-cabecera .home-link { min-width: 0; padding: 6px 8px; } }
+@media (max-width: 420px) { #cabecera { grid-template-columns: auto minmax(0, 1fr) auto !important; } .nav-cabecera { flex-direction: column; align-items: stretch; gap: 4px; } }
+</style>
 </head>
 <body>
 <header id="cabecera">
@@ -2548,7 +2553,9 @@ td.numero-derecha {
 <img alt="Logo CircuitDesignMX" class="logo" src="Logo-Circuit-MX.jpg"/>
 </div>
 <h1 id="titulo">CircuitDesignMX</h1>
-<a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html" title="Ir a la página inicial">Inicio</a>
+<nav class="nav-cabecera" aria-label="Navegación principal"><a class="home-link" href="https://danddco.github.io/Magnus61/San25Fco.html" title="Ir a la página inicial">Inicio</a>
+<a class="home-link" href="https://danddco.github.io/Magnus61/lista_componentes.html">Componentes</a>
+</nav>
 </header>
 <main>
 <h1 class="seccion-principal">Lista para la Venta — Todos los proyectos</h1><p id="estado-supabase">Conectando con Supabase...</p>
