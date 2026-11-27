@@ -2674,8 +2674,6 @@ td.numero-derecha {
 <p class="manager-ayuda">Cada proyecto conserva sus propios datos en este navegador. Selecciona uno para cargarlo; pulsa Guardar y actualizar para registrar cambios. Descarga un respaldo para proteger tu información o trasladarla a otra computadora.</p>
 <div class="config-grid">
 <label>Nombre del proyecto<input id="cfg-proyecto" type="text"></label>
-<label>ID de componentes externos (separados por comas)<input id="cfg-externos" type="text"></label>
-<label>ID de componentes fijos (separados por comas)<input id="cfg-fijos" type="text"></label>
 <label>Ruta de la imagen de referencia<input id="cfg-imagen" type="text"></label>
 <label>Texto de referencia de la imagen<input id="cfg-pie" type="text"></label>
 <div class="config-grupo-titulos">Títulos y textos de los cuadros de información técnica</div>
@@ -2707,12 +2705,12 @@ td.numero-derecha {
 
         <div class="barras-proceso-plan">
             <div class="barras-proceso-plan-etiqueta">Demanda Mensual</div>
-            <div class="barras-proceso-plan-valor" id="barras-proceso-plan">10</div>
+            <div class="barras-proceso-plan-valor" id="barras-proceso-plan">5</div>
         </div>
 
         <div class="barras-proceso-escala" id="barras-proceso-escala">Entrada / Demanda Mensual · SMD / Entrada · TH / SMD · Diagnostico / Entrada · Lista para la Venta / Demanda Mensual</div>
 
-        <div id="barras-proceso-lista"><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Entrada de Placas</div><div class="barras-proceso-entrada-columna"><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 0%;"></div><div class="barras-proceso-cantidad-barra"><span>0</span></div><div class="barras-proceso-marca-mes un-mes" title="1 mes"></div><div class="barras-proceso-marca-mes dos-meses" title="2 meses"></div></div><div class="barras-proceso-meses-escala"><span>0 %<small>0 meses</small></span><span>100 %<small>1 mes</small></span><span>200 %<small>2 meses</small></span><span>300 %<small>3 meses</small></span></div></div><div class="barras-proceso-dato"><strong>Faltan: 30</strong><span>0.0%</span><span class="barras-proceso-meses-valor">Cobertura: 0.00 meses</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Con SMD</div><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 0%;"></div><div class="barras-proceso-cantidad-barra"><span>0</span></div></div><div class="barras-proceso-dato"><strong>Virgenes: —</strong><span>—</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Con TH</div><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 0%;"></div><div class="barras-proceso-cantidad-barra"><span>0</span></div></div><div class="barras-proceso-dato"><strong>Faltan: —</strong><span>—</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Reparacion</div><div class="barras-proceso-fondo"><div class="barras-proceso-relleno diagnostico" style="width: 0%;"></div><div class="barras-proceso-cantidad-barra"><span>0</span></div></div><div class="barras-proceso-dato"><span>—</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Lista para la Venta</div><div class="barras-proceso-entrada-columna"><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 0%;"></div><div class="barras-proceso-cantidad-barra"><span>0</span></div><div class="barras-proceso-marca-mes un-mes" title="1 mes"></div><div class="barras-proceso-marca-mes dos-meses" title="2 meses"></div></div><div class="barras-proceso-meses-escala"><span>0 %<small>0 meses</small></span><span>100 %<small>1 mes</small></span><span>200 %<small>2 meses</small></span><span>300 %<small>3 meses</small></span></div></div><div class="barras-proceso-dato"><strong>Faltan: 30</strong><span>0.0%</span><span class="barras-proceso-meses-valor">Cobertura: 0.00 meses</span></div></div></div>
+        <div id="barras-proceso-lista"><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Entrada de Placas</div><div class="barras-proceso-entrada-columna"><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 20%;"></div><div class="barras-proceso-cantidad-barra"><span>3</span></div><div class="barras-proceso-marca-mes un-mes" title="1 mes"></div><div class="barras-proceso-marca-mes dos-meses" title="2 meses"></div></div><div class="barras-proceso-meses-escala"><span>0 %<small>0 meses</small></span><span>100 %<small>1 mes</small></span><span>200 %<small>2 meses</small></span><span>300 %<small>3 meses</small></span></div></div><div class="barras-proceso-dato"><strong>Faltan: 12</strong><span>60.0%</span><span class="barras-proceso-meses-valor">Cobertura: 0.60 meses</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Con SMD</div><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 100%;"></div><div class="barras-proceso-cantidad-barra"><span>3</span></div></div><div class="barras-proceso-dato"><strong>Virgenes: 0</strong><span>100.0%</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Con TH</div><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 100%;"></div><div class="barras-proceso-cantidad-barra"><span>3</span></div></div><div class="barras-proceso-dato"><strong>Faltan: 0</strong><span>100.0%</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Reparacion</div><div class="barras-proceso-fondo"><div class="barras-proceso-relleno diagnostico" style="width: 33.3333%;"></div><div class="barras-proceso-cantidad-barra"><span>1</span></div></div><div class="barras-proceso-dato"><span>33.3%</span></div></div><div class="barras-proceso-fila"><div class="barras-proceso-nombre">Lista para la Venta</div><div class="barras-proceso-entrada-columna"><div class="barras-proceso-fondo"><div class="barras-proceso-relleno" style="width: 20%;"></div><div class="barras-proceso-cantidad-barra"><span>3</span></div><div class="barras-proceso-marca-mes un-mes" title="1 mes"></div><div class="barras-proceso-marca-mes dos-meses" title="2 meses"></div></div><div class="barras-proceso-meses-escala"><span>0 %<small>0 meses</small></span><span>100 %<small>1 mes</small></span><span>200 %<small>2 meses</small></span><span>300 %<small>3 meses</small></span></div></div><div class="barras-proceso-dato"><strong>Faltan: 12</strong><span>60.0%</span><span class="barras-proceso-meses-valor">Cobertura: 0.60 meses</span></div></div></div>
     </section>
 
 <div class="separador">-------------------------</div>
@@ -2752,36 +2750,6 @@ td.numero-derecha {
 </table>
 </div>
 <div class="separador">-------------------------</div>
-<h2>Componentes Externos</h2>
-<div class="tabla-wrap">
-<table id="tabla-externos">
-<thead>
-<tr>
-<th>idE</th>
-<th>Descripcion</th>
-<th>Existencia</th>
-<th>Cobertura por mes (1, 2 y 3)</th>
-</tr>
-</thead>
-<tbody id="externos-body"><tr><td colspan="4" data-label="idE">Sin componentes externos.</td></tr></tbody>
-</table>
-</div>
-<div class="separador">-------------------------</div>
-<h2>Componentes Fijos</h2>
-<div class="tabla-wrap">
-<table id="tabla-especificos">
-<thead>
-<tr>
-<th>idE</th>
-<th>Descripcion</th>
-<th>Existencia</th>
-<th>Cobertura por mes (1, 2 y 3)</th>
-</tr>
-</thead>
-<tbody id="especificos-body"></tbody>
-</table>
-</div>
-<div class="separador">-------------------------</div>
 <h2>Componentes del Proyecto</h2>
 <div class="tabla-wrap">
 <table id="tabla-proyecto">
@@ -2791,6 +2759,8 @@ td.numero-derecha {
 <th>Descripcion</th>
 <th>Ctdad Proy</th>
 <th>Ctdad Stock</th>
+<th>Consumo mensual del proyecto</th>
+<th>Cobertura (meses)</th>
 </tr>
 </thead>
 <tbody id="proyecto-body"></tbody>
@@ -2806,7 +2776,7 @@ td.numero-derecha {
 <div class="grid-tecnico">
 <article class="tarjeta-tecnica">
 <h3>Detalles Tecnicos.</h3>
-<div class="contenido-cuadro"></div>
+<div class="contenido-cuadro"><p>* En el sensor: Negativo color Azul, Positivo color Marron y señal color Negro.</p></div>
 </article>
 <article class="tarjeta-tecnica">
 <h3>Observaciones</h3>
@@ -2822,7 +2792,7 @@ td.numero-derecha {
             © 2026 CircuitDesignMX. Todos los derechos reservados.
         </p>
 <p class="fecha-hora">
-            Fecha y hora: <span id="fecha-hora-dinamica">26/11/2026 16:02:06</span>
+            Fecha y hora: <span id="fecha-hora-dinamica">27/11/2026 15:02:39</span>
 </p>
 </footer>
 <script>
@@ -2831,12 +2801,10 @@ td.numero-derecha {
 
     const CONFIG_ORIGINAL = {
         "proyecto": "Purimatic Hielo",
-        "externos": "",
-        "fijos": "",
         "imagen": "imagenes/PuryHielo.jpeg",
         "pie": "Imagen de referencia de Purimatic Hielo",
         "detalles": "Detalles Tecnicos.",
-        "detallesTexto": "",
+        "detallesTexto": "* En el sensor: Negativo color Azul, Positivo color Marron y señal color Negro.",
         "tituloTecnico": "Imagen e Información Técnica de la Placa",
         "subtituloTecnico": "Referencia visual y procedimiento básico de inspección.",
         "tituloObservaciones": "Observaciones",
@@ -2848,7 +2816,7 @@ td.numero-derecha {
     const CLAVE_PROYECTOS = "circuitdesign_expedientes_proyectos_v1";
     const CLAVE_ANTERIOR = "config_exp_kitled_" + location.pathname;
     const CAMPOS_CONFIG = {
-        proyecto: "cfg-proyecto", externos: "cfg-externos", fijos: "cfg-fijos",
+        proyecto: "cfg-proyecto",
         imagen: "cfg-imagen", pie: "cfg-pie", detalles: "cfg-detalles", detallesTexto: "cfg-detalles-texto",
         tituloTecnico: "cfg-titulo-tecnico", subtituloTecnico: "cfg-subtitulo-tecnico",
         tituloObservaciones: "cfg-titulo-observaciones",
@@ -2879,8 +2847,8 @@ td.numero-derecha {
     config.galeria = Array.isArray(config.galeria) ? config.galeria : [];
     let galeriaBorrador = clonar(config.galeria);
     let PROYECTO = config.proyecto;
-    let COMPONENTES_EXTERNOS = new Set(String(config.externos).split(",").map(x => x.trim()).filter(Boolean));
-    let COMPONENTES_FIJOS = new Set(String(config.fijos).split(",").map(x => x.trim()).filter(Boolean));
+
+
     let temporizadorActualizacion = null;
     const estado = document.getElementById("cfg-estado");
     const seleccionar = document.getElementById("cfg-seleccionar");
@@ -2978,8 +2946,8 @@ td.numero-derecha {
     function aplicarConfiguracion() {
         PROYECTO = config.proyecto;
         dibujarGaleriaVista();
-        COMPONENTES_EXTERNOS = new Set(String(config.externos).split(",").map(x => x.trim()).filter(Boolean));
-        COMPONENTES_FIJOS = new Set(String(config.fijos).split(",").map(x => x.trim()).filter(Boolean));
+
+
         document.querySelector("h1.seccion-principal").textContent = "Expediente " + PROYECTO;
         const imagen = document.querySelector(".seccion-tecnica .imagen-placa img");
         imagen.src = config.imagen;
@@ -3752,204 +3720,11 @@ td.numero-derecha {
         return mapa;
     }
 
-    // Cobertura secuencial de Componentes Especificos:
-    // Cada mes tiene como objetivo Fabricacion-Plan.
-    // Las placas ya fabricadas (Fabricacion-TH - Venta-Concretada)
-    // reducen primero la cantidad que aun necesita componentes.
-    // El remanente se aplica Mes 1 -> Mes 2 -> Mes 3.
-    function detalleCoberturaPorMes(cantidad, demandaMensual, montadasTH = 0) {
-        let stockRestante = Math.max(0, numero(cantidad));
-        let fabricadasRestantes = Math.max(0, numero(montadasTH));
-
-        if (!(demandaMensual > 0)) return [];
-
-        const meses = [];
-
-        for (let mes = 0; mes < 3; mes++) {
-            // Primero: placas de este mes que ya fueron fabricadas y, por tanto,
-            // ya no requieren componentes del stock actual.
-            const fabricadasAplicadas = Math.min(demandaMensual, fabricadasRestantes);
-            fabricadasRestantes -= fabricadasAplicadas;
-
-            // Segundo: solo estas placas siguen necesitando componentes.
-            const requiereComponentes = Math.max(0, demandaMensual - fabricadasAplicadas);
-            const stockUsado = Math.min(requiereComponentes, stockRestante);
-            stockRestante -= stockUsado;
-
-            const cubiertoTotal = fabricadasAplicadas + stockUsado;
-            const porcentaje = Math.max(0, Math.min(100,
-                (cubiertoTotal / demandaMensual) * 100
-            ));
-
-            meses.push({
-                porcentaje,
-                plan: demandaMensual,
-                fabricadasAplicadas,
-                requiereComponentes,
-                stockUsado,
-                stockRestante
-            });
-        }
-
-        return meses;
-    }
-
-    function renderGrupoComponentes(tbodyId, ids, stockRows, demandaMensual, montadasTH, opciones = {}) {
-        const tbody = document.getElementById(tbodyId);
-        tbody.replaceChildren();
-
-        const usarFabricadas = opciones.usarFabricadas !== false;
-        const mapa = mapaStock(stockRows);
-        const filas = [...ids]
-            .map(id => mapa.get(id))
-            .filter(Boolean);
-
-        if (!filas.length) {
-            const tr = document.createElement("tr");
-            const td = celda(opciones.mensajeVacio || "Sin componentes.");
-            td.colSpan = 4;
-            tr.appendChild(td);
-            tbody.appendChild(tr);
-            return;
-        }
-
-        for (const r of filas) {
-            const tr = document.createElement("tr");
-            tr.appendChild(celda(texto(r.idE).replace(/\.0$/, "")));
-            tr.appendChild(celda(r.cs_desc, "descripcion-celda"));
-            tr.appendChild(celdaNumero(r.cs_ctda));
-
-            const td = document.createElement("td");
-            td.className = "especificos-cobertura-celda";
-
-            if (!(demandaMensual > 0)) {
-                const aviso = document.createElement("span");
-                aviso.className = "especificos-cobertura-vacio";
-                aviso.textContent = "— (sin Demanda Mensual válida)";
-                td.appendChild(aviso);
-            } else {
-                const cantidad = Math.max(0, numero(r.cs_ctda));
-                // Externos: montadasTH = 0, por lo que solo se contabiliza stock.
-                // Fijos: se conserva la lógica de TH netas + stock.
-                const fabricadasParaCalculo = usarFabricadas ? montadasTH : 0;
-                const detallesMes = detalleCoberturaPorMes(
-                    cantidad,
-                    demandaMensual,
-                    fabricadasParaCalculo
-                );
-
-                const columna = document.createElement("div");
-                columna.className = "especificos-cobertura-columna";
-                const mesesContenedor = document.createElement("div");
-                mesesContenedor.className = "especificos-tres-meses";
-
-                detallesMes.forEach((detalle, i) => {
-                    const avance = detalle.porcentaje;
-                    const mes = document.createElement("div");
-                    mes.className = "especificos-mes";
-
-                    const titulo = document.createElement("div");
-                    titulo.className = "especificos-mes-titulo";
-                    titulo.textContent = "Mes " + (i + 1);
-                    mes.appendChild(titulo);
-
-                    const fondo = document.createElement("div");
-                    fondo.className = "especificos-mes-fondo";
-                    fondo.setAttribute("role", "progressbar");
-                    fondo.setAttribute("aria-label", "Cobertura mes " + (i + 1));
-                    fondo.setAttribute("aria-valuemin", "0");
-                    fondo.setAttribute("aria-valuemax", "100");
-                    fondo.setAttribute("aria-valuenow", avance.toFixed(1));
-                    const relleno = document.createElement("div");
-                    relleno.className = "especificos-mes-relleno";
-                    relleno.style.width = avance + "%";
-                    fondo.appendChild(relleno);
-                    mes.appendChild(fondo);
-
-                    const porcentaje = document.createElement("div");
-                    porcentaje.className = "especificos-mes-porcentaje";
-                    porcentaje.textContent = numeroVisible(Number(avance.toFixed(1))) + " %";
-                    mes.appendChild(porcentaje);
-
-                    const comprobacion = document.createElement("div");
-                    comprobacion.className = "especificos-mes-comprobacion";
-                    if (usarFabricadas) {
-                        comprobacion.innerHTML =
-                            "Plan: <b>" + numeroVisible(detalle.plan) + "</b><br>" +
-                            "Ya fabricadas netas aplicadas: <b>" + numeroVisible(detalle.fabricadasAplicadas) + "</b><br>" +
-                            "Requiere componentes: <b>" + numeroVisible(detalle.requiereComponentes) + "</b><br>" +
-                            "Stock usado: <b>" + numeroVisible(detalle.stockUsado) + "</b><br>" +
-                            "Stock restante: <b>" + numeroVisible(detalle.stockRestante) + "</b>";
-                    } else {
-                        comprobacion.innerHTML =
-                            "Plan: <b>" + numeroVisible(detalle.plan) + "</b><br>" +
-                            "Stock usado: <b>" + numeroVisible(detalle.stockUsado) + "</b><br>" +
-                            "Stock restante: <b>" + numeroVisible(detalle.stockRestante) + "</b>";
-                    }
-                    mes.appendChild(comprobacion);
-                    mesesContenedor.appendChild(mes);
-                });
-
-                columna.appendChild(mesesContenedor);
-
-                const dato = document.createElement("div");
-                dato.className = "especificos-cobertura-dato";
-                if (usarFabricadas) {
-                    dato.textContent = "Ya fabricadas netas: " + numeroVisible(montadasTH) +
-                        " · Stock inicial: " + numeroVisible(cantidad) +
-                        " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes";
-                } else {
-                    dato.textContent = "Solo stock: " + numeroVisible(cantidad) +
-                        " · Fabricacion-Plan: " + numeroVisible(demandaMensual) + "/mes";
-                }
-                columna.appendChild(dato);
-                td.appendChild(columna);
-            }
-
-            tr.appendChild(td);
-            tbody.appendChild(tr);
-        }
-    }
-
-    function renderEspecificos(stockRows, secuencias) {
-        // Fabricacion-Plan es la meta de cada uno de los tres meses.
-        // gs_ver=C sí participa en los cálculos; solo N queda excluido aquí.
-        const secuenciasValidas = secuencias.filter(
-            r => texto(r.gs_ver).trim().toUpperCase() !== "N"
-        );
-        const demandaMensual = secuenciasValidas
-            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-plan")
-            .reduce((total, r) => total + numero(r.gs_ctda), 0);
-        const montadasTHBrutas = Math.max(0, secuenciasValidas
-            .filter(r => claveProcesoBarra(r.gs_proceso) === "fabricacion-th")
-            .reduce((total, r) => total + numero(r.gs_ctda), 0));
-        const ventaConcretada = Math.max(0, secuenciasValidas
-            .filter(r => claveProcesoBarra(r.gs_proceso) === "venta-concretada")
-            .reduce((total, r) => total + numero(r.gs_ctda), 0));
-        const montadasTH = Math.max(0, montadasTHBrutas - ventaConcretada);
-
-        // Componente externo 125: exclusivamente stock, sin TH ni Venta-Concretada.
-        renderGrupoComponentes(
-            "externos-body",
-            COMPONENTES_EXTERNOS,
-            stockRows,
-            demandaMensual,
-            montadasTH,
-            { usarFabricadas: false, mensajeVacio: "Sin componentes externos." }
-        );
-
-        // Componentes fijos: conservan la lógica de TH netas + stock.
-        renderGrupoComponentes(
-            "especificos-body",
-            COMPONENTES_FIJOS,
-            stockRows,
-            demandaMensual,
-            montadasTH,
-            { usarFabricadas: true, mensajeVacio: "Sin componentes fijos." }
-        );
-    }
-
-    function renderComponentesProyecto(proyectoRows, stockRows) {
+    function renderComponentesProyecto(proyectoRows, stockRows, secuencias) {
+        const demandaMensual = secuencias.filter(r => {
+            const ver = texto(r.gs_ver).trim().toUpperCase();
+            return ver !== "N" && ver !== "E" && esFabricacionPlanBarra(r.gs_proceso);
+        }).reduce((total, r) => total + numero(r.gs_ctda), 0);
         const tbody = document.getElementById("proyecto-body");
         tbody.replaceChildren();
 
@@ -3974,14 +3749,18 @@ td.numero-derecha {
             if (!item.descripcion && r.cp_desc) item.descripcion = texto(r.cp_desc);
         }
 
+        const cobertura = r => {
+            const consumo = r.cantidad * demandaMensual;
+            return consumo > 0 ? numero(stock.get(r.idE)?.cs_ctda) / consumo : Infinity;
+        };
         const filas = [...agrupado.values()].sort((a, b) =>
-            texto(a.descripcion).localeCompare(texto(b.descripcion), "es", { sensitivity: "base" })
+            cobertura(a) - cobertura(b) || texto(a.descripcion).localeCompare(texto(b.descripcion), "es", { sensitivity: "base" })
         );
 
         if (!filas.length) {
             const tr = document.createElement("tr");
             const td = celda("Sin componentes del proyecto.");
-            td.colSpan = 4;
+            td.colSpan = 6;
             tr.appendChild(td);
             tbody.appendChild(tr);
             return;
@@ -3997,6 +3776,10 @@ td.numero-derecha {
             tr.appendChild(celda(descripcion, "descripcion-celda"));
             tr.appendChild(celdaNumero(r.cantidad));
             tr.appendChild(celdaNumero(existencia));
+            tr.appendChild(celdaNumero(r.cantidad * demandaMensual));
+            const meses = cobertura(r);
+            const tdCobertura = celda(Number.isFinite(meses) ? meses.toFixed(2) : "Sin consumo", "numero-derecha");
+            tr.appendChild(tdCobertura);
             tbody.appendChild(tr);
         }
     }
@@ -4032,8 +3815,7 @@ td.numero-derecha {
             renderBarrasProcesos(secuencias);
             renderDisponibilidad(secuencias);
             renderSecuencias(secuencias);
-            renderEspecificos(stockRows, secuencias);
-            renderComponentesProyecto(proyectoRows, stockRows);
+            renderComponentesProyecto(proyectoRows, stockRows, secuencias);
             actualizarFooter();
 
             const hora = new Date().toLocaleTimeString("es-MX", {
@@ -4082,23 +3864,13 @@ td.numero-derecha {
             "Estado",
             "Descripción"
         ],
-        "tabla-externos": [
-            "idE",
-            "Descripción",
-            "Existencia",
-            "Cobertura por mes"
-        ],
-        "tabla-especificos": [
-            "idE",
-            "Descripción",
-            "Existencia",
-            "Cobertura por mes"
-        ],
         "tabla-proyecto": [
             "idE",
             "Descripción",
             "Ctdad Proy",
-            "Ctdad Stock"
+            "Ctdad Stock",
+            "Consumo mensual del proyecto",
+            "Cobertura (meses)"
         ]
     };
 
@@ -4124,8 +3896,6 @@ td.numero-derecha {
     const objetivos = [
         "disponibilidad-body",
         "secuencias-body",
-        "externos-body",
-        "especificos-body",
         "proyecto-body"
     ];
 
