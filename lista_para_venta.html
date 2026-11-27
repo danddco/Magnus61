@@ -2508,40 +2508,6 @@ td.numero-derecha {
 </style>
 <style>
 /* Enlaces finales a coberturas de componentes */
-.enlaces-cobertura-duo {margin: 28px auto 16px; max-width: 960px; padding: 18px; background: #fff; border: 1px solid #d8dee5; border-radius: 10px;}
-.enlaces-cobertura-duo h2 {margin: 0 0 16px; color: #1f4e78;}
-.enlaces-cobertura-grid {display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;}
-.enlaces-cobertura-grid a {display: flex; align-items: center; justify-content: center; min-height: 56px; padding: 12px 16px; border-radius: 8px; background: #1f4e78; color: #fff; font-size: 17px; font-weight: 700; text-align: center; text-decoration: none; overflow-wrap: anywhere;}
-.enlaces-cobertura-grid a:hover, .enlaces-cobertura-grid a:focus-visible {background: #346b98; text-decoration: underline;}
-@media (max-width: 700px) {.enlaces-cobertura-duo {padding: 12px 9px;} .enlaces-cobertura-grid {grid-template-columns: 1fr;} .enlaces-cobertura-grid a {font-size: 16px;}}
-</style>
-<style>
-/* Tabla de consumo real consolidado, solo lectura */
-#seccion-consumo-componentes { margin: 25px auto; }
-#tabla-consumo-componentes { width: max-content !important; max-width: 100%; min-width: 0 !important; table-layout: auto !important; font-size: 15px !important; font-weight: 600; }
-#tabla-consumo-componentes th, #tabla-consumo-componentes td { padding: 9px 11px; }
-#tabla-consumo-componentes th { white-space: normal; text-align: center; }
-#tabla-consumo-componentes td:nth-child(n+3) { text-align: right; font-variant-numeric: tabular-nums; }
-#tabla-consumo-componentes td:nth-child(2) { text-align: left; font-weight: 500; }
-#tabla-consumo-componentes td.consumo-cero { background-color: #fff6c4; }
-/* Alerta por idE: existencia disponible inferior a la necesidad crítica de dos meses. */
-#tabla-consumo-componentes tbody tr.stock-bajo-critico,
-#tabla-consumo-componentes tbody tr.stock-bajo-critico > td,
-#tabla-consumo-componentes tbody tr.stock-bajo-critico > td.consumo-cero {
-  background-color: #fbe0e2 !important;
-  color: #74272e;
-}
-#tabla-consumo-componentes tbody tr:last-child { border-top: 3px solid #1f4e78; font-weight: 800; }
-.consumo-componentes-nota { text-align: center; font-size: 13px; color: #657786; margin: 4px auto 18px; max-width: 1000px; }
-@media(max-width: 900px) {
-  .consumo-componentes-wrap { overflow-x: auto !important; -webkit-overflow-scrolling: touch; }
-  #tabla-consumo-componentes { display: table !important; width: max-content !important; min-width: 700px !important; max-width: none !important; }
-  #tabla-consumo-componentes thead { display: table-header-group !important; }
-  #tabla-consumo-componentes tbody { display: table-row-group !important; }
-  #tabla-consumo-componentes tr { display: table-row !important; }
-  #tabla-consumo-componentes th, #tabla-consumo-componentes td { display: table-cell !important; width: auto !important; padding: 7px !important; font-size: 13px !important; }
-  #tabla-consumo-componentes td::before { content: none !important; display: none !important; }
-}
 </style>
 <style>
 /* Leyenda debajo de Secuencias de Trabajo. */
@@ -2551,6 +2517,29 @@ td.numero-derecha {
     font-size: 15px;
     margin: -5px 0 15px;
 }
+</style>
+<style>
+#resumen-procesos .enlace-proyecto-avance {
+    color: inherit;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+#resumen-procesos .enlace-proyecto-avance:hover,
+#resumen-procesos .enlace-proyecto-avance:focus-visible {
+    color: #1f4e78;
+}
+</style>
+<style>
+#cobertura-stock { margin: 24px auto; max-width: 1000px; }
+#cobertura-stock .stock-fila { background: white; border: 1px solid #d8dee5; border-radius: 9px; padding: 13px; margin: 12px 0; }
+.stock-titulo { font-weight: 700; color: #30485d; margin-bottom: 5px; }
+.stock-detalle { font-size: 14px; color: #48545f; margin: 5px 0; }
+.stock-escala { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; font-size: 13px; color: #48545f; margin-top: 8px; }
+.stock-pista { position: relative; height: 25px; background: #f3d5d5; border: 1px solid #d8dee5; border-radius: 5px; overflow: hidden; }
+.stock-relleno { height: 100%; background: #38945d; }
+.stock-marca { position: absolute; top: 0; bottom: 0; width: 2px; background: #ffffff; }
 </style>
 </head>
 <body>
@@ -2585,25 +2574,11 @@ td.numero-derecha {
     </section>
 
 <div class="separador">-------------------------</div>
-<h2>Balance de Disponibilidad de Placas</h2>
-<div class="tabla-wrap">
-<table id="tabla-disponibilidad">
-<thead>
-<tr>
-<th rowspan="2">Proyecto</th>
-<th colspan="2">En Fabricacion</th>
-<th colspan="2">Lista para Enviar</th>
-</tr>
-<tr>
-<th>cantidad</th>
-<th>fecha</th>
-<th>cantidad</th>
-<th>fecha</th>
-</tr>
-</thead>
-<tbody id="disponibilidad-body"></tbody>
-</table>
-</div>
+<section id="cobertura-stock" aria-labelledby="titulo-cobertura-stock">
+<h2 id="titulo-cobertura-stock">Cobertura de STOCK · 3 meses</h2>
+<p class="barras-proceso-subtitulo">Existencia actual frente a demanda mensual de componentes · Sin descontar placas fabricadas</p>
+<div id="cobertura-stock-lista" aria-live="polite">Consultando STOCK...</div>
+</section>
 <div class="separador">-------------------------</div>
 <section id="seccion-duo-secuencias" aria-labelledby="titulo-duo-secuencias">
 <h2 id="titulo-duo-secuencias">Secuencias de Trabajo</h2>
@@ -2614,23 +2589,6 @@ td.numero-derecha {
 <tbody id="duo-secuencias-body"><tr><td colspan="6">Cargando secuencias...</td></tr></tbody>
 </table>
 </div>
-</section>
-<section id="seccion-consumo-componentes" aria-labelledby="titulo-consumo-componentes">
-  <h2 id="titulo-consumo-componentes">Consumo de Componentes · Cobertura de 3 meses</h2>
-  <div class="tabla-wrap consumo-componentes-wrap">
-    <table id="tabla-consumo-componentes">
-      <thead><tr><th>idE</th><th>Descripción</th><th>Valor crítico (2 meses)</th><th>Existencia STOCK</th><th>Consumo mes 1</th><th>Consumo mes 2</th><th>Consumo mes 3</th><th>Total 3 meses</th></tr></thead>
-      <tbody id="consumo-componentes-body"><tr><td colspan="8">Consultando componentes...</td></tr></tbody>
-    </table>
-  </div>
-  <p id="consumo-componentes-estado" class="consumo-componentes-nota">Valor crítico: necesidad bruta de 2 meses, sin descuentos. Los consumos mensuales sí descuentan las placas terminadas de forma progresiva. STOCK es la existencia actual.</p>
-</section>
-<section class="enlaces-cobertura-duo" aria-labelledby="titulo-enlaces-cobertura">
-  <h2 id="titulo-enlaces-cobertura">Cobertura de Componentes</h2>
-  <div class="enlaces-cobertura-grid">
-    <a href="https://danddco.github.io/Magnus61/Componentes_Fijos_Multiproyecto.html" target="_blank" rel="noopener noreferrer">Componentes Comunes ubicados en Placas</a>
-    <a href="https://danddco.github.io/Magnus61/Componentes_Externos_Multiproyecto.html" target="_blank" rel="noopener noreferrer">Componentes Comunes Fuera de la Placa</a>
-  </div>
 </section>
 </main>
 <div class="espacio-footer"></div>
@@ -2793,28 +2751,6 @@ td.numero-derecha {
         };
     }
 
-    function renderDisponibilidad(secuencias) {
-        const tbody = document.getElementById("disponibilidad-body");
-        tbody.replaceChildren();
-        const balances = PROYECTOS.map(proyecto => balanceProyecto(secuencias, proyecto));
-        const total = {
-            proyecto: "TOTAL GENERAL",
-            enFabricacion: balances.reduce((v, r) => v + r.enFabricacion, 0),
-            listasEnviar: balances.reduce((v, r) => v + r.listasEnviar, 0),
-            fechaFabricacion: fechaMayor(...balances.map(r => r.fechaFabricacion)),
-            fechaDisponible: fechaMayor(...balances.map(r => r.fechaDisponible))
-        };
-        for (const r of [...balances, total]) {
-            const tr = document.createElement("tr");
-            if (r === total) tr.className = "duo-fila-total";
-            tr.appendChild(celda(r.proyecto));
-            tr.appendChild(celdaNumero(r.enFabricacion));
-            tr.appendChild(celda(fechaConDia(r.fechaFabricacion), "fecha-celda"));
-            tr.appendChild(celdaNumero(r.listasEnviar));
-            tr.appendChild(celda(fechaConDia(r.fechaDisponible), "fecha-celda"));
-            tbody.appendChild(tr);
-        }
-    }
 
     function prioridadNumerica(v) {
         const n = Number(v);
@@ -2862,6 +2798,19 @@ td.numero-derecha {
     function esFabricacionPlanBarra(valor) {
         return claveProcesoBarra(valor) === "fabricacion-plan";
     }
+
+    // Accesos directos a expedientes desde Avance por Proceso.
+    const ENLACES_PROYECTOS_AVANCE = new Map([
+        ["mini", "https://danddco.github.io/Magnus61/Exp_Mini.html"],
+        ["fashident v1.0", "https://danddco.github.io/Magnus61/Exp_Ivan.html"],
+        ["kit led / conector", "https://danddco.github.io/Magnus61/KitLed_Expediente.html"],
+        ["purimatic v2.2", "https://danddco.github.io/Magnus61/Exp_PuriMatic.html"],
+        ["purisystems v1.0", "https://danddco.github.io/Magnus61/Exp_PuriMatic.html"],
+        ["veco v1.0", "https://danddco.github.io/Magnus61/Exp_Veco.html"],
+        ["duo basic", "https://danddco.github.io/Magnus61/Exp_DUO_Consolidado.html"],
+        ["duo pro", "https://danddco.github.io/Magnus61/Exp_DUO_Consolidado.html"],
+        ["duo producto", "https://danddco.github.io/Magnus61/Exp_DUO_Consolidado.html"]
+    ]);
 
     const ORDEN_BARRAS_PROCESO = ["Fabricacion-Salida"];
     const PROCESOS_PARA_DESCUENTO = [
@@ -3021,7 +2970,17 @@ td.numero-derecha {
 
                 const nombre = document.createElement("div");
                 nombre.className = "barras-proceso-nombre";
-                nombre.textContent = proyecto;
+                const enlaceProyecto = ENLACES_PROYECTOS_AVANCE.get(claveProcesoBarra(proyecto));
+                if (enlaceProyecto) {
+                    const enlace = document.createElement("a");
+                    enlace.className = "enlace-proyecto-avance";
+                    enlace.href = enlaceProyecto;
+                    enlace.textContent = proyecto;
+                    enlace.title = "Abrir expediente de " + proyecto;
+                    nombre.appendChild(enlace);
+                } else {
+                    nombre.textContent = proyecto;
+                }
 
                 const fondo = document.createElement("div");
                 fondo.className = "barras-proceso-fondo";
@@ -3325,78 +3284,56 @@ td.numero-derecha {
     }
 
 
-    // Necesidades de todos los proyectos con Fabricacion-Plan; BOM cp_proyectos.
-    // Las placas terminadas cubren progresivamente los meses 1, 2 y 3.
-    // La existencia cs_stock se muestra una sola vez por idE, sin volver a descontarla.
-    function renderConsumoComponentes(secuencias, bom, stock) {
-        const tbody = document.getElementById("consumo-componentes-body");
-        const nota = document.getElementById("consumo-componentes-estado");
-        if (!tbody) return;
-        tbody.replaceChildren();
-        const claves = new Map(PROYECTOS.map(p => [p.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim(), p]));
-        const canon = p => claves.get(texto(p).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim());
-        const plan = new Map(), terminadas = new Map();
+    // Agregar aquí los idE que deben aparecer, en el orden deseado.
+    const IDS_COBERTURA_STOCK = [61,65,66, 119,195,230];
+
+    function calcularCoberturaStock(secuencias, bom, stock) {
+        const canon = v => texto(v).trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        const planes = new Map();
         for (const r of secuencias) {
-            if (texto(r.gs_ver).trim().toUpperCase() === "N") continue;
-            const proyecto = canon(r.gs_proyecto);
-            if (!proyecto) continue;
-            const proceso = claveProcesoBarra(r.gs_proceso);
-            if (proceso === "fabricacion-plan") plan.set(proyecto, (plan.get(proyecto) || 0) + numero(r.gs_ctda));
-            if (proceso === "fabricacion-salida") terminadas.set(proyecto, (terminadas.get(proyecto) || 0) + numero(r.gs_ctda));
+            if (texto(r.gs_ver).trim().toUpperCase() === "N" || claveProcesoBarra(r.gs_proceso) !== "fabricacion-plan") continue;
+            const p = canon(r.gs_proyecto);
+            planes.set(p, (planes.get(p) || 0) + numero(r.gs_ctda));
         }
-        const inventario = new Map();
-        for (const r of stock) {
-            const id = texto(r.idE).trim().replace(/\.0$/, "");
-            if (!id) continue;
-            inventario.set(id, { cantidad: numero(r.cs_ctda), descripcion: texto(r.cs_desc).trim() });
-        }
-        const agrupados = new Map();
-        for (const r of bom) {
-            const proyecto = canon(r.cp_proyecto);
-            if (!proyecto || !plan.has(proyecto)) continue;
-            const id = texto(r.cp_idE).trim().replace(/\.0$/, "");
-            const unidades = numero(r.cp_ctda);
-            if (!id || unidades <= 0) continue;
-            const item = agrupados.get(id) || {id, descripcion:"", critico:0, meses:[0,0,0]};
-            if (!item.descripcion) item.descripcion = texto(r.cp_desc).trim();
-            const p = Math.max(0, numero(plan.get(proyecto)));
-            const t = Math.max(0, numero(terminadas.get(proyecto)));
-            // Valor crítico: demanda bruta de dos meses, sin descontar placas terminadas ni STOCK.
-            item.critico += 2*p*unidades;
-            for (let mes=1; mes<=3; mes++) {
-                const actual = Math.max(0, mes*p - t);
-                const anterior = Math.max(0, (mes-1)*p - t);
-                item.meses[mes-1] += Math.max(0, actual-anterior)*unidades;
+        return [...new Set(IDS_COBERTURA_STOCK.map(String))].map(id => {
+            const componentes = bom.filter(r => String(r.cp_idE) === id);
+            const demanda = componentes.reduce((total,r) => total + Math.max(0, planes.get(canon(r.cp_proyecto)) || 0) * Math.max(0, numero(r.cp_ctda)), 0);
+            const st = stock.find(r => String(r.idE) === id);
+            const existencia = st && st.cs_ctda != null && texto(st.cs_ctda).trim() !== "" && Number.isFinite(Number(st.cs_ctda)) ? Number(st.cs_ctda) : null;
+            return {id, descripcion: texto(st?.cs_desc || componentes[0]?.cp_desc), demanda, existencia, meses: existencia !== null && demanda > 0 ? Math.max(0, existencia) / demanda : null};
+        });
+    }
+
+    async function actualizarCoberturaStock(secuencias) {
+        const lista = document.getElementById("cobertura-stock-lista");
+        try {
+            if (!IDS_COBERTURA_STOCK.length) { lista.textContent = "Sin componentes configurados."; return; }
+            const filtro = `in.(${IDS_COBERTURA_STOCK.join(",")})`;
+            const [bom, stock] = await Promise.all([
+                fetchTabla("cp_proyectos", "cp_proyecto,cp_idE,cp_desc,cp_ctda", {cp_idE:filtro}),
+                fetchTabla("cs_stock", "idE,cs_desc,cs_ctda", {idE:filtro})
+            ]);
+            lista.replaceChildren();
+            for (const item of calcularCoberturaStock(secuencias,bom,stock)) {
+                const fila = document.createElement("div"); fila.className = "stock-fila";
+                const titulo = document.createElement("div"); titulo.className = "stock-titulo";
+                titulo.textContent = `idE ${item.id} · ${item.descripcion || "Sin descripción"}`;
+                const detalle = document.createElement("div"); detalle.className = "stock-detalle";
+                detalle.textContent = `STOCK: ${item.existencia === null ? "Sin dato" : numeroVisible(item.existencia)} · Consumo mensual: ${numeroVisible(item.demanda)} · Necesidad 3 meses: ${numeroVisible(3*item.demanda)}`;
+                fila.append(titulo,detalle);
+                if (item.meses !== null) {
+                    const escala = document.createElement("div"); escala.className = "stock-escala";
+                    for(let m=1;m<=3;m++){const el=document.createElement("span"); el.textContent=`Mes ${m}`; escala.append(el);}
+                    const pista = document.createElement("div"); pista.className = "stock-pista";
+                    pista.setAttribute("role","img"); pista.setAttribute("aria-label",`Cobertura de ${item.meses.toFixed(2)} meses`);
+                    const relleno = document.createElement("div"); relleno.className="stock-relleno"; relleno.style.width=`${Math.min(100,item.meses/3*100)}%`; pista.append(relleno);
+                    for (const x of [100/3,200/3]) {const marca=document.createElement("div");marca.className="stock-marca";marca.style.left=`${x}%`;pista.append(marca);}
+                    const resumen = document.createElement("div"); resumen.className="stock-detalle"; resumen.textContent=`Cobertura: ${item.meses.toFixed(2)} meses · Faltante para 3 meses: ${numeroVisible(Math.max(0,3*item.demanda-item.existencia))}`;
+                    fila.append(escala,pista,resumen);
+                } else { const aviso=document.createElement("div"); aviso.className="stock-detalle"; aviso.textContent=item.existencia===null?"No hay dato de STOCK disponible.":"Sin demanda mensual calculable."; fila.append(aviso); }
+                lista.append(fila);
             }
-            agrupados.set(id,item);
-        }
-        const items = [...agrupados.values()].sort((a,b)=> Number(a.id)-Number(b.id) || a.id.localeCompare(b.id));
-        if (!items.length) {
-            const tr=document.createElement("tr"), td=celda("Sin componentes asociados a los proyectos con Fabricacion-Plan.");
-            td.colSpan=8;tr.appendChild(td);tbody.appendChild(tr);return;
-        }
-        const sumas=[0,0,0], cantidadStock=[0];
-        let sumaCritico=0;
-        for (const item of items) {
-            const st=inventario.get(item.id);
-            const valores=[item.id,item.descripcion || (st ? st.descripcion : "—"),numeroVisible(item.critico),st ? numeroVisible(st.cantidad):"—",
-                ...item.meses.map(numeroVisible),numeroVisible(item.meses.reduce((a,b)=>a+b,0))];
-            const tr=document.createElement("tr");
-            if ((st ? st.cantidad : 0) < item.critico) tr.classList.add("stock-bajo-critico");
-            valores.forEach((valor,i)=>{
-                const td=celda(valor);
-                if (i>=2 && valor==="0") td.classList.add("consumo-cero");
-                tr.appendChild(td);
-            });
-            tbody.appendChild(tr);
-            item.meses.forEach((cantidad,i)=>sumas[i]+=cantidad);
-            sumaCritico+=item.critico;
-            if (st) cantidadStock[0]+=st.cantidad;
-        }
-        const total=document.createElement("tr");
-        ["TOTAL","Todos los proyectos",numeroVisible(sumaCritico),numeroVisible(cantidadStock[0]),...sumas.map(numeroVisible),numeroVisible(sumas.reduce((a,b)=>a+b,0))].forEach(v=>total.appendChild(celda(v)));
-        tbody.appendChild(total);
-        nota.textContent=`${items.length} componentes (idE) · Consumos de meses 1, 2 y 3 pendientes de instalar, después de considerar Fabricacion-Salida. Valor crítico = 2 × Fabricacion-Plan × unidades por placa, sin descuentos. STOCK = existencia actual, sin descuentos adicionales. Los valores de meses son independientes; el total es su suma. Las filas en rojo suave indican STOCK inferior al valor crítico.`;
+        } catch(error) { console.error(error); lista.textContent="No fue posible consultar la cobertura de STOCK."; }
     }
 
     async function actualizarTodo() {
@@ -3420,16 +3357,9 @@ td.numero-derecha {
                 r => publicados.has(texto(r.gs_proyecto).trim())
             );
 
-            // Consultar la lista completa del BOM y el STOCK, sin limitar idE.
-            // Se mantienen los mismos filtros de proyectos publicados que el expediente.
-            const [bom, stock] = await Promise.all([
-                fetchTabla("cp_proyectos", "cp_proyecto,cp_idE,cp_desc,cp_ctda"),
-                fetchTabla("cs_stock", "idE,cs_desc,cs_ctda")
-            ]);
-            renderConsumoComponentes(secuenciasPublicadas, bom, stock);
             renderBarrasProcesos(secuenciasPublicadas);
-            renderDisponibilidad(secuenciasPublicadas);
             renderSecuenciasDUO(secuenciasPublicadas);
+            await actualizarCoberturaStock(secuenciasPublicadas);
             actualizarFooter();
 
             const hora = new Date().toLocaleTimeString("es-MX", {
@@ -3463,13 +3393,7 @@ td.numero-derecha {
     "use strict";
 
     const etiquetasMoviles = {
-        "tabla-disponibilidad": [
-            "Proyecto",
-            "En fabricación",
-            "Fecha fabricación",
-            "Lista para enviar",
-            "Fecha disponible"
-        ]
+
     };
 
     function aplicarEtiquetasMoviles() {
@@ -3492,7 +3416,6 @@ td.numero-derecha {
     aplicarEtiquetasMoviles();
 
     const objetivos = [
-        "disponibilidad-body",
         "duo-secuencias-body"
     ];
 
