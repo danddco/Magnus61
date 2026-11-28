@@ -2589,8 +2589,8 @@ td.numero-derecha {
   <h2 id="titulo-consumo-componentes">Consumo de Componentes · Cobertura de 3 meses</h2>
   <div class="tabla-wrap consumo-componentes-wrap">
     <table id="tabla-consumo-componentes">
-      <thead><tr><th>idE</th><th>Descripción</th><th>Consumo por proyectos (1 mes)</th><th>Existencia STOCK</th><th>Consumo mes 1</th><th>Consumo mes 2</th><th>Consumo mes 3</th><th>Total 3 meses</th></tr></thead>
-      <tbody id="consumo-componentes-body"><tr><td colspan="8">Consultando componentes...</td></tr></tbody>
+      <thead><tr><th>idE</th><th>Descripción</th><th>Consumo por proyectos (1 mes)</th><th>Existencia STOCK</th><th>Consumo mes 1</th><th>Consumo mes 2</th><th>Consumo mes 3</th><th>Total 3 meses</th><th>Relacion</th></tr></thead>
+      <tbody id="consumo-componentes-body"><tr><td colspan="9">Consultando componentes...</td></tr></tbody>
     </table>
   </div>
   <p id="consumo-componentes-estado" class="consumo-componentes-nota">Consumo por proyectos (1 mes): demanda bruta de Fabricacion-Plan × cp_ctda, sin descontar STOCK ni placas terminadas. Consumos mensuales: faltantes tras aplicar únicamente el STOCK actual a la demanda de cada mes, sin considerar placas terminadas.</p>
@@ -3340,30 +3340,40 @@ td.numero-derecha {
             item.demandaMensual += p * unidades;
             agrupados.set(id,item);
         }
-        const items = [...agrupados.values()].sort((a,b)=> Number(a.id)-Number(b.id) || a.id.localeCompare(b.id));
-        if (!items.length) {
-            const tr=document.createElement("tr"), td=celda("Sin componentes asociados a los proyectos con Fabricacion-Plan.");
-            td.colSpan=8;tr.appendChild(td);tbody.appendChild(tr);return;
-        }
-        const sumas=[0,0,0], cantidadStock=[0];
-        let sumaConsumo1Mes=0;
-        for (const item of items) {
-            const st=inventario.get(item.id);
-            const consumo1Mes = item.demandaMensual;
-            // Aplicar el stock una sola vez, en orden cronológico; no usar placas terminadas.
+        const relacion = (consumoMensual, stock) => consumoMensual > 0 ? stock / (consumoMensual * 3) : (stock > 0 ? Infinity : 0);
+        const mostrarRelacion = valor => valor === Infinity ? "∞" : valor.toFixed(2);
+        const items = [...agrupados.values()].map(item => {
+            const st = inventario.get(item.id);
             let disponible = Math.max(0, st ? st.cantidad : 0);
             const faltantes = Array.from({length: 3}, () => {
                 const cubierto = Math.min(disponible, item.demandaMensual);
                 disponible -= cubierto;
                 return item.demandaMensual - cubierto;
             });
+            const total = faltantes.reduce((a,b)=>a+b,0);
+            return {...item, st, faltantes, total, relacion: relacion(item.demandaMensual, st ? st.cantidad : 0)};
+        }).sort((a,b) => {
+            const sinStockA = (a.st ? a.st.cantidad : 0) <= 0;
+            const sinStockB = (b.st ? b.st.cantidad : 0) <= 0;
+            if (sinStockA !== sinStockB) return sinStockA ? -1 : 1;
+            return (a.relacion === b.relacion ? 0 : a.relacion < b.relacion ? -1 : 1) || Number(a.id)-Number(b.id) || a.id.localeCompare(b.id);
+        });
+        if (!items.length) {
+            const tr=document.createElement("tr"), td=celda("Sin componentes asociados a los proyectos con Fabricacion-Plan.");
+            td.colSpan=9;tr.appendChild(td);tbody.appendChild(tr);return;
+        }
+        const sumas=[0,0,0], cantidadStock=[0];
+        let sumaConsumo1Mes=0;
+        for (const item of items) {
+            const {st, faltantes} = item;
+            const consumo1Mes = item.demandaMensual;
             const valores=[item.id,item.descripcion || (st ? st.descripcion : "—"),numeroVisible(consumo1Mes),st ? numeroVisible(st.cantidad):"—",
-                ...faltantes.map(numeroVisible),numeroVisible(faltantes.reduce((a,b)=>a+b,0))];
+                ...faltantes.map(numeroVisible),numeroVisible(item.total),mostrarRelacion(item.relacion)];
             const tr=document.createElement("tr");
             valores.forEach((valor,i)=>{
                 const td=celda(valor);
                 if (i>=2 && valor==="0") td.classList.add("consumo-cero");
-                if (i>=4 && (i===7 ? faltantes.reduce((a,b)=>a+b,0) : faltantes[i-4]) > 0) td.classList.add("consumo-faltante");
+                if (i>=4 && i<=7 && (i===7 ? faltantes.reduce((a,b)=>a+b,0) : faltantes[i-4]) > 0) td.classList.add("consumo-faltante");
                 tr.appendChild(td);
             });
             tbody.appendChild(tr);
@@ -3372,9 +3382,9 @@ td.numero-derecha {
             if (st) cantidadStock[0]+=st.cantidad;
         }
         const total=document.createElement("tr");
-        ["TOTAL","Todos los proyectos",numeroVisible(sumaConsumo1Mes),numeroVisible(cantidadStock[0]),...sumas.map(numeroVisible),numeroVisible(sumas.reduce((a,b)=>a+b,0))].forEach((v,i)=>{ const td=celda(v); if (i>=4 && (i===7 ? sumas.reduce((a,b)=>a+b,0) : sumas[i-4]) > 0) td.classList.add("consumo-faltante"); total.appendChild(td); });
+        ["TOTAL","Todos los proyectos",numeroVisible(sumaConsumo1Mes),numeroVisible(cantidadStock[0]),...sumas.map(numeroVisible),numeroVisible(sumas.reduce((a,b)=>a+b,0)),mostrarRelacion(relacion(sumaConsumo1Mes,cantidadStock[0]))].forEach((v,i)=>{ const td=celda(v); if (i>=4 && i<=7 && (i===7 ? sumas.reduce((a,b)=>a+b,0) : sumas[i-4]) > 0) td.classList.add("consumo-faltante"); total.appendChild(td); });
         tbody.appendChild(total);
-        nota.textContent=`${items.length} componentes (idE) · Consumo por proyectos (1 mes): suma de Fabricacion-Plan × cp_ctda de todos los proyectos, sin descontar STOCK ni placas terminadas. Consumo mes 1, 2 y 3: faltantes de la demanda mensual bruta después de aplicar exclusivamente el STOCK actual en orden cronológico, sin considerar placas terminadas. Total 3 meses: suma de los faltantes. Las celdas en rojo claro indican faltantes de componentes mayores que cero.`;
+        nota.textContent=`${items.length} componentes (idE) · Consumo por proyectos (1 mes): suma de Fabricacion-Plan × cp_ctda de todos los proyectos, sin descontar STOCK ni placas terminadas. Consumo mes 1, 2 y 3: faltantes de la demanda mensual bruta después de aplicar exclusivamente el STOCK actual en orden cronológico, sin considerar placas terminadas. Total 3 meses: suma de los faltantes. Relacion = Existencia STOCK / (Consumo por proyectos (1 mes) × 3); 1.00 equivale a tres meses de cobertura. ∞ indica stock positivo sin consumo; si ambos son cero, se muestra 0.00. Primero componentes sin stock (existencia cero, negativa o sin registro de inventario); después orden ascendente por Relacion. Las celdas en rojo claro indican faltantes de componentes mayores que cero.`;
     }
 
     async function actualizarTodo() {
