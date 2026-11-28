@@ -2536,6 +2536,7 @@ td.numero-derecha {
 #cobertura-stock .stock-fila { background: white; border: 1px solid #d8dee5; border-radius: 9px; padding: 13px; margin: 12px 0; }
 .stock-titulo { font-weight: 700; color: #30485d; margin-bottom: 5px; }
 .stock-detalle { font-size: 14px; color: #48545f; margin: 5px 0; }
+.stock-detalle.stock-detalle-principal { font-size: 18px; font-weight: 700; line-height: 1.4; }
 .stock-escala { display: grid; grid-template-columns: repeat(3, 1fr); text-align: center; font-size: 13px; color: #48545f; margin-top: 8px; }
 .stock-pista { position: relative; height: 25px; background: #f3d5d5; border: 1px solid #d8dee5; border-radius: 5px; overflow: hidden; }
 .stock-relleno { height: 100%; background: #38945d; }
@@ -3326,7 +3327,7 @@ td.numero-derecha {
                 const fila = document.createElement("div"); fila.className = "stock-fila";
                 const titulo = document.createElement("div"); titulo.className = "stock-titulo";
                 titulo.textContent = `idE ${item.id} · ${item.descripcion || "Sin descripción"}`;
-                const detalle = document.createElement("div"); detalle.className = "stock-detalle";
+                const detalle = document.createElement("div"); detalle.className = "stock-detalle stock-detalle-principal";
                 detalle.textContent = `STOCK: ${item.existencia === null ? "Sin dato" : numeroVisible(item.existencia)} · Consumo mensual: ${numeroVisible(item.demanda)} · Necesidad 3 meses: ${numeroVisible(3*item.demanda)}`;
                 fila.append(titulo,detalle);
                 if (item.meses !== null) {
